@@ -3,145 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Command Dashboard | ASH_X8</title>
+    <title>Master Admin System Suite | ASH_X8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&family=Noto+Sans+Sinhala:wght@400;700&family=Noto+Serif+Sinhala:wght@400;700&family=Gemunu+Libre:wght@400;700&family=Abhaya+Libre:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Space+Grotesk:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         body { background: #030303; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; }
-        .glass-card { background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s ease; }
-        .glass-card:hover { border-color: rgba(0, 243, 255, 0.2); box-shadow: 0 0 30px rgba(0, 243, 255, 0.02); }
-        input, textarea, select { background: #0a0a0f !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; color: #fff !important; padding: 12px; width: 100%; border-radius: 0.75rem; transition: all 0.2s; }
-        input:focus, textarea:focus, select:focus { border-color: #00f3ff !important; outline: none; box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); }
-        label { font-size: 11px; color: #00f3ff; text-transform: uppercase; tracking-width: 0.1em; font-weight: 700; display: block; margin-bottom: 6px; }
+        .glass-card { background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; }
+        input, textarea, select { background: #0a0a0f !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; color: #fff !important; padding: 12px; width: 100%; border-radius: 0.75rem; }
+        input:focus, textarea:focus, select:focus { border-color: #00f3ff !important; outline: none; }
+        label { font-size: 11px; color: #00f3ff; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px; }
         .tab-btn.active { background: #00f3ff; color: #000; font-weight: 900; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
     </style>
 </head>
-<body class="p-4 md:p-8 bg-gradient-to-br from-[#030303] to-[#0a0a15] min-h-screen">
+<body class="p-4 md:p-8 min-h-screen bg-gradient-to-br from-[#020202] to-[#080815]">
 
     <div class="max-w-6xl mx-auto space-y-8">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-white/5 pb-6">
             <div>
-                <h1 class="text-2xl md:text-3xl font-black font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 uppercase tracking-wider">
-                    ⚡ MASTER MAIN COMMAND CENTER
-                </h1>
-                <p class="text-xs text-gray-500 mt-1 uppercase font-bold">// REAL-TIME PORTFOLIO ENGINE WORKSPACE</p>
+                <h1 class="text-2xl font-black font-['Orbitron'] text-cyan-400 tracking-wider">⚡ CORESYNC SECURITY CONSOLE // OPERATOR DIRECT</h1>
+                <p class="text-xs text-gray-500">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
             </div>
-            <button id="master-sync-btn" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(0,243,255,0.2)]">
-                Sync System Engine
+            <button id="master-sync-btn" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+                Sync Master Mainframe
             </button>
         </div>
 
         <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
-            <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Identity</button>
-            <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Quotes (නිසදැස්)</button>
-            <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Photography</button>
-            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Section Fonts</button>
-            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">BG Animation Injection</button>
+            <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Identity Systems</button>
+            <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Quotes (නිසදැස්)</button>
+            <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Photography (ගැලරිය)</button>
+            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Section Fonts</button>
+            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Overrides</button>
         </div>
 
         <div id="panel-profile" class="dashboard-panel space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-sm font-black font-['Orbitron'] text-cyan-400 border-l-2 border-cyan-400 pl-2">// HOME CORE</h3>
-                    <div><label>Full Identity Name</label><input type="text" id="p-name"></div>
-                    <div><label>Profile Mini Bio</label><textarea id="p-bio" rows="2"></textarea></div>
-                    <div><label>Avatar Photo (Direct Link or Upload below)</label><input type="text" id="p-avatar"></div>
+                    <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// IDENTITY BRANDING SETUP</h3>
+                    <div><label>Header Mini Logo Image URL</label><input type="text" id="p-logo"></div>
+                    <div><label>Full Name Matrix</label><input type="text" id="p-name"></div>
+                    <div><label>Status Bio Row</label><textarea id="p-bio" rows="2"></textarea></div>
+                    <div><label>Avatar Photo Core Link</label><input type="text" id="p-avatar"></div>
                     <div>
-                        <label>Capture / Select Avatar (Opens Gallery Directly)</label>
-                        <input type="file" id="p-avatar-file" accept="image/*" capture="environment" class="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20">
+                        <label>Choose Avatar From Mobile Gallery (No Camera Auto Open)</label>
+                        <input type="file" id="p-avatar-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400">
                     </div>
-                    <div><label>Core Categories (Comma separated)</label><input type="text" id="p-cat" placeholder="Developer, Photographer, Writer"></div>
                 </div>
-                
                 <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-sm font-black font-['Orbitron'] text-purple-400 border-l-2 border-purple-400 pl-2">// ABOUT NARRATIVE MODULE</h3>
-                    <div><label>Detailed About Me Section</label><textarea id="p-about" rows="5"></textarea></div>
+                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400">// SOCIAL OVERLINK GATEWAYS</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <div><label>WhatsApp Link</label><input type="text" id="s-wa"></div>
-                        <div><label>Facebook Link</label><input type="text" id="s-fb"></div>
-                        <div><label>Instagram Link</label><input type="text" id="s-ig"></div>
-                        <div><label>Telegram Link</label><input type="text" id="s-tg"></div>
-                        <div><label>TikTok Link</label><input type="text" id="s-tt"></div>
+                        <div><label>LinkedIn Link (Highlighted Badge)</label><input type="text" id="s-li"></div>
+                        <div><label>WhatsApp Secure Target</label><input type="text" id="s-wa"></div>
+                        <div><label>Facebook Interface</label><input type="text" id="s-fb"></div>
+                        <div><label>Instagram Node</label><input type="text" id="s-ig"></div>
+                        <div><label>Telegram Direct</label><input type="text" id="s-tg"></div>
+                        <div><label>TikTok Stream</label><input type="text" id="s-tt"></div>
                         <div><label>YouTube Link</label><input type="text" id="s-yt"></div>
+                        <div><label>Categories (Comma separated)</label><input type="text" id="p-cat"></div>
                     </div>
+                    <div><label>Detailed Bio Paragraph (About Me)</label><textarea id="p-about" rows="3"></textarea></div>
                 </div>
             </div>
         </div>
 
         <div id="panel-quotes" class="dashboard-panel hidden space-y-6">
             <div class="glass-card p-6 space-y-4">
-                <h3 class="text-sm font-black font-['Orbitron'] text-cyan-400">// WRITE & DEPLOY NEW THOUGHT MODULE (නිසදැස)</h3>
+                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// DEPLOY / EDIT THOUGHT SEGMENT (නිසදැස space ආරක්ෂිතයි)</h3>
                 <input type="hidden" id="quote-edit-index" value="-1">
                 <div>
-                    <label>Quote Content / නිසදැස ලියන්න</label>
-                    <textarea id="quote-text" rows="3" placeholder="මෙතන නිසදැස ලියන්න..."></textarea>
+                    <label>Quote Content / නිසදැස (Enter, Space එලෙසම සුරැකේ)</label>
+                    <textarea id="quote-text" rows="5" placeholder="මෙතන නිසදැස ලියන්න..."></textarea>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="saveQuote()" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Submit Thought Module</button>
-                    <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white font-bold text-xs uppercase rounded-lg">Cancel</button>
+                    <button onclick="saveQuote()" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Save Thought Module</button>
+                    <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
                 </div>
             </div>
-
-            <div class="glass-card p-6">
-                <h3 class="text-sm font-black font-['Orbitron'] text-gray-400 mb-4">// LIVE ARCHIVED QUOTES MAIN PANEL</h3>
-                <div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div>
-            </div>
+            <div class="glass-card p-6"><h3 class="text-xs font-black font-['Orbitron'] text-gray-500 mb-4">// DEPLOYED QUOTE MODULES REPOSITORY</h3><div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div></div>
         </div>
 
         <div id="panel-photography" class="dashboard-panel hidden space-y-6">
             <div class="glass-card p-6 space-y-4">
-                <h3 class="text-sm font-black font-['Orbitron'] text-purple-400">// CAPTURE & INJECT PHOTOGRAPHY FRAME</h3>
+                <h3 class="text-xs font-black font-['Orbitron'] text-purple-400">// INJECT PICTURE TO CLOUD ARCHIVE</h3>
                 <input type="hidden" id="photo-edit-index" value="-1">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div><label>Photo Frame Title</label><input type="text" id="photo-title" placeholder="e.g., Cinematic Darkness"></div>
-                    <div><label>Date / Timestamp</label><input type="text" id="photo-date" placeholder="2026-05"></div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div><label>Frame Title Tag</label><input type="text" id="photo-title"></div>
+                    <div><label>Captured Timestamp</label><input type="text" id="photo-date"></div>
+                    <div><label>Direct Photo URL Asset</label><input type="text" id="photo-url"></div>
                 </div>
-                <div><label>Photo Description</label><textarea id="photo-desc" rows="2" placeholder="Brief technical or emotional description..."></textarea></div>
-                <div><label>Photo Image Link (or upload below)</label><input type="text" id="photo-url"></div>
+                <div><label>Brief Photo Context</label><textarea id="photo-desc" rows="2"></textarea></div>
                 <div>
-                    <label>Capture / Choose Image (Opens Mobile Gallery/Camera Directly)</label>
-                    <input type="file" id="photo-file" accept="image/*" capture="environment" class="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-purple-500/10 file:text-purple-400 hover:file:bg-purple-500/20">
+                    <label>Upload From Media Gallery Grid (No Forced Camera)</label>
+                    <input type="file" id="photo-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-purple-500/10 file:text-purple-400">
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="savePhoto()" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg">Submit Photo Frame</button>
-                    <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white font-bold text-xs uppercase rounded-lg">Cancel</button>
+                    <button onclick="savePhoto()" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg">Commit Grid Element</button>
+                    <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
                 </div>
             </div>
-
-            <div class="glass-card p-6">
-                <h3 class="text-sm font-black font-['Orbitron'] text-gray-400 mb-4">// LIVE GALLERY ARCHIVES</h3>
-                <div id="admin-photography-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-            </div>
+            <div class="glass-card p-6"><h3 class="text-xs font-black font-['Orbitron'] text-gray-500 mb-4">// CLOUD PRODUCTION IMAGE STREAM</h3><div id="admin-photography-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div></div>
         </div>
 
         <div id="panel-fonts" class="dashboard-panel hidden space-y-6">
-            <div class="glass-card p-6 space-y-6">
-                <h3 class="text-sm font-black font-['Orbitron'] text-yellow-400 border-l-2 border-yellow-400 pl-2">// SECTIONAL FONT MATRIX SETTINGS</h3>
-                
+            <div class="glass-card p-6 space-y-4">
+                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400">// OVERRIDE TARGET FONT STRUCTURES (25+ MATRIX)</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div><label>Home Section Font</label><select id="font-home" class="font-dropdown"></select></div>
-                    <div><label>Projects Section Font</label><select id="font-projects" class="font-dropdown"></select></div>
-                    <div><label>Photography Section Font</label><select id="font-photography" class="font-dropdown"></select></div>
-                    <div><label>Writing Section Font</label><select id="font-writing" class="font-dropdown"></select></div>
-                    <div><label>About Section Font</label><select id="font-about" class="font-dropdown"></select></div>
+                    <div><label>Home Screen Engine Font</label><select id="font-home" class="font-dropdown"></select></div>
+                    <div><label>Projects Layer Font</label><select id="font-projects" class="font-dropdown"></select></div>
+                    <div><label>Photography Cluster Font</label><select id="font-photography" class="font-dropdown"></select></div>
+                    <div><label>Writing Core Matrix Font</label><select id="font-writing" class="font-dropdown"></select></div>
+                    <div><label>About Dossier Font</label><select id="font-about" class="font-dropdown"></select></div>
                 </div>
             </div>
         </div>
 
         <div id="panel-animation" class="dashboard-panel hidden space-y-6">
-            <div class="glass-card p-6 space-y-4">
-                <h3 class="text-sm font-black font-['Orbitron'] text-red-400 border-l-2 border-red-400 pl-2">// LIVE BACKGROUND CUSTOM CODE INJECTION ENGINE</h3>
-                <p class="text-xs text-gray-500 leading-relaxed font-sans">
-                    ඔයා කැමතිම Background Animation කේතයක් (HTML Canvas, CSS, inline Script හෝ iframe) මෙතනට Paste කරන්න. එය සෘජුවම ඔයාගේ ප්‍රධාන පෝර්ට්ෆෝලියෝ වෙබ් අඩවියේ පසුබිමෙන් Active වේවි!
-                </p>
-                <div>
-                    <label>Animation Script / CSS Injection Code Block</label>
-                    <textarea id="custom-animation-code" rows="12" class="font-mono text-xs text-green-400" placeholder="Paste your HTML/JS/CSS animation code block here..."></textarea>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 space-y-4">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-green-400">// HOME AVATAR SYSTEM ANIMATION AUTOMATION (8 SUPER BUILT-IN SELECTIONS)</h3>
+                    <div>
+                        <label>Select Active Avatar Cyber Animation</label>
+                        <select id="selected-avatar-anim">
+                            <option value="none">No Animation / Static Display</option>
+                            <option value="anim-pixel-glitch">Effect 1: Cyber Pixel Glitch Matrix</option>
+                            <option value="anim-hologram-pulse">Effect 2: Hologram Shimmer Pulse Mode</option>
+                            <option value="anim-neon-rotate">Effect 3: Infinite Hue Neon Border Rotation</option>
+                            <option value="anim-matrix-rain">Effect 4: Core Matrix Code Rain Hue Overlay</option>
+                            <option value="anim-cyber-scan">Effect 5: Realtime Horizontal Cyber Scan Line</option>
+                            <option value="anim-cyber-horizon">Effect 6: Cyber Horizon Organic Tilt Drift</option>
+                            <option value="anim-glitch-shiver">Effect 7: High-Frequency Glitch Shiver Trigger</option>
+                            <option value="anim-audio-wave">Effect 8: Liquid Audio Wave Floating Form</option>
+                            <option value="anim-rgb-split">Effect 9: RGB Chromatic Aberration Split Edge</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 space-y-4">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-red-400">// CORE ANIMATION STYLE RAW CODE INJECTION</h3>
+                    <div>
+                        <label>Custom Global CSS Animation Style Raw Code Box</label>
+                        <textarea id="custom-animation-code" rows="8" class="font-mono text-xs text-green-400" placeholder="Paste custom global animation CSS styles block code here..."></textarea>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <script type="module">
@@ -162,56 +168,32 @@
         const db = getFirestore(app);
         let liveDatabaseState = {};
 
-        // 🔤 25 ENGLSIH & 25 SINHALA FONTS MANAGEMENT LIBRARY
         const fontsLibrary = [
-            // English Fonts Matrix
-            { name: "Orbitron", val: "'Orbitron', sans-serif" },
-            { name: "JetBrains Mono", val: "'JetBrains Mono', monospace" },
-            { name: "Plus Jakarta Sans", val: "'Plus Jakarta Sans', sans-serif" },
-            { name: "Inter", val: "'Inter', sans-serif" },
-            { name: "Montserrat", val: "'Montserrat', sans-serif" },
-            { name: "Poppins", val: "'Poppins', sans-serif" },
-            { name: "Space Grotesk", val: "'Space Grotesk', sans-serif" },
-            { name: "Fira Code", val: "'Fira Code', monospace" },
-            { name: "Cabinet Grotesk", val: "'Cabinet Grotesk', sans-serif" },
-            { name: "Clash Display", val: "'Clash Display', sans-serif" },
-            { name: "Satoshi", val: "'Satoshi', sans-serif" },
-            { name: "Mona Sans", val: "'Mona Sans', sans-serif" },
-            { name: "Bebas Neue", val: "'Bebas Neue', sans-serif" },
-            { name: "Syne", val: "'Syne', sans-serif" },
-            { name: "Unbounded", val: "'Unbounded', sans-serif" },
-            { name: "Righteous", val: "'Righteous', sans-serif" },
-            { name: "Playfair Display", val: "'Playfair Display', serif" },
-            { name: "Cinzel", val: "'Cinzel', serif" },
-            { name: "Abhaya Libre", val: "'Abhaya Libre', serif" },
-            { name: "Amethysta", val: "'Amethysta', serif" },
-            { name: "Poiret One", val: "'Poiret One', cursive" },
-            { name: "Press Start 2P", val: "'Press Start 2P', cursive" },
-            { name: "Syncopate", val: "'Syncopate', sans-serif" },
-            { name: "Comfortaa", val: "'Comfortaa', sans-serif" },
-            { name: "Roboto Mono", val: "'Roboto Mono', monospace" },
-            
-            // Sinhala Fonts Matrix
-            { name: "Noto Sans Sinhala", val: "'Noto Sans Sinhala', sans-serif" },
-            { name: "Noto Serif Sinhala", val: "'Noto Serif Sinhala', serif" },
-            { name: "Gemunu Libre", val: "'Gemunu Libre', sans-serif" },
-            { name: "Yatra One (Sinhala Style)", val: "'Yatra One', cursive" },
-            { name: "Alkatra", val: "'Alkatra', cursive" }
+            { name: "Orbitron Cyber", val: "'Orbitron', sans-serif" },
+            { name: "JetBrains Mono Core", val: "'JetBrains Mono', monospace" },
+            { name: "Plus Jakarta", val: "'Plus Jakarta Sans', sans-serif" },
+            { name: "Inter Minimalist", val: "'Inter', sans-serif" },
+            { name: "Montserrat Tech", val: "'Montserrat', sans-serif" },
+            { name: "Poppins Modern", val: "'Poppins', sans-serif" },
+            { name: "Space Grotesk Neo", val: "'Space Grotesk', sans-serif" },
+            { name: "Fira Code Terminal", val: "'Fira Code', monospace" },
+            { name: "Noto Sans Sinhala (සිංහල)", val: "'Noto Sans Sinhala', sans-serif" },
+            { name: "Noto Serif Sinhala (සිංහල පුරාණ)", val: "'Noto Serif Sinhala', serif" },
+            { name: "Gemunu Libre (සිංහල Bold)", val: "'Gemunu Libre', sans-serif" },
+            { name: "Abhaya Libre (සිංහල රාජකීය)", val: "'Abhaya Libre', serif" }
         ];
 
-        // Populate Font Drops
-        document.querySelectorAll('.font-dropdown').forEach(dropdown => {
-            fontsLibrary.forEach(f => {
-                dropdown.innerHTML += `<option value="${f.val}">${f.name}</option>`;
-            });
+        document.querySelectorAll('.font-dropdown').forEach(d => {
+            fontsLibrary.forEach(f => d.innerHTML += `<option value="${f.val}">${f.name}</option>`);
         });
 
-        // LOAD ENGINE STATE REAL-TIME FROM FIREBASE
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
             if (docSnap.exists()) {
                 liveDatabaseState = docSnap.data();
+                if(liveDatabaseState.headerLogo) document.getElementById('p-logo').value = liveDatabaseState.headerLogo;
+                if(liveDatabaseState.selectedAvatarAnim) document.getElementById('selected-avatar-anim').value = liveDatabaseState.selectedAvatarAnim;
+                if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
                 
-                // Parsing System Fields
                 if(liveDatabaseState.profile) {
                     const p = liveDatabaseState.profile;
                     document.getElementById('p-name').value = p.fullName || '';
@@ -220,9 +202,9 @@
                     document.getElementById('p-cat').value = p.category || '';
                     document.getElementById('p-about').value = p.aboutMe || '';
                 }
-
                 if(liveDatabaseState.socials) {
                     const s = liveDatabaseState.socials;
+                    document.getElementById('s-li').value = s.linkedin || '';
                     document.getElementById('s-wa').value = s.whatsapp || '';
                     document.getElementById('s-fb').value = s.facebook || '';
                     document.getElementById('s-ig').value = s.instagram || '';
@@ -230,7 +212,6 @@
                     document.getElementById('s-tt').value = s.tiktok || '';
                     document.getElementById('s-yt').value = s.youtube || '';
                 }
-
                 if(liveDatabaseState.sectionalFonts) {
                     const f = liveDatabaseState.sectionalFonts;
                     if(f.home) document.getElementById('font-home').value = f.home;
@@ -239,36 +220,27 @@
                     if(f.writing) document.getElementById('font-writing').value = f.writing;
                     if(f.about) document.getElementById('font-about').value = f.about;
                 }
-
-                if(liveDatabaseState.customAnimationCode) {
-                    document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
-                }
-
                 renderQuotesList(liveDatabaseState.quotes || []);
                 renderPhotographyList(liveDatabaseState.photographyPool || []);
             }
         });
 
-        // IMAGE HANDLER LOGIC INTERACTION (IMGBB CLOUD DEPLOY)
-        async function handleImageUpload(fileInputId, inputFieldId) {
+        async function handleImgbbUpload(fileInputId, inputFieldId) {
             const file = document.getElementById(fileInputId).files[0];
             if(!file) return document.getElementById(inputFieldId).value;
-            
             const fd = new FormData(); fd.append("image", file);
             const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
-            const d = await r.json(); 
-            return d.data.url;
+            const d = await r.json(); return d.data.url;
         }
 
-        // MASTER EXECUTOR SYNC DEPLOYMENT
         document.getElementById('master-sync-btn').onclick = async () => {
-            const btn = document.getElementById('master-sync-btn');
-            btn.innerText = "UPLOADING PARAMETERS...";
-
+            const btn = document.getElementById('master-sync-btn'); btn.innerText = "UP-LINK RUNNING...";
             try {
-                const avatarUrl = await handleImageUpload('p-avatar-file', 'p-avatar');
-                
+                const avatarUrl = await handleImgbbUpload('p-avatar-file', 'p-avatar');
                 await setDoc(doc(db, "portfolio", "liveData"), {
+                    headerLogo: document.getElementById('p-logo').value,
+                    selectedAvatarAnim: document.getElementById('selected-avatar-anim').value,
+                    customAnimationCode: document.getElementById('custom-animation-code').value,
                     profile: {
                         fullName: document.getElementById('p-name').value,
                         bio: document.getElementById('p-bio').value,
@@ -277,6 +249,7 @@
                         category: document.getElementById('p-cat').value
                     },
                     socials: {
+                        linkedin: document.getElementById('s-li').value,
                         whatsapp: document.getElementById('s-wa').value,
                         facebook: document.getElementById('s-fb').value,
                         instagram: document.getElementById('s-ig').value,
@@ -290,133 +263,84 @@
                         photography: document.getElementById('font-photography').value,
                         writing: document.getElementById('font-writing').value,
                         about: document.getElementById('font-about').value
-                    },
-                    customAnimationCode: document.getElementById('custom-animation-code').value
+                    }
                 }, { merge: true });
-
-                btn.innerText = "CORE SYNC SUCCESSFUL!";
-            } catch(e) {
-                btn.innerText = "SYNC FAILED ROOM ERROR";
-            }
-            setTimeout(() => btn.innerText = "Sync System Engine", 2000);
+                btn.innerText = "OVERRIDE SYNC COMPLETE!";
+            } catch { btn.innerText = "ROUTING REJECTED ERROR"; }
+            setTimeout(() => btn.innerText = "Sync Master Mainframe", 2000);
         };
 
-        // --- REALTIME QUOTE MANAGEMENT ---
         window.saveQuote = async () => {
             const index = parseInt(document.getElementById('quote-edit-index').value);
-            const text = document.getElementById('quote-text').value.trim();
-            if(!text) return alert("Please type your thought content!");
-
-            let currentQuotes = liveDatabaseState.quotes || [];
-            if(index === -1) {
-                currentQuotes.push({ text: text, likes: 0, comments: [] });
-            } else {
-                currentQuotes[index].text = text;
-            }
-
-            await setDoc(doc(db, "portfolio", "liveData"), { quotes: currentQuotes }, { merge: true });
+            const text = document.getElementById('quote-text').value;
+            if(!text) return;
+            let list = liveDatabaseState.quotes || [];
+            if(index === -1) list.push({ text: text, likes: 0, comments: [] });
+            else list[index].text = text;
+            await setDoc(doc(db, "portfolio", "liveData"), { quotes: list }, { merge: true });
             clearQuoteForm();
         };
 
-        window.editQuote = (index) => {
-            document.getElementById('quote-edit-index').value = index;
-            document.getElementById('quote-text').value = liveDatabaseState.quotes[index].text;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.editQuote = (i) => {
+            document.getElementById('quote-edit-index').value = i;
+            document.getElementById('quote-text').value = liveDatabaseState.quotes[i].text;
         };
 
-        window.deleteQuote = async (index) => {
-            if(!confirm("Are you sure you want to remove this thought item?")) return;
-            let currentQuotes = liveDatabaseState.quotes || [];
-            currentQuotes.splice(index, 1);
-            await setDoc(doc(db, "portfolio", "liveData"), { quotes: currentQuotes }, { merge: true });
+        window.deleteQuote = async (i) => {
+            let list = liveDatabaseState.quotes || []; list.splice(i, 1);
+            await setDoc(doc(db, "portfolio", "liveData"), { quotes: list }, { merge: true });
         };
 
         function renderQuotesList(arr) {
             const container = document.getElementById('admin-quotes-list'); container.innerHTML = '';
             arr.forEach((q, i) => {
-                container.innerHTML += `
-                    <div class="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-between gap-4">
-                        <p class="text-xs text-gray-300 italic font-sans">"${q.text}"</p>
-                        <div class="flex gap-2 justify-end border-t border-white/5 pt-2">
-                            <button onclick="editQuote(${i})" class="text-[10px] text-cyan-400 font-bold bg-cyan-400/10 px-3 py-1 rounded"><i class="fa-solid fa-pen"></i> Edit</button>
-                            <button onclick="deleteQuote(${i})" class="text-[10px] text-red-400 font-bold bg-red-400/10 px-3 py-1 rounded"><i class="fa-solid fa-trash"></i> Delete</button>
-                        </div>
-                    </div>`;
+                container.innerHTML += `<div class="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-between"><p class="text-xs whitespace-pre-wrap">"${q.text}"</p><div class="flex gap-2 justify-end mt-4 border-t border-white/5 pt-2"><button onclick="editQuote(${i})" class="text-[10px] text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded">Edit</button><button onclick="deleteQuote(${i})" class="text-[10px] text-red-400 bg-red-400/10 px-3 py-1 rounded">Delete</button></div></div>`;
             });
         }
 
-        window.clearQuoteForm = () => {
-            document.getElementById('quote-edit-index').value = "-1";
-            document.getElementById('quote-text').value = "";
-        };
+        window.clearQuoteForm = () => { document.getElementById('quote-edit-index').value = "-1"; document.getElementById('quote-text').value = ""; };
 
-        // --- REALTIME PHOTOGRAPHY GALLERY MANAGEMENT ---
         window.savePhoto = async () => {
             const index = parseInt(document.getElementById('photo-edit-index').value);
-            const title = document.getElementById('photo-title').value.trim();
-            const desc = document.getElementById('photo-desc').value.trim();
-            const date = document.getElementById('photo-date').value.trim();
-            let url = await handleImageUpload('photo-file', 'photo-url');
-
-            if(!url) return alert("Please specify link or upload an asset frame!");
-
+            const title = document.getElementById('photo-title').value;
+            const desc = document.getElementById('photo-desc').value;
+            const date = document.getElementById('photo-date').value;
+            let url = await handleImgbbUpload('photo-file', 'photo-url');
+            if(!url) return;
             let pool = liveDatabaseState.photographyPool || [];
             const photoItem = { title, desc, date, url };
-
-            if(index === -1) {
-                pool.push(photoItem);
-            } else {
-                pool[index] = photoItem;
-            }
-
+            if(index === -1) pool.push(photoItem); else pool[index] = photoItem;
             await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
             clearPhotoForm();
         };
 
-        window.editPhoto = (index) => {
-            const item = liveDatabaseState.photographyPool[index];
-            document.getElementById('photo-edit-index').value = index;
+        window.editPhoto = (i) => {
+            const item = liveDatabaseState.photographyPool[i];
+            document.getElementById('photo-edit-index').value = i;
             document.getElementById('photo-title').value = item.title || '';
             document.getElementById('photo-desc').value = item.desc || '';
             document.getElementById('photo-date').value = item.date || '';
             document.getElementById('photo-url').value = item.url || '';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        window.deletePhoto = async (index) => {
-            if(!confirm("Are you sure you want to completely erase this frame?")) return;
-            let pool = liveDatabaseState.photographyPool || [];
-            pool.splice(index, 1);
+        window.deletePhoto = async (i) => {
+            let pool = liveDatabaseState.photographyPool || []; pool.splice(i, 1);
             await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
         };
 
         function renderPhotographyList(arr) {
             const container = document.getElementById('admin-photography-list'); container.innerHTML = '';
             arr.forEach((p, i) => {
-                container.innerHTML += `
-                    <div class="bg-black/40 border border-white/5 rounded-xl overflow-hidden flex flex-col justify-between">
-                        <img src="${p.url}" class="w-full h-32 object-cover">
-                        <div class="p-3 space-y-2">
-                            <h4 class="text-xs font-bold truncate text-gray-200">${p.title || '// Untitled Frame'}</h4>
-                            <div class="flex gap-2 justify-end pt-1 border-t border-white/5">
-                                <button onclick="editPhoto(${i})" class="text-[10px] text-purple-400 font-bold bg-purple-400/10 px-2.5 py-1 rounded"><i class="fa-solid fa-pen"></i> Edit</button>
-                                <button onclick="deletePhoto(${i})" class="text-[10px] text-red-400 font-bold bg-red-400/10 px-2.5 py-1 rounded"><i class="fa-solid fa-trash"></i> Delete</button>
-                            </div>
-                        </div>
-                    </div>`;
+                container.innerHTML += `<div class="bg-black/40 border border-white/5 rounded-xl overflow-hidden"><img src="${p.url}" class="w-full h-24 object-cover"><div class="p-3 flex justify-between items-center"><h4 class="text-xs truncate max-w-[120px]">${p.title || 'Untitled'}</h4><div class="flex gap-1"><button onclick="editPhoto(${i})" class="text-[9px] text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded">Edit</button><button onclick="deletePhoto(${i})" class="text-[9px] text-red-400 bg-red-400/10 px-2 py-0.5 rounded">Delete</button></div></div></div>`;
             });
         }
 
         window.clearPhotoForm = () => {
             document.getElementById('photo-edit-index').value = "-1";
-            document.getElementById('photo-title').value = "";
-            document.getElementById('photo-desc').value = "";
-            document.getElementById('photo-date').value = "";
-            document.getElementById('photo-url').value = "";
-            document.getElementById('photo-file').value = "";
+            document.getElementById('photo-title').value = ""; document.getElementById('photo-desc').value = "";
+            document.getElementById('photo-date').value = ""; document.getElementById('photo-url').value = ""; document.getElementById('photo-file').value = "";
         };
     </script>
-
     <script>
         function switchTab(tabId) {
             document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.add('hidden'));
@@ -427,3 +351,4 @@
     </script>
 </body>
 </html>
+
