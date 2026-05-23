@@ -19,7 +19,7 @@
         .info-box { border-left: 3px solid var(--neon); background: rgba(0, 243, 255, 0.03); }
         .quote-pre { white-space: pre-wrap; font-family: inherit; }
 
-        /* 📸 ORIGINAL CAMERA LENS ENGINE FOR ABOUT SECTION PROFILE PHOTO */
+        /* CAMERA LENS CODE */
         .lens-container { position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; }
         .focus-ring { position: absolute; inset: -15px; border: 2px dashed rgba(102, 252, 241, 0.3); border-radius: 50%; animation: rotateCounter 16s linear infinite; }
         @keyframes rotateCounter { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
@@ -36,7 +36,7 @@
         .blade-5 { transform: rotate(240deg) translateY(-35px); } 
         .blade-6 { transform: rotate(300deg) translateY(-35px); }
 
-        /* 🎬 MASTER AVATAR HOME PANEL EFFECTS (9 KEYFRAMES) */
+        /* MASTER AVATAR EFFECTS */
         .anim-pixel-glitch { animation: pixelGlitch 1.5s infinite steps(2); }
         @keyframes pixelGlitch { 0%, 100% { clip-path: inset(0 0 0 0); } 20% { clip-path: inset(10% 0 80% 0); transform: skew(-5deg); } 40% { clip-path: inset(60% 0 5% 0); transform: skew(5deg); } 60% { clip-path: inset(30% 0 40% 0); } 80% { clip-path: inset(80% 0 10% 0); } }
         .anim-hologram-pulse { animation: holoPulse 2s infinite ease-in-out; filter: hue-rotate(90deg) brightness(1.2); }
@@ -73,7 +73,7 @@
         #security-modal { display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(25px); align-items: center; justify-content: center; padding: 20px; animation: modalFade 0.3s ease-out forwards; }
         @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
 
-        /* PREMIUM BACKGROUND ENGINES (10 STYLES) */
+        /* BACKGROUND ENGINE STYLES */
         .bg-matrix-rain { background: linear-gradient(180deg, rgba(0,243,255,0.02) 0%, rgba(0,0,0,0) 100%); }
         .bg-cyber-grid { background-image: linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px); background-size: 30px 30px; animation: gridMove 20s linear infinite; }
         @keyframes gridMove { from { background-position: 0 0; } to { background-position: 0 60px; } }
@@ -250,8 +250,6 @@
         </div>
     </footer>
 
-    <audio id="security-audio-player" preload="auto"></audio>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -273,7 +271,7 @@
         let currentStoryIndex = 0;
         let storyTimer = null;
 
-        // ANTI COPY LIVE MEMORY CONFIG
+        // ANTI COPY LIVE MEMORY DEFAULTS
         window.securityConfig = {
             enabled: true,
             soundEnabled: true,
@@ -285,7 +283,7 @@
             if (docSnap.exists()) {
                 globalData = docSnap.data();
                 
-                // Load Security Config Dynamics
+                // Load Security Config Live Data
                 if(globalData.securitySystem) {
                     const sec = globalData.securitySystem;
                     window.securityConfig.enabled = sec.enabled !== false;
@@ -294,7 +292,6 @@
                     window.securityConfig.soundUrl = sec.soundUrl || "https://www.soundjay.com/buttons/sounds/button-10.mp3";
                     
                     document.getElementById('security-warning-msg').innerText = window.securityConfig.message;
-                    document.getElementById('security-audio-player').src = window.securityConfig.soundUrl;
                 }
 
                 if(globalData.headerLogo) document.getElementById('header-logo-img').src = globalData.headerLogo;
@@ -461,29 +458,29 @@
     </script>
 
     <script>
-        let audioContextInitialized = false;
+        let isBrowserAudioUnlocked = false;
 
         // සයිට් එකට ආපු ගමන් බ්‍රවුසර් එකෙන් සවුන්ඩ් බ්ලොක් කරන එක නැති කරන්න පළමු ක්ලික් එක ලබා ගැනීම
         document.addEventListener('click', () => {
-            audioContextInitialized = true;
+            isBrowserAudioUnlocked = true;
         }, { once: true });
 
         function triggerSecurityViolation(e) {
             if (!window.securityConfig || !window.securityConfig.enabled) return true;
             if (e) e.preventDefault();
 
-            // 1. Warning Modal එක පෙන්වීම
+            // 1. Trigger Modal Alert Display
             document.getElementById('security-modal').style.display = 'flex';
 
-            // 2. සවුන්ඩ් එක බ්‍රවුසර් එකෙන් බ්ලොක් නොකර ප්ලේ කරවීම
+            // 2. Trigger Premium Security Audio Sound (Bypassing Browser Interception)
             if (window.securityConfig.soundEnabled && window.securityConfig.soundUrl) {
-                // ක්ෂණිකව බ්‍රවුසර් එක ඇතුලේ අලුත් සවුන්ඩ් ඔබ්ජෙක්ට් එකක් සාදා ප්ලේ කිරීම
-                const alertAudio = new Audio(window.securityConfig.soundUrl);
-                alertAudio.preload = "auto";
-                alertAudio.volume = 1.0; // සවුන්ඩ් එක උපරිම සද්දෙන් ප්ලේ කිරීම
+                // ක්ෂණිකව බ්‍රවුසර් එක ඇතුලේ runtime audio object එකක් සාදා සවුන්ඩ් එක ක්ෂණිකව ප්ලේ කිරීම
+                const customAlertSound = new Audio(window.securityConfig.soundUrl);
+                customAlertSound.preload = "auto";
+                customAlertSound.volume = 1.0; 
                 
-                alertAudio.play().catch(error => {
-                    console.log("Audio play blocked: Needs one click on page first.", error);
+                customAlertSound.play().catch(error => {
+                    console.log("Audio play blocked by browser sandbox policy. User needs to click first:", error);
                 });
             }
             return false;
@@ -498,9 +495,9 @@
 
         // Advanced Inspect Tool Hotkey Lock (F12, Ctrl+Shift+I, etc.)
         document.addEventListener('keydown', function(e) {
-            if (e.keyCode === 123 || 
-                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || 
-                (e.ctrlKey && e.keyCode === 85)) { 
+            if (e.keyCode === 123 || // F12
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || // Ctrl+Shift+I/C/J
+                (e.ctrlKey && e.keyCode === 85)) { // Ctrl+U
                 triggerSecurityViolation(e);
             }
         });
@@ -552,3 +549,4 @@
     </script>
 </body>
 </html>
+
