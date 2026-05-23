@@ -11,13 +11,11 @@
         :root { --neon: #00f3ff; --bg: #030303; }
         body { background: var(--bg); color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; user-select: none; }
         
-        /* Background Particles */
         canvas#bg-canvas { position: fixed; inset: 0; z-index: -1; }
-
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .info-box { border-left: 3px solid var(--neon); background: rgba(0, 243, 255, 0.03); }
 
-        /* Photo Frame Styling */
+        /* Photo Frame & Advanced Slider Animation */
         .photo-frame {
             width: 280px;
             height: 280px;
@@ -28,32 +26,29 @@
             border: 1px solid rgba(0, 243, 255, 0.2);
             box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
         }
-        @media (min-width: 768px) {
-            .photo-frame { width: 320px; height: 320px; }
-        }
+        @media (min-width: 768px) { .photo-frame { width: 340px; height: 340px; } }
 
-        #pixel-canvas {
+        .slide-img {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-        }
-
-        #final-photo {
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none; 
-            z-index: 5;
+            opacity: 0;
+            transform: scale(1.15) rotate(2deg);
+            transition: opacity 1.2s ease-in-out, transform 1.5s ease-in-out;
         }
+        .slide-img.active { opacity: 1; transform: scale(1) rotate(0deg); }
 
-        .nav-link { font-size: 10px; font-weight: 800; color: #666; cursor: pointer; transition: 0.3s; padding: 4px 0; }
-        @media (min-width: 640px) { .nav-link { font-size: 11px; } }
-        .nav-link.active { color: var(--neon); text-shadow: 0 0 10px var(--neon); border-bottom: 2px solid var(--neon); }
+        /* Smart Header CSS */
+        header { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, box-shadow 0.3s; }
+        .header-hidden { transform: translate(-50%, -120%); }
+        .header-scrolled { background: rgba(3, 3, 3, 0.7) !important; box-shadow: 0 10px 30px rgba(0, 243, 255, 0.05); border-color: rgba(0, 243, 255, 0.2); }
 
-        /* Security Alert */
+        /* Social Dock Grid */
+        .social-icon { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s; color: #888; }
+        .social-icon:hover { color: var(--neon); border-color: var(--neon); box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); transform: translateY(-3px); }
+
         #security-alert { position: fixed; inset: 0; background: rgba(255, 0, 60, 0.2); backdrop-filter: blur(10px); z-index: 10000; display: none; flex-direction: column; align-items: center; justify-content: center; border: 10px solid #ff003c; animation: flash 0.3s infinite; }
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
     </style>
@@ -63,21 +58,20 @@
     <canvas id="bg-canvas"></canvas>
 
     <div id="security-alert">
-        <i class="fa-solid fa-shield-halved text-6xl md:text-8xl mb-6"></i>
+        <i class="fa-solid fa-shield-halved text-6xl mb-6"></i>
         <h1 class="text-3xl md:text-5xl font-['Orbitron'] font-black">ACCESS DENIED</h1>
-        <p class="mt-4 tracking-widest uppercase font-bold text-sm md:text-base">ASH_X8 Security Protocol</p>
+        <p class="mt-4 tracking-widest uppercase font-bold text-sm">ASH_X8 Security Protocol</p>
     </div>
 
-    <header class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-[5000] glass rounded-[1.5rem] md:rounded-[2rem] px-4 md:px-8 py-3 md:h-20 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
+    <header id="main-header" class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-[5000] glass rounded-[1.5rem] md:rounded-[2rem] px-4 md:px-8 py-3 md:h-20 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 md:w-10 md:h-10 bg-cyan-500 rounded-xl flex items-center justify-center font-black text-black font-['Orbitron'] text-sm md:text-base">X8</div>
-            <span class="font-['Orbitron'] font-black text-lg md:text-xl tracking-wider">ASH_X8</span>
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-cyan-500 rounded-xl flex items-center justify-center font-black text-black font-['Orbitron'] text-sm">X8</div>
+            <span class="font-['Orbitron'] font-black text-lg tracking-wider">ASH_X8</span>
         </div>
         <nav class="flex gap-4 md:gap-6">
-            <div class="nav-link active">HOME</div>
-            <div class="nav-link">PROJECTS</div>
-            <div class="nav-link">WRITING</div>
-            <div class="nav-link">ABOUT</div>
+            <a href="index.html" class="text-xs font-black tracking-widest text-cyan-400 border-b-2 border-cyan-400 pb-1">HOME</a>
+            <a href="projects.html" class="text-xs font-black tracking-widest text-gray-500 hover:text-white transition-colors">PROJECTS</a>
+            <a href="about.html" class="text-xs font-black tracking-widest text-gray-500 hover:text-white transition-colors">ABOUT</a>
         </nav>
     </header>
 
@@ -102,44 +96,152 @@
         </div>
 
         <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
-            <div class="photo-frame flex-shrink-0">
-                <canvas id="pixel-canvas"></canvas>
-                <img id="final-photo" src="https://i.ibb.co/BHn4zg5c/profile.jpg" crossorigin="anonymous">
+            
+            <div class="photo-frame flex-shrink-0" id="showcase-slider">
+                <img class="slide-img active" src="https://i.ibb.co/BHn4zg5c/profile.jpg" alt="Showcase">
             </div>
 
             <div class="text-center lg:text-left space-y-5 max-w-xl px-2">
-                <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] md:text-xs uppercase">Confirmed Identity // 001</h2>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black font-['Orbitron'] leading-tight tracking-wide">
+                <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">Identity Uplink // 001</h2>
+                
+                <h1 id="dynamic-name" class="text-4xl md:text-5xl lg:text-6xl font-black font-['Orbitron'] leading-tight tracking-wide">
                     KUSHAN A. <br><span class="text-cyan-400">WICKRAMASINGHE</span>
                 </h1>
-                <p class="text-gray-400 text-sm md:text-base lg:text-lg italic leading-relaxed border-t-2 md:border-t-0 md:border-l-2 border-white/10 pt-4 md:pt-0 md:pl-6">
-                    "I am an evolving creator who sits at the intersection of technology and art. Passionate about design and photography."
+                
+                <p id="dynamic-bio" class="text-gray-400 text-sm md:text-base italic leading-relaxed border-t-2 md:border-t-0 md:border-l-2 border-white/10 pt-4 md:pt-0 md:pl-6">
+                    "Connecting to neural mainframe..."
                 </p>
-                <div class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2">
-                    <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-wider">Writer</span>
-                    <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase text-cyan-400 tracking-wider">Photographer</span>
-                    <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-wider">Post-Editor</span>
+                
+                <div id="dynamic-categories" class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2">
+                    <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-wider">CREATOR</span>
+                </div>
+
+                <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4" id="social-dock">
+                    <a href="#" id="link-whatsapp" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" id="link-facebook" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" id="link-instagram" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" id="link-telegram" target="_blank" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#" id="link-tiktok" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" id="link-youtube" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" id="link-linkedin" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="w-full mt-12 border-t border-white/5 glass py-8 px-6 text-center text-gray-500 text-xs">
+    <footer class="w-full mt-24 border-t border-white/5 glass py-8 px-6 text-center text-gray-500 text-xs">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="font-['Orbitron'] tracking-widest text-[10px]">
-                &copy; 2026 <span class="text-cyan-400 font-bold">ASH_X8</span> // ALL RIGHTS RESERVED
+                &copy; 2026 <span class="text-cyan-400 font-bold">ASH_X8</span> // DIGITAL SPACE CONTROL
             </div>
             <div class="flex gap-6 text-base">
-                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-regular fa-envelope"></i></a>
+                <p class="text-[10px] tracking-widest text-gray-600 font-bold">SYSTEM ACTIVE</p>
             </div>
         </div>
     </footer>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCnXtXpynpkN5SOi-l8zSuaeuLFUByQVhQ",
+            authDomain: "ash-x8.firebaseapp.com",
+            projectId: "ash-x8",
+            storageBucket: "ash-x8.firebasestorage.app",
+            messagingSenderId: "430061337740",
+            appId: "1:430061337740:web:50a52de99da51e88960fa9",
+            measurementId: "G-Z9GEG1ZJHR"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // LIVE SNAPSHOT DATA STREAM
+        onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                
+                if(data.profile) {
+                    const p = data.profile;
+                    if(p.fullName) {
+                        const words = p.fullName.split(' ');
+                        const first = words.slice(0, -1).join(' ');
+                        const last = words[words.length - 1];
+                        document.getElementById('dynamic-name').innerHTML = `${first} <br><span class="text-cyan-400">${last}</span>`;
+                    }
+                    if(p.bio) document.getElementById('dynamic-bio').innerText = `"${p.bio}"`;
+                    if(p.category) {
+                        const catContainer = document.getElementById('dynamic-categories');
+                        catContainer.innerHTML = '';
+                        p.category.split(',').forEach(cat => {
+                            catContainer.innerHTML += `<span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-wider text-cyan-400">${cat.trim()}</span>`;
+                        });
+                    }
+                }
+
+                // Gather images from photography and project modules
+                let pool = [];
+                if(data.photographyImages) pool = pool.concat(data.photographyImages);
+                if(data.projectImages) pool = pool.concat(data.projectImages);
+                if(pool.length > 0) setupShowcase(pool);
+
+                if(data.socials) {
+                    const s = data.socials;
+                    toggleSocial('link-whatsapp', s.whatsapp);
+                    toggleSocial('link-facebook', s.facebook);
+                    toggleSocial('link-instagram', s.instagram);
+                    toggleSocial('link-telegram', s.telegram);
+                    toggleSocial('link-tiktok', s.tiktok);
+                    toggleSocial('link-youtube', s.youtube);
+                    toggleSocial('link-linkedin', s.linkedin);
+                }
+            }
+        });
+
+        function toggleSocial(id, url) {
+            const el = document.getElementById(id);
+            if(url && url.trim() !== "") { el.href = url; el.style.display = "flex"; }
+            else { el.style.display = "none"; }
+        }
+
+        let slideTimer = null;
+        function setupShowcase(images) {
+            const container = document.getElementById('showcase-slider');
+            container.innerHTML = '';
+            images.forEach((url, i) => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = `slide-img ${i === 0 ? 'active' : ''}`;
+                container.appendChild(img);
+            });
+
+            if(images.length <= 1) return;
+            if(slideTimer) clearInterval(slideTimer);
+
+            slideTimer = setInterval(() => {
+                const slides = document.querySelectorAll('.slide-img');
+                let current = Array.from(slides).findIndex(s => s.classList.contains('active'));
+                slides[current].classList.remove('active');
+                let next = current;
+                while(next === current) { next = Math.floor(Math.random() * slides.length); }
+                slides[next].classList.add('active');
+            }, 4000);
+        }
+    </script>
+
     <script>
-        // 🛡️ SECURITY SYSTEM
+        const header = document.getElementById('main-header');
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 100) header.classList.add('header-hidden');
+            else header.classList.remove('header-hidden');
+            if (currentScrollY > 50) header.classList.add('header-scrolled');
+            else header.classList.remove('header-scrolled');
+            lastScrollY = currentScrollY;
+        });
+
         function showSecurity(e) {
             e.preventDefault();
             const alert = document.getElementById('security-alert');
@@ -147,68 +249,6 @@
             setTimeout(() => { alert.style.display = 'none'; }, 2000);
         }
 
-        // 🖼️ PIXEL ANIMATION ENGINE
-        const canvas = document.getElementById('pixel-canvas');
-        const ctx = canvas.getContext('2d');
-        const photo = document.getElementById('final-photo');
-
-        photo.onload = function() {
-            canvas.width = 320;
-            canvas.height = 320;
-            const skip = 5; 
-            let particles = [];
-
-            const hiddenCanvas = document.createElement('canvas');
-            const hCtx = hiddenCanvas.getContext('2d');
-            hiddenCanvas.width = 320;
-            hiddenCanvas.height = 320;
-            hCtx.drawImage(photo, 0, 0, 320, 320);
-            const data = hCtx.getImageData(0, 0, 320, 320).data;
-
-            for (let y = 0; y < 320; y += skip) {
-                for (let x = 0; x < 320; x += skip) {
-                    const i = (y * 320 + x) * 4;
-                    if (data[i + 3] > 128) {
-                        particles.push({
-                            x: Math.random() * 320,
-                            y: Math.random() * 320,
-                            tx: x,
-                            ty: y,
-                            color: `rgb(${data[i]},${data[i+1]},${data[i+2]})`,
-                            active: true
-                        });
-                    }
-                }
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, 320, 320);
-                let finished = true;
-
-                particles.forEach(p => {
-                    let dx = p.tx - p.x;
-                    let dy = p.ty - p.y;
-                    p.x += dx * 0.08;
-                    p.y += dy * 0.08;
-                    
-                    ctx.fillStyle = p.color;
-                    ctx.fillRect(p.x, p.y, skip - 1, skip - 1);
-                    
-                    if (Math.abs(dx) > 0.5) finished = false;
-                });
-
-                if (!finished) {
-                    requestAnimationFrame(animate);
-                } else {
-                    ctx.clearRect(0, 0, 320, 320);
-                    photo.style.display = 'block';
-                    canvas.style.display = 'none';
-                }
-            }
-            animate();
-        };
-
-        // 📊 SYSTEM DATA
         async function loadStats() {
             setInterval(() => { document.getElementById('real-time').innerText = new Date().toLocaleTimeString(); }, 1000);
             try {
@@ -217,14 +257,12 @@
                 document.getElementById('user-ip').innerText = data.ip;
                 document.getElementById('user-loc').innerText = `${data.country_code} | ${data.org.split(' ')[0]}`;
             } catch { document.getElementById('user-ip').innerText = "SECURED"; }
-            
             if (navigator.getBattery) {
                 const b = await navigator.getBattery();
                 document.getElementById('user-bat').innerText = `${Math.round(b.level*100)}% | ${navigator.platform.substring(0,8)}`;
             }
         }
 
-        // 🌌 BG PARTICLES
         const bgCanvas = document.getElementById('bg-canvas');
         const bgCtx = bgCanvas.getContext('2d');
         let dots = [];
@@ -242,7 +280,6 @@
             });
             requestAnimationFrame(drawBg);
         }
-
         window.onload = () => { initBg(); drawBg(); loadStats(); };
         window.onresize = initBg;
     </script>
