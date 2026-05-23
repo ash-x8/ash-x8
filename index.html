@@ -19,14 +19,17 @@
 
         /* Photo Frame Styling */
         .photo-frame {
-            width: 320px;
-            height: 320px;
+            width: 280px;
+            height: 280px;
             background: #000;
             border-radius: 2.5rem;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(0, 243, 255, 0.2);
             box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
+        }
+        @media (min-width: 768px) {
+            .photo-frame { width: 320px; height: 320px; }
         }
 
         #pixel-canvas {
@@ -42,11 +45,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none; /* පටන්ගද්දි පෙන්නන්නෙ නෑ */
+            display: none; 
             z-index: 5;
         }
 
-        .nav-link { font-size: 11px; font-weight: 800; color: #555; cursor: pointer; transition: 0.3s; }
+        .nav-link { font-size: 10px; font-weight: 800; color: #666; cursor: pointer; transition: 0.3s; padding: 4px 0; }
+        @media (min-width: 640px) { .nav-link { font-size: 11px; } }
         .nav-link.active { color: var(--neon); text-shadow: 0 0 10px var(--neon); border-bottom: 2px solid var(--neon); }
 
         /* Security Alert */
@@ -59,17 +63,17 @@
     <canvas id="bg-canvas"></canvas>
 
     <div id="security-alert">
-        <i class="fa-solid fa-shield-halved text-8xl mb-6"></i>
-        <h1 class="text-5xl font-['Orbitron'] font-black">ACCESS DENIED</h1>
-        <p class="mt-4 tracking-widest uppercase font-bold">ASH_X8 Security Protocol</p>
+        <i class="fa-solid fa-shield-halved text-6xl md:text-8xl mb-6"></i>
+        <h1 class="text-3xl md:text-5xl font-['Orbitron'] font-black">ACCESS DENIED</h1>
+        <p class="mt-4 tracking-widest uppercase font-bold text-sm md:text-base">ASH_X8 Security Protocol</p>
     </div>
 
-    <header class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-[5000] glass rounded-[2rem] px-8 h-20 flex items-center justify-between">
+    <header class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-[5000] glass rounded-[1.5rem] md:rounded-[2rem] px-4 md:px-8 py-3 md:h-20 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center font-black text-black font-['Orbitron']">X8</div>
-            <span class="font-['Orbitron'] font-black text-xl">ASH_X8</span>
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-cyan-500 rounded-xl flex items-center justify-center font-black text-black font-['Orbitron'] text-sm md:text-base">X8</div>
+            <span class="font-['Orbitron'] font-black text-lg md:text-xl tracking-wider">ASH_X8</span>
         </div>
-        <nav class="flex gap-6">
+        <nav class="flex gap-4 md:gap-6">
             <div class="nav-link active">HOME</div>
             <div class="nav-link">PROJECTS</div>
             <div class="nav-link">WRITING</div>
@@ -77,46 +81,62 @@
         </nav>
     </header>
 
-    <main class="pt-36 pb-20 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-            <div class="info-box p-4 rounded-xl glass text-[10px]">
-                <p class="text-cyan-500 font-bold mb-1 uppercase">Visitor IP</p>
-                <p id="user-ip" class="font-black">Loading...</p>
+    <main class="pt-36 md:pt-44 pb-12 px-4 max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-16 md:mb-24">
+            <div class="info-box p-3 md:p-4 rounded-xl glass text-[10px] md:text-[11px]">
+                <p class="text-cyan-500 font-bold mb-1 uppercase tracking-wider">Visitor IP</p>
+                <p id="user-ip" class="font-black truncate">Loading...</p>
             </div>
-            <div class="info-box p-4 rounded-xl glass text-[10px]">
-                <p class="text-cyan-500 font-bold mb-1 uppercase">ISP / Location</p>
-                <p id="user-loc" class="font-bold">Detecting...</p>
+            <div class="info-box p-3 md:p-4 rounded-xl glass text-[10px] md:text-[11px]">
+                <p class="text-cyan-500 font-bold mb-1 uppercase tracking-wider">ISP / Location</p>
+                <p id="user-loc" class="font-bold truncate">Detecting...</p>
             </div>
-            <div class="info-box p-4 rounded-xl glass text-[10px]">
-                <p class="text-cyan-500 font-bold mb-1 uppercase">Device / Battery</p>
-                <p id="user-bat" class="font-bold italic">Scanning...</p>
+            <div class="info-box p-3 md:p-4 rounded-xl glass text-[10px] md:text-[11px]">
+                <p class="text-cyan-500 font-bold mb-1 uppercase tracking-wider">Device / Battery</p>
+                <p id="user-bat" class="font-bold italic truncate">Scanning...</p>
             </div>
-            <div class="info-box p-4 rounded-xl glass text-[10px]">
-                <p class="text-cyan-500 font-bold mb-1 uppercase">Local Time</p>
+            <div class="info-box p-3 md:p-4 rounded-xl glass text-[10px] md:text-[11px]">
+                <p class="text-cyan-500 font-bold mb-1 uppercase tracking-wider">Local Time</p>
                 <p id="real-time" class="font-black text-cyan-400">00:00:00</p>
             </div>
         </div>
 
-        <div class="flex flex-col lg:flex-row items-center justify-center gap-16">
-            <div class="photo-frame">
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
+            <div class="photo-frame flex-shrink-0">
                 <canvas id="pixel-canvas"></canvas>
                 <img id="final-photo" src="https://i.ibb.co/BHn4zg5c/profile.jpg" crossorigin="anonymous">
             </div>
 
-            <div class="text-center lg:text-left space-y-6 max-w-xl">
-                <h2 class="text-cyan-500 font-bold tracking-[0.5em] text-xs uppercase">Confirmed Identity // 001</h2>
-                <h1 class="text-5xl md:text-6xl font-black font-['Orbitron'] leading-tight">KUSHAN A. <br><span class="text-cyan-400">WICKRAMASINGHE</span></h1>
-                <p class="text-gray-400 text-lg italic leading-relaxed border-l-2 border-white/10 pl-6">
+            <div class="text-center lg:text-left space-y-5 max-w-xl px-2">
+                <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] md:text-xs uppercase">Confirmed Identity // 001</h2>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black font-['Orbitron'] leading-tight tracking-wide">
+                    KUSHAN A. <br><span class="text-cyan-400">WICKRAMASINGHE</span>
+                </h1>
+                <p class="text-gray-400 text-sm md:text-base lg:text-lg italic leading-relaxed border-t-2 md:border-t-0 md:border-l-2 border-white/10 pt-4 md:pt-0 md:pl-6">
                     "I am an evolving creator who sits at the intersection of technology and art. Passionate about design and photography."
                 </p>
-                <div class="flex flex-wrap gap-3 justify-center lg:justify-start pt-4">
-                    <span class="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase">Writer</span>
-                    <span class="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase text-cyan-400">Photographer</span>
-                    <span class="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase">Post-Editor</span>
+                <div class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2">
+                    <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-wider">Writer</span>
+                    <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase text-cyan-400 tracking-wider">Photographer</span>
+                    <span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-wider">Post-Editor</span>
                 </div>
             </div>
         </div>
     </main>
+
+    <footer class="w-full mt-12 border-t border-white/5 glass py-8 px-6 text-center text-gray-500 text-xs">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="font-['Orbitron'] tracking-widest text-[10px]">
+                &copy; 2026 <span class="text-cyan-400 font-bold">ASH_X8</span> // ALL RIGHTS RESERVED
+            </div>
+            <div class="flex gap-6 text-base">
+                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-regular fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // 🛡️ SECURITY SYSTEM
@@ -135,10 +155,9 @@
         photo.onload = function() {
             canvas.width = 320;
             canvas.height = 320;
-            const skip = 5; // Pixel density
+            const skip = 5; 
             let particles = [];
 
-            // Draw to hidden canvas to get pixel data
             const hiddenCanvas = document.createElement('canvas');
             const hCtx = hiddenCanvas.getContext('2d');
             hiddenCanvas.width = 320;
@@ -162,7 +181,6 @@
                 }
             }
 
-            let frame = 0;
             function animate() {
                 ctx.clearRect(0, 0, 320, 320);
                 let finished = true;
@@ -182,7 +200,6 @@
                 if (!finished) {
                     requestAnimationFrame(animate);
                 } else {
-                    // ඇනිමේෂන් ඉවරයි - Original Photo එක පෙන්නන්න
                     ctx.clearRect(0, 0, 320, 320);
                     photo.style.display = 'block';
                     canvas.style.display = 'none';
@@ -213,6 +230,7 @@
         let dots = [];
         function initBg() {
             bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
+            dots = [];
             for(let i=0; i<60; i++) dots.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, dx:Math.random()*0.5-0.25, dy:Math.random()*0.5-0.25});
         }
         function drawBg() {
