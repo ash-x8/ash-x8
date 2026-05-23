@@ -35,6 +35,7 @@
             <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Photography (ගැලරිය)</button>
             <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Section Fonts</button>
             <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Engine</button>
+            <button onclick="switchTab('security')" id="tab-security" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 border border-red-500/20 text-red-400">🚨 Security Layer</button>
         </div>
 
         <div id="panel-profile" class="dashboard-panel space-y-6">
@@ -163,6 +164,43 @@
                 </div>
             </div>
         </div>
+
+        <div id="panel-security" class="dashboard-panel hidden space-y-6">
+            <div class="glass-card p-6 space-y-6 max-w-2xl mx-auto">
+                <div class="flex items-center gap-2 border-b border-red-500/20 pb-3">
+                    <i class="fa-solid fa-shield-halved text-red-500 text-lg"></i>
+                    <h3 class="text-sm font-black font-['Orbitron'] text-red-400">ANTI-COPY SYSTEM OVERRIDE</h3>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label>Lock Status</label>
+                        <select id="sec-enabled">
+                            <option value="true">Active (Right-Click Lock ON)</option>
+                            <option value="false">Inactive (Lock OFF)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Warning Siren Audio</label>
+                        <select id="sec-sound-enabled">
+                            <option value="true">Sound Activated ON</option>
+                            <option value="false">Muted OFF</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Dynamic Warning Alert Message</label>
+                    <textarea id="sec-message" rows="3" placeholder="Enter security text alert..."></textarea>
+                </div>
+
+                <div>
+                    <label>Siren Audio Link URL (.mp3)</label>
+                    <input type="text" id="sec-sound-url" placeholder="https://example.com/alert.mp3">
+                    <span class="text-[10px] text-gray-500 block mt-1">Default Sound: https://www.soundjay.com/buttons/sounds/button-10.mp3</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="module">
@@ -211,6 +249,15 @@
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
                 if(liveDatabaseState.customBgCode) document.getElementById('custom-bg-code').value = liveDatabaseState.customBgCode;
                 
+                // Load Security Parameters into Inputs
+                if(liveDatabaseState.securitySystem) {
+                    const sec = liveDatabaseState.securitySystem;
+                    document.getElementById('sec-enabled').value = sec.enabled !== false ? "true" : "false";
+                    document.getElementById('sec-sound-enabled').value = sec.soundEnabled !== false ? "true" : "false";
+                    document.getElementById('sec-message').value = sec.message || '';
+                    document.getElementById('sec-sound-url').value = sec.soundUrl || '';
+                }
+
                 if(liveDatabaseState.profile) {
                     const p = liveDatabaseState.profile;
                     document.getElementById('p-name').value = p.fullName || '';
@@ -267,6 +314,12 @@
                     selectedBgAnim: document.getElementById('selected-bg-anim').value,
                     customAnimationCode: document.getElementById('custom-animation-code').value,
                     customBgCode: document.getElementById('custom-bg-code').value,
+                    securitySystem: {
+                        enabled: document.getElementById('sec-enabled').value === "true",
+                        soundEnabled: document.getElementById('sec-sound-enabled').value === "true",
+                        message: document.getElementById('sec-message').value,
+                        soundUrl: document.getElementById('sec-sound-url').value
+                    },
                     profile: {
                         fullName: document.getElementById('p-name').value,
                         bio: document.getElementById('p-bio').value,
@@ -384,3 +437,4 @@
     </script>
 </body>
 </html>
+
