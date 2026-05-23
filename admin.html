@@ -2,88 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Master Admin Center | ASH_X8</title>
+    <title>Master Admin Control Console // ASH_X8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background: #050505; color: #00f3ff; font-family: monospace; }
         .card { background: #0a0a0f; border: 1px solid #1a1a1f; padding: 25px; border-radius: 20px; }
-        input, textarea { background: #000; border: 1px solid #222; color: #fff; padding: 12px; width: 100%; border-radius: 10px; margin-top: 6px; font-family: sans-serif; }
+        input, textarea { background: #000; border: 1px solid #222; color: #fff; padding: 12px; width: 100%; border-radius: 10px; margin-top: 6px; }
         input:focus, textarea:focus { border-color: #00f3ff; outline: none; }
-        label { font-size: 10px; color: #666; text-transform: uppercase; tracking-wider; font-weight: bold; }
+        label { font-size: 10px; color: #666; text-transform: uppercase; font-weight: bold; }
         .sync-btn { background: #00f3ff; color: #000; font-weight: 900; padding: 16px; border-radius: 12px; width: 100%; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; }
         .sync-btn:hover { box-shadow: 0 0 20px rgba(0, 243, 255, 0.4); }
     </style>
 </head>
 <body class="p-4 md:p-10">
     <div class="max-w-4xl mx-auto space-y-8">
-        <h1 class="text-2xl font-black border-l-4 border-cyan-500 pl-4 uppercase font-mono tracking-widest">Master Command Center</h1>
+        <h1 class="text-2xl font-black border-l-4 border-cyan-500 pl-4 uppercase tracking-widest">Master Cloud Matrix Command</h1>
 
         <div class="grid md:grid-cols-2 gap-6">
             <div class="card space-y-4">
-                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase tracking-wider">Identity Module</h3>
+                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase">Dossier Biometrics Config</h3>
                 <div>
                     <label>Full Name</label>
-                    <input type="text" id="name" placeholder="KUSHAN A. WICKRAMASINGHE">
+                    <input type="text" id="name">
                 </div>
                 <div>
-                    <label>Bio Phrase</label>
-                    <textarea id="bio" rows="3" placeholder="Evolving creator sitting at the intersection..."></textarea>
+                    <label>Short Core Bio</label>
+                    <textarea id="bio" rows="2"></textarea>
                 </div>
                 <div>
-                    <label>Categories (Comma separated)</label>
-                    <input type="text" id="category" placeholder="Photographer, Writer, Designer">
+                    <label>Detailed About Narrative</label>
+                    <textarea id="about" rows="3"></textarea>
+                </div>
+                <div>
+                    <label>Main Categories (Comma separated)</label>
+                    <input type="text" id="category">
                 </div>
             </div>
 
             <div class="card space-y-4">
-                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase tracking-wider">Cloud Image Injector</h3>
+                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase">Cloud Asset Injector</h3>
                 <div class="p-3 bg-cyan-500/5 border border-cyan-500/10 rounded-xl">
-                    <label class="text-cyan-400">Add to Photography Pool</label>
+                    <label class="text-cyan-400">Upload to Photography Deck</label>
                     <input type="file" id="photo-file" class="mt-2 text-xs">
                 </div>
                 <div class="p-3 bg-purple-500/5 border border-purple-500/10 rounded-xl">
-                    <label class="text-purple-400">Add to Projects Pool</label>
+                    <label class="text-purple-400">Upload to Project Grid</label>
                     <input type="file" id="project-file" class="mt-2 text-xs">
                 </div>
-                <p class="text-[10px] text-gray-500">Note: Uploading a file will automatically inject it into the slider array array on execution.</p>
+                
+                <div class="p-3 bg-green-500/5 border border-green-500/10 rounded-xl space-y-2">
+                    <label class="text-green-400">Inject New Quote / Writing Module</label>
+                    <textarea id="quote-text" rows="2" placeholder="Write quote/thought text here..."></textarea>
+                </div>
             </div>
         </div>
 
         <div class="card space-y-4">
-            <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase tracking-wider">Secure Social Channels Matrix</h3>
+            <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase">Global Social Channels</h3>
             <div class="grid sm:grid-cols-2 gap-4">
-                <div>
-                    <label>WhatsApp Link</label>
-                    <input type="text" id="wa" placeholder="https://wa.me/...">
-                </div>
-                <div>
-                    <label>Facebook Link</label>
-                    <input type="text" id="fb" placeholder="https://facebook.com/...">
-                </div>
-                <div>
-                    <label>Instagram Link</label>
-                    <input type="text" id="ig" placeholder="https://instagram.com/...">
-                </div>
-                <div>
-                    <label>Telegram Link</label>
-                    <input type="text" id="tg" placeholder="https://t.me/...">
-                </div>
-                <div>
-                    <label>TikTok Link</label>
-                    <input type="text" id="tt" placeholder="https://tiktok.com/@...">
-                </div>
-                <div>
-                    <label>YouTube Link</label>
-                    <input type="text" id="yt" placeholder="https://youtube.com/...">
-                </div>
-                <div class="sm:col-span-2">
-                    <label>LinkedIn Link</label>
-                    <input type="text" id="li" placeholder="https://linkedin.com/in/...">
-                </div>
+                <div><label>WhatsApp</label><input type="text" id="wa"></div>
+                <div><label>Facebook</label><input type="text" id="fb"></div>
+                <div><label>Instagram</label><input type="text" id="ig"></div>
+                <div><label>Telegram</label><input type="text" id="tg"></div>
+                <div><label>TikTok</label><input type="text" id="tt"></div>
+                <div><label>YouTube</label><input type="text" id="yt"></div>
+                <div class="sm:col-span-2"><label>LinkedIn</label><input type="text" id="li"></div>
             </div>
         </div>
 
-        <button id="sync-btn" class="sync-btn">Execute Master Cloud Sync</button>
+        <button id="sync-btn" class="sync-btn">Execute Matrix System Sync</button>
     </div>
 
     <script type="module">
@@ -104,15 +91,15 @@
         const db = getFirestore(app);
         const imgbbKey = "7ca79a5403801d6ee629b06938c0b2c3";
 
-        // LOAD CURRENT CONFIG ON OPEN
         window.onload = async () => {
-            const docSnap = await getDoc(doc(db, "portfolio", "liveData"));
-            if(docSnap.exists()){
-                const d = docSnap.data();
+            const snap = await getDoc(doc(db, "portfolio", "liveData"));
+            if(snap.exists()){
+                const d = snap.data();
                 if(d.profile){
-                    if(d.profile.fullName) document.getElementById('name').value = d.profile.fullName;
-                    if(d.profile.bio) document.getElementById('bio').value = d.profile.bio;
-                    if(d.profile.category) document.getElementById('category').value = d.profile.category;
+                    document.getElementById('name').value = d.profile.fullName || "";
+                    document.getElementById('bio').value = d.profile.bio || "";
+                    document.getElementById('about').value = d.profile.aboutMe || "";
+                    document.getElementById('category').value = d.profile.category || "";
                 }
                 if(d.socials){
                     document.getElementById('wa').value = d.socials.whatsapp || "";
@@ -126,41 +113,40 @@
             }
         };
 
-        // CORE SYNC EXECUTION
         document.getElementById('sync-btn').onclick = async () => {
             const btn = document.getElementById('sync-btn');
-            btn.innerText = "INITIALIZING BREACH UPLOAD...";
+            btn.innerText = "UPLOADING AND PROCESSING ASSETS...";
             btn.disabled = true;
 
-            // Get existing arrays from database first so we don't overwrite them
-            const docSnap = await getDoc(doc(db, "portfolio", "liveData"));
+            const snap = await getDoc(doc(db, "portfolio", "liveData"));
             let photographyImages = [];
             let projectImages = [];
-            if(docSnap.exists()) {
-                const existing = docSnap.data();
-                photographyImages = existing.photographyImages || [];
-                projectImages = existing.projectImages || [];
+            let quotes = [];
+            if(snap.exists()) {
+                const ex = snap.data();
+                photographyImages = ex.photographyImages || [];
+                projectImages = ex.projectImages || [];
+                quotes = ex.quotes || [];
             }
 
-            // Upload Photography if selected
-            const photoFile = document.getElementById('photo-file').files[0];
-            if(photoFile) {
-                const url = await uploadToImgBB(photoFile);
-                if(url) photographyImages.push(url);
+            // Image Uploads Modules
+            const pFile = document.getElementById('photo-file').files[0];
+            if(pFile) { const url = await uploadToImgBB(pFile); if(url) photographyImages.push(url); }
+
+            const projFile = document.getElementById('project-file').files[0];
+            if(projFile) { const url = await uploadToImgBB(projFile); if(url) projectImages.push(url); }
+
+            // Handle New Quote Injection
+            const qText = document.getElementById('quote-text').value.trim();
+            if(qText) {
+                quotes.push({ text: qText, likes: 0, comments: [] });
             }
 
-            // Upload Project image if selected
-            const projectFile = document.getElementById('project-file').files[0];
-            if(projectFile) {
-                const url = await uploadToImgBB(projectFile);
-                if(url) projectImages.push(url);
-            }
-
-            // Write to Firestore Core Document
             await setDoc(doc(db, "portfolio", "liveData"), {
                 profile: {
                     fullName: document.getElementById('name').value,
                     bio: document.getElementById('bio').value,
+                    aboutMe: document.getElementById('about').value,
                     category: document.getElementById('category').value
                 },
                 socials: {
@@ -173,28 +159,24 @@
                     linkedin: document.getElementById('li').value
                 },
                 photographyImages: photographyImages,
-                projectImages: projectImages
+                projectImages: projectImages,
+                quotes: quotes
             }, { merge: true });
 
-            btn.innerText = "MASTER SYNC SUCCESSFUL!";
-            setTimeout(() => { btn.innerText = "Execute Master Cloud Sync"; btn.disabled = false; }, 2000);
+            btn.innerText = "MATRIX CONTROL SYNCED!";
+            setTimeout(() => { btn.innerText = "Execute Matrix System Sync"; btn.disabled = false; }, 2000);
             
-            // Clear file inputs
             document.getElementById('photo-file').value = "";
             document.getElementById('project-file').value = "";
+            document.getElementById('quote-text').value = "";
         };
 
         async function uploadToImgBB(file) {
-            const fd = new FormData();
-            fd.append("image", file);
+            const fd = new FormData(); fd.append("image", file);
             try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, { method: "POST", body: fd });
-                const json = await res.json();
-                return json.data.url;
-            } catch (err) {
-                console.error("Cloud upload error", err);
-                return null;
-            }
+                const r = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, { method: "POST", body: fd });
+                const j = await r.json(); return j.data.url;
+            } catch { return null; }
         }
     </script>
 </body>
