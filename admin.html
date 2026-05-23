@@ -34,19 +34,23 @@
             <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Quotes (නිසදැස්)</button>
             <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Photography (ගැලරිය)</button>
             <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Section Fonts</button>
-            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Overrides</button>
+            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Engine</button>
         </div>
 
         <div id="panel-profile" class="dashboard-panel space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 space-y-4">
                     <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// IDENTITY BRANDING SETUP</h3>
-                    <div><label>Header Mini Logo Image URL</label><input type="text" id="p-logo"></div>
+                    <div><label>Header Mini Logo Image URL Link</label><input type="text" id="p-logo"></div>
+                    <div>
+                        <label>Upload Mini Logo From Gallery</label>
+                        <input type="file" id="p-logo-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400">
+                    </div>
                     <div><label>Full Name Matrix</label><input type="text" id="p-name"></div>
                     <div><label>Status Bio Row</label><textarea id="p-bio" rows="2"></textarea></div>
                     <div><label>Avatar Photo Core Link</label><input type="text" id="p-avatar"></div>
                     <div>
-                        <label>Choose Avatar From Mobile Gallery (No Camera Auto Open)</label>
+                        <label>Choose Avatar From Mobile Gallery</label>
                         <input type="file" id="p-avatar-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400">
                     </div>
                 </div>
@@ -69,14 +73,14 @@
 
         <div id="panel-quotes" class="dashboard-panel hidden space-y-6">
             <div class="glass-card p-6 space-y-4">
-                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// DEPLOY / EDIT THOUGHT SEGMENT (නිසදැස space ආරක්ෂිතයි)</h3>
+                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// DEPLOY / EDIT THOUGHT SEGMENT</h3>
                 <input type="hidden" id="quote-edit-index" value="-1">
                 <div>
                     <label>Quote Content / නිසදැස (Enter, Space එලෙසම සුරැකේ)</label>
                     <textarea id="quote-text" rows="5" placeholder="මෙතන නිසදැස ලියන්න..."></textarea>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="saveQuote()" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Save Thought Module</button>
+                    <button id="save-quote-btn" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Save Thought Module</button>
                     <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
                 </div>
             </div>
@@ -94,11 +98,11 @@
                 </div>
                 <div><label>Brief Photo Context</label><textarea id="photo-desc" rows="2"></textarea></div>
                 <div>
-                    <label>Upload From Media Gallery Grid (No Forced Camera)</label>
+                    <label>Upload From Media Gallery Grid</label>
                     <input type="file" id="photo-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-purple-500/10 file:text-purple-400">
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="savePhoto()" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg">Commit Grid Element</button>
+                    <button id="commit-photo-btn" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg">Commit Grid Element</button>
                     <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
                 </div>
             </div>
@@ -107,7 +111,7 @@
 
         <div id="panel-fonts" class="dashboard-panel hidden space-y-6">
             <div class="glass-card p-6 space-y-4">
-                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400">// OVERRIDE TARGET FONT STRUCTURES (25+ MATRIX)</h3>
+                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400">// OVERRIDE TARGET FONT STRUCTURES</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div><label>Home Screen Engine Font</label><select id="font-home" class="font-dropdown"></select></div>
                     <div><label>Projects Layer Font</label><select id="font-projects" class="font-dropdown"></select></div>
@@ -121,7 +125,7 @@
         <div id="panel-animation" class="dashboard-panel hidden space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-green-400">// HOME AVATAR SYSTEM ANIMATION AUTOMATION (8 SUPER BUILT-IN SELECTIONS)</h3>
+                    <h3 class="text-xs font-black font-['Orbitron'] text-green-400">// HOME AVATAR SYSTEM ANIMATION AUTOMATION</h3>
                     <div>
                         <label>Select Active Avatar Cyber Animation</label>
                         <select id="selected-avatar-anim">
@@ -137,13 +141,33 @@
                             <option value="anim-rgb-split">Effect 9: RGB Chromatic Aberration Split Edge</option>
                         </select>
                     </div>
+                    <div>
+                        <label>Custom Global CSS Animation Style Raw Code Box</label>
+                        <textarea id="custom-animation-code" rows="5" class="font-mono text-xs text-green-400" placeholder="Paste custom global animation CSS styles block code here..."></textarea>
+                    </div>
                 </div>
 
                 <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-red-400">// CORE ANIMATION STYLE RAW CODE INJECTION</h3>
+                    <h3 class="text-xs font-black font-['Orbitron'] text-red-400">// PREMIUM BACKGROUND ANIMATION ENGINE</h3>
                     <div>
-                        <label>Custom Global CSS Animation Style Raw Code Box</label>
-                        <textarea id="custom-animation-code" rows="8" class="font-mono text-xs text-green-400" placeholder="Paste custom global animation CSS styles block code here..."></textarea>
+                        <label>Select Master Website Active Background Dynamic</label>
+                        <select id="selected-bg-anim">
+                            <option value="none">Default Light Dots Particle System</option>
+                            <option value="bg-matrix-rain">Premium 1: Dark Matrix Digital Gradient Flow</option>
+                            <option value="bg-cyber-grid">Premium 2: Moving Cyber Grid Matrix Horizon</option>
+                            <option value="bg-neon-matrix">Premium 3: Deep Space Pulse Neon Glow Vignette</option>
+                            <option value="bg-scanline">Premium 4: Vintage Cathode Terminal Scanline Grid</option>
+                            <option value="bg-starfield">Premium 5: Sci-Fi Starfield Warp Speed Ambient</option>
+                            <option value="bg-aurora">Premium 6: Aurora Nexus Cosmic Cloud Shifting</option>
+                            <option value="bg-quantum">Premium 7: Quantum Mechanics Particle Field Matrix</option>
+                            <option value="bg-synthwave">Premium 8: 80s Retro Synthwave Deep Sunset Linear</option>
+                            <option value="bg-vortex">Premium 9: Cyber Vortex Void Distortion Center</option>
+                            <option value="bg-dna">Premium 10: Helix Cyber Dark Nebula Ambient</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Custom Background Script / CSS Style Injection</label>
+                        <textarea id="custom-bg-code" rows="5" class="font-mono text-xs text-red-400" placeholder="Paste custom global background script or style code block here..."></textarea>
                     </div>
                 </div>
             </div>
@@ -192,7 +216,9 @@
                 liveDatabaseState = docSnap.data();
                 if(liveDatabaseState.headerLogo) document.getElementById('p-logo').value = liveDatabaseState.headerLogo;
                 if(liveDatabaseState.selectedAvatarAnim) document.getElementById('selected-avatar-anim').value = liveDatabaseState.selectedAvatarAnim;
+                if(liveDatabaseState.selectedBgAnim) document.getElementById('selected-bg-anim').value = liveDatabaseState.selectedBgAnim;
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
+                if(liveDatabaseState.customBgCode) document.getElementById('custom-bg-code').value = liveDatabaseState.customBgCode;
                 
                 if(liveDatabaseState.profile) {
                     const p = liveDatabaseState.profile;
@@ -225,9 +251,9 @@
             }
         });
 
-        async function handleImgbbUpload(fileInputId, inputFieldId) {
-            const file = document.getElementById(fileInputId).files[0];
-            if(!file) return document.getElementById(inputFieldId).value;
+        async function uploadFileToImgBB(fileElementId) {
+            const file = document.getElementById(fileElementId).files[0];
+            if(!file) return null;
             const fd = new FormData(); fd.append("image", file);
             const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
             const d = await r.json(); return d.data.url;
@@ -236,11 +262,20 @@
         document.getElementById('master-sync-btn').onclick = async () => {
             const btn = document.getElementById('master-sync-btn'); btn.innerText = "UP-LINK RUNNING...";
             try {
-                const avatarUrl = await handleImgbbUpload('p-avatar-file', 'p-avatar');
+                let logoUrl = document.getElementById('p-logo').value;
+                const freshLogo = await uploadFileToImgBB('p-logo-file');
+                if(freshLogo) { logoUrl = freshLogo; document.getElementById('p-logo').value = logoUrl; }
+
+                let avatarUrl = document.getElementById('p-avatar').value;
+                const freshAvatar = await uploadFileToImgBB('p-avatar-file');
+                if(freshAvatar) { avatarUrl = freshAvatar; document.getElementById('p-avatar').value = avatarUrl; }
+
                 await setDoc(doc(db, "portfolio", "liveData"), {
-                    headerLogo: document.getElementById('p-logo').value,
+                    headerLogo: logoUrl,
                     selectedAvatarAnim: document.getElementById('selected-avatar-anim').value,
+                    selectedBgAnim: document.getElementById('selected-bg-anim').value,
                     customAnimationCode: document.getElementById('custom-animation-code').value,
+                    customBgCode: document.getElementById('custom-bg-code').value,
                     profile: {
                         fullName: document.getElementById('p-name').value,
                         bio: document.getElementById('p-bio').value,
@@ -266,11 +301,11 @@
                     }
                 }, { merge: true });
                 btn.innerText = "OVERRIDE SYNC COMPLETE!";
-            } catch { btn.innerText = "ROUTING REJECTED ERROR"; }
+            } catch(err) { btn.innerText = "ROUTING REJECTED ERROR"; console.error(err); }
             setTimeout(() => btn.innerText = "Sync Master Mainframe", 2000);
         };
 
-        window.saveQuote = async () => {
+        document.getElementById('save-quote-btn').onclick = async () => {
             const index = parseInt(document.getElementById('quote-edit-index').value);
             const text = document.getElementById('quote-text').value;
             if(!text) return;
@@ -300,18 +335,32 @@
 
         window.clearQuoteForm = () => { document.getElementById('quote-edit-index').value = "-1"; document.getElementById('quote-text').value = ""; };
 
-        window.savePhoto = async () => {
-            const index = parseInt(document.getElementById('photo-edit-index').value);
-            const title = document.getElementById('photo-title').value;
-            const desc = document.getElementById('photo-desc').value;
-            const date = document.getElementById('photo-date').value;
-            let url = await handleImgbbUpload('photo-file', 'photo-url');
-            if(!url) return;
-            let pool = liveDatabaseState.photographyPool || [];
-            const photoItem = { title, desc, date, url };
-            if(index === -1) pool.push(photoItem); else pool[index] = photoItem;
-            await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
-            clearPhotoForm();
+        // PHOTOGRAPHY STORAGE CORE EXECUTIONS (FIXED)
+        document.getElementById('commit-photo-btn').onclick = async () => {
+            const btn = document.getElementById('commit-photo-btn');
+            btn.innerText = "COMMITTING DATA...";
+            try {
+                const index = parseInt(document.getElementById('photo-edit-index').value);
+                const title = document.getElementById('photo-title').value;
+                const desc = document.getElementById('photo-desc').value;
+                const date = document.getElementById('photo-date').value;
+                
+                let url = document.getElementById('photo-url').value;
+                const uploadedUrl = await uploadFileToImgBB('photo-file');
+                if(uploadedUrl) url = uploadedUrl;
+
+                if(!url) { alert("Please provide a photo URL or choose a file."); btn.innerText = "Commit Grid Element"; return; }
+
+                let pool = liveDatabaseState.photographyPool || [];
+                const photoItem = { title, desc, date, url };
+                
+                if(index === -1) pool.push(photoItem); else pool[index] = photoItem;
+                
+                await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
+                clearPhotoForm();
+                btn.innerText = "COMMIT SUCCESS!";
+            } catch(e) { console.error(e); btn.innerText = "COMMIT ERROR"; }
+            setTimeout(() => btn.innerText = "Commit Grid Element", 2000);
         };
 
         window.editPhoto = (i) => {
