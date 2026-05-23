@@ -9,40 +9,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&family=Noto+Sans+Sinhala:wght@400;700&family=Noto+Serif+Sinhala:wght@400;700&family=Gemunu+Libre:wght@400;700&family=Abhaya+Libre:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Space+Grotesk:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <style id="custom-dynamic-fonts"></style>
     <style id="custom-animation-styles"></style>
+    <style id="custom-bg-styles"></style>
     <style>
         :root { --neon: #00f3ff; --bg: #030303; }
         body { background: var(--bg); color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; user-select: none; }
-        canvas#bg-canvas { position: fixed; inset: 0; z-index: -1; }
+        canvas#bg-canvas { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
+        #bg-animation-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .info-box { border-left: 3px solid var(--neon); background: rgba(0, 243, 255, 0.03); }
         .quote-pre { white-space: pre-wrap; font-family: inherit; }
 
-        /* 🎬 MASTER AVATAR AUTOMATIC BUILT-IN ANIMATION MATRIX (8 EFFECTS) */
+        /* 🎬 MASTER AVATAR BUILT-IN ANIMATION MATRIX (9 EFFECTS) */
         .anim-pixel-glitch { animation: pixelGlitch 1.5s infinite steps(2); }
         @keyframes pixelGlitch { 0%, 100% { clip-path: inset(0 0 0 0); } 20% { clip-path: inset(10% 0 80% 0); transform: skew(-5deg); } 40% { clip-path: inset(60% 0 5% 0); transform: skew(5deg); } 60% { clip-path: inset(30% 0 40% 0); } 80% { clip-path: inset(80% 0 10% 0); } }
-        
         .anim-hologram-pulse { animation: holoPulse 2s infinite ease-in-out; filter: hue-rotate(90deg) brightness(1.2); }
         @keyframes holoPulse { 0%, 100% { opacity: 0.8; transform: scale(1); filter: drop-shadow(0 0 5px #00f3ff); } 50% { opacity: 1; transform: scale(1.03); filter: drop-shadow(0 0 25px #00f3ff); } }
-        
-        .anim-neon-rotate { position: relative; border: 4px solid transparent; border-image: linear-gradient(to right, #00f3ff, #purple) 1; animation: borderRot 4s linear infinite; }
+        .anim-neon-rotate { position: relative; border: 4px solid transparent; border-image: linear-gradient(to right, #00f3ff, purple) 1; animation: borderRot 4s linear infinite; }
         @keyframes borderRot { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-        
         .anim-matrix-rain { animation: matRain 0.8s infinite alternate; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4); }
         @keyframes matRain { 0% { opacity: 0.9; } 100% { opacity: 1; transform: translateY(2px); } }
-        
         .anim-cyber-scan { position: relative; }
-        .anim-cyber-scan::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, #00f3ff, transparent); animation: cyScan 2.5s linear infinite; height: 20%; w-full; }
+        .anim-cyber-scan::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, #00f3ff, transparent); animation: cyScan 2.5s linear infinite; height: 20%; width: 100%; }
         @keyframes cyScan { 0% { top: -20%; } 100% { top: 120%; } }
-
         .anim-cyber-horizon { animation: cyHor 6s infinite ease-in-out; }
         @keyframes cyHor { 0%, 100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(3deg) scale(1.05); } }
-
         .anim-glitch-shiver { animation: cyShiver 0.2s infinite alternate; }
         @keyframes cyShiver { 0% { transform: translate(1px, 1px) rotate(0deg); } 100% { transform: translate(-1px, -1px) rotate(0.5deg); } }
-
         .anim-audio-wave { animation: audWave 1.8s infinite ease-in-out; border-radius: 50% 40% 60% 50% / 40% 50% 50% 60%; }
         @keyframes audWave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-
         .anim-rgb-split { animation: rgbSpl 1.2s infinite; box-shadow: 4px 0 0 rgba(255,0,0,0.4), -4px 0 0 rgba(0,0,255,0.4); }
         @keyframes rgbSpl { 0%, 100% { transform: skew(0deg); } 50% { transform: skew(3deg); } }
 
@@ -57,11 +51,25 @@
         .app-section { display: none; }
         .app-section.active-section { display: block; animation: sectionIn 0.5s ease-out forwards; }
         @keyframes sectionIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* PREMIUM BACKGROUND ENGINES (10 STYLES) */
+        .bg-matrix-rain { background: linear-gradient(180deg, rgba(0,243,255,0.02) 0%, rgba(0,0,0,0) 100%); }
+        .bg-cyber-grid { background-image: linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px); background-size: 30px 30px; animation: gridMove 20s linear infinite; }
+        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 0 60px; } }
+        .bg-neon-matrix { background: radial-gradient(circle at 50% 50%, rgba(15, 10, 30, 0.6), #030303); }
+        .bg-scanline::after { content: " "; display: block; position: fixed; inset: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 243, 255, 0.08) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); z-index: 999; background-size: 100% 4px, 6px 100%; pointer-events: none; }
+        .bg-starfield { background: #020205; overflow: hidden; }
+        .bg-aurora { background: radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.06) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(147, 51, 234, 0.06) 0%, transparent 40%); }
+        .bg-quantum { background-image: radial-gradient(rgba(0, 243, 255, 0.15) 1px, transparent 0); background-size: 24px 24px; }
+        .bg-synthwave { background: linear-gradient(to bottom, #050014 0%, #190032 50%, #030303 100%); }
+        .bg-vortex { background: radial-gradient(ellipse at center, rgba(0,243,255,0.03) 0%, rgba(0,0,0,0.9) 80%); }
+        .bg-dna { background: linear-gradient(45deg, #020202, #0d0518); }
     </style>
 </head>
 <body>
 
     <canvas id="bg-canvas"></canvas>
+    <div id="bg-animation-container"></div>
     <div id="custom-injected-bg-space"></div>
 
     <header id="main-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-[5000] glass rounded-[1.5rem] px-4 md:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0">
@@ -215,7 +223,7 @@
             if (docSnap.exists()) {
                 globalData = docSnap.data();
                 
-                // Set Header Logo & Hire Me
+                // Header Mini Logo Link Sync
                 if(globalData.headerLogo) document.getElementById('header-logo-img').src = globalData.headerLogo;
                 if(globalData.socials && globalData.socials.whatsapp) {
                     document.getElementById('hire-me-wa-btn').href = "https://wa.me/" + globalData.socials.whatsapp.replace(/[^0-9]/g, "");
@@ -257,15 +265,23 @@
                     `;
                 }
 
-                // Handle Built-in Avatar Animations & Custom CSS Code Injection
+                // Handle Avatar Animations
                 const avatarImg = document.getElementById('home-avatar-display');
-                avatarImg.className = "w-full h-full object-cover"; // reset
+                avatarImg.className = "w-full h-full object-cover"; 
                 if(globalData.selectedAvatarAnim && globalData.selectedAvatarAnim !== "none") {
                     avatarImg.classList.add(globalData.selectedAvatarAnim);
                 }
                 
-                // Inject custom animation styling code block
+                // Handle Background Animation Engine Selection
+                const bgAnimContainer = document.getElementById('bg-animation-container');
+                bgAnimContainer.className = ""; // clear old class
+                if(globalData.selectedBgAnim && globalData.selectedBgAnim !== "none") {
+                    bgAnimContainer.classList.add(globalData.selectedBgAnim);
+                }
+
+                // Inject Custom Styling Codes
                 document.getElementById('custom-animation-styles').innerHTML = globalData.customAnimationCode || '';
+                document.getElementById('custom-bg-styles').innerHTML = globalData.customBgCode || '';
 
                 renderProjects(globalData.projectImages || []);
                 renderPhotography(globalData.photographyPool || []);
@@ -284,7 +300,6 @@
                     if(s.linkedin) document.getElementById('about-highlight-linkedin').href = s.linkedin;
                 }
 
-                // Assemble Random Story Block Pool
                 assembleStoryPool();
             }
         });
@@ -342,10 +357,7 @@
                 globalData.photographyPool.forEach(p => storyPool.push({ url: p.url, type: "Photography Click", title: p.title || "Captured Dynamic Moment" }));
             }
             if(storyPool.length === 0) return;
-            
-            // Randomly shuffle array
             storyPool.sort(() => Math.random() - 0.5);
-            
             if(storyTimer) clearInterval(storyTimer);
             playNextStory();
             storyTimer = setInterval(playNextStory, 4000);
@@ -354,6 +366,7 @@
         function playNextStory() {
             if(!storyPool.length) return;
             const imgEl = document.getElementById('story-player-img');
+            if(!imgEl) return;
             imgEl.style.opacity = '0';
             setTimeout(() => {
                 const current = storyPool[currentStoryIndex];
@@ -362,7 +375,7 @@
                 document.getElementById('story-player-title').innerText = current.title;
                 imgEl.style.opacity = '1';
                 currentStoryIndex = (currentStoryIndex + 1) % storyPool.length;
-            }, 3000);
+            }, 300);
         }
 
         window.processLike = async (index) => {
@@ -426,4 +439,3 @@
     </script>
 </body>
 </html>
-
