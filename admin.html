@@ -249,7 +249,7 @@
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
                 if(liveDatabaseState.customBgCode) document.getElementById('custom-bg-code').value = liveDatabaseState.customBgCode;
                 
-                // Load Security Parameters into Inputs
+                // Security Panel Live Sync Load
                 if(liveDatabaseState.securitySystem) {
                     const sec = liveDatabaseState.securitySystem;
                     document.getElementById('sec-enabled').value = sec.enabled !== false ? "true" : "false";
@@ -437,4 +437,3 @@
     </script>
 </body>
 </html>
-
