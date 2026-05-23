@@ -2,73 +2,151 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Master Admin Control Console // ASH_X8</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Command Dashboard | ASH_X8</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&family=Noto+Sans+Sinhala:wght@400;700&family=Noto+Serif+Sinhala:wght@400;700&family=Gemunu+Libre:wght@400;700&family=Abhaya+Libre:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Space+Grotesk:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #050505; color: #00f3ff; font-family: monospace; }
-        .card { background: #0a0a0f; border: 1px solid #1a1a1f; padding: 25px; border-radius: 20px; }
-        input, textarea { background: #000; border: 1px solid #222; color: #fff; padding: 12px; width: 100%; border-radius: 10px; margin-top: 6px; font-family: sans-serif; }
-        input:focus, textarea:focus { border-color: #00f3ff; outline: none; }
-        label { font-size: 10px; color: #666; text-transform: uppercase; font-weight: bold; tracking-wider; }
-        .sync-btn { background: #00f3ff; color: #000; font-weight: 900; padding: 16px; border-radius: 12px; width: 100%; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; }
-        .sync-btn:hover { box-shadow: 0 0 20px rgba(0, 243, 255, 0.4); }
+        body { background: #030303; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; }
+        .glass-card { background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; transition: all 0.3s ease; }
+        .glass-card:hover { border-color: rgba(0, 243, 255, 0.2); box-shadow: 0 0 30px rgba(0, 243, 255, 0.02); }
+        input, textarea, select { background: #0a0a0f !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; color: #fff !important; padding: 12px; width: 100%; border-radius: 0.75rem; transition: all 0.2s; }
+        input:focus, textarea:focus, select:focus { border-color: #00f3ff !important; outline: none; box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); }
+        label { font-size: 11px; color: #00f3ff; text-transform: uppercase; tracking-width: 0.1em; font-weight: 700; display: block; margin-bottom: 6px; }
+        .tab-btn.active { background: #00f3ff; color: #000; font-weight: 900; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
     </style>
 </head>
-<body class="p-4 md:p-10">
-    <div class="max-w-4xl mx-auto space-y-8">
-        <h1 class="text-2xl font-black border-l-4 border-cyan-500 pl-4 uppercase tracking-widest">Master Cloud Matrix Command</h1>
+<body class="p-4 md:p-8 bg-gradient-to-br from-[#030303] to-[#0a0a15] min-h-screen">
 
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="card space-y-4">
-                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase">Dossier Biometrics Config</h3>
-                <div><label>Full Name</label><input type="text" id="name"></div>
-                <div><label>Short Core Bio</label><textarea id="bio" rows="2"></textarea></div>
-                <div><label>Detailed About Narrative</label><textarea id="about" rows="3"></textarea></div>
-                <div><label>Main Categories (Comma separated)</label><input type="text" id="category"></div>
+    <div class="max-w-6xl mx-auto space-y-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-white/5 pb-6">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-black font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 uppercase tracking-wider">
+                    ⚡ MASTER MAIN COMMAND CENTER
+                </h1>
+                <p class="text-xs text-gray-500 mt-1 uppercase font-bold">// REAL-TIME PORTFOLIO ENGINE WORKSPACE</p>
             </div>
+            <button id="master-sync-btn" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+                Sync System Engine
+            </button>
+        </div>
 
-            <div class="card space-y-4">
-                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase">Cloud Asset Injector</h3>
-                
-                <div class="p-3 bg-cyan-500/5 border border-cyan-500/10 rounded-xl space-y-3">
-                    <label class="text-cyan-400 block border-b border-cyan-500/10 pb-1">Upload Photography & Metadata</label>
-                    <input type="file" id="photo-file" class="text-xs">
-                    <input type="text" id="photo-title" placeholder="Image Title (Optional)" class="text-xs !p-2">
-                    <input type="text" id="photo-desc" placeholder="Short Description (Optional)" class="text-xs !p-2">
-                    <input type="text" id="photo-date" placeholder="Capture Date / Era (Optional)" class="text-xs !p-2">
-                </div>
+        <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
+            <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Identity</button>
+            <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Quotes (නිසදැස්)</button>
+            <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Photography</button>
+            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">Section Fonts</button>
+            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase transition-all duration-200 text-gray-400 hover:text-white bg-white/5">BG Animation Injection</button>
+        </div>
 
-                <div class="p-3 bg-purple-500/5 border border-purple-500/10 rounded-xl">
-                    <label class="text-purple-400">Upload to Project Grid Image</label>
-                    <input type="file" id="project-file" class="mt-2 text-xs">
+        <div id="panel-profile" class="dashboard-panel space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 space-y-4">
+                    <h3 class="text-sm font-black font-['Orbitron'] text-cyan-400 border-l-2 border-cyan-400 pl-2">// HOME CORE</h3>
+                    <div><label>Full Identity Name</label><input type="text" id="p-name"></div>
+                    <div><label>Profile Mini Bio</label><textarea id="p-bio" rows="2"></textarea></div>
+                    <div><label>Avatar Photo (Direct Link or Upload below)</label><input type="text" id="p-avatar"></div>
+                    <div>
+                        <label>Capture / Select Avatar (Opens Gallery Directly)</label>
+                        <input type="file" id="p-avatar-file" accept="image/*" capture="environment" class="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20">
+                    </div>
+                    <div><label>Core Categories (Comma separated)</label><input type="text" id="p-cat" placeholder="Developer, Photographer, Writer"></div>
                 </div>
                 
-                <div class="p-3 bg-green-500/5 border border-green-500/10 rounded-xl space-y-2">
-                    <label class="text-green-400">Inject Infinite Quote Text Module</label>
-                    <textarea id="quote-text" rows="2" placeholder="Write any quote or thought block..."></textarea>
+                <div class="glass-card p-6 space-y-4">
+                    <h3 class="text-sm font-black font-['Orbitron'] text-purple-400 border-l-2 border-purple-400 pl-2">// ABOUT NARRATIVE MODULE</h3>
+                    <div><label>Detailed About Me Section</label><textarea id="p-about" rows="5"></textarea></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label>WhatsApp Link</label><input type="text" id="s-wa"></div>
+                        <div><label>Facebook Link</label><input type="text" id="s-fb"></div>
+                        <div><label>Instagram Link</label><input type="text" id="s-ig"></div>
+                        <div><label>Telegram Link</label><input type="text" id="s-tg"></div>
+                        <div><label>TikTok Link</label><input type="text" id="s-tt"></div>
+                        <div><label>YouTube Link</label><input type="text" id="s-yt"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="card space-y-4">
-            <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase">Global Social Channels</h3>
-            <div class="grid sm:grid-cols-2 gap-4">
-                <div><label>WhatsApp</label><input type="text" id="wa"></div>
-                <div><label>Facebook</label><input type="text" id="fb"></div>
-                <div><label>Instagram</label><input type="text" id="ig"></div>
-                <div><label>Telegram</label><input type="text" id="tg"></div>
-                <div><label>TikTok</label><input type="text" id="tt"></div>
-                <div><label>YouTube</label><input type="text" id="yt"></div>
-                <div class="sm:col-span-2"><label>LinkedIn</label><input type="text" id="li"></div>
+        <div id="panel-quotes" class="dashboard-panel hidden space-y-6">
+            <div class="glass-card p-6 space-y-4">
+                <h3 class="text-sm font-black font-['Orbitron'] text-cyan-400">// WRITE & DEPLOY NEW THOUGHT MODULE (නිසදැස)</h3>
+                <input type="hidden" id="quote-edit-index" value="-1">
+                <div>
+                    <label>Quote Content / නිසදැස ලියන්න</label>
+                    <textarea id="quote-text" rows="3" placeholder="මෙතන නිසදැස ලියන්න..."></textarea>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="saveQuote()" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Submit Thought Module</button>
+                    <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white font-bold text-xs uppercase rounded-lg">Cancel</button>
+                </div>
+            </div>
+
+            <div class="glass-card p-6">
+                <h3 class="text-sm font-black font-['Orbitron'] text-gray-400 mb-4">// LIVE ARCHIVED QUOTES MAIN PANEL</h3>
+                <div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div>
             </div>
         </div>
 
-        <button id="sync-btn" class="sync-btn">Execute Matrix System Sync</button>
+        <div id="panel-photography" class="dashboard-panel hidden space-y-6">
+            <div class="glass-card p-6 space-y-4">
+                <h3 class="text-sm font-black font-['Orbitron'] text-purple-400">// CAPTURE & INJECT PHOTOGRAPHY FRAME</h3>
+                <input type="hidden" id="photo-edit-index" value="-1">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label>Photo Frame Title</label><input type="text" id="photo-title" placeholder="e.g., Cinematic Darkness"></div>
+                    <div><label>Date / Timestamp</label><input type="text" id="photo-date" placeholder="2026-05"></div>
+                </div>
+                <div><label>Photo Description</label><textarea id="photo-desc" rows="2" placeholder="Brief technical or emotional description..."></textarea></div>
+                <div><label>Photo Image Link (or upload below)</label><input type="text" id="photo-url"></div>
+                <div>
+                    <label>Capture / Choose Image (Opens Mobile Gallery/Camera Directly)</label>
+                    <input type="file" id="photo-file" accept="image/*" capture="environment" class="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-purple-500/10 file:text-purple-400 hover:file:bg-purple-500/20">
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="savePhoto()" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg">Submit Photo Frame</button>
+                    <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white font-bold text-xs uppercase rounded-lg">Cancel</button>
+                </div>
+            </div>
+
+            <div class="glass-card p-6">
+                <h3 class="text-sm font-black font-['Orbitron'] text-gray-400 mb-4">// LIVE GALLERY ARCHIVES</h3>
+                <div id="admin-photography-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+        </div>
+
+        <div id="panel-fonts" class="dashboard-panel hidden space-y-6">
+            <div class="glass-card p-6 space-y-6">
+                <h3 class="text-sm font-black font-['Orbitron'] text-yellow-400 border-l-2 border-yellow-400 pl-2">// SECTIONAL FONT MATRIX SETTINGS</h3>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div><label>Home Section Font</label><select id="font-home" class="font-dropdown"></select></div>
+                    <div><label>Projects Section Font</label><select id="font-projects" class="font-dropdown"></select></div>
+                    <div><label>Photography Section Font</label><select id="font-photography" class="font-dropdown"></select></div>
+                    <div><label>Writing Section Font</label><select id="font-writing" class="font-dropdown"></select></div>
+                    <div><label>About Section Font</label><select id="font-about" class="font-dropdown"></select></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="panel-animation" class="dashboard-panel hidden space-y-6">
+            <div class="glass-card p-6 space-y-4">
+                <h3 class="text-sm font-black font-['Orbitron'] text-red-400 border-l-2 border-red-400 pl-2">// LIVE BACKGROUND CUSTOM CODE INJECTION ENGINE</h3>
+                <p class="text-xs text-gray-500 leading-relaxed font-sans">
+                    ඔයා කැමතිම Background Animation කේතයක් (HTML Canvas, CSS, inline Script හෝ iframe) මෙතනට Paste කරන්න. එය සෘජුවම ඔයාගේ ප්‍රධාන පෝර්ට්ෆෝලියෝ වෙබ් අඩවියේ පසුබිමෙන් Active වේවි!
+                </p>
+                <div>
+                    <label>Animation Script / CSS Injection Code Block</label>
+                    <textarea id="custom-animation-code" rows="12" class="font-mono text-xs text-green-400" placeholder="Paste your HTML/JS/CSS animation code block here..."></textarea>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCnXtXpynpkN5SOi-l8zSuaeuLFUByQVhQ",
@@ -82,115 +160,269 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const imgbbKey = "7ca79a5403801d6ee629b06938c0b2c3";
+        let liveDatabaseState = {};
 
-        window.onload = async () => {
-            const snap = await getDoc(doc(db, "portfolio", "liveData"));
-            if(snap.exists()){
-                const d = snap.data();
-                if(d.profile){
-                    document.getElementById('name').value = d.profile.fullName || "";
-                    document.getElementById('bio').value = d.profile.bio || "";
-                    document.getElementById('about').value = d.profile.aboutMe || "";
-                    document.getElementById('category').value = d.profile.category || "";
+        // 🔤 25 ENGLSIH & 25 SINHALA FONTS MANAGEMENT LIBRARY
+        const fontsLibrary = [
+            // English Fonts Matrix
+            { name: "Orbitron", val: "'Orbitron', sans-serif" },
+            { name: "JetBrains Mono", val: "'JetBrains Mono', monospace" },
+            { name: "Plus Jakarta Sans", val: "'Plus Jakarta Sans', sans-serif" },
+            { name: "Inter", val: "'Inter', sans-serif" },
+            { name: "Montserrat", val: "'Montserrat', sans-serif" },
+            { name: "Poppins", val: "'Poppins', sans-serif" },
+            { name: "Space Grotesk", val: "'Space Grotesk', sans-serif" },
+            { name: "Fira Code", val: "'Fira Code', monospace" },
+            { name: "Cabinet Grotesk", val: "'Cabinet Grotesk', sans-serif" },
+            { name: "Clash Display", val: "'Clash Display', sans-serif" },
+            { name: "Satoshi", val: "'Satoshi', sans-serif" },
+            { name: "Mona Sans", val: "'Mona Sans', sans-serif" },
+            { name: "Bebas Neue", val: "'Bebas Neue', sans-serif" },
+            { name: "Syne", val: "'Syne', sans-serif" },
+            { name: "Unbounded", val: "'Unbounded', sans-serif" },
+            { name: "Righteous", val: "'Righteous', sans-serif" },
+            { name: "Playfair Display", val: "'Playfair Display', serif" },
+            { name: "Cinzel", val: "'Cinzel', serif" },
+            { name: "Abhaya Libre", val: "'Abhaya Libre', serif" },
+            { name: "Amethysta", val: "'Amethysta', serif" },
+            { name: "Poiret One", val: "'Poiret One', cursive" },
+            { name: "Press Start 2P", val: "'Press Start 2P', cursive" },
+            { name: "Syncopate", val: "'Syncopate', sans-serif" },
+            { name: "Comfortaa", val: "'Comfortaa', sans-serif" },
+            { name: "Roboto Mono", val: "'Roboto Mono', monospace" },
+            
+            // Sinhala Fonts Matrix
+            { name: "Noto Sans Sinhala", val: "'Noto Sans Sinhala', sans-serif" },
+            { name: "Noto Serif Sinhala", val: "'Noto Serif Sinhala', serif" },
+            { name: "Gemunu Libre", val: "'Gemunu Libre', sans-serif" },
+            { name: "Yatra One (Sinhala Style)", val: "'Yatra One', cursive" },
+            { name: "Alkatra", val: "'Alkatra', cursive" }
+        ];
+
+        // Populate Font Drops
+        document.querySelectorAll('.font-dropdown').forEach(dropdown => {
+            fontsLibrary.forEach(f => {
+                dropdown.innerHTML += `<option value="${f.val}">${f.name}</option>`;
+            });
+        });
+
+        // LOAD ENGINE STATE REAL-TIME FROM FIREBASE
+        onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
+            if (docSnap.exists()) {
+                liveDatabaseState = docSnap.data();
+                
+                // Parsing System Fields
+                if(liveDatabaseState.profile) {
+                    const p = liveDatabaseState.profile;
+                    document.getElementById('p-name').value = p.fullName || '';
+                    document.getElementById('p-bio').value = p.bio || '';
+                    document.getElementById('p-avatar').value = p.avatar || '';
+                    document.getElementById('p-cat').value = p.category || '';
+                    document.getElementById('p-about').value = p.aboutMe || '';
                 }
-                if(d.socials){
-                    document.getElementById('wa').value = d.socials.whatsapp || "";
-                    document.getElementById('fb').value = d.socials.facebook || "";
-                    document.getElementById('ig').value = d.socials.instagram || "";
-                    document.getElementById('tg').value = d.socials.telegram || "";
-                    document.getElementById('tt').value = d.socials.tiktok || "";
-                    document.getElementById('yt').value = d.socials.youtube || "";
-                    document.getElementById('li').value = d.socials.linkedin || "";
+
+                if(liveDatabaseState.socials) {
+                    const s = liveDatabaseState.socials;
+                    document.getElementById('s-wa').value = s.whatsapp || '';
+                    document.getElementById('s-fb').value = s.facebook || '';
+                    document.getElementById('s-ig').value = s.instagram || '';
+                    document.getElementById('s-tg').value = s.telegram || '';
+                    document.getElementById('s-tt').value = s.tiktok || '';
+                    document.getElementById('s-yt').value = s.youtube || '';
                 }
+
+                if(liveDatabaseState.sectionalFonts) {
+                    const f = liveDatabaseState.sectionalFonts;
+                    if(f.home) document.getElementById('font-home').value = f.home;
+                    if(f.projects) document.getElementById('font-projects').value = f.projects;
+                    if(f.photography) document.getElementById('font-photography').value = f.photography;
+                    if(f.writing) document.getElementById('font-writing').value = f.writing;
+                    if(f.about) document.getElementById('font-about').value = f.about;
+                }
+
+                if(liveDatabaseState.customAnimationCode) {
+                    document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
+                }
+
+                renderQuotesList(liveDatabaseState.quotes || []);
+                renderPhotographyList(liveDatabaseState.photographyPool || []);
             }
+        });
+
+        // IMAGE HANDLER LOGIC INTERACTION (IMGBB CLOUD DEPLOY)
+        async function handleImageUpload(fileInputId, inputFieldId) {
+            const file = document.getElementById(fileInputId).files[0];
+            if(!file) return document.getElementById(inputFieldId).value;
+            
+            const fd = new FormData(); fd.append("image", file);
+            const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
+            const d = await r.json(); 
+            return d.data.url;
+        }
+
+        // MASTER EXECUTOR SYNC DEPLOYMENT
+        document.getElementById('master-sync-btn').onclick = async () => {
+            const btn = document.getElementById('master-sync-btn');
+            btn.innerText = "UPLOADING PARAMETERS...";
+
+            try {
+                const avatarUrl = await handleImageUpload('p-avatar-file', 'p-avatar');
+                
+                await setDoc(doc(db, "portfolio", "liveData"), {
+                    profile: {
+                        fullName: document.getElementById('p-name').value,
+                        bio: document.getElementById('p-bio').value,
+                        aboutMe: document.getElementById('p-about').value,
+                        avatar: avatarUrl,
+                        category: document.getElementById('p-cat').value
+                    },
+                    socials: {
+                        whatsapp: document.getElementById('s-wa').value,
+                        facebook: document.getElementById('s-fb').value,
+                        instagram: document.getElementById('s-ig').value,
+                        telegram: document.getElementById('s-tg').value,
+                        tiktok: document.getElementById('s-tt').value,
+                        youtube: document.getElementById('s-yt').value
+                    },
+                    sectionalFonts: {
+                        home: document.getElementById('font-home').value,
+                        projects: document.getElementById('font-projects').value,
+                        photography: document.getElementById('font-photography').value,
+                        writing: document.getElementById('font-writing').value,
+                        about: document.getElementById('font-about').value
+                    },
+                    customAnimationCode: document.getElementById('custom-animation-code').value
+                }, { merge: true });
+
+                btn.innerText = "CORE SYNC SUCCESSFUL!";
+            } catch(e) {
+                btn.innerText = "SYNC FAILED ROOM ERROR";
+            }
+            setTimeout(() => btn.innerText = "Sync System Engine", 2000);
         };
 
-        document.getElementById('sync-btn').onclick = async () => {
-            const btn = document.getElementById('sync-btn');
-            btn.innerText = "UPLOADING AND MERGING DATA CORE...";
-            btn.disabled = true;
+        // --- REALTIME QUOTE MANAGEMENT ---
+        window.saveQuote = async () => {
+            const index = parseInt(document.getElementById('quote-edit-index').value);
+            const text = document.getElementById('quote-text').value.trim();
+            if(!text) return alert("Please type your thought content!");
 
-            const snap = await getDoc(doc(db, "portfolio", "liveData"));
-            let photographyPool = [];
-            let projectImages = [];
-            let quotes = [];
-            
-            if(snap.exists()) {
-                const ex = snap.data();
-                photographyPool = ex.photographyPool || [];
-                projectImages = ex.projectImages || [];
-                quotes = ex.quotes || [];
-                
-                // Compatibility layer fallback
-                if(photographyPool.length === 0 && ex.photographyImages) {
-                    photographyPool = ex.photographyImages.map(url => ({ url: url, title: "", desc: "", date: "" }));
-                }
+            let currentQuotes = liveDatabaseState.quotes || [];
+            if(index === -1) {
+                currentQuotes.push({ text: text, likes: 0, comments: [] });
+            } else {
+                currentQuotes[index].text = text;
             }
 
-            // Image uploads processing
-            const pFile = document.getElementById('photo-file').files[0];
-            if(pFile) { 
-                const url = await uploadToImgBB(pFile); 
-                if(url) {
-                    photographyPool.push({
-                        url: url,
-                        title: document.getElementById('photo-title').value.trim(),
-                        desc: document.getElementById('photo-desc').value.trim(),
-                        date: document.getElementById('photo-date').value.trim()
-                    });
-                } 
-            }
+            await setDoc(doc(db, "portfolio", "liveData"), { quotes: currentQuotes }, { merge: true });
+            clearQuoteForm();
+        };
 
-            const projFile = document.getElementById('project-file').files[0];
-            if(projFile) { const url = await uploadToImgBB(projFile); if(url) projectImages.push(url); }
+        window.editQuote = (index) => {
+            document.getElementById('quote-edit-index').value = index;
+            document.getElementById('quote-text').value = liveDatabaseState.quotes[index].text;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
 
-            // Infinite Quote push block
-            const qText = document.getElementById('quote-text').value.trim();
-            if(qText) {
-                quotes.push({ text: qText, likes: 0, comments: [] });
-            }
+        window.deleteQuote = async (index) => {
+            if(!confirm("Are you sure you want to remove this thought item?")) return;
+            let currentQuotes = liveDatabaseState.quotes || [];
+            currentQuotes.splice(index, 1);
+            await setDoc(doc(db, "portfolio", "liveData"), { quotes: currentQuotes }, { merge: true });
+        };
 
-            // Push synced architecture to Firestore doc
-            await setDoc(doc(db, "portfolio", "liveData"), {
-                profile: {
-                    fullName: document.getElementById('name').value,
-                    bio: document.getElementById('bio').value,
-                    aboutMe: document.getElementById('about').value,
-                    category: document.getElementById('category').value
-                },
-                socials: {
-                    whatsapp: document.getElementById('wa').value,
-                    facebook: document.getElementById('fb').value,
-                    instagram: document.getElementById('ig').value,
-                    telegram: document.getElementById('tg').value,
-                    tiktok: document.getElementById('tt').value,
-                    youtube: document.getElementById('yt').value,
-                    linkedin: document.getElementById('li').value
-                },
-                projectImages: projectImages,
-                photographyPool: photographyPool,
-                quotes: quotes
-            }, { merge: true });
+        function renderQuotesList(arr) {
+            const container = document.getElementById('admin-quotes-list'); container.innerHTML = '';
+            arr.forEach((q, i) => {
+                container.innerHTML += `
+                    <div class="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-between gap-4">
+                        <p class="text-xs text-gray-300 italic font-sans">"${q.text}"</p>
+                        <div class="flex gap-2 justify-end border-t border-white/5 pt-2">
+                            <button onclick="editQuote(${i})" class="text-[10px] text-cyan-400 font-bold bg-cyan-400/10 px-3 py-1 rounded"><i class="fa-solid fa-pen"></i> Edit</button>
+                            <button onclick="deleteQuote(${i})" class="text-[10px] text-red-400 font-bold bg-red-400/10 px-3 py-1 rounded"><i class="fa-solid fa-trash"></i> Delete</button>
+                        </div>
+                    </div>`;
+            });
+        }
 
-            btn.innerText = "MATRIX CONTROL SYNCED!";
-            setTimeout(() => { btn.innerText = "Execute Matrix System Sync"; btn.disabled = false; }, 2000);
-            
-            // Clean interface assets inputs
-            document.getElementById('photo-file').value = "";
-            document.getElementById('photo-title').value = "";
-            document.getElementById('photo-desc').value = "";
-            document.getElementById('photo-date').value = "";
-            document.getElementById('project-file').value = "";
+        window.clearQuoteForm = () => {
+            document.getElementById('quote-edit-index').value = "-1";
             document.getElementById('quote-text').value = "";
         };
 
-        async function uploadToImgBB(file) {
-            const fd = new FormData(); fd.append("image", file);
-            try {
-                const r = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, { method: "POST", body: fd });
-                const j = await r.json(); return j.data.url;
-            } catch { return null; }
+        // --- REALTIME PHOTOGRAPHY GALLERY MANAGEMENT ---
+        window.savePhoto = async () => {
+            const index = parseInt(document.getElementById('photo-edit-index').value);
+            const title = document.getElementById('photo-title').value.trim();
+            const desc = document.getElementById('photo-desc').value.trim();
+            const date = document.getElementById('photo-date').value.trim();
+            let url = await handleImageUpload('photo-file', 'photo-url');
+
+            if(!url) return alert("Please specify link or upload an asset frame!");
+
+            let pool = liveDatabaseState.photographyPool || [];
+            const photoItem = { title, desc, date, url };
+
+            if(index === -1) {
+                pool.push(photoItem);
+            } else {
+                pool[index] = photoItem;
+            }
+
+            await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
+            clearPhotoForm();
+        };
+
+        window.editPhoto = (index) => {
+            const item = liveDatabaseState.photographyPool[index];
+            document.getElementById('photo-edit-index').value = index;
+            document.getElementById('photo-title').value = item.title || '';
+            document.getElementById('photo-desc').value = item.desc || '';
+            document.getElementById('photo-date').value = item.date || '';
+            document.getElementById('photo-url').value = item.url || '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.deletePhoto = async (index) => {
+            if(!confirm("Are you sure you want to completely erase this frame?")) return;
+            let pool = liveDatabaseState.photographyPool || [];
+            pool.splice(index, 1);
+            await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
+        };
+
+        function renderPhotographyList(arr) {
+            const container = document.getElementById('admin-photography-list'); container.innerHTML = '';
+            arr.forEach((p, i) => {
+                container.innerHTML += `
+                    <div class="bg-black/40 border border-white/5 rounded-xl overflow-hidden flex flex-col justify-between">
+                        <img src="${p.url}" class="w-full h-32 object-cover">
+                        <div class="p-3 space-y-2">
+                            <h4 class="text-xs font-bold truncate text-gray-200">${p.title || '// Untitled Frame'}</h4>
+                            <div class="flex gap-2 justify-end pt-1 border-t border-white/5">
+                                <button onclick="editPhoto(${i})" class="text-[10px] text-purple-400 font-bold bg-purple-400/10 px-2.5 py-1 rounded"><i class="fa-solid fa-pen"></i> Edit</button>
+                                <button onclick="deletePhoto(${i})" class="text-[10px] text-red-400 font-bold bg-red-400/10 px-2.5 py-1 rounded"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        window.clearPhotoForm = () => {
+            document.getElementById('photo-edit-index').value = "-1";
+            document.getElementById('photo-title').value = "";
+            document.getElementById('photo-desc').value = "";
+            document.getElementById('photo-date').value = "";
+            document.getElementById('photo-url').value = "";
+            document.getElementById('photo-file').value = "";
+        };
+    </script>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
         }
     </script>
 </body>
