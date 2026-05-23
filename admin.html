@@ -21,7 +21,7 @@
     <div class="max-w-6xl mx-auto space-y-8">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-white/5 pb-6">
             <div>
-                <h1 class="text-2xl font-black font-['Orbitron'] text-cyan-400 tracking-wider">⚡ CORESYNC SECURITY CONSOLE // OPERATOR DIRECT</h1>
+                <h1>⚡ CORESYNC SECURITY CONSOLE // OPERATOR DIRECT</h1>
                 <p class="text-xs text-gray-500">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
             </div>
             <button id="master-sync-btn" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_20px_rgba(0,243,255,0.2)]">
@@ -57,8 +57,8 @@
                 <div class="glass-card p-6 space-y-4">
                     <h3 class="text-xs font-black font-['Orbitron'] text-purple-400">// SOCIAL OVERLINK GATEWAYS</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <div><label>LinkedIn Link (Highlighted Badge)</label><input type="text" id="s-li"></div>
-                        <div><label>WhatsApp Secure Target</label><input type="text" id="s-wa"></div>
+                        <div><label>LinkedIn Link</label><input type="text" id="s-li"></div>
+                        <div><label>WhatsApp Target</label><input type="text" id="s-wa"></div>
                         <div><label>Facebook Interface</label><input type="text" id="s-fb"></div>
                         <div><label>Instagram Node</label><input type="text" id="s-ig"></div>
                         <div><label>Telegram Direct</label><input type="text" id="s-tg"></div>
@@ -75,16 +75,13 @@
             <div class="glass-card p-6 space-y-4">
                 <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// DEPLOY / EDIT THOUGHT SEGMENT</h3>
                 <input type="hidden" id="quote-edit-index" value="-1">
-                <div>
-                    <label>Quote Content / නිසදැස (Enter, Space එලෙසම සුරැකේ)</label>
-                    <textarea id="quote-text" rows="5" placeholder="මෙතන නිසදැස ලියන්න..."></textarea>
-                </div>
+                <div><label>Quote Content</label><textarea id="quote-text" rows="5"></textarea></div>
                 <div class="flex gap-2">
-                    <button id="save-quote-btn" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Save Thought Module</button>
+                    <button id="save-quote-btn" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Save Thought</button>
                     <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
                 </div>
             </div>
-            <div class="glass-card p-6"><h3 class="text-xs font-black font-['Orbitron'] text-gray-500 mb-4">// DEPLOYED QUOTE MODULES REPOSITORY</h3><div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div></div>
+            <div class="glass-card p-6"><div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div></div>
         </div>
 
         <div id="panel-photography" class="dashboard-panel hidden space-y-6">
@@ -106,7 +103,7 @@
                     <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
                 </div>
             </div>
-            <div class="glass-card p-6"><h3 class="text-xs font-black font-['Orbitron'] text-gray-500 mb-4">// CLOUD PRODUCTION IMAGE STREAM</h3><div id="admin-photography-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div></div>
+            <div class="glass-card p-6"><div id="admin-photography-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div></div>
         </div>
 
         <div id="panel-fonts" class="dashboard-panel hidden space-y-6">
@@ -125,7 +122,7 @@
         <div id="panel-animation" class="dashboard-panel hidden space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-green-400">// HOME AVATAR SYSTEM ANIMATION AUTOMATION</h3>
+                    <h3 class="text-xs font-black font-['Orbitron'] text-green-400">// HOME AVATAR SYSTEM ANIMATION</h3>
                     <div>
                         <label>Select Active Avatar Cyber Animation</label>
                         <select id="selected-avatar-anim">
@@ -141,10 +138,7 @@
                             <option value="anim-rgb-split">Effect 9: RGB Chromatic Aberration Split Edge</option>
                         </select>
                     </div>
-                    <div>
-                        <label>Custom Global CSS Animation Style Raw Code Box</label>
-                        <textarea id="custom-animation-code" rows="5" class="font-mono text-xs text-green-400" placeholder="Paste custom global animation CSS styles block code here..."></textarea>
-                    </div>
+                    <div><label>Custom Global CSS Code Box</label><textarea id="custom-animation-code" rows="5"></textarea></div>
                 </div>
 
                 <div class="glass-card p-6 space-y-4">
@@ -165,10 +159,7 @@
                             <option value="bg-dna">Premium 10: Helix Cyber Dark Nebula Ambient</option>
                         </select>
                     </div>
-                    <div>
-                        <label>Custom Background Script / CSS Style Injection</label>
-                        <textarea id="custom-bg-code" rows="5" class="font-mono text-xs text-red-400" placeholder="Paste custom global background script or style code block here..."></textarea>
-                    </div>
+                    <div><label>Custom Background Script / CSS Style Injection</label><textarea id="custom-bg-code" rows="5"></textarea></div>
                 </div>
             </div>
         </div>
@@ -329,33 +320,26 @@
         function renderQuotesList(arr) {
             const container = document.getElementById('admin-quotes-list'); container.innerHTML = '';
             arr.forEach((q, i) => {
-                container.innerHTML += `<div class="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-between"><p class="text-xs whitespace-pre-wrap">"${q.text}"</p><div class="flex gap-2 justify-end mt-4 border-t border-white/5 pt-2"><button onclick="editQuote(${i})" class="text-[10px] text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded">Edit</button><button onclick="deleteQuote(${i})" class="text-[10px] text-red-400 bg-red-400/10 px-3 py-1 rounded">Delete</button></div></div>`;
+                container.innerHTML += `<div class="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-between"><p class="text-xs whitespace-pre-wrap">"${q.text}"</p><div class="flex gap-2 justify-end mt-4 pt-2"><button onclick="editQuote(${i})" class="text-[10px] text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded">Edit</button><button onclick="deleteQuote(${i})" class="text-[10px] text-red-400 bg-red-400/10 px-3 py-1 rounded">Delete</button></div></div>`;
             });
         }
 
         window.clearQuoteForm = () => { document.getElementById('quote-edit-index').value = "-1"; document.getElementById('quote-text').value = ""; };
 
-        // PHOTOGRAPHY STORAGE CORE EXECUTIONS (FIXED)
         document.getElementById('commit-photo-btn').onclick = async () => {
-            const btn = document.getElementById('commit-photo-btn');
-            btn.innerText = "COMMITTING DATA...";
+            const btn = document.getElementById('commit-photo-btn'); btn.innerText = "COMMITTING DATA...";
             try {
                 const index = parseInt(document.getElementById('photo-edit-index').value);
                 const title = document.getElementById('photo-title').value;
                 const desc = document.getElementById('photo-desc').value;
                 const date = document.getElementById('photo-date').value;
-                
                 let url = document.getElementById('photo-url').value;
                 const uploadedUrl = await uploadFileToImgBB('photo-file');
                 if(uploadedUrl) url = uploadedUrl;
-
-                if(!url) { alert("Please provide a photo URL or choose a file."); btn.innerText = "Commit Grid Element"; return; }
-
+                if(!url) { btn.innerText = "Commit Grid Element"; return; }
                 let pool = liveDatabaseState.photographyPool || [];
                 const photoItem = { title, desc, date, url };
-                
                 if(index === -1) pool.push(photoItem); else pool[index] = photoItem;
-                
                 await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
                 clearPhotoForm();
                 btn.innerText = "COMMIT SUCCESS!";
@@ -400,4 +384,3 @@
     </script>
 </body>
 </html>
-
