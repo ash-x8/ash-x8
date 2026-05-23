@@ -11,7 +11,7 @@
     <style id="custom-animation-styles"></style>
     <style id="custom-bg-styles"></style>
     <style>
-        :root { --neon: #00f3ff; --bg: #030303; }
+        :root { --neon: #00f3ff; --bg: #030303; --cyber-neon: #66fcf1; }
         body { background: var(--bg); color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; user-select: none; }
         canvas#bg-canvas { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
         #bg-animation-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
@@ -19,7 +19,24 @@
         .info-box { border-left: 3px solid var(--neon); background: rgba(0, 243, 255, 0.03); }
         .quote-pre { white-space: pre-wrap; font-family: inherit; }
 
-        /* 🎬 MASTER AVATAR BUILT-IN ANIMATION MATRIX (9 EFFECTS) */
+        /* 📸 ORIGINAL CAMERA LENS ENGINE FOR ABOUT SECTION PROFILE PHOTO */
+        .lens-container { position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; }
+        .focus-ring { position: absolute; inset: -15px; border: 2px dashed rgba(102, 252, 241, 0.3); border-radius: 50%; animation: rotateCounter 16s linear infinite; }
+        @keyframes rotateCounter { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+        
+        .shutter-blades-wrapper { position: absolute; inset: -8px; border-radius: 50%; overflow: hidden; filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.2)); animation: rotateClockwise 20s linear infinite; pointer-events: none; }
+        @keyframes rotateClockwise { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .aperture-blade { position: absolute; width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 70px solid rgba(102, 252, 241, 0.08); border-top: 2px solid var(--cyber-neon); transform-origin: 50% 100%; animation: autoFocus 6s ease-in-out infinite; }
+        @keyframes autoFocus { 0%, 100% { transform: rotate(inherit) translateY(-35px) scale(1); } 50% { transform: rotate(inherit) translateY(-24px) scale(0.85); } }
+        .blade-1 { transform: rotate(0deg) translateY(-35px); } 
+        .blade-2 { transform: rotate(60deg) translateY(-35px); } 
+        .blade-3 { transform: rotate(120deg) translateY(-35px); } 
+        .blade-4 { transform: rotate(180deg) translateY(-35px); } 
+        .blade-5 { transform: rotate(240deg) translateY(-35px); } 
+        .blade-6 { transform: rotate(300deg) translateY(-35px); }
+
+        /* 🎬 MASTER AVATAR HOME PANEL EFFECTS (9 KEYFRAMES) */
         .anim-pixel-glitch { animation: pixelGlitch 1.5s infinite steps(2); }
         @keyframes pixelGlitch { 0%, 100% { clip-path: inset(0 0 0 0); } 20% { clip-path: inset(10% 0 80% 0); transform: skew(-5deg); } 40% { clip-path: inset(60% 0 5% 0); transform: skew(5deg); } 60% { clip-path: inset(30% 0 40% 0); } 80% { clip-path: inset(80% 0 10% 0); } }
         .anim-hologram-pulse { animation: holoPulse 2s infinite ease-in-out; filter: hue-rotate(90deg) brightness(1.2); }
@@ -159,10 +176,26 @@
 
                 <div class="glass p-6 md:p-10 rounded-[2.5rem] border border-cyan-500/10 shadow-[0_0_50px_rgba(0,243,255,0.02)] relative overflow-hidden group">
                     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/[0.02] to-transparent w-full h-[200%] -translate-y-full animate-[scan_6s_linear_infinite] pointer-events-none"></div>
-                    <div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
-                        <div class="relative w-32 h-32 rounded-2xl border-2 border-cyan-400/40 overflow-hidden bg-black">
-                            <img id="about-avatar" class="w-full h-full object-cover grayscale" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
+                    
+                    <div class="flex flex-col md:flex-row gap-12 items-center relative z-10">
+                        
+                        <div class="flex-shrink-0 my-4 md:my-0 md:ml-4">
+                            <div class="lens-container">
+                                <div class="focus-ring"></div>
+                                <div class="shutter-blades-wrapper">
+                                    <div class="aperture-blade blade-1"></div>
+                                    <div class="aperture-blade blade-2"></div>
+                                    <div class="aperture-blade blade-3"></div>
+                                    <div class="aperture-blade blade-4"></div>
+                                    <div class="aperture-blade blade-5"></div>
+                                    <div class="aperture-blade blade-6"></div>
+                                </div>
+                                <div class="w-28 h-28 rounded-full border border-cyan-400/30 overflow-hidden bg-black relative z-10 shadow-[0_0_20px_rgba(0,243,255,0.4)]">
+                                    <img id="about-avatar" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
+                                </div>
+                            </div>
                         </div>
+
                         <div class="text-center md:text-left space-y-2 flex-grow">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/5 border border-cyan-500/20 text-[9px] font-black uppercase text-cyan-400 tracking-widest">Status: Mainframe Director Authorized</div>
                             <h3 id="about-name" class="text-3xl font-black font-['Orbitron'] tracking-wide text-white">KUSHAN A. WICKRAMASINGHE</h3>
@@ -171,6 +204,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="grid md:grid-cols-3 gap-6 border-t border-white/5 mt-8 pt-8 relative z-10 font-mono">
                         <div class="md:col-span-2 space-y-3 border-r border-white/5 pr-0 md:pr-6">
                             <div class="flex items-center gap-2 text-gray-500 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-terminal text-cyan-500"></i> Core Operational Objective</div>
@@ -223,13 +257,11 @@
             if (docSnap.exists()) {
                 globalData = docSnap.data();
                 
-                // Header Mini Logo Link Sync
                 if(globalData.headerLogo) document.getElementById('header-logo-img').src = globalData.headerLogo;
                 if(globalData.socials && globalData.socials.whatsapp) {
                     document.getElementById('hire-me-wa-btn').href = "https://wa.me/" + globalData.socials.whatsapp.replace(/[^0-9]/g, "");
                 }
 
-                // Profile Parsing
                 if(globalData.profile) {
                     const p = globalData.profile;
                     if(p.fullName) {
@@ -253,7 +285,6 @@
                     }
                 }
 
-                // Handle Section Fonts
                 if(globalData.sectionalFonts) {
                     const f = globalData.sectionalFonts;
                     document.getElementById('custom-dynamic-fonts').innerHTML = `
@@ -265,21 +296,18 @@
                     `;
                 }
 
-                // Handle Avatar Animations
                 const avatarImg = document.getElementById('home-avatar-display');
                 avatarImg.className = "w-full h-full object-cover"; 
                 if(globalData.selectedAvatarAnim && globalData.selectedAvatarAnim !== "none") {
                     avatarImg.classList.add(globalData.selectedAvatarAnim);
                 }
                 
-                // Handle Background Animation Engine Selection
                 const bgAnimContainer = document.getElementById('bg-animation-container');
-                bgAnimContainer.className = ""; // clear old class
+                bgAnimContainer.className = "";
                 if(globalData.selectedBgAnim && globalData.selectedBgAnim !== "none") {
                     bgAnimContainer.classList.add(globalData.selectedBgAnim);
                 }
 
-                // Inject Custom Styling Codes
                 document.getElementById('custom-animation-styles').innerHTML = globalData.customAnimationCode || '';
                 document.getElementById('custom-bg-styles').innerHTML = globalData.customBgCode || '';
 
@@ -287,7 +315,6 @@
                 renderPhotography(globalData.photographyPool || []);
                 renderWritingQuotes(globalData.quotes || []);
 
-                // Map Social Dock
                 if(globalData.socials) {
                     const s = globalData.socials;
                     toggleSocial('link-whatsapp', s.whatsapp);
