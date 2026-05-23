@@ -2,49 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard | ASH_X8</title>
+    <title>Master Admin Center | ASH_X8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background: #050505; color: #00f3ff; font-family: monospace; }
         .card { background: #0a0a0f; border: 1px solid #1a1a1f; padding: 25px; border-radius: 20px; }
-        input, textarea, select { background: #000; border: 1px solid #222; color: #fff; padding: 12px; width: 100%; border-radius: 10px; margin-top: 8px; }
-        label { font-size: 10px; color: #666; text-transform: uppercase; }
-        .sync-btn { background: #00f3ff; color: #000; font-weight: 900; padding: 20px; border-radius: 12px; width: 100%; cursor: pointer; transition: 0.3s; }
+        input, textarea { background: #000; border: 1px solid #222; color: #fff; padding: 12px; width: 100%; border-radius: 10px; margin-top: 6px; font-family: sans-serif; }
+        input:focus, textarea:focus { border-color: #00f3ff; outline: none; }
+        label { font-size: 10px; color: #666; text-transform: uppercase; tracking-wider; font-weight: bold; }
+        .sync-btn { background: #00f3ff; color: #000; font-weight: 900; padding: 16px; border-radius: 12px; width: 100%; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; }
+        .sync-btn:hover { box-shadow: 0 0 20px rgba(0, 243, 255, 0.4); }
     </style>
 </head>
-<body class="p-10">
+<body class="p-4 md:p-10">
     <div class="max-w-4xl mx-auto space-y-8">
-        <h1 class="text-2xl font-black border-l-4 border-cyan-500 pl-4 uppercase">Master Command Center</h1>
+        <h1 class="text-2xl font-black border-l-4 border-cyan-500 pl-4 uppercase font-mono tracking-widest">Master Command Center</h1>
 
         <div class="grid md:grid-cols-2 gap-6">
             <div class="card space-y-4">
-                <h2 class="text-white font-bold">IDENTITY</h2>
-                <div><label>FULL NAME</label><input type="text" id="name" value="ASH_X8"></div>
-                <div><label>SHORT BIO (HERO)</label><textarea id="bio" rows="4"></textarea></div>
-                <div><label>ABOUT ME (DETAILED)</label><textarea id="about" rows="4"></textarea></div>
-                <div><label>AVATAR (FILE)</label><input type="file" id="img-file"></div>
+                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase tracking-wider">Identity Module</h3>
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="KUSHAN A. WICKRAMASINGHE">
+                </div>
+                <div>
+                    <label>Bio Phrase</label>
+                    <textarea id="bio" rows="3" placeholder="Evolving creator sitting at the intersection..."></textarea>
+                </div>
+                <div>
+                    <label>Categories (Comma separated)</label>
+                    <input type="text" id="category" placeholder="Photographer, Writer, Designer">
+                </div>
             </div>
 
             <div class="card space-y-4">
-                <h2 class="text-white font-bold">SOCIALS & LINKS</h2>
-                <div><label>WHATSAPP (e.g. 94752269410)</label><input type="text" id="wa"></div>
-                <div><label>FACEBOOK URL</label><input type="text" id="fb"></div>
-                <div><label>LOADER TEXT</label><input type="text" id="loader-txt" value="SYSTEM BREACH..."></div>
-                <div><label>FONT STYLE</label>
-                    <select id="font">
-                        <option value="'Orbitron'">Orbitron</option>
-                        <option value="'Noto Sans Sinhala'">Noto Sans Sinhala</option>
-                    </select>
+                <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase tracking-wider">Cloud Image Injector</h3>
+                <div class="p-3 bg-cyan-500/5 border border-cyan-500/10 rounded-xl">
+                    <label class="text-cyan-400">Add to Photography Pool</label>
+                    <input type="file" id="photo-file" class="mt-2 text-xs">
+                </div>
+                <div class="p-3 bg-purple-500/5 border border-purple-500/10 rounded-xl">
+                    <label class="text-purple-400">Add to Projects Pool</label>
+                    <input type="file" id="project-file" class="mt-2 text-xs">
+                </div>
+                <p class="text-[10px] text-gray-500">Note: Uploading a file will automatically inject it into the slider array array on execution.</p>
+            </div>
+        </div>
+
+        <div class="card space-y-4">
+            <h3 class="text-white font-bold border-b border-white/5 pb-2 text-sm uppercase tracking-wider">Secure Social Channels Matrix</h3>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                    <label>WhatsApp Link</label>
+                    <input type="text" id="wa" placeholder="https://wa.me/...">
+                </div>
+                <div>
+                    <label>Facebook Link</label>
+                    <input type="text" id="fb" placeholder="https://facebook.com/...">
+                </div>
+                <div>
+                    <label>Instagram Link</label>
+                    <input type="text" id="ig" placeholder="https://instagram.com/...">
+                </div>
+                <div>
+                    <label>Telegram Link</label>
+                    <input type="text" id="tg" placeholder="https://t.me/...">
+                </div>
+                <div>
+                    <label>TikTok Link</label>
+                    <input type="text" id="tt" placeholder="https://tiktok.com/@...">
+                </div>
+                <div>
+                    <label>YouTube Link</label>
+                    <input type="text" id="yt" placeholder="https://youtube.com/...">
+                </div>
+                <div class="sm:col-span-2">
+                    <label>LinkedIn Link</label>
+                    <input type="text" id="li" placeholder="https://linkedin.com/in/...">
                 </div>
             </div>
         </div>
 
-        <button id="sync-btn" class="sync-btn uppercase">Execute Master Sync</button>
+        <button id="sync-btn" class="sync-btn">Execute Master Cloud Sync</button>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCnXtXpynpkN5SOi-l8zSuaeuLFUByQVhQ",
@@ -52,42 +96,106 @@
             projectId: "ash-x8",
             storageBucket: "ash-x8.firebasestorage.app",
             messagingSenderId: "430061337740",
-            appId: "1:430061337740:web:50a52de99da51e88960fa9"
+            appId: "1:430061337740:web:50a52de99da51e88960fa9",
+            measurementId: "G-Z9GEG1ZJHR"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const imgbbKey = "7ca79a5403801d6ee629b06938c0b2c3";
 
+        // LOAD CURRENT CONFIG ON OPEN
+        window.onload = async () => {
+            const docSnap = await getDoc(doc(db, "portfolio", "liveData"));
+            if(docSnap.exists()){
+                const d = docSnap.data();
+                if(d.profile){
+                    if(d.profile.fullName) document.getElementById('name').value = d.profile.fullName;
+                    if(d.profile.bio) document.getElementById('bio').value = d.profile.bio;
+                    if(d.profile.category) document.getElementById('category').value = d.profile.category;
+                }
+                if(d.socials){
+                    document.getElementById('wa').value = d.socials.whatsapp || "";
+                    document.getElementById('fb').value = d.socials.facebook || "";
+                    document.getElementById('ig').value = d.socials.instagram || "";
+                    document.getElementById('tg').value = d.socials.telegram || "";
+                    document.getElementById('tt').value = d.socials.tiktok || "";
+                    document.getElementById('yt').value = d.socials.youtube || "";
+                    document.getElementById('li').value = d.socials.linkedin || "";
+                }
+            }
+        };
+
+        // CORE SYNC EXECUTION
         document.getElementById('sync-btn').onclick = async () => {
             const btn = document.getElementById('sync-btn');
-            btn.innerText = "UPLOADING TO CLOUD...";
+            btn.innerText = "INITIALIZING BREACH UPLOAD...";
+            btn.disabled = true;
 
-            let imgUrl = "";
-            const file = document.getElementById('img-file').files[0];
-            if(file) {
-                const fd = new FormData(); fd.append("image", file);
-                const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
-                const d = await r.json(); imgUrl = d.data.url;
+            // Get existing arrays from database first so we don't overwrite them
+            const docSnap = await getDoc(doc(db, "portfolio", "liveData"));
+            let photographyImages = [];
+            let projectImages = [];
+            if(docSnap.exists()) {
+                const existing = docSnap.data();
+                photographyImages = existing.photographyImages || [];
+                projectImages = existing.projectImages || [];
             }
 
+            // Upload Photography if selected
+            const photoFile = document.getElementById('photo-file').files[0];
+            if(photoFile) {
+                const url = await uploadToImgBB(photoFile);
+                if(url) photographyImages.push(url);
+            }
+
+            // Upload Project image if selected
+            const projectFile = document.getElementById('project-file').files[0];
+            if(projectFile) {
+                const url = await uploadToImgBB(projectFile);
+                if(url) projectImages.push(url);
+            }
+
+            // Write to Firestore Core Document
             await setDoc(doc(db, "portfolio", "liveData"), {
                 profile: {
                     fullName: document.getElementById('name').value,
                     bio: document.getElementById('bio').value,
-                    aboutMe: document.getElementById('about').value,
-                    avatar: imgUrl
+                    category: document.getElementById('category').value
                 },
                 socials: {
                     whatsapp: document.getElementById('wa').value,
-                    facebook: document.getElementById('fb').value
+                    facebook: document.getElementById('fb').value,
+                    instagram: document.getElementById('ig').value,
+                    telegram: document.getElementById('tg').value,
+                    tiktok: document.getElementById('tt').value,
+                    youtube: document.getElementById('yt').value,
+                    linkedin: document.getElementById('li').value
                 },
-                styles: { titleFont: document.getElementById('font').value },
-                loader: { text: document.getElementById('loader-txt').value }
+                photographyImages: photographyImages,
+                projectImages: projectImages
             }, { merge: true });
 
-            btn.innerText = "SYNC SUCCESSFUL!";
-            setTimeout(() => btn.innerText = "Execute Master Sync", 2000);
+            btn.innerText = "MASTER SYNC SUCCESSFUL!";
+            setTimeout(() => { btn.innerText = "Execute Master Cloud Sync"; btn.disabled = false; }, 2000);
+            
+            // Clear file inputs
+            document.getElementById('photo-file').value = "";
+            document.getElementById('project-file').value = "";
         };
+
+        async function uploadToImgBB(file) {
+            const fd = new FormData();
+            fd.append("image", file);
+            try {
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, { method: "POST", body: fd });
+                const json = await res.json();
+                return json.data.url;
+            } catch (err) {
+                console.error("Cloud upload error", err);
+                return null;
+            }
+        }
     </script>
 </body>
 </html>
