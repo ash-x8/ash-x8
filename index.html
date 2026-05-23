@@ -461,20 +461,30 @@
     </script>
 
     <script>
+        let audioContextInitialized = false;
+
+        // සයිට් එකට ආපු ගමන් බ්‍රවුසර් එකෙන් සවුන්ඩ් බ්ලොක් කරන එක නැති කරන්න පළමු ක්ලික් එක ලබා ගැනීම
+        document.addEventListener('click', () => {
+            audioContextInitialized = true;
+        }, { once: true });
+
         function triggerSecurityViolation(e) {
             if (!window.securityConfig || !window.securityConfig.enabled) return true;
             if (e) e.preventDefault();
 
-            // Trigger Modal Alert Display
+            // 1. Warning Modal එක පෙන්වීම
             document.getElementById('security-modal').style.display = 'flex';
 
-            // Trigger Premium Security Audio Sound
-            if (window.securityConfig.soundEnabled) {
-                const player = document.getElementById('security-audio-player');
-                if (player) {
-                    player.currentTime = 0;
-                    player.play().catch(() => {});
-                }
+            // 2. සවුන්ඩ් එක බ්‍රවුසර් එකෙන් බ්ලොක් නොකර ප්ලේ කරවීම
+            if (window.securityConfig.soundEnabled && window.securityConfig.soundUrl) {
+                // ක්ෂණිකව බ්‍රවුසර් එක ඇතුලේ අලුත් සවුන්ඩ් ඔබ්ජෙක්ට් එකක් සාදා ප්ලේ කිරීම
+                const alertAudio = new Audio(window.securityConfig.soundUrl);
+                alertAudio.preload = "auto";
+                alertAudio.volume = 1.0; // සවුන්ඩ් එක උපරිම සද්දෙන් ප්ලේ කිරීම
+                
+                alertAudio.play().catch(error => {
+                    console.log("Audio play blocked: Needs one click on page first.", error);
+                });
             }
             return false;
         }
@@ -486,11 +496,11 @@
         // Right-Click Lock Engine
         document.addEventListener('contextmenu', triggerSecurityViolation);
 
-        // Advanced Inspect Tool Hotkey Lock rain
+        // Advanced Inspect Tool Hotkey Lock (F12, Ctrl+Shift+I, etc.)
         document.addEventListener('keydown', function(e) {
-            if (e.keyCode === 123 || // F12
-                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || // Ctrl+Shift+I/C/J
-                (e.ctrlKey && e.keyCode === 85)) { // Ctrl+U (View Source)
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || 
+                (e.ctrlKey && e.keyCode === 85)) { 
                 triggerSecurityViolation(e);
             }
         });
