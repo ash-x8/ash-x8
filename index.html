@@ -3,94 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASH_X8 | Portfolio Terminal</title>
+    <title>ASH_X8 | Master Terminal Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&family=Noto+Sans+Sinhala:wght@400;700&family=Noto+Serif+Sinhala:wght@400;700&family=Gemunu+Libre:wght@400;700&family=Abhaya+Libre:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Space+Grotesk:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style id="custom-dynamic-fonts"></style>
+    <style id="custom-animation-styles"></style>
     <style>
         :root { --neon: #00f3ff; --bg: #030303; }
         body { background: var(--bg); color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; user-select: none; }
-        
         canvas#bg-canvas { position: fixed; inset: 0; z-index: -1; }
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .info-box { border-left: 3px solid var(--neon); background: rgba(0, 243, 255, 0.03); }
+        .quote-pre { white-space: pre-wrap; font-family: inherit; }
 
-        /* 🌆 PIXEL GLITCH SLIDER ANIMATION EFFECT */
-        .photo-frame {
-            width: 280px;
-            height: 280px;
-            background: #000;
-            border-radius: 2.5rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
-        }
-        @media (min-width: 768px) { .photo-frame { width: 340px; height: 340px; } }
+        /* 🎬 MASTER AVATAR AUTOMATIC BUILT-IN ANIMATION MATRIX (8 EFFECTS) */
+        .anim-pixel-glitch { animation: pixelGlitch 1.5s infinite steps(2); }
+        @keyframes pixelGlitch { 0%, 100% { clip-path: inset(0 0 0 0); } 20% { clip-path: inset(10% 0 80% 0); transform: skew(-5deg); } 40% { clip-path: inset(60% 0 5% 0); transform: skew(5deg); } 60% { clip-path: inset(30% 0 40% 0); } 80% { clip-path: inset(80% 0 10% 0); } }
+        
+        .anim-hologram-pulse { animation: holoPulse 2s infinite ease-in-out; filter: hue-rotate(90deg) brightness(1.2); }
+        @keyframes holoPulse { 0%, 100% { opacity: 0.8; transform: scale(1); filter: drop-shadow(0 0 5px #00f3ff); } 50% { opacity: 1; transform: scale(1.03); filter: drop-shadow(0 0 25px #00f3ff); } }
+        
+        .anim-neon-rotate { position: relative; border: 4px solid transparent; border-image: linear-gradient(to right, #00f3ff, #purple) 1; animation: borderRot 4s linear infinite; }
+        @keyframes borderRot { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        
+        .anim-matrix-rain { animation: matRain 0.8s infinite alternate; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4); }
+        @keyframes matRain { 0% { opacity: 0.9; } 100% { opacity: 1; transform: translateY(2px); } }
+        
+        .anim-cyber-scan { position: relative; }
+        .anim-cyber-scan::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, #00f3ff, transparent); animation: cyScan 2.5s linear infinite; height: 20%; w-full; }
+        @keyframes cyScan { 0% { top: -20%; } 100% { top: 120%; } }
 
-        .slide-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transform: scale(1.1);
-            z-index: 1;
-        }
-        .slide-img.active {
-            opacity: 1;
-            transform: scale(1);
-            z-index: 2;
-            animation: pixelGlitch 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
+        .anim-cyber-horizon { animation: cyHor 6s infinite ease-in-out; }
+        @keyframes cyHor { 0%, 100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(3deg) scale(1.05); } }
 
-        @keyframes pixelGlitch {
-            0% { opacity: 0; transform: scale(1.1); clip-path: inset(40% 0 61% 0); }
-            20% { opacity: 0.5; clip-path: inset(92% 0 1% 0); }
-            40% { clip-path: inset(15% 0 80% 0); }
-            60% { clip-path: inset(80% 0 5% 0); transform: scale(0.98) skewX(5deg); }
-            80% { clip-path: inset(3% 0 92% 0); transform: scale(1.02); }
-            100% { opacity: 1; transform: scale(1) skewX(0deg); clip-path: inset(0% 0% 0% 0); }
-        }
+        .anim-glitch-shiver { animation: cyShiver 0.2s infinite alternate; }
+        @keyframes cyShiver { 0% { transform: translate(1px, 1px) rotate(0deg); } 100% { transform: translate(-1px, -1px) rotate(0.5deg); } }
 
-        /* About Scanner Effect */
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(50%); }
-        }
+        .anim-audio-wave { animation: audWave 1.8s infinite ease-in-out; border-radius: 50% 40% 60% 50% / 40% 50% 50% 60%; }
+        @keyframes audWave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
 
-        /* Nav Header styles */
+        .anim-rgb-split { animation: rgbSpl 1.2s infinite; box-shadow: 4px 0 0 rgba(255,0,0,0.4), -4px 0 0 rgba(0,0,255,0.4); }
+        @keyframes rgbSpl { 0%, 100% { transform: skew(0deg); } 50% { transform: skew(3deg); } }
+
+        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(50%); } }
+        
         header { transition: transform 0.4s ease, background-color 0.3s; }
         .header-hidden { transform: translate(-50%, -120%); }
-        .header-scrolled { background: rgba(3, 3, 3, 0.75) !important; border-color: rgba(0, 243, 255, 0.2); }
-
+        .header-scrolled { background: rgba(3, 3, 3, 0.85) !important; border-color: rgba(0, 243, 255, 0.2); }
+        
         .social-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s; color: #888; }
         .social-icon:hover { color: var(--neon); border-color: var(--neon); box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); transform: translateY(-3px); }
-
         .app-section { display: none; }
         .app-section.active-section { display: block; animation: sectionIn 0.5s ease-out forwards; }
-        @keyframes sectionIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Security Panel Overlay */
-        #security-alert { position: fixed; inset: 0; background: rgba(255, 0, 60, 0.25); backdrop-filter: blur(15px); z-index: 10000; display: none; flex-direction: column; align-items: center; justify-content: center; border: 10px solid #ff003c; animation: flash 0.4s infinite; }
-        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        @keyframes sectionIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body oncontextmenu="return showSecurity(event)">
+<body>
 
     <canvas id="bg-canvas"></canvas>
-
-    <div id="security-alert">
-        <i class="fa-solid fa-shield-halved text-6xl mb-6 text-red-500"></i>
-        <h1 class="text-3xl md:text-5xl font-['Orbitron'] font-black text-red-500">ACCESS DENIED</h1>
-        <p class="mt-4 tracking-widest uppercase font-bold text-xs text-white">ASH_X8 Security Protocol Activated</p>
-    </div>
+    <div id="custom-injected-bg-space"></div>
 
     <header id="main-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-[5000] glass rounded-[1.5rem] px-4 md:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-cyan-500 rounded-xl flex items-center justify-center font-black text-black font-['Orbitron'] text-xs">X8</div>
-            <span class="font-['Orbitron'] font-black text-base tracking-wider">ASH_X8</span>
+            <img id="header-logo-img" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-8 h-8 rounded-lg object-cover border border-cyan-400/30 shadow-[0_0_10px_rgba(0,243,255,0.2)]">
+            <span class="font-['Orbitron'] font-black text-base tracking-wider text-white">ASH_X8</span>
         </div>
         <nav class="flex flex-wrap justify-center gap-3 md:gap-6">
             <button onclick="switchSection('home')" id="nav-home" class="text-[10px] font-black tracking-widest text-cyan-400 uppercase">HOME</button>
@@ -101,25 +78,35 @@
         </nav>
     </header>
 
-    <main class="pt-36 md:pt-40 pb-12 px-4 max-w-6xl mx-auto">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
-            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Visitor IP</p><p id="user-ip" class="font-black truncate">Loading...</p></div>
-            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Location Data</p><p id="user-loc" class="font-bold truncate">Detecting...</p></div>
-            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">System State</p><p id="user-bat" class="font-bold truncate">Scanning...</p></div>
-            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Local Time</p><p id="real-time" class="font-black text-cyan-400">00:00:00</p></div>
+    <main class="pt-36 md:pt-40 pb-12 px-4 max-w-6xl mx-auto space-y-12">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Terminal IP</p><p id="user-ip" class="font-black truncate">Loading...</p></div>
+            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Uplink Loc</p><p id="user-loc" class="font-bold truncate">Detecting...</p></div>
+            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Mainframe Energy</p><p id="user-bat" class="font-bold truncate">Scanning...</p></div>
+            <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">System Time</p><p id="real-time" class="font-black text-cyan-400">00:00:00</p></div>
         </div>
 
         <section id="sec-home" class="app-section active-section">
             <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
-                <div class="photo-frame flex-shrink-0" id="showcase-slider">
-                    <img class="slide-img active" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0 group">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-[2.5rem] opacity-20 blur-xl"></div>
+                    <div class="w-full h-full bg-black rounded-[2.5rem] border border-cyan-500/20 overflow-hidden relative">
+                        <img id="home-avatar-display" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-full h-full object-cover">
+                    </div>
                 </div>
-                <div class="text-center lg:text-left space-y-5 max-w-xl">
-                    <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">Identity Uplink // 001</h2>
+                <div class="text-center lg:text-left space-y-4 max-w-xl">
+                    <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">OPERATOR MAIN MATRIX // 01</h2>
                     <h1 id="dynamic-name" class="text-4xl md:text-5xl font-black font-['Orbitron'] leading-tight tracking-wide">KUSHAN A. <br><span class="text-cyan-400">WICKRAMASINGHE</span></h1>
-                    <p id="dynamic-bio" class="text-gray-400 text-sm italic leading-relaxed border-t-2 md:border-t-0 md:border-l-2 border-white/10 pt-4 md:pt-0 md:pl-6">"Connecting to mainframe..."</p>
+                    <p id="dynamic-bio" class="text-gray-400 text-sm italic border-l-2 border-white/10 pl-4">"Connecting to system..."</p>
                     <div id="dynamic-categories" class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2"></div>
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4" id="social-dock">
+                    
+                    <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-4 items-center">
+                        <a id="hire-me-wa-btn" href="#" target="_blank" class="px-6 py-2.5 bg-transparent border-2 border-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-300 rounded-xl text-xs font-black tracking-widest text-cyan-400 shadow-[0_0_15px_rgba(0,243,255,0.1)] flex items-center gap-2 uppercase">
+                            <i class="fa-solid fa-bolt"></i> Hire Me Operator
+                        </a>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2" id="social-dock">
                         <a href="#" id="link-whatsapp" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
                         <a href="#" id="link-facebook" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
                         <a href="#" id="link-instagram" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
@@ -130,90 +117,65 @@
                     </div>
                 </div>
             </div>
+
+            <div class="mt-20 border-t border-white/5 pt-12 space-y-6">
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-purple-500 rounded-full animate-ping"></span><h3 class="font-['Orbitron'] font-black text-sm text-purple-400 uppercase tracking-widest">// AUTOMATIC CYBER MEMORY SYNC STORY</h3></div>
+                <div class="w-full max-w-2xl mx-auto glass p-4 rounded-3xl border border-purple-500/10 shadow-2xl relative overflow-hidden">
+                    <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black relative">
+                        <img id="story-player-img" src="" class="w-full h-full object-cover transition-all duration-700 scale-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+                        <div class="absolute bottom-4 left-4 z-20 space-y-1">
+                            <span id="story-player-badge" class="px-2 py-0.5 bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded font-mono text-[9px] font-bold uppercase tracking-wider">Loading Sync</span>
+                            <h4 id="story-player-title" class="text-white text-sm font-black font-['Orbitron'] tracking-wide">Connecting Data...</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="sec-projects" class="app-section">
-            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">DEVELOPED WORK PROJECTS</h2>
-            <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
+        <section id="sec-projects" class="app-section"><h2 id="head-projects" class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">DEVELOPED WORK PROJECTS</h2><div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div></section>
 
-        <section id="sec-photography" class="app-section">
-            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">PHOTOGRAPHY GALLERY</h2>
-            <div id="photography-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
+        <section id="sec-photography" class="app-section"><h2 id="head-photography" class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">PHOTOGRAPHY GALLERY</h2><div id="photography-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div></section>
 
-        <section id="sec-writing" class="app-section">
-            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">WRITING CORE QUOTES</h2>
-            <div id="writing-container" class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"></div>
-        </section>
+        <section id="sec-writing" class="app-section"><h2 id="head-writing" class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">WRITING CORE QUOTES</h2><div id="writing-container" class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"></div></section>
 
         <section id="sec-about" class="app-section">
             <div class="w-full max-w-4xl mx-auto space-y-6">
-                <div class="flex items-center gap-3 border-b border-cyan-500/20 pb-4">
-                    <span class="w-2 h-2 bg-cyan-500 rounded-full animate-ping"></span>
-                    <h2 class="text-xl font-black font-['Orbitron'] tracking-[0.25em] text-cyan-400 uppercase">SYSTEM OPERATOR DOSSIER // RE-08</h2>
+                <div class="flex items-center justify-between border-b border-cyan-500/20 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2 h-2 bg-cyan-500 rounded-full animate-ping"></span>
+                        <h2 id="head-about" class="text-xl font-black font-['Orbitron'] tracking-[0.25em] text-cyan-400 uppercase">SYSTEM OPERATOR DOSSIER</h2>
+                    </div>
+                    <a id="about-highlight-linkedin" href="#" target="_blank" class="px-3 py-1.5 bg-cyan-500/10 border border-cyan-400/40 rounded-xl text-[10px] font-black text-cyan-400 flex items-center gap-2 hover:bg-cyan-400 hover:text-black transition-all shadow-[0_0_15px_rgba(0,243,255,0.2)] animate-pulse uppercase"><i class="fa-brands fa-linkedin-in text-xs"></i> Verified Operator LinkedIn</a>
                 </div>
 
                 <div class="glass p-6 md:p-10 rounded-[2.5rem] border border-cyan-500/10 shadow-[0_0_50px_rgba(0,243,255,0.02)] relative overflow-hidden group">
                     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/[0.02] to-transparent w-full h-[200%] -translate-y-full animate-[scan_6s_linear_infinite] pointer-events-none"></div>
-
                     <div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
-                        <div class="relative flex-shrink-0 group">
-                            <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl opacity-30 blur group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
-                            <div class="relative w-32 h-32 rounded-2xl border-2 border-cyan-400/40 overflow-hidden bg-black">
-                                <img id="about-avatar" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
-                                <div class="absolute top-1 left-1 w-2 h-2 border-t border-l border-cyan-400"></div>
-                                <div class="absolute top-1 right-1 w-2 h-2 border-t border-r border-cyan-400"></div>
-                                <div class="absolute bottom-1 left-1 w-2 h-2 border-b border-l border-cyan-400"></div>
-                                <div class="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-cyan-400"></div>
-                            </div>
+                        <div class="relative w-32 h-32 rounded-2xl border-2 border-cyan-400/40 overflow-hidden bg-black">
+                            <img id="about-avatar" class="w-full h-full object-cover grayscale" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
                         </div>
-
                         <div class="text-center md:text-left space-y-2 flex-grow">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/5 border border-cyan-500/20 text-[9px] font-black uppercase text-cyan-400 tracking-widest">
-                                Status: Authorized Mainframe Operator
-                            </div>
-                            <h3 id="about-name" class="text-3xl font-black font-['Orbitron'] tracking-wide text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                                KUSHAN A. WICKRAMASINGHE
-                            </h3>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/5 border border-cyan-500/20 text-[9px] font-black uppercase text-cyan-400 tracking-widest">Status: Mainframe Director Authorized</div>
+                            <h3 id="about-name" class="text-3xl font-black font-['Orbitron'] tracking-wide text-white">KUSHAN A. WICKRAMASINGHE</h3>
                             <div class="flex flex-wrap justify-center md:justify-start gap-4 text-xs font-mono text-gray-500 pt-1">
-                                <div><span class="text-cyan-500 font-bold">NODE//</span> ASH_X8</div>
-                                <div><span class="text-purple-500 font-bold">LOC//</span> UP-LINK.SL</div>
-                                <div><span class="text-yellow-500 font-bold">VER//</span> 4.0.0-PROD</div>
+                                <div><span class="text-cyan-500 font-bold">NODE//</span> ASH_X8</div><div><span class="text-purple-500 font-bold">LOC//</span> UP-LINK.SL</div><div><span class="text-yellow-500 font-bold">VER//</span> 4.0.0-PROD</div>
                             </div>
                         </div>
                     </div>
-
                     <div class="grid md:grid-cols-3 gap-6 border-t border-white/5 mt-8 pt-8 relative z-10 font-mono">
                         <div class="md:col-span-2 space-y-3 border-r border-white/5 pr-0 md:pr-6">
-                            <div class="flex items-center gap-2 text-gray-500 text-[10px] uppercase font-bold tracking-wider">
-                                <i class="fa-solid fa-terminal text-cyan-500"></i> Core Operational Objective
-                            </div>
-                            <p id="about-me-text" class="text-gray-300 text-sm leading-relaxed font-sans font-medium bg-black/30 p-4 rounded-xl border border-white/[0.03]">
-                                Intersection of clean software system development, visual web infrastructure architectures, and dark conceptual art spaces.
-                            </p>
+                            <div class="flex items-center gap-2 text-gray-500 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-terminal text-cyan-500"></i> Core Operational Objective</div>
+                            <p id="about-me-text" class="text-gray-300 text-sm leading-relaxed font-sans font-medium bg-black/30 p-4 rounded-xl border border-white/[0.03]">Intersection of clean software system development, visual web architectures, and dark art.</p>
                         </div>
-
                         <div class="space-y-4">
                             <div class="space-y-2">
-                                <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">
-                                    <i class="fa-solid fa-circle-nodes text-purple-500"></i> Current Operations
-                                </div>
-                                <div class="space-y-1 text-xs text-gray-400" id="about-roles">
-                                    <div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Writer & Post-Editor</div>
-                                    <div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Web Infrastructure Director</div>
-                                </div>
+                                <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-circle-nodes text-purple-500"></i> Current Operations</div>
+                                <div class="space-y-1 text-xs text-gray-400"><div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Writer & Post-Editor</div><div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Web Infrastructure Director</div></div>
                             </div>
-
                             <div class="space-y-2">
-                                <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">
-                                    <i class="fa-solid fa-microchip text-yellow-500"></i> Active Core Stack
-                                </div>
-                                <div class="flex flex-wrap gap-1.5" id="about-tools">
-                                    <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 rounded text-[9px] text-cyan-400 font-bold uppercase tracking-wider">HTML5 / Tailwind</span>
-                                    <span class="px-2 py-1 bg-purple-500/5 border border-purple-500/20 rounded text-[9px] text-purple-400 font-bold uppercase tracking-wider">Cloudflare Net</span>
-                                    <span class="px-2 py-1 bg-yellow-500/5 border border-yellow-500/20 rounded text-[9px] text-yellow-400 font-bold uppercase tracking-wider">Inno Setup IDE</span>
-                                </div>
+                                <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-microchip text-yellow-500"></i> Active Core Stack</div>
+                                <div class="flex flex-wrap gap-1.5"><span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 rounded text-[9px] text-cyan-400 font-bold uppercase">HTML5 / Tailwind</span><span class="px-2 py-1 bg-purple-500/5 border border-purple-500/20 rounded text-[9px] text-purple-400 font-bold uppercase">Cloudflare Net</span></div>
                             </div>
                         </div>
                     </div>
@@ -224,8 +186,7 @@
 
     <footer class="w-full mt-24 border-t border-white/5 glass py-8 px-6 text-center text-gray-500 text-xs">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
-            <div>© 2026 <span class="text-cyan-400 font-bold">ASH_X8</span> // CONTROL MAIN PANEL</div>
-            <div class="text-[10px] tracking-widest text-gray-600 font-bold uppercase">SECURED SYSTEM</div>
+            <div>© 2026 <span class="text-cyan-400 font-bold">ASH_X8</span> // CONTROL STATION CENTER</div>
         </div>
     </footer>
 
@@ -245,15 +206,22 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        let activeSliderPool = [];
         let globalData = {};
+        let storyPool = [];
+        let currentStoryIndex = 0;
+        let storyTimer = null;
 
-        // REALTIME CLOUD STREAM RECEIVER
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
             if (docSnap.exists()) {
                 globalData = docSnap.data();
                 
-                // Identity parsing
+                // Set Header Logo & Hire Me
+                if(globalData.headerLogo) document.getElementById('header-logo-img').src = globalData.headerLogo;
+                if(globalData.socials && globalData.socials.whatsapp) {
+                    document.getElementById('hire-me-wa-btn').href = "https://wa.me/" + globalData.socials.whatsapp.replace(/[^0-9]/g, "");
+                }
+
+                // Profile Parsing
                 if(globalData.profile) {
                     const p = globalData.profile;
                     if(p.fullName) {
@@ -265,11 +233,10 @@
                     }
                     if(p.bio) document.getElementById('dynamic-bio').innerText = `"${p.bio}"`;
                     if(p.aboutMe) document.getElementById('about-me-text').innerText = p.aboutMe;
-                    
-                    if(p.avatar && p.avatar.trim() !== "") {
+                    if(p.avatar) {
+                        document.getElementById('home-avatar-display').src = p.avatar;
                         document.getElementById('about-avatar').src = p.avatar;
                     }
-
                     if(p.category) {
                         const container = document.getElementById('dynamic-categories'); container.innerHTML = '';
                         p.category.split(',').forEach(cat => {
@@ -278,23 +245,33 @@
                     }
                 }
 
-                // Slider handler
-                let sliderImages = [];
-                if(globalData.photographyPool) {
-                    sliderImages = globalData.photographyPool.map(item => item.url);
-                } else if(globalData.photographyImages) {
-                    sliderImages = sliderImages.concat(globalData.photographyImages);
+                // Handle Section Fonts
+                if(globalData.sectionalFonts) {
+                    const f = globalData.sectionalFonts;
+                    document.getElementById('custom-dynamic-fonts').innerHTML = `
+                        #sec-home { font-family: ${f.home || 'inherit'} !important; }
+                        #sec-projects { font-family: ${f.projects || 'inherit'} !important; }
+                        #sec-photography { font-family: ${f.photography || 'inherit'} !important; }
+                        #sec-writing { font-family: ${f.writing || 'inherit'} !important; }
+                        #sec-about { font-family: ${f.about || 'inherit'} !important; }
+                    `;
                 }
 
-                if(sliderImages.length > 0 && JSON.stringify(sliderImages) !== JSON.stringify(activeSliderPool)) {
-                    activeSliderPool = sliderImages;
-                    initPixelSlider(activeSliderPool);
+                // Handle Built-in Avatar Animations & Custom CSS Code Injection
+                const avatarImg = document.getElementById('home-avatar-display');
+                avatarImg.className = "w-full h-full object-cover"; // reset
+                if(globalData.selectedAvatarAnim && globalData.selectedAvatarAnim !== "none") {
+                    avatarImg.classList.add(globalData.selectedAvatarAnim);
                 }
+                
+                // Inject custom animation styling code block
+                document.getElementById('custom-animation-styles').innerHTML = globalData.customAnimationCode || '';
 
                 renderProjects(globalData.projectImages || []);
                 renderPhotography(globalData.photographyPool || []);
                 renderWritingQuotes(globalData.quotes || []);
 
+                // Map Social Dock
                 if(globalData.socials) {
                     const s = globalData.socials;
                     toggleSocial('link-whatsapp', s.whatsapp);
@@ -304,7 +281,11 @@
                     toggleSocial('link-tiktok', s.tiktok);
                     toggleSocial('link-youtube', s.youtube);
                     toggleSocial('link-linkedin', s.linkedin);
+                    if(s.linkedin) document.getElementById('about-highlight-linkedin').href = s.linkedin;
                 }
+
+                // Assemble Random Story Block Pool
+                assembleStoryPool();
             }
         });
 
@@ -314,55 +295,17 @@
             else { el.style.display = "none"; }
         }
 
-        // AUTO ROTATING GLITCH ENGINE
-        let slideTimer = null;
-        function initPixelSlider(images) {
-            const container = document.getElementById('showcase-slider');
-            container.innerHTML = '';
-            images.forEach((url, i) => {
-                const img = document.createElement('img');
-                img.src = url;
-                img.className = `slide-img ${i === 0 ? 'active' : ''}`;
-                container.appendChild(img);
-            });
-
-            if(images.length <= 1) return;
-            if(slideTimer) clearInterval(slideTimer);
-
-            slideTimer = setInterval(() => {
-                const slides = document.querySelectorAll('.slide-img');
-                if(!slides.length) return;
-                let current = Array.from(slides).findIndex(s => s.classList.contains('active'));
-                slides[current].classList.remove('active');
-                
-                let next = (current + 1) % slides.length;
-                slides[next].classList.add('active');
-            }, 4000); 
-        }
-
         function renderProjects(arr) {
             const grid = document.getElementById('projects-grid'); grid.innerHTML = '';
             arr.forEach((url, i) => {
-                grid.innerHTML += `
-                    <div class="glass rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-500/20 transition-all">
-                        <img src="${url}" class="w-full h-48 object-cover">
-                        <div class="p-4"><h4 class="font-['Orbitron'] font-bold text-xs">PROJECT OBJECTIVE // ${i+1}</h4></div>
-                    </div>`;
+                grid.innerHTML += `<div class="glass rounded-2xl overflow-hidden border border-white/5"><img src="${url}" class="w-full h-48 object-cover"><div class="p-4"><h4 class="font-['Orbitron'] font-bold text-xs">PROJECT MODULE LAYER // ${i+1}</h4></div></div>`;
             });
         }
 
         function renderPhotography(pool) {
             const grid = document.getElementById('photography-grid'); grid.innerHTML = '';
             pool.forEach((item) => {
-                const title = item.title ? `<h4 class="text-cyan-400 text-xs font-bold font-['Orbitron'] tracking-wider uppercase mb-1">${item.title}</h4>` : '';
-                const desc = item.desc ? `<p class="text-gray-400 text-[11px] font-sans leading-relaxed mb-2">${item.desc}</p>` : '';
-                const date = item.date ? `<span class="text-[9px] text-gray-600 font-bold block">${item.date}</span>` : '';
-                
-                grid.innerHTML += `
-                    <div class="glass rounded-2xl overflow-hidden border border-white/5 flex flex-col justify-between hover:border-cyan-500/20 transition-all">
-                        <img src="${item.url}" class="w-full h-48 object-cover">
-                        ${(item.title || item.desc || item.date) ? `<div class="p-4 border-t border-white/5 bg-black/20">${title} ${desc} ${date}</div>` : ''}
-                    </div>`;
+                grid.innerHTML += `<div class="glass rounded-2xl overflow-hidden border border-white/5"><img src="${item.url}" class="w-full h-48 object-cover"><div class="p-4 bg-black/20"><h4 class="text-cyan-400 text-xs font-bold font-['Orbitron'] uppercase mb-1">${item.title || 'Untitled Click'}</h4><p class="text-gray-400 text-[11px]">${item.desc || ''}</p><span class="text-[9px] text-gray-600 block mt-1">${item.date || ''}</span></div></div>`;
             });
         }
 
@@ -371,28 +314,55 @@
             quotes.forEach((q, index) => {
                 const likes = q.likes || 0;
                 const comments = q.comments || [];
-                let cmtsMarkup = comments.map(c => `<div class="text-[11px] text-gray-400 bg-white/[0.01] p-2 rounded-lg border border-white/5 font-sans">💬 ${c}</div>`).join('');
-
+                let cmtsMarkup = comments.map(c => `<div class="text-[11px] text-gray-400 bg-white/[0.01] p-2 rounded-lg border border-white/5">💬 ${c}</div>`).join('');
                 container.innerHTML += `
-                    <div class="glass p-5 rounded-2xl border border-white/10 flex flex-col justify-between space-y-4">
+                    <div class="glass p-6 rounded-3xl border border-white/10 flex flex-col justify-between space-y-4">
                         <div>
-                            <span class="text-[9px] text-cyan-500/40 font-bold font-mono uppercase tracking-widest block mb-2">// THOUGHT MODULE ${index+1}</span>
-                            <p class="text-sm md:text-base text-gray-200 italic font-sans font-medium leading-relaxed">"${q.text}"</p>
+                            <span class="text-[9px] text-cyan-500/40 font-bold block mb-2">// CORE THOUGHT MODULE ${index+1}</span>
+                            <div class="quote-pre text-sm md:text-base text-gray-200 italic font-sans leading-relaxed">"${q.text}"</div>
                         </div>
                         <div class="space-y-3 pt-3 border-t border-white/5">
-                            <div class="flex items-center">
-                                <button onclick="window.processLike(${index})" class="text-[11px] font-black text-gray-400 hover:text-red-400 transition-colors flex items-center gap-1.5">
-                                    <i class="fa-solid fa-heart text-red-500"></i> ENCRYPTED LIKES (${likes})
-                                </button>
-                            </div>
-                            <div class="space-y-1.5 max-h-32 overflow-y-auto pr-1">${cmtsMarkup}</div>
+                            <button onclick="window.processLike(${index})" class="text-[11px] text-gray-400 hover:text-red-400 flex items-center gap-1.5 font-bold"><i class="fa-solid fa-heart text-red-500"></i> LIKES (${likes})</button>
+                            <div class="space-y-1 max-h-24 overflow-y-auto pr-1">${cmtsMarkup}</div>
                             <div class="flex gap-2">
-                                <input type="text" id="cmt-input-${index}" placeholder="Type encrypted comment..." class="bg-black border border-white/10 text-xs px-3 py-2 rounded-lg w-full text-white focus:outline-none focus:border-cyan-500 font-sans">
-                                <button onclick="window.processComment(${index})" class="bg-cyan-500 text-black font-black text-[10px] px-4 rounded-lg uppercase tracking-wider">SEND</button>
+                                <input type="text" id="cmt-input-${index}" placeholder="Type comment..." class="bg-black border border-white/10 text-xs px-3 py-1.5 rounded-xl w-full text-white focus:outline-none font-sans">
+                                <button onclick="window.processComment(${index})" class="bg-cyan-500 text-black font-black text-[9px] px-3 rounded-xl uppercase">Send</button>
                             </div>
                         </div>
                     </div>`;
             });
+        }
+
+        function assembleStoryPool() {
+            storyPool = [];
+            if(globalData.projectImages) {
+                globalData.projectImages.forEach((url, idx) => storyPool.push({ url: url, type: "Project Design", title: `Design Architecture Frame #${idx+1}` }));
+            }
+            if(globalData.photographyPool) {
+                globalData.photographyPool.forEach(p => storyPool.push({ url: p.url, type: "Photography Click", title: p.title || "Captured Dynamic Moment" }));
+            }
+            if(storyPool.length === 0) return;
+            
+            // Randomly shuffle array
+            storyPool.sort(() => Math.random() - 0.5);
+            
+            if(storyTimer) clearInterval(storyTimer);
+            playNextStory();
+            storyTimer = setInterval(playNextStory, 4000);
+        }
+
+        function playNextStory() {
+            if(!storyPool.length) return;
+            const imgEl = document.getElementById('story-player-img');
+            imgEl.style.opacity = '0';
+            setTimeout(() => {
+                const current = storyPool[currentStoryIndex];
+                imgEl.src = current.url;
+                document.getElementById('story-player-badge').innerText = current.type;
+                document.getElementById('story-player-title').innerText = current.title;
+                imgEl.style.opacity = '1';
+                currentStoryIndex = (currentStoryIndex + 1) % storyPool.length;
+            }, 3000);
         }
 
         window.processLike = async (index) => {
@@ -400,15 +370,11 @@
             globalData.quotes[index].likes = (globalData.quotes[index].likes || 0) + 1;
             await setDoc(doc(db, "portfolio", "liveData"), { quotes: globalData.quotes }, { merge: true });
         };
-
         window.processComment = async (index) => {
             const input = document.getElementById(`cmt-input-${index}`);
             if(!input || !input.value.trim()) return;
-            if(!globalData.quotes) return;
-            
             if(!globalData.quotes[index].comments) globalData.quotes[index].comments = [];
             globalData.quotes[index].comments.push(input.value.trim());
-            
             await setDoc(doc(db, "portfolio", "liveData"), { quotes: globalData.quotes }, { merge: true });
             input.value = '';
         };
@@ -433,12 +399,6 @@
             lastScrollY = window.scrollY;
         });
 
-        function showSecurity(e) {
-            e.preventDefault();
-            const alert = document.getElementById('security-alert'); alert.style.display = 'flex';
-            setTimeout(() => alert.style.display = 'none', 1800);
-        }
-
         async function loadStats() {
             setInterval(() => { document.getElementById('real-time').innerText = new Date().toLocaleTimeString(); }, 1000);
             try {
@@ -446,28 +406,23 @@
                 document.getElementById('user-ip').innerText = data.ip;
                 document.getElementById('user-loc').innerText = `${data.country_code} | ${data.org.split(' ')[0]}`;
             } catch { document.getElementById('user-ip').innerText = "SECURED MAIN"; }
-            if (navigator.getBattery) {
-                const b = await navigator.getBattery();
-                document.getElementById('user-bat').innerText = `${Math.round(b.level*100)}% | ${navigator.platform.substring(0,6)}`;
-            }
         }
 
         const bgCanvas = document.getElementById('bg-canvas'); const bgCtx = bgCanvas.getContext('2d');
         let dots = [];
         function initBg() {
             bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; dots = [];
-            for(let i=0; i<50; i++) dots.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, dx:Math.random()*0.4-0.2, dy:Math.random()*0.4-0.2});
+            for(let i=0; i<40; i++) dots.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, dx:Math.random()*0.3-0.15, dy:Math.random()*0.3-0.15});
         }
         function drawBg() {
             bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
             dots.forEach(d => {
                 d.x+=d.dx; d.y+=d.dy; if(d.x<0 || d.x>bgCanvas.width) d.dx*=-1; if(d.y<0 || d.y>bgCanvas.height) d.dy*=-1;
-                bgCtx.fillStyle = 'rgba(0, 243, 255, 0.08)'; bgCtx.beginPath(); bgCtx.arc(d.x, d.y, 1.2, 0, Math.PI*2); bgCtx.fill();
+                bgCtx.fillStyle = 'rgba(0, 243, 255, 0.06)'; bgCtx.beginPath(); bgCtx.arc(d.x, d.y, 1.2, 0, Math.PI*2); bgCtx.fill();
             });
             requestAnimationFrame(drawBg);
         }
         window.onload = () => { initBg(); drawBg(); loadStats(); };
-        window.onresize = initBg;
     </script>
 </body>
 </html>
