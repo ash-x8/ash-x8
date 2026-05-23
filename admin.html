@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | ASH_X8</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #050505; color: #00f3ff; font-family: monospace; }
+        .card { background: #0a0a0f; border: 1px solid #1a1a1f; padding: 25px; border-radius: 20px; }
+        input, textarea, select { background: #000; border: 1px solid #222; color: #fff; padding: 12px; width: 100%; border-radius: 10px; margin-top: 8px; }
+        label { font-size: 10px; color: #666; text-transform: uppercase; }
+        .sync-btn { background: #00f3ff; color: #000; font-weight: 900; padding: 20px; border-radius: 12px; width: 100%; cursor: pointer; transition: 0.3s; }
+    </style>
+</head>
+<body class="p-10">
+    <div class="max-w-4xl mx-auto space-y-8">
+        <h1 class="text-2xl font-black border-l-4 border-cyan-500 pl-4 uppercase">Master Command Center</h1>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="card space-y-4">
+                <h2 class="text-white font-bold">IDENTITY</h2>
+                <div><label>FULL NAME</label><input type="text" id="name" value="ASH_X8"></div>
+                <div><label>SHORT BIO (HERO)</label><textarea id="bio" rows="4"></textarea></div>
+                <div><label>ABOUT ME (DETAILED)</label><textarea id="about" rows="4"></textarea></div>
+                <div><label>AVATAR (FILE)</label><input type="file" id="img-file"></div>
+            </div>
+
+            <div class="card space-y-4">
+                <h2 class="text-white font-bold">SOCIALS & LINKS</h2>
+                <div><label>WHATSAPP (e.g. 94752269410)</label><input type="text" id="wa"></div>
+                <div><label>FACEBOOK URL</label><input type="text" id="fb"></div>
+                <div><label>LOADER TEXT</label><input type="text" id="loader-txt" value="SYSTEM BREACH..."></div>
+                <div><label>FONT STYLE</label>
+                    <select id="font">
+                        <option value="'Orbitron'">Orbitron</option>
+                        <option value="'Noto Sans Sinhala'">Noto Sans Sinhala</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button id="sync-btn" class="sync-btn uppercase">Execute Master Sync</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCnXtXpynpkN5SOi-l8zSuaeuLFUByQVhQ",
+            authDomain: "ash-x8.firebaseapp.com",
+            projectId: "ash-x8",
+            storageBucket: "ash-x8.firebasestorage.app",
+            messagingSenderId: "430061337740",
+            appId: "1:430061337740:web:50a52de99da51e88960fa9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('sync-btn').onclick = async () => {
+            const btn = document.getElementById('sync-btn');
+            btn.innerText = "UPLOADING TO CLOUD...";
+
+            let imgUrl = "";
+            const file = document.getElementById('img-file').files[0];
+            if(file) {
+                const fd = new FormData(); fd.append("image", file);
+                const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
+                const d = await r.json(); imgUrl = d.data.url;
+            }
+
+            await setDoc(doc(db, "portfolio", "liveData"), {
+                profile: {
+                    fullName: document.getElementById('name').value,
+                    bio: document.getElementById('bio').value,
+                    aboutMe: document.getElementById('about').value,
+                    avatar: imgUrl
+                },
+                socials: {
+                    whatsapp: document.getElementById('wa').value,
+                    facebook: document.getElementById('fb').value
+                },
+                styles: { titleFont: document.getElementById('font').value },
+                loader: { text: document.getElementById('loader-txt').value }
+            }, { merge: true });
+
+            btn.innerText = "SYNC SUCCESSFUL!";
+            setTimeout(() => btn.innerText = "Execute Master Sync", 2000);
+        };
+    </script>
+</body>
+</html>
