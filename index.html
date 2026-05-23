@@ -69,6 +69,11 @@
         /* Security Panel Overlay */
         #security-alert { position: fixed; inset: 0; background: rgba(255, 0, 60, 0.25); backdrop-filter: blur(15px); z-index: 10000; display: none; flex-direction: column; align-items: center; justify-content: center; border: 10px solid #ff003c; animation: flash 0.4s infinite; }
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+                @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(50%); }
+        }
+
     </style>
 </head>
 <body oncontextmenu="return showSecurity(event)">
@@ -103,28 +108,80 @@
             <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Local Time</p><p id="real-time" class="font-black text-cyan-400">00:00:00</p></div>
         </div>
 
-        <section id="sec-home" class="app-section active-section">
-            <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
-                <div class="photo-frame flex-shrink-0" id="showcase-slider">
-                    <img class="slide-img active" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
+        <section id="sec-about" class="app-section">
+            <div class="w-full max-w-4xl mx-auto space-y-6">
+                <div class="flex items-center gap-3 border-b border-cyan-500/20 pb-4">
+                    <span class="w-2 h-2 bg-cyan-500 rounded-full animate-ping"></span>
+                    <h2 class="text-xl font-black font-['Orbitron'] tracking-[0.25em] text-cyan-400 uppercase">SYSTEM OPERATOR DOSSIER // RE-08</h2>
                 </div>
-                <div class="text-center lg:text-left space-y-5 max-w-xl">
-                    <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">Identity Uplink // 001</h2>
-                    <h1 id="dynamic-name" class="text-4xl md:text-5xl font-black font-['Orbitron'] leading-tight tracking-wide">KUSHAN A. <br><span class="text-cyan-400">WICKRAMASINGHE</span></h1>
-                    <p id="dynamic-bio" class="text-gray-400 text-sm italic leading-relaxed border-t-2 md:border-t-0 md:border-l-2 border-white/10 pt-4 md:pt-0 md:pl-6">"Connecting to mainframe..."</p>
-                    <div id="dynamic-categories" class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2"></div>
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4" id="social-dock">
-                        <a href="#" id="link-whatsapp" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="#" id="link-facebook" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" id="link-instagram" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" id="link-telegram" target="_blank" class="social-icon"><i class="fa-brands fa-telegram-plane"></i></a>
-                        <a href="#" id="link-tiktok" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="#" id="link-youtube" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="#" id="link-linkedin" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+
+                <div class="glass p-6 md:p-10 rounded-[2.5rem] border border-cyan-500/10 shadow-[0_0_50px_rgba(0,243,255,0.02)] relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/[0.02] to-transparent w-full h-[200%] -translate-y-full animate-[scan_6s_linear_infinite] pointer-events-none"></div>
+
+                    <div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
+                        <div class="relative flex-shrink-0 group">
+                            <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl opacity-30 blur group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative w-32 h-32 rounded-2xl border-2 border-cyan-400/40 overflow-hidden bg-black">
+                                <img id="about-avatar" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
+                                <div class="absolute top-1 left-1 w-2 h-2 border-t border-l border-cyan-400"></div>
+                                <div class="absolute top-1 right-1 w-2 h-2 border-t border-r border-cyan-400"></div>
+                                <div class="absolute bottom-1 left-1 w-2 h-2 border-b border-l border-cyan-400"></div>
+                                <div class="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-cyan-400"></div>
+                            </div>
+                        </div>
+
+                        <div class="text-center md:text-left space-y-2 flex-grow">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/5 border border-cyan-500/20 text-[9px] font-black uppercase text-cyan-400 tracking-widest">
+                                Status: Authorized Mainframe Operator
+                            </div>
+                            <h3 id="about-name" class="text-3xl font-black font-['Orbitron'] tracking-wide text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                                KUSHAN A. WICKRAMASINGHE
+                            </h3>
+                            <div class="flex flex-wrap justify-center md:justify-start gap-4 text-xs font-mono text-gray-500 pt-1">
+                                <div><span class="text-cyan-500 font-bold">NODE//</span> ASH_X8</div>
+                                <div><span class="text-purple-500 font-bold">LOC//</span> UP-LINK.SL</div>
+                                <div><span class="text-yellow-500 font-bold">VER//</span> 4.0.0-PROD</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 border-t border-white/5 mt-8 pt-8 relative z-10 font-mono">
+                        <div class="md:col-span-2 space-y-3 border-r border-white/5 pr-0 md:pr-6">
+                            <div class="flex items-center gap-2 text-gray-500 text-[10px] uppercase font-bold tracking-wider">
+                                <i class="fa-solid fa-terminal text-cyan-500"></i> Core Operational Objective
+                            </div>
+                            <p id="about-me-text" class="text-gray-300 text-sm leading-relaxed font-sans font-medium bg-black/30 p-4 rounded-xl border border-white/[0.03]">
+                                Intersection of clean software system development, visual web infrastructure architectures, and dark conceptual art spaces.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">
+                                    <i class="fa-solid fa-circle-nodes text-purple-500"></i> Current Operations
+                                </div>
+                                <div class="space-y-1 text-xs text-gray-400" id="about-roles">
+                                    <div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Writer & Post-Editor</div>
+                                    <div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Web Infrastructure Director</div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider">
+                                    <i class="fa-solid fa-microchip text-yellow-500"></i> Active Core Stack
+                                </div>
+                                <div class="flex flex-wrap gap-1.5" id="about-tools">
+                                    <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 rounded text-[9px] text-cyan-400 font-bold uppercase tracking-wider">HTML5 / Tailwind</span>
+                                    <span class="px-2 py-1 bg-purple-500/5 border border-purple-500/20 rounded text-[9px] text-purple-400 font-bold uppercase tracking-wider">Cloudflare Net</span>
+                                    <span class="px-2 py-1 bg-yellow-500/5 border border-yellow-500/20 rounded text-[9px] text-yellow-400 font-bold uppercase tracking-wider">Inno Setup IDE</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
 
         <section id="sec-projects" class="app-section">
             <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">DEVELOPED WORK PROJECTS</h2>
@@ -191,6 +248,7 @@
                 globalData = docSnap.data();
                 
                 // Identity parsing
+                                // Realtime About Module Parsing
                 if(globalData.profile) {
                     const p = globalData.profile;
                     if(p.fullName) {
@@ -202,6 +260,12 @@
                     }
                     if(p.bio) document.getElementById('dynamic-bio').innerText = `"${p.bio}"`;
                     if(p.aboutMe) document.getElementById('about-me-text').innerText = p.aboutMe;
+                    
+                    // Avatar Dynamic Load (If configured in Admin Dashboard)
+                    if(p.avatar && p.avatar.trim() !== "") {
+                        document.getElementById('about-avatar').src = p.avatar;
+                    }
+
                     if(p.category) {
                         const container = document.getElementById('dynamic-categories'); container.innerHTML = '';
                         p.category.split(',').forEach(cat => {
@@ -209,6 +273,7 @@
                         });
                     }
                 }
+
 
                 // Handle Glitch Dynamic Slider Loading
                 let sliderImages = [];
