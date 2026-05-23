@@ -51,7 +51,13 @@
             40% { clip-path: inset(15% 0 80% 0); }
             60% { clip-path: inset(80% 0 5% 0); transform: scale(0.98) skewX(5deg); }
             80% { clip-path: inset(3% 0 92% 0); transform: scale(1.02); }
-            100% { opacity: 1; transform: scale(1) skewX(0deg); clip-path: inset(0% 0 0% 0); }
+            100% { opacity: 1; transform: scale(1) skewX(0deg); clip-path: inset(0% 0% 0% 0); }
+        }
+
+        /* About Scanner Effect */
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(50%); }
         }
 
         /* Nav Header styles */
@@ -69,11 +75,6 @@
         /* Security Panel Overlay */
         #security-alert { position: fixed; inset: 0; background: rgba(255, 0, 60, 0.25); backdrop-filter: blur(15px); z-index: 10000; display: none; flex-direction: column; align-items: center; justify-content: center; border: 10px solid #ff003c; animation: flash 0.4s infinite; }
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-                @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(50%); }
-        }
-
     </style>
 </head>
 <body oncontextmenu="return showSecurity(event)">
@@ -107,6 +108,44 @@
             <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">System State</p><p id="user-bat" class="font-bold truncate">Scanning...</p></div>
             <div class="info-box p-3 rounded-xl glass text-[10px]"><p class="text-cyan-500 font-bold uppercase mb-0.5">Local Time</p><p id="real-time" class="font-black text-cyan-400">00:00:00</p></div>
         </div>
+
+        <section id="sec-home" class="app-section active-section">
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
+                <div class="photo-frame flex-shrink-0" id="showcase-slider">
+                    <img class="slide-img active" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
+                </div>
+                <div class="text-center lg:text-left space-y-5 max-w-xl">
+                    <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">Identity Uplink // 001</h2>
+                    <h1 id="dynamic-name" class="text-4xl md:text-5xl font-black font-['Orbitron'] leading-tight tracking-wide">KUSHAN A. <br><span class="text-cyan-400">WICKRAMASINGHE</span></h1>
+                    <p id="dynamic-bio" class="text-gray-400 text-sm italic leading-relaxed border-t-2 md:border-t-0 md:border-l-2 border-white/10 pt-4 md:pt-0 md:pl-6">"Connecting to mainframe..."</p>
+                    <div id="dynamic-categories" class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2"></div>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4" id="social-dock">
+                        <a href="#" id="link-whatsapp" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" id="link-facebook" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" id="link-instagram" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" id="link-telegram" target="_blank" class="social-icon"><i class="fa-brands fa-telegram-plane"></i></a>
+                        <a href="#" id="link-tiktok" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" id="link-youtube" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" id="link-linkedin" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-projects" class="app-section">
+            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">DEVELOPED WORK PROJECTS</h2>
+            <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="sec-photography" class="app-section">
+            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">PHOTOGRAPHY GALLERY</h2>
+            <div id="photography-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="sec-writing" class="app-section">
+            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">WRITING CORE QUOTES</h2>
+            <div id="writing-container" class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"></div>
+        </section>
 
         <section id="sec-about" class="app-section">
             <div class="w-full max-w-4xl mx-auto space-y-6">
@@ -181,39 +220,6 @@
                 </div>
             </div>
         </section>
-
-
-        <section id="sec-projects" class="app-section">
-            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">DEVELOPED WORK PROJECTS</h2>
-            <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section id="sec-photography" class="app-section">
-            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">PHOTOGRAPHY GALLERY</h2>
-            <div id="photography-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section id="sec-writing" class="app-section">
-            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">WRITING CORE QUOTES</h2>
-            <div id="writing-container" class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"></div>
-        </section>
-
-        <section id="sec-about" class="app-section">
-            <h2 class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest text-cyan-400 border-l-4 border-cyan-500 pl-3">CONFIRMED BIOMETRIC DOSSIER</h2>
-            <div class="glass p-6 md:p-8 rounded-[2rem] space-y-6">
-                <div class="flex flex-col md:flex-row gap-6 items-center">
-                    <img class="w-24 h-24 rounded-2xl border border-cyan-500/20 object-cover" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
-                    <div>
-                        <h3 id="about-name" class="text-2xl font-black font-['Orbitron']">ASH_X8</h3>
-                        <p class="text-cyan-400 text-xs font-bold font-mono tracking-widest mt-1">OPERATOR // MATRIX</p>
-                    </div>
-                </div>
-                <div class="border-t border-white/5 pt-6">
-                    <h4 class="text-xs uppercase font-bold text-gray-500 tracking-wider mb-2">Core Objective</h4>
-                    <p id="about-me-text" class="text-gray-300 text-sm leading-relaxed font-sans"></p>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="w-full mt-24 border-t border-white/5 glass py-8 px-6 text-center text-gray-500 text-xs">
@@ -240,7 +246,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         let activeSliderPool = [];
-        let globalData = {}; // Cache doc data locally to safely avoid infinite loop callbacks
+        let globalData = {};
 
         // REALTIME CLOUD STREAM RECEIVER
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
@@ -248,7 +254,6 @@
                 globalData = docSnap.data();
                 
                 // Identity parsing
-                                // Realtime About Module Parsing
                 if(globalData.profile) {
                     const p = globalData.profile;
                     if(p.fullName) {
@@ -261,7 +266,6 @@
                     if(p.bio) document.getElementById('dynamic-bio').innerText = `"${p.bio}"`;
                     if(p.aboutMe) document.getElementById('about-me-text').innerText = p.aboutMe;
                     
-                    // Avatar Dynamic Load (If configured in Admin Dashboard)
                     if(p.avatar && p.avatar.trim() !== "") {
                         document.getElementById('about-avatar').src = p.avatar;
                     }
@@ -274,8 +278,7 @@
                     }
                 }
 
-
-                // Handle Glitch Dynamic Slider Loading
+                // Slider handler
                 let sliderImages = [];
                 if(globalData.photographyPool) {
                     sliderImages = globalData.photographyPool.map(item => item.url);
@@ -288,7 +291,6 @@
                     initPixelSlider(activeSliderPool);
                 }
 
-                // Call Render Modules
                 renderProjects(globalData.projectImages || []);
                 renderPhotography(globalData.photographyPool || []);
                 renderWritingQuotes(globalData.quotes || []);
@@ -349,7 +351,6 @@
             });
         }
 
-        // PHOTOGRAPHY ADVANCED RENDER WITH INFO VIEW
         function renderPhotography(pool) {
             const grid = document.getElementById('photography-grid'); grid.innerHTML = '';
             pool.forEach((item) => {
@@ -365,7 +366,6 @@
             });
         }
 
-        // REALTIME LIKES & COMMENTS FIXING MECHANISM
         function renderWritingQuotes(quotes) {
             const container = document.getElementById('writing-container'); container.innerHTML = '';
             quotes.forEach((q, index) => {
@@ -395,7 +395,6 @@
             });
         }
 
-        // ATOMIC FIXES FOR MUTATION CONCURRENCY
         window.processLike = async (index) => {
             if(!globalData.quotes) return;
             globalData.quotes[index].likes = (globalData.quotes[index].likes || 0) + 1;
@@ -426,7 +425,7 @@
 
         const header = document.getElementById('main-header');
         let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', () => {
             if (window.scrollY > lastScrollY && window.scrollY > 100) header.classList.add('header-hidden');
             else header.classList.remove('header-hidden');
             if (window.scrollY > 50) header.classList.add('header-scrolled');
@@ -472,3 +471,4 @@
     </script>
 </body>
 </html>
+
