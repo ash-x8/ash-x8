@@ -85,9 +85,19 @@
         .bg-synthwave { background: linear-gradient(to bottom, #050014 0%, #190032 50%, #030303 100%); }
         .bg-vortex { background: radial-gradient(ellipse at center, rgba(0,243,255,0.03) 0%, rgba(0,0,0,0.9) 80%); }
         .bg-dna { background: linear-gradient(45deg, #020202, #0d0518); }
+
+        /* ⚡ DYNAMIC MASTER SITE LOADING LAYER */
+        #mainframe-loader-screen { position: fixed; inset: 0; z-index: 9999999; background: #030303; display: flex; flex-col; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; transition: opacity 0.6s ease-in-out; }
+        .loader-ring-node { width: 50px; height: 50px; border: 3px solid transparent; border-top-color: #00f3ff; border-radius: 50%; animation: loadSpin 1s linear infinite; }
+        @keyframes loadSpin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
+
+    <div id="mainframe-loader-screen">
+        <div id="loader-graphic-render" class="loader-ring-node"></div>
+        <div id="loader-status-text" class="text-[10px] tracking-[0.3em] font-bold text-cyan-400 mt-4 uppercase font-mono">// BOOTING SECURE CORESYNC NODE //</div>
+    </div>
 
     <canvas id="bg-canvas"></canvas>
     <div id="bg-animation-container"></div>
@@ -111,7 +121,7 @@
     <header id="main-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-[5000] glass rounded-[1.5rem] px-4 md:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0">
         <div class="flex items-center gap-3">
             <img id="header-logo-img" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-8 h-8 rounded-lg object-cover border border-cyan-400/30 shadow-[0_0_10px_rgba(0,243,255,0.2)]">
-            <span class="font-['Orbitron'] font-black text-base tracking-wider text-white">ASH_X8</span>
+            <span id="header-brand-title" class="font-['Orbitron'] font-black text-base tracking-wider text-white">ASH_X8</span>
         </div>
         <nav class="flex flex-wrap justify-center gap-3 md:gap-6">
             <button onclick="switchSection('home')" id="nav-home" class="text-[10px] font-black tracking-widest text-cyan-400 uppercase">HOME</button>
@@ -139,7 +149,7 @@
                     </div>
                 </div>
                 <div class="text-center lg:text-left space-y-4 max-w-xl">
-                    <h2 class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">OPERATOR MAIN MATRIX // 01</h2>
+                    <h2 id="home-mini-header" class="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">OPERATOR MAIN MATRIX // 01</h2>
                     <h1 id="dynamic-name" class="text-4xl md:text-5xl font-black font-['Orbitron'] leading-tight tracking-wide">KUSHAN A. <br><span class="text-cyan-400">WICKRAMASINGHE</span></h1>
                     <p id="dynamic-bio" class="text-gray-400 text-sm italic border-l-2 border-white/10 pl-4">"Connecting to system..."</p>
                     <div id="dynamic-categories" class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2"></div>
@@ -163,7 +173,7 @@
             </div>
 
             <div class="mt-20 border-t border-white/5 pt-12 space-y-6">
-                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-purple-500 rounded-full animate-ping"></span><h3 class="font-['Orbitron'] font-black text-sm text-purple-400 uppercase tracking-widest">// AUTOMATIC CYBER MEMORY SYNC STORY</h3></div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-purple-500 rounded-full animate-ping"></span><h3 id="story-block-title" class="font-['Orbitron'] font-black text-sm text-purple-400 uppercase tracking-widest">// AUTOMATIC CYBER MEMORY SYNC STORY</h3></div>
                 <div class="w-full max-w-2xl mx-auto glass p-4 rounded-3xl border border-purple-500/10 shadow-2xl relative overflow-hidden">
                     <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black relative">
                         <img id="story-player-img" src="" class="w-full h-full object-cover transition-all duration-700 scale-100">
@@ -215,7 +225,7 @@
                         </div>
 
                         <div class="text-center md:text-left space-y-2 flex-grow">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/5 border border-cyan-500/20 text-[9px] font-black uppercase text-cyan-400 tracking-widest">Status: Mainframe Director Authorized</div>
+                            <div id="about-status-node" class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-500/5 border border-cyan-500/20 text-[9px] font-black uppercase text-cyan-400 tracking-widest">Status: Mainframe Director Authorized</div>
                             <h3 id="about-name" class="text-3xl font-black font-['Orbitron'] tracking-wide text-white">KUSHAN A. WICKRAMASINGHE</h3>
                             <div class="flex flex-wrap justify-center md:justify-start gap-4 text-xs font-mono text-gray-500 pt-1">
                                 <div><span class="text-cyan-500 font-bold">NODE//</span> ASH_X8</div><div><span class="text-purple-500 font-bold">LOC//</span> UP-LINK.SL</div><div><span class="text-yellow-500 font-bold">VER//</span> 4.0.0-PROD</div>
@@ -231,7 +241,7 @@
                         <div class="space-y-4">
                             <div class="space-y-2">
                                 <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-circle-nodes text-purple-500"></i> Current Operations</div>
-                                <div class="space-y-1 text-xs text-gray-400"><div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Writer & Post-Editor</div><div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Web Infrastructure Director</div></div>
+                                <div id="about-ops-list" class="space-y-1 text-xs text-gray-400"><div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Writer & Post-Editor</div><div class="flex items-center gap-2"><span class="text-cyan-400 text-[10px]">✦</span> Web Infrastructure Director</div></div>
                             </div>
                             <div class="space-y-2">
                                 <div class="text-gray-500 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-microchip text-yellow-500"></i> Active Core Stack</div>
@@ -246,7 +256,7 @@
 
     <footer class="w-full mt-24 border-t border-white/5 glass py-8 px-6 text-center text-gray-500 text-xs">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
-            <div>© 2026 <span class="text-cyan-400 font-bold">ASH_X8</span> // CONTROL STATION CENTER</div>
+            <div id="footer-copyright-text">© 2026 <span class="text-cyan-400 font-bold">ASH_X8</span> // CONTROL STATION CENTER</div>
         </div>
     </footer>
 
@@ -333,6 +343,92 @@
                     `;
                 }
 
+                // ⚡ MASTER LOADER & FONT ANIMATION INJECTION SYSTEM (GHOSTDEV PACK)
+                let animationStyleBuffer = `
+                    /* Font Animations Core Engine Keyframes */
+                    .cyber-glitch { animation: cyShiver 0.15s infinite alternate; font-weight: 900; letter-spacing: 0.1em; }
+                    .neon-flicker { animation: neonFlickering 2s infinite; text-shadow: 0 0 8px var(--neon); }
+                    @keyframes neonFlickering { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; } 20%, 24%, 55% { opacity: 0.4; } }
+                    .typewriter { overflow: hidden; border-right: 2px solid var(--neon); white-space: nowrap; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; }
+                    @keyframes typing { from { width: 0 } to { width: 100% } }
+                    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--neon); } }
+                    .matrix-scan { background: linear-gradient(rgba(0,243,255,0.2) 50%, rgba(0,0,0,0) 50%); background-size: 100% 4px; color: #00ffcc; text-shadow: 0 0 4px #00ffcc; }
+                    .wave-float { animation: floatingText 3s ease-in-out infinite; }
+                    @keyframes floatingText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+                    .chromatic-split { text-shadow: 3px 0 0 rgba(255,0,0,0.5), -3px 0 0 rgba(0,0,255,0.5); }
+                    .blur-reveal { animation: blurringReveal 1.5s ease-out forwards; }
+                    @keyframes blurringReveal { from { filter: blur(12px); opacity: 0; } to { filter: blur(0); opacity: 1; } }
+                    .bounce-retro { animation: retroBouncing 0.6s infinite alternate; }
+                    @keyframes retroBouncing { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+
+                    /* Pre-made Loader Keyframes Bundle */
+                    .loader-cyber-pulse { width: 40px; height: 40px; background: var(--neon); border-radius: 50%; animation: cyPulse 1.2s infinite ease-in-out; }
+                    @keyframes cyPulse { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+                    .loader-neon-ring { width: 45px; height: 45px; border: 3px solid rgba(255,255,255,0.05); border-top: 3px solid #00f3ff; border-bottom: 3px solid purple; border-radius: 50%; animation: loadSpin 0.8s linear infinite; }
+                    .loader-glitch-bar { width: 120px; height: 6px; background: rgba(255,255,255,0.1); relative; overflow:hidden; }
+                    .loader-glitch-bar::after { content:''; position:absolute; left:0; top:0; height:100%; width:40%; background:var(--neon); animation: barMove 1s infinite linear; }
+                    @keyframes barMove { 0% { left: -40%; } 100% { left: 100%; } }
+                    .loader-dna-helix { width: 30px; height: 30px; border: 4px dotted purple; border-left-color: var(--neon); border-right-color: var(--neon); border-radius: 50%; animation: loadSpin 1.5s ease-in-out infinite; }
+                    .loader-digital-rain { font-size: 24px; color: #00ffcc; font-family: monospace; animation: cyShiver 0.1s infinite; }
+                    .loader-digital-rain::before { content: "10101"; }
+                    .loader-quantum-mesh { width: 40px; height: 40px; border-radius: 35% 65% 70% 30% / 30% 40% 60% 70%; background: linear-gradient(45deg, #00f3ff, purple); animation: audWave 2s infinite linear; }
+                    .loader-ascii-shifter { font-family: monospace; font-size: 14px; color: var(--neon); animation: asciiChange 1s steps(4) infinite; }
+                    @keyframes asciiChange { 0% { content: "[ / ]"; } 25% { content: "[ - ]"; } 50% { content: "[ \\ ]"; } 75% { content: "[ | ]"; } }
+                    .loader-retro-arcade { width: 20px; height: 20px; background: #ffff00; animation: retroBlink 0.4s steps(2) infinite; }
+                    @keyframes retroBlink { to { opacity: 0; } }
+                `;
+                
+                if(globalData.customAnimationCode) animationStyleBuffer += globalData.customAnimationCode;
+                document.getElementById('custom-animation-styles').innerHTML = animationStyleBuffer;
+                document.getElementById('custom-bg-styles').innerHTML = globalData.customBgCode || '';
+
+                // Loader Display Logic Configuration
+                if(globalData.animationSettings) {
+                    const anim = globalData.animationSettings;
+                    const loaderGraphic = document.getElementById('loader-graphic-render');
+                    
+                    if(anim.customLoaderCode && anim.customLoaderCode.trim() !== "") {
+                        document.getElementById('mainframe-loader-screen').innerHTML = anim.customLoaderCode;
+                    } else if(anim.selectedLoader) {
+                        loaderGraphic.className = ""; // Reset basic ring class
+                        loaderGraphic.classList.add(`loader-${anim.selectedLoader}`);
+                        if(anim.selectedLoader === "ascii-shifter") {
+                            loaderGraphic.innerText = "[ - ]";
+                            // Quick dynamic loop for pseudo text updates if container matches
+                            setInterval(() => {
+                                const chars = ["[-]", "[ text ]", "[//]", "[O]"];
+                                loaderGraphic.innerText = chars[Math.floor(Math.random() * chars.length)];
+                            }, 250);
+                        }
+                    }
+
+                    // Apply Individual Font Animations
+                    if(anim.fontAnimations) {
+                        const fx = anim.fontAnimations;
+                        applyFontFx('dynamic-name', fx.mainTitle);
+                        applyFontFx('header-brand-title', fx.header);
+                        applyFontFx('home-mini-header', fx.header);
+                        applyFontFx('head-projects', fx.title);
+                        applyFontFx('head-photography', fx.title);
+                        applyFontFx('head-writing', fx.title);
+                        applyFontFx('head-about', fx.title);
+                        applyFontFx('story-block-title', fx.title);
+                        applyFontFx('dynamic-bio', fx.caption);
+                        applyFontFx('about-me-text', fx.caption);
+                        applyFontFx('about-status-node', fx.caption);
+                        applyFontFx('footer-copyright-text', fx.footer);
+                    }
+                }
+
+                // Smoothly terminate loader screen once firebase sequence loads completely
+                setTimeout(() => {
+                    const loaderScreen = document.getElementById('mainframe-loader-screen');
+                    if(loaderScreen) {
+                        loaderScreen.style.opacity = '0';
+                        setTimeout(() => loaderScreen.style.display = 'none', 600);
+                    }
+                }, 1200);
+
                 const avatarImg = document.getElementById('home-avatar-display');
                 avatarImg.className = "w-full h-full object-cover"; 
                 if(globalData.selectedAvatarAnim && globalData.selectedAvatarAnim !== "none") {
@@ -344,9 +440,6 @@
                 if(globalData.selectedBgAnim && globalData.selectedBgAnim !== "none") {
                     bgAnimContainer.classList.add(globalData.selectedBgAnim);
                 }
-
-                document.getElementById('custom-animation-styles').innerHTML = globalData.customAnimationCode || '';
-                document.getElementById('custom-bg-styles').innerHTML = globalData.customBgCode || '';
 
                 renderProjects(globalData.projectImages || []);
                 renderPhotography(globalData.photographyPool || []);
@@ -367,6 +460,17 @@
                 assembleStoryPool();
             }
         });
+
+        function applyFontFx(elementId, effectName) {
+            const el = document.getElementById(elementId);
+            if(!el) return;
+            // Clean up standard effects array to prevent overriding tailwind core layout properties
+            const fxClasses = ['cyber-glitch', 'neon-flicker', 'typewriter', 'matrix-scan', 'wave-float', 'chromatic-split', 'blur-reveal', 'bounce-retro'];
+            fxClasses.forEach(c => el.classList.remove(c));
+            if(effectName && effectName !== "none") {
+                el.classList.add(effectName);
+            }
+        }
 
         function toggleSocial(id, url) {
             const el = document.getElementById(id);
@@ -459,9 +563,8 @@
 
     <script>
         let isBrowserAudioUnlocked = false;
-        let currentAlertSound = null; // ප්ලේ වන සවුන්ඩ් එක මතක තබා ගැනීමට Global Variable එකක්
+        let currentAlertSound = null;
 
-        // සයිට් එකට ආපු ගමන් බ්‍රවුසර් එකෙන් සවුන්ඩ් බ්ලොක් කරන එක නැති කරන්න පළමු ක්ලික් එක ලබා ගැනීම
         document.addEventListener('click', () => {
             isBrowserAudioUnlocked = true;
         }, { once: true });
@@ -470,20 +573,17 @@
             if (!window.securityConfig || !window.securityConfig.enabled) return true;
             if (e) e.preventDefault();
 
-            // 1. Warning Modal එක තිරය මත පෙන්වීම
             document.getElementById('security-modal').style.display = 'flex';
 
-            // 2. සවුන්ඩ් එක ප්ලේ කිරීම (ලූප් වන ආකාරයට)
             if (window.securityConfig.soundEnabled && window.securityConfig.soundUrl) {
                 if (currentAlertSound) {
                     currentAlertSound.pause();
                 }
 
-                // අලුත් සවුන්ඩ් ඔබ්ජෙක්ට් එකක් සාදා ප්ලේ කිරීම
                 currentAlertSound = new Audio(window.securityConfig.soundUrl);
                 currentAlertSound.preload = "auto";
                 currentAlertSound.volume = 1.0; 
-                currentAlertSound.loop = true; // 🌟 Warning එක තියෙනකම් සවුන්ඩ් එක දිගටම ලූප් වී ප්ලේ වේ!
+                currentAlertSound.loop = true; 
                 
                 currentAlertSound.play().catch(error => {
                     console.log("Audio play blocked by browser. User needs to click first:", error);
@@ -492,26 +592,20 @@
             return false;
         }
 
-        // 🌟 Warning එක අයින් කරද්දී සවුන්ඩ් එක එකපාරම නතර කරන කේතය
         function closeSecurityAlert() {
-            // Warning පෙට්ටිය හංගන්න
             document.getElementById('security-modal').style.display = 'none';
-            
-            // සවුන්ඩ් එක ප්ලේ වෙමින් පවතී නම් එය සම්පූර්ණයෙන්ම නතර කර මුලටම රීසෙට් කරන්න
             if (currentAlertSound) {
                 currentAlertSound.pause();
                 currentAlertSound.currentTime = 0;
             }
         }
 
-        // Right-Click Lock Engine
         document.addEventListener('contextmenu', triggerSecurityViolation);
 
-        // Advanced Inspect Tool Hotkey Lock (F12, Ctrl+Shift+I, etc.)
         document.addEventListener('keydown', function(e) {
-            if (e.keyCode === 123 || // F12
-                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || // Ctrl+Shift+I/C/J
-                (e.ctrlKey && e.keyCode === 85)) { // Ctrl+U
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || 
+                (e.ctrlKey && e.keyCode === 85)) { 
                 triggerSecurityViolation(e);
             }
         });
@@ -563,3 +657,4 @@
     </script>
 </body>
 </html>
+
