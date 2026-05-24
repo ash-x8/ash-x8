@@ -121,6 +121,109 @@
         </div>
 
         <div id="panel-animation" class="dashboard-panel hidden space-y-6">
+            <div class="glass-card p-6 space-y-4 border border-cyan-500/20">
+                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// MASTER SITE LOADING ANIMATION</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label>Select Pre-made Loader Animation</label>
+                        <select id="loader-anim-select">
+                            <option value="cyber-pulse">1. Cyber Pulse Matrix</option>
+                            <option value="neon-ring">2. Neon Spinning Ring</option>
+                            <option value="glitch-bar">3. Glitch Progress Bar</option>
+                            <option value="dna-helix">4. DNA Helix Glow</option>
+                            <option value="digital-rain">5. Matrix Digital Rain Drop</option>
+                            <option value="quantum-mesh">6. Quantum Mesh Orb</option>
+                            <option value="ascii-shifter">7. ASCII Terminal Shifter</option>
+                            <option value="retro-arcade">8. Retro Arcade Blink</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Custom Loader CSS/HTML Code Injection</label>
+                        <textarea id="custom-loader-code" rows="1" placeholder="/* Paste your custom loader CSS/HTML here */"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 space-y-4 border border-yellow-500/20">
+                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400">// INDIVIDUAL FONT ANIMATION MATRIX</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div>
+                        <label>Main Title (Name)</label>
+                        <select id="anim-main-title">
+                            <option value="none">Static (None)</option>
+                            <option value="cyber-glitch">Glitch & Shiver</option>
+                            <option value="neon-flicker">Neon Flicker</option>
+                            <option value="typewriter">Typewriter</option>
+                            <option value="matrix-scan">Matrix Scan</option>
+                            <option value="wave-float">Wave Float</option>
+                            <option value="chromatic-split">RGB Split</option>
+                            <option value="blur-reveal">Blur Reveal</option>
+                            <option value="bounce-retro">Retro Bounce</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Header Text</label>
+                        <select id="anim-header">
+                            <option value="none">Static (None)</option>
+                            <option value="cyber-glitch">Glitch & Shiver</option>
+                            <option value="neon-flicker">Neon Flicker</option>
+                            <option value="typewriter">Typewriter</option>
+                            <option value="matrix-scan">Matrix Scan</option>
+                            <option value="wave-float">Wave Float</option>
+                            <option value="chromatic-split">RGB Split</option>
+                            <option value="blur-reveal">Blur Reveal</option>
+                            <option value="bounce-retro">Retro Bounce</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Sub-Titles (Sections)</label>
+                        <select id="anim-title">
+                            <option value="none">Static (None)</option>
+                            <option value="cyber-glitch">Glitch & Shiver</option>
+                            <option value="neon-flicker">Neon Flicker</option>
+                            <option value="typewriter">Typewriter</option>
+                            <option value="matrix-scan">Matrix Scan</option>
+                            <option value="wave-float">Wave Float</option>
+                            <option value="chromatic-split">RGB Split</option>
+                            <option value="blur-reveal">Blur Reveal</option>
+                            <option value="bounce-retro">Retro Bounce</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Captions & Bios</label>
+                        <select id="anim-caption">
+                            <option value="none">Static (None)</option>
+                            <option value="cyber-glitch">Glitch & Shiver</option>
+                            <option value="neon-flicker">Neon Flicker</option>
+                            <option value="typewriter">Typewriter</option>
+                            <option value="matrix-scan">Matrix Scan</option>
+                            <option value="wave-float">Wave Float</option>
+                            <option value="chromatic-split">RGB Split</option>
+                            <option value="blur-reveal">Blur Reveal</option>
+                            <option value="bounce-retro">Retro Bounce</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2 lg:col-span-1">
+                        <label>Footer Text</label>
+                        <select id="anim-footer">
+                            <option value="none">Static (None)</option>
+                            <option value="cyber-glitch">Glitch & Shiver</option>
+                            <option value="neon-flicker">Neon Flicker</option>
+                            <option value="typewriter">Typewriter</option>
+                            <option value="matrix-scan">Matrix Scan</option>
+                            <option value="wave-float">Wave Float</option>
+                            <option value="chromatic-split">RGB Split</option>
+                            <option value="blur-reveal">Blur Reveal</option>
+                            <option value="bounce-retro">Retro Bounce</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <label>Custom Font Keyframes / CSS Animation Code</label>
+                    <textarea id="custom-font-anim-code" rows="3" placeholder="/* Paste your custom font CSS keyframes or extra classes here */"></textarea>
+                </div>
+            </div>
+
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 space-y-4">
                     <h3 class="text-xs font-black font-['Orbitron'] text-green-400">// HOME AVATAR SYSTEM ANIMATION</h3>
@@ -249,6 +352,23 @@
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
                 if(liveDatabaseState.customBgCode) document.getElementById('custom-bg-code').value = liveDatabaseState.customBgCode;
                 
+                // Load GhostDev Loader & Font Animation values from Live Sync DB
+                if(liveDatabaseState.animationSettings) {
+                    const anim = liveDatabaseState.animationSettings;
+                    if(anim.selectedLoader) document.getElementById('loader-anim-select').value = anim.selectedLoader;
+                    if(anim.customLoaderCode) document.getElementById('custom-loader-code').value = anim.customLoaderCode;
+                    if(anim.customFontAnimCode) document.getElementById('custom-font-anim-code').value = anim.customFontAnimCode;
+                    
+                    if(anim.fontAnimations) {
+                        const fx = anim.fontAnimations;
+                        if(fx.mainTitle) document.getElementById('anim-main-title').value = fx.mainTitle;
+                        if(fx.header) document.getElementById('anim-header').value = fx.header;
+                        if(fx.title) document.getElementById('anim-title').value = fx.title;
+                        if(fx.caption) document.getElementById('anim-caption').value = fx.caption;
+                        if(fx.footer) document.getElementById('anim-footer').value = fx.footer;
+                    }
+                }
+
                 // Security Panel Live Sync Load
                 if(liveDatabaseState.securitySystem) {
                     const sec = liveDatabaseState.securitySystem;
@@ -314,6 +434,21 @@
                     selectedBgAnim: document.getElementById('selected-bg-anim').value,
                     customAnimationCode: document.getElementById('custom-animation-code').value,
                     customBgCode: document.getElementById('custom-bg-code').value,
+                    
+                    // Master Animation Engine Sync Packet (GhostDev Injection)
+                    animationSettings: {
+                        selectedLoader: document.getElementById('loader-anim-select').value,
+                        customLoaderCode: document.getElementById('custom-loader-code').value,
+                        fontAnimations: {
+                            mainTitle: document.getElementById('anim-main-title').value,
+                            header: document.getElementById('anim-header').value,
+                            title: document.getElementById('anim-title').value,
+                            caption: document.getElementById('anim-caption').value,
+                            footer: document.getElementById('anim-footer').value
+                        },
+                        customFontAnimCode: document.getElementById('custom-font-anim-code').value
+                    },
+                    
                     securitySystem: {
                         enabled: document.getElementById('sec-enabled').value === "true",
                         soundEnabled: document.getElementById('sec-sound-enabled').value === "true",
@@ -437,3 +572,4 @@
     </script>
 </body>
 </html>
+
