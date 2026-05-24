@@ -3,29 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Admin System Suite | ASH_X8</title>
+    <title>ASH_X8 | Mainframe Control Admin Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        body { background: #030303; color: #e2e8f0; font-family: 'JetBrains Mono', monospace; }
-        .glass-card { background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; }
-        input, textarea, select { background: #0a0a0f !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; color: #fff !important; padding: 12px; width: 100%; border-radius: 0.75rem; }
-        input:focus, textarea:focus, select:focus { border-color: #00f3ff !important; outline: none; }
-        label { font-size: 11px; color: #00f3ff; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px; }
-        .tab-btn.active { background: #00f3ff; color: #000; font-weight: 900; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
+        body { background: #020205; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; position: relative; }
+        #galaxy-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .glass { background: rgba(5, 5, 15, 0.45); backdrop-filter: blur(20px); border: 1px solid rgba(0, 243, 255, 0.08); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass:hover { border-color: rgba(0, 243, 255, 0.25); box-shadow: 0 0 35px rgba(0, 243, 255, 0.05); }
+        .input-cyber { background: rgba(0,0,0,0.6) !important; border: 1px solid rgba(0, 243, 255, 0.15) !important; color: #fff !important; transition: all 0.3s; }
+        .input-cyber:focus { border-color: #00f3ff !important; box-shadow: 0 0 15px rgba(0, 243, 255, 0.25) !important; outline: none; }
+        input[type="color"] { border-radius: 0.5rem; transition: transform 0.2s ease; }
+        input[type="color"]:hover { transform: scale(1.1); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .tab-btn { transition: all 0.3s ease; }
+        .tab-btn.active { background: #00f3ff !important; color: #000 !important; font-weight: 900; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen bg-gradient-to-br from-[#020202] to-[#080815]">
+<body class="p-4 md:p-8 min-h-screen">
 
-    <div class="max-w-6xl mx-auto space-y-8">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-white/5 pb-6">
+    <canvas id="galaxy-bg"></canvas>
+
+    <div class="max-w-6xl mx-auto space-y-8 relative z-10">
+        
+        <div class="glass p-6 rounded-3xl border border-cyan-500/20 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
-                <h1>⚡ CORESYNC SECURITY CONSOLE // OPERATOR DIRECT</h1>
-                <p class="text-xs text-gray-500">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
+                <h1 class="text-xl md:text-2xl font-black font-['Orbitron'] text-cyan-400 tracking-wider">⚡ GHOSTDEV PORTFOLIO MAINFRAME</h1>
+                <p class="text-xs text-gray-400 mt-1">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
             </div>
-            <button id="master-sync-btn" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_20px_rgba(0,243,255,0.2)]">
-                Sync Master Mainframe
+            <button id="main-deploy-btn" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_25px_rgba(0,243,255,0.3)] hover:scale-105">
+                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Deploy Live Updates
             </button>
         </div>
 
@@ -33,123 +40,228 @@
             <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Identity Systems</button>
             <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Quotes (නිසදැස්)</button>
             <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Photography (ගැලරිය)</button>
-            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Section Fonts</button>
+            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Section Fonts & Colors</button>
             <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Engine</button>
             <button onclick="switchTab('security')" id="tab-security" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 border border-red-500/20 text-red-400">🚨 Security Layer</button>
         </div>
 
         <div id="panel-profile" class="dashboard-panel space-y-6">
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// IDENTITY BRANDING SETUP</h3>
-                    <div><label>Header Mini Logo Image URL Link</label><input type="text" id="p-logo"></div>
-                    <div>
-                        <label>Upload Mini Logo From Gallery</label>
-                        <input type="file" id="p-logo-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400">
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 glass p-6 rounded-3xl space-y-4 border border-white/5">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest">// Identity Branding Setup</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Header Brand Logo URL</label>
+                            <input type="text" id="headerLogoInput" class="w-full p-3 rounded-xl input-cyber text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Upload Logo From Storage</label>
+                            <input type="file" id="p-logo-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400 input-cyber p-1.5">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Full Identity Name</label>
+                            <input type="text" id="profName" class="w-full p-3 rounded-xl input-cyber text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Status Bio Row / Banner</label>
+                            <input type="text" id="profBio" class="w-full p-3 rounded-xl input-cyber text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Profile Avatar Image URL</label>
+                            <input type="text" id="profAvatar" class="w-full p-3 rounded-xl input-cyber text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Upload Avatar From Device</label>
+                            <input type="file" id="p-avatar-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400 input-cyber p-1.5">
+                        </div>
                     </div>
-                    <div><label>Full Name Matrix</label><input type="text" id="p-name"></div>
-                    <div><label>Status Bio Row</label><textarea id="p-bio" rows="2"></textarea></div>
-                    <div><label>Avatar Photo Core Link</label><input type="text" id="p-avatar"></div>
                     <div>
-                        <label>Choose Avatar From Mobile Gallery</label>
-                        <input type="file" id="p-avatar-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400">
+                        <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">About Objective Core Statement</label>
+                        <textarea id="profAboutMe" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                     </div>
                 </div>
-                <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400">// SOCIAL OVERLINK GATEWAYS</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div><label>LinkedIn Link</label><input type="text" id="s-li"></div>
-                        <div><label>WhatsApp Target</label><input type="text" id="s-wa"></div>
-                        <div><label>Facebook Interface</label><input type="text" id="s-fb"></div>
-                        <div><label>Instagram Node</label><input type="text" id="s-ig"></div>
-                        <div><label>Telegram Direct</label><input type="text" id="s-tg"></div>
-                        <div><label>TikTok Stream</label><input type="text" id="s-tt"></div>
-                        <div><label>YouTube Link</label><input type="text" id="s-yt"></div>
-                        <div><label>Categories (Comma separated)</label><input type="text" id="p-cat"></div>
+
+                <div class="glass p-6 rounded-3xl space-y-4 border border-purple-500/10">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest">// Social Overlink Gateways</h3>
+                    <div class="space-y-3">
+                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">LinkedIn Link</label><input type="text" id="s-li" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">WhatsApp Target</label><input type="text" id="s-wa" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Facebook Interface</label><input type="text" id="s-fb" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Instagram Node</label><input type="text" id="s-ig" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Telegram Direct</label><input type="text" id="s-tg" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">YouTube Link</label><input type="text" id="s-yt" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Categories (Comma separated)</label><input type="text" id="p-cat" class="w-full p-2.5 rounded-xl input-cyber text-xs" placeholder="Developer, Designer, Hacker"></div>
                     </div>
-                    <div><label>Detailed Bio Paragraph (About Me)</label><textarea id="p-about" rows="3"></textarea></div>
                 </div>
             </div>
         </div>
 
         <div id="panel-quotes" class="dashboard-panel hidden space-y-6">
-            <div class="glass-card p-6 space-y-4">
-                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// DEPLOY / EDIT THOUGHT SEGMENT</h3>
+            <div class="glass p-6 rounded-3xl space-y-4 border border-cyan-500/20">
+                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest">// Deploy / Edit Thought Segment</h3>
                 <input type="hidden" id="quote-edit-index" value="-1">
-                <div><label>Quote Content</label><textarea id="quote-text" rows="5"></textarea></div>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Quote Content (සිංහල හෝ English)</label>
+                    <textarea id="quote-text" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
+                </div>
                 <div class="flex gap-2">
-                    <button id="save-quote-btn" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg">Save Thought</button>
-                    <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
+                    <button id="save-quote-btn" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg shadow-lg hover:bg-cyan-400 transition-all">Save Thought</button>
+                    <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg hover:bg-white/10">Cancel</button>
                 </div>
             </div>
-            <div class="glass-card p-6"><div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div></div>
+            <div class="glass p-6 rounded-3xl"><div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div></div>
         </div>
 
         <div id="panel-photography" class="dashboard-panel hidden space-y-6">
-            <div class="glass-card p-6 space-y-4">
-                <h3 class="text-xs font-black font-['Orbitron'] text-purple-400">// INJECT PICTURE TO CLOUD ARCHIVE</h3>
-                <input type="hidden" id="photo-edit-index" value="-1">
-                <div class="grid md:grid-cols-3 gap-4">
-                    <div><label>Frame Title Tag</label><input type="text" id="photo-title"></div>
-                    <div><label>Captured Timestamp</label><input type="text" id="photo-date"></div>
-                    <div><label>Direct Photo URL Asset</label><input type="text" id="photo-url"></div>
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 glass p-6 rounded-3xl space-y-4 border border-purple-500/20">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest">// Inject Picture to Cloud Gallery Archive</h3>
+                    <input type="hidden" id="photo-edit-index" value="-1">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Frame Title Tag</label><input type="text" id="photo-title" class="w-full p-3 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Captured Timestamp</label><input type="text" id="photo-date" class="w-full p-3 rounded-xl input-cyber text-xs"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Direct Photo URL Asset</label><input type="text" id="photo-url" class="w-full p-3 rounded-xl input-cyber text-xs"></div>
+                    </div>
+                    <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Brief Photo Context</label><textarea id="photo-desc" rows="2" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea></div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Upload Photo Grid Asset</label>
+                        <input type="file" id="photo-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-purple-500/10 file:text-purple-400 input-cyber p-1.5">
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="commit-photo-btn" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg hover:bg-purple-400 transition-all">Commit Grid Element</button>
+                        <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg hover:bg-white/10">Cancel</button>
+                    </div>
+                    <div class="border-t border-white/5 pt-4">
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-2">Live Gallery Stream</label>
+                        <div id="admin-photography-list" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+                    </div>
                 </div>
-                <div><label>Brief Photo Context</label><textarea id="photo-desc" rows="2"></textarea></div>
-                <div>
-                    <label>Upload From Media Gallery Grid</label>
-                    <input type="file" id="photo-file" accept="image/*" class="text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-purple-500/10 file:text-purple-400">
-                </div>
-                <div class="flex gap-2">
-                    <button id="commit-photo-btn" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg">Commit Grid Element</button>
-                    <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg">Cancel</button>
+
+                <div class="glass p-6 rounded-3xl border border-cyan-500/30 space-y-4">
+                    <h2 class="text-sm font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest"><i class="fa-solid fa-diagram-project mr-2"></i> Project Asset Stream</h2>
+                    <p class="text-[11px] text-gray-400">Insert direct web source links below to append new imagery representations into your portfolio work stack grid.</p>
+                    
+                    <div class="space-y-2">
+                        <label class="block text-[10px] uppercase font-bold text-cyan-400">Inject Project Image URL</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="newProjectUrlInput" placeholder="https://i.ibb.co/.../image.jpg" class="w-full p-3 rounded-xl input-cyber text-xs flex-grow">
+                            <button id="inject-proj-btn" class="px-4 bg-cyan-500 text-black font-black rounded-xl text-xs uppercase hover:bg-cyan-400 transition-all">+</button>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-white/5 pt-4">
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-2">Live Project Stack Images</label>
+                        <div id="adminProjectThumbsGrid" class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1"></div>
+                    </div>
                 </div>
             </div>
-            <div class="glass-card p-6"><div id="admin-photography-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div></div>
         </div>
 
         <div id="panel-fonts" class="dashboard-panel hidden space-y-6">
-            <div class="glass-card p-6 space-y-4">
-                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400">// OVERRIDE TARGET FONT STRUCTURES</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div><label>Home Screen Engine Font</label><select id="font-home" class="font-dropdown"></select></div>
-                    <div><label>Projects Layer Font</label><select id="font-projects" class="font-dropdown"></select></div>
-                    <div><label>Photography Cluster Font</label><select id="font-photography" class="font-dropdown"></select></div>
-                    <div><label>Writing Core Matrix Font</label><select id="font-writing" class="font-dropdown"></select></div>
-                    <div><label>About Dossier Font</label><select id="font-about" class="font-dropdown"></select></div>
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-1 glass p-6 rounded-3xl space-y-4 border border-yellow-500/20">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400 uppercase tracking-widest">// Override Target Font Structures</h3>
+                    <div class="space-y-4">
+                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Home Screen Font</label><select id="font-home" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Projects Layer Font</label><select id="font-projects" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Photography Font</label><select id="font-photography" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Writing Core Font</label><select id="font-writing" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">About Dossier Font</label><select id="font-about" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 glass p-6 rounded-3xl border border-yellow-500/20 space-y-4">
+                    <h2 class="text-sm font-black font-['Orbitron'] text-yellow-400 uppercase tracking-widest"><i class="fa-solid fa-palette mr-2"></i> Granular Text Matrix Color Matrix</h2>
+                    <p class="text-[11px] text-gray-400">Change any localized element font colors instantly across the global layout view.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">Navigation Font</span>
+                            <input type="color" id="col-nav" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">Main Core Title</span>
+                            <input type="color" id="col-mainTitle" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">Section Titles</span>
+                            <input type="color" id="col-secTitle" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">Captions & Desc</span>
+                            <input type="color" id="col-caption" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">Timeline / Dates</span>
+                            <input type="color" id="col-date" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">System Info Box</span>
+                            <input type="color" id="col-userInfo" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">Operator Bio</span>
+                            <input type="color" id="col-bio" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">About Section Text</span>
+                            <input type="color" id="col-about" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-300">Footer Text</span>
+                            <input type="color" id="col-footer" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/5">
+                        <label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Select Navigation Theme (10 Styles Architecture)</label>
+                        <select id="headerStyleSelect" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
+                            <option value="style1">Style 01 - Cyber Glow Cyan (Classic)</option>
+                            <option value="style2">Style 02 - Dark Neon Purple Silhouette</option>
+                            <option value="style3">Style 03 - Minimal Transparent Matrix Line</option>
+                            <option value="style4">Style 04 - Glassmorphic Blur Heavy</option>
+                            <option value="style5">Style 05 - Retro Arcade Gold Border</option>
+                            <option value="style6">Style 06 - Cyberpunk Warning Stripe (Yellow/Black)</option>
+                            <option value="style7">Style 07 - Tech Futuristic Red Alert Accent</option>
+                            <option value="style8">Style 08 - Ghost Dev Premium White Border</option>
+                            <option value="style9">Style 09 - Sub-Atomic Quantum Gradient Pulse</option>
+                            <option value="style10">Style 10 - Stealth Agent Deep Shadow Flat</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="panel-animation" class="dashboard-panel hidden space-y-6">
-            <div class="glass-card p-6 space-y-4 border border-cyan-500/20">
-                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400">// MASTER SITE LOADING ANIMATION</h3>
+            <div class="glass p-6 rounded-3xl border border-cyan-500/20 space-y-4">
+                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest">// Master Site Loading Animation</h3>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label>Select Pre-made Loader Animation</label>
-                        <select id="loader-anim-select">
-                            <option value="cyber-pulse">1. Cyber Pulse Matrix</option>
-                            <option value="neon-ring">2. Neon Spinning Ring</option>
-                            <option value="glitch-bar">3. Glitch Progress Bar</option>
-                            <option value="dna-helix">4. DNA Helix Glow</option>
-                            <option value="digital-rain">5. Matrix Digital Rain Drop</option>
-                            <option value="quantum-mesh">6. Quantum Mesh Orb</option>
-                            <option value="ascii-shifter">7. ASCII Terminal Shifter</option>
-                            <option value="retro-arcade">8. Retro Arcade Blink</option>
+                        <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Select Active Loader Engine</label>
+                        <select id="loaderSelect" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
+                            <option value="cyber-pulse">Cyber Cosmic Pulse</option>
+                            <option value="neon-ring">Bi-Directional Neon Ring</option>
+                            <option value="glitch-bar">Linear Glitch Progress Bar</option>
+                            <option value="dna-helix">Rotating DNA Helix Mesh</option>
+                            <option value="digital-rain">Matrix Static Bit Stream</option>
+                            <option value="quantum-mesh">Quantum Shape-Shifting Wave</option>
+                            <option value="ascii-shifter">Retro ASCII State Terminal</option>
+                            <option value="retro-arcade">Blinking Classic Arcade Core</option>
                         </select>
                     </div>
                     <div>
-                        <label>Custom Loader CSS/HTML Code Injection</label>
-                        <textarea id="custom-loader-code" rows="1" placeholder="/* Paste your custom loader CSS/HTML here */"></textarea>
+                        <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Custom Loader Code Injection</label>
+                        <textarea id="custom-loader-code" rows="1" placeholder="/* CSS/HTML Custom Injection */" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card p-6 space-y-4 border border-yellow-500/20">
-                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400">// INDIVIDUAL FONT ANIMATION MATRIX</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div class="glass p-6 rounded-3xl border border-yellow-500/20 space-y-4">
+                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400 uppercase tracking-widest">// Individual Font Animation Matrix</h3>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div>
-                        <label>Main Title (Name)</label>
-                        <select id="anim-main-title">
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Main Title (Name)</label>
+                        <select id="anim-main-title" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                             <option value="none">Static (None)</option>
                             <option value="cyber-glitch">Glitch & Shiver</option>
                             <option value="neon-flicker">Neon Flicker</option>
@@ -162,8 +274,8 @@
                         </select>
                     </div>
                     <div>
-                        <label>Header Text</label>
-                        <select id="anim-header">
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Header Text</label>
+                        <select id="anim-header" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                             <option value="none">Static (None)</option>
                             <option value="cyber-glitch">Glitch & Shiver</option>
                             <option value="neon-flicker">Neon Flicker</option>
@@ -176,8 +288,8 @@
                         </select>
                     </div>
                     <div>
-                        <label>Sub-Titles (Sections)</label>
-                        <select id="anim-title">
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Sub-Titles</label>
+                        <select id="anim-title" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                             <option value="none">Static (None)</option>
                             <option value="cyber-glitch">Glitch & Shiver</option>
                             <option value="neon-flicker">Neon Flicker</option>
@@ -190,8 +302,8 @@
                         </select>
                     </div>
                     <div>
-                        <label>Captions & Bios</label>
-                        <select id="anim-caption">
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Captions & Bios</label>
+                        <select id="anim-caption" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                             <option value="none">Static (None)</option>
                             <option value="cyber-glitch">Glitch & Shiver</option>
                             <option value="neon-flicker">Neon Flicker</option>
@@ -203,9 +315,9 @@
                             <option value="bounce-retro">Retro Bounce</option>
                         </select>
                     </div>
-                    <div class="col-span-2 lg:col-span-1">
-                        <label>Footer Text</label>
-                        <select id="anim-footer">
+                    <div class="col-span-2 md:col-span-1">
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Footer Text</label>
+                        <select id="anim-footer" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                             <option value="none">Static (None)</option>
                             <option value="cyber-glitch">Glitch & Shiver</option>
                             <option value="neon-flicker">Neon Flicker</option>
@@ -218,18 +330,18 @@
                         </select>
                     </div>
                 </div>
-                <div class="pt-2">
-                    <label>Custom Font Keyframes / CSS Animation Code</label>
-                    <textarea id="custom-font-anim-code" rows="3" placeholder="/* Paste your custom font CSS keyframes or extra classes here */"></textarea>
+                <div>
+                    <label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Custom Font Keyframes / CSS Animation Code</label>
+                    <textarea id="custom-font-anim-code" rows="2" placeholder="/* Custom keyframes CSS layout rules setup */" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-green-400">// HOME AVATAR SYSTEM ANIMATION</h3>
+                <div class="glass p-6 rounded-3xl space-y-4 border border-green-400/20">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-green-400 uppercase tracking-widest">// Home Avatar System Animation</h3>
                     <div>
-                        <label>Select Active Avatar Cyber Animation</label>
-                        <select id="selected-avatar-anim">
+                        <label class="block text-[10px] uppercase font-bold text-green-400 mb-1">Select Avatar Dynamic Render Type</label>
+                        <select id="selected-avatar-anim" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
                             <option value="none">No Animation / Static Display</option>
                             <option value="anim-pixel-glitch">Effect 1: Cyber Pixel Glitch Matrix</option>
                             <option value="anim-hologram-pulse">Effect 2: Hologram Shimmer Pulse Mode</option>
@@ -242,15 +354,15 @@
                             <option value="anim-rgb-split">Effect 9: RGB Chromatic Aberration Split Edge</option>
                         </select>
                     </div>
-                    <div><label>Custom Global CSS Code Box</label><textarea id="custom-animation-code" rows="5"></textarea></div>
+                    <div><label class="block text-[10px] uppercase font-bold text-green-400 mb-1">Custom Global CSS Styling Injection Matrix</label><textarea id="custom-animation-code" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea></div>
                 </div>
 
-                <div class="glass-card p-6 space-y-4">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-red-400">// PREMIUM BACKGROUND ANIMATION ENGINE</h3>
+                <div class="glass p-6 rounded-3xl space-y-4 border border-red-400/20">
+                    <h3 class="text-xs font-black font-['Orbitron'] text-red-400 uppercase tracking-widest">// Premium Background Animation Engine</h3>
                     <div>
-                        <label>Select Master Website Active Background Dynamic</label>
-                        <select id="selected-bg-anim">
-                            <option value="none">Default Light Dots Particle System</option>
+                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Select Master Active Ambient Layer</label>
+                        <select id="selected-bg-anim" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
+                            <option value="none">Default Galaxy Engine Particles Flow</option>
                             <option value="bg-matrix-rain">Premium 1: Dark Matrix Digital Gradient Flow</option>
                             <option value="bg-cyber-grid">Premium 2: Moving Cyber Grid Matrix Horizon</option>
                             <option value="bg-neon-matrix">Premium 3: Deep Space Pulse Neon Glow Vignette</option>
@@ -263,29 +375,29 @@
                             <option value="bg-dna">Premium 10: Helix Cyber Dark Nebula Ambient</option>
                         </select>
                     </div>
-                    <div><label>Custom Background Script / CSS Style Injection</label><textarea id="custom-bg-code" rows="5"></textarea></div>
+                    <div><label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Custom Background Script Layer Integration</label><textarea id="custom-bg-code" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea></div>
                 </div>
             </div>
         </div>
 
         <div id="panel-security" class="dashboard-panel hidden space-y-6">
-            <div class="glass-card p-6 space-y-6 max-w-2xl mx-auto">
+            <div class="glass p-6 rounded-3xl space-y-6 max-w-2xl mx-auto border border-red-500/20">
                 <div class="flex items-center gap-2 border-b border-red-500/20 pb-3">
                     <i class="fa-solid fa-shield-halved text-red-500 text-lg"></i>
-                    <h3 class="text-sm font-black font-['Orbitron'] text-red-400">ANTI-COPY SYSTEM OVERRIDE</h3>
+                    <h3 class="text-sm font-black font-['Orbitron'] text-red-400 uppercase tracking-widest">Anti-Copy System Override Configuration</h3>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label>Lock Status</label>
-                        <select id="sec-enabled">
+                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Lock Security Firewall Status</label>
+                        <select id="sec-enabled" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
                             <option value="true">Active (Right-Click Lock ON)</option>
                             <option value="false">Inactive (Lock OFF)</option>
                         </select>
                     </div>
                     <div>
-                        <label>Warning Siren Audio</label>
-                        <select id="sec-sound-enabled">
+                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Warning Siren Audio Trigger</label>
+                        <select id="sec-sound-enabled" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
                             <option value="true">Sound Activated ON</option>
                             <option value="false">Muted OFF</option>
                         </select>
@@ -293,17 +405,18 @@
                 </div>
 
                 <div>
-                    <label>Dynamic Warning Alert Message</label>
-                    <textarea id="sec-message" rows="3" placeholder="Enter security text alert..."></textarea>
+                    <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Dynamic Warning Alert Broadcast Message</label>
+                    <textarea id="sec-message" rows="3" placeholder="Enter cyber security threat text alert warning context..." class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                 </div>
 
                 <div>
-                    <label>Siren Audio Link URL (.mp3)</label>
-                    <input type="text" id="sec-sound-url" placeholder="https://example.com/alert.mp3">
-                    <span class="text-[10px] text-gray-500 block mt-1">Default Sound: https://www.soundjay.com/buttons/sounds/button-10.mp3</span>
+                    <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Siren Audio Link Network Target Asset URL (.mp3)</label>
+                    <input type="text" id="sec-sound-url" placeholder="https://example.com/alert.mp3" class="w-full p-3 rounded-xl input-cyber text-xs">
+                    <span class="text-[10px] text-gray-500 block mt-1">Default Fallback Frame Core: https://www.soundjay.com/buttons/sounds/button-10.mp3</span>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script type="module">
@@ -322,8 +435,11 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        
         let liveDatabaseState = {};
+        let localProjectImages = [];
 
+        // Font Options Core Dictionary
         const fontsLibrary = [
             { name: "Orbitron Cyber", val: "'Orbitron', sans-serif" },
             { name: "JetBrains Mono Core", val: "'JetBrains Mono', monospace" },
@@ -340,22 +456,73 @@
         ];
 
         document.querySelectorAll('.font-dropdown').forEach(d => {
+            d.innerHTML = '';
             fontsLibrary.forEach(f => d.innerHTML += `<option value="${f.val}">${f.name}</option>`);
         });
 
+        // Live Mainframe Database Listening Snapshot Node
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
             if (docSnap.exists()) {
                 liveDatabaseState = docSnap.data();
-                if(liveDatabaseState.headerLogo) document.getElementById('p-logo').value = liveDatabaseState.headerLogo;
+                
+                // Header Logo & Theme Style
+                if(liveDatabaseState.headerLogo) document.getElementById('headerLogoInput').value = liveDatabaseState.headerLogo;
+                if(liveDatabaseState.headerStyle) document.getElementById('headerStyleSelect').value = liveDatabaseState.headerStyle;
+
+                // Profile Configuration Structure
+                if(liveDatabaseState.profile) {
+                    const p = liveDatabaseState.profile;
+                    document.getElementById('profName').value = p.fullName || '';
+                    document.getElementById('profBio').value = p.bio || '';
+                    document.getElementById('profAvatar').value = p.avatar || '';
+                    document.getElementById('p-cat').value = p.category || '';
+                    document.getElementById('profAboutMe').value = p.aboutMe || '';
+                }
+
+                // Social Overlink Network Nodes
+                if(liveDatabaseState.socials) {
+                    const s = liveDatabaseState.socials;
+                    document.getElementById('s-li').value = s.linkedin || '';
+                    document.getElementById('s-wa').value = s.whatsapp || '';
+                    document.getElementById('s-fb').value = s.facebook || '';
+                    document.getElementById('s-ig').value = s.instagram || '';
+                    document.getElementById('s-tg').value = s.telegram || '';
+                    document.getElementById('s-yt').value = s.youtube || '';
+                }
+
+                // Advanced Section Font Controllers
+                if(liveDatabaseState.sectionalFonts) {
+                    const f = liveDatabaseState.sectionalFonts;
+                    if(f.home) document.getElementById('font-home').value = f.home;
+                    if(f.projects) document.getElementById('font-projects').value = f.projects;
+                    if(f.photography) document.getElementById('font-photography').value = f.photography;
+                    if(f.writing) document.getElementById('font-writing').value = f.writing;
+                    if(f.about) document.getElementById('font-about').value = f.about;
+                }
+
+                // Granular Matrix Color Configuration
+                if(liveDatabaseState.matrixColors) {
+                    const c = liveDatabaseState.matrixColors;
+                    document.getElementById('col-nav').value = c.nav || '#ffffff';
+                    document.getElementById('col-mainTitle').value = c.mainTitle || '#ffffff';
+                    document.getElementById('col-secTitle').value = c.secTitle || '#00f3ff';
+                    document.getElementById('col-caption').value = c.caption || '#9ca3af';
+                    document.getElementById('col-date').value = c.date || '#4b5563';
+                    document.getElementById('col-userInfo').value = c.userInfo || '#ffffff';
+                    document.getElementById('col-bio').value = c.bio || '#9ca3af';
+                    document.getElementById('col-about').value = c.about || '#d1d5db';
+                    document.getElementById('col-footer').value = c.footer || '#6b7280';
+                }
+
+                // Animation Engine State Map
                 if(liveDatabaseState.selectedAvatarAnim) document.getElementById('selected-avatar-anim').value = liveDatabaseState.selectedAvatarAnim;
                 if(liveDatabaseState.selectedBgAnim) document.getElementById('selected-bg-anim').value = liveDatabaseState.selectedBgAnim;
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
                 if(liveDatabaseState.customBgCode) document.getElementById('custom-bg-code').value = liveDatabaseState.customBgCode;
                 
-                // Load GhostDev Loader & Font Animation values from Live Sync DB
                 if(liveDatabaseState.animationSettings) {
                     const anim = liveDatabaseState.animationSettings;
-                    if(anim.selectedLoader) document.getElementById('loader-anim-select').value = anim.selectedLoader;
+                    if(anim.selectedLoader) document.getElementById('loaderSelect').value = anim.selectedLoader;
                     if(anim.customLoaderCode) document.getElementById('custom-loader-code').value = anim.customLoaderCode;
                     if(anim.customFontAnimCode) document.getElementById('custom-font-anim-code').value = anim.customFontAnimCode;
                     
@@ -369,7 +536,7 @@
                     }
                 }
 
-                // Security Panel Live Sync Load
+                // Security Firewall Configurations
                 if(liveDatabaseState.securitySystem) {
                     const sec = liveDatabaseState.securitySystem;
                     document.getElementById('sec-enabled').value = sec.enabled !== false ? "true" : "false";
@@ -378,37 +545,16 @@
                     document.getElementById('sec-sound-url').value = sec.soundUrl || '';
                 }
 
-                if(liveDatabaseState.profile) {
-                    const p = liveDatabaseState.profile;
-                    document.getElementById('p-name').value = p.fullName || '';
-                    document.getElementById('p-bio').value = p.bio || '';
-                    document.getElementById('p-avatar').value = p.avatar || '';
-                    document.getElementById('p-cat').value = p.category || '';
-                    document.getElementById('p-about').value = p.aboutMe || '';
-                }
-                if(liveDatabaseState.socials) {
-                    const s = liveDatabaseState.socials;
-                    document.getElementById('s-li').value = s.linkedin || '';
-                    document.getElementById('s-wa').value = s.whatsapp || '';
-                    document.getElementById('s-fb').value = s.facebook || '';
-                    document.getElementById('s-ig').value = s.instagram || '';
-                    document.getElementById('s-tg').value = s.telegram || '';
-                    document.getElementById('s-tt').value = s.tiktok || '';
-                    document.getElementById('s-yt').value = s.youtube || '';
-                }
-                if(liveDatabaseState.sectionalFonts) {
-                    const f = liveDatabaseState.sectionalFonts;
-                    if(f.home) document.getElementById('font-home').value = f.home;
-                    if(f.projects) document.getElementById('font-projects').value = f.projects;
-                    if(f.photography) document.getElementById('font-photography').value = f.photography;
-                    if(f.writing) document.getElementById('font-writing').value = f.writing;
-                    if(f.about) document.getElementById('font-about').value = f.about;
-                }
+                // Array Lists Synchronization Parsing
+                localProjectImages = liveDatabaseState.projectImages || [];
+                renderProjectThumbs();
+
                 renderQuotesList(liveDatabaseState.quotes || []);
                 renderPhotographyList(liveDatabaseState.photographyPool || []);
             }
         });
 
+        // Cloud Storage Token ImgBB Uploader
         async function uploadFileToImgBB(fileElementId) {
             const file = document.getElementById(fileElementId).files[0];
             if(!file) return null;
@@ -417,76 +563,36 @@
             const d = await r.json(); return d.data.url;
         }
 
-        document.getElementById('master-sync-btn').onclick = async () => {
-            const btn = document.getElementById('master-sync-btn'); btn.innerText = "UP-LINK RUNNING...";
-            try {
-                let logoUrl = document.getElementById('p-logo').value;
-                const freshLogo = await uploadFileToImgBB('p-logo-file');
-                if(freshLogo) { logoUrl = freshLogo; document.getElementById('p-logo').value = logoUrl; }
-
-                let avatarUrl = document.getElementById('p-avatar').value;
-                const freshAvatar = await uploadFileToImgBB('p-avatar-file');
-                if(freshAvatar) { avatarUrl = freshAvatar; document.getElementById('p-avatar').value = avatarUrl; }
-
-                await setDoc(doc(db, "portfolio", "liveData"), {
-                    headerLogo: logoUrl,
-                    selectedAvatarAnim: document.getElementById('selected-avatar-anim').value,
-                    selectedBgAnim: document.getElementById('selected-bg-anim').value,
-                    customAnimationCode: document.getElementById('custom-animation-code').value,
-                    customBgCode: document.getElementById('custom-bg-code').value,
-                    
-                    // Master Animation Engine Sync Packet (GhostDev Injection)
-                    animationSettings: {
-                        selectedLoader: document.getElementById('loader-anim-select').value,
-                        customLoaderCode: document.getElementById('custom-loader-code').value,
-                        fontAnimations: {
-                            mainTitle: document.getElementById('anim-main-title').value,
-                            header: document.getElementById('anim-header').value,
-                            title: document.getElementById('anim-title').value,
-                            caption: document.getElementById('anim-caption').value,
-                            footer: document.getElementById('anim-footer').value
-                        },
-                        customFontAnimCode: document.getElementById('custom-font-anim-code').value
-                    },
-                    
-                    securitySystem: {
-                        enabled: document.getElementById('sec-enabled').value === "true",
-                        soundEnabled: document.getElementById('sec-sound-enabled').value === "true",
-                        message: document.getElementById('sec-message').value,
-                        soundUrl: document.getElementById('sec-sound-url').value
-                    },
-                    profile: {
-                        fullName: document.getElementById('p-name').value,
-                        bio: document.getElementById('p-bio').value,
-                        aboutMe: document.getElementById('p-about').value,
-                        avatar: avatarUrl,
-                        category: document.getElementById('p-cat').value
-                    },
-                    socials: {
-                        linkedin: document.getElementById('s-li').value,
-                        whatsapp: document.getElementById('s-wa').value,
-                        facebook: document.getElementById('s-fb').value,
-                        instagram: document.getElementById('s-ig').value,
-                        telegram: document.getElementById('s-tg').value,
-                        tiktok: document.getElementById('s-tt').value,
-                        youtube: document.getElementById('s-yt').value
-                    },
-                    sectionalFonts: {
-                        home: document.getElementById('font-home').value,
-                        projects: document.getElementById('font-projects').value,
-                        photography: document.getElementById('font-photography').value,
-                        writing: document.getElementById('font-writing').value,
-                        about: document.getElementById('font-about').value
-                    }
-                }, { merge: true });
-                btn.innerText = "OVERRIDE SYNC COMPLETE!";
-            } catch(err) { btn.innerText = "ROUTING REJECTED ERROR"; console.error(err); }
-            setTimeout(() => btn.innerText = "Sync Master Mainframe", 2000);
+        // Project Stack Management Methods
+        document.getElementById('inject-proj-btn').onclick = function() {
+            const val = document.getElementById('newProjectUrlInput').value.trim();
+            if(!val) return;
+            localProjectImages.push(val);
+            document.getElementById('newProjectUrlInput').value = '';
+            renderProjectThumbs();
         };
 
+        window.removeProjectImg = function(idx) {
+            localProjectImages.splice(idx, 1);
+            renderProjectThumbs();
+        };
+
+        function renderProjectThumbs() {
+            const grid = document.getElementById('adminProjectThumbsGrid');
+            grid.innerHTML = '';
+            localProjectImages.forEach((url, i) => {
+                grid.innerHTML += `
+                    <div class="relative rounded-lg overflow-hidden border border-white/10 group aspect-video bg-black">
+                        <img src="${url}" class="w-full h-full object-cover">
+                        <button onclick="removeProjectImg(${i})" class="absolute inset-0 bg-red-600/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all font-bold text-xs uppercase tracking-wider">Delete Node</button>
+                    </div>`;
+            });
+        }
+
+        // Quotes Operation Handlers
         document.getElementById('save-quote-btn').onclick = async () => {
             const index = parseInt(document.getElementById('quote-edit-index').value);
-            const text = document.getElementById('quote-text').value;
+            const text = document.getElementById('quote-text').value.trim();
             if(!text) return;
             let list = liveDatabaseState.quotes || [];
             if(index === -1) list.push({ text: text, likes: 0, comments: [] });
@@ -514,6 +620,7 @@
 
         window.clearQuoteForm = () => { document.getElementById('quote-edit-index').value = "-1"; document.getElementById('quote-text').value = ""; };
 
+        // Photography Operation Modules
         document.getElementById('commit-photo-btn').onclick = async () => {
             const btn = document.getElementById('commit-photo-btn'); btn.innerText = "COMMITTING DATA...";
             try {
@@ -522,12 +629,15 @@
                 const desc = document.getElementById('photo-desc').value;
                 const date = document.getElementById('photo-date').value;
                 let url = document.getElementById('photo-url').value;
+                
                 const uploadedUrl = await uploadFileToImgBB('photo-file');
                 if(uploadedUrl) url = uploadedUrl;
                 if(!url) { btn.innerText = "Commit Grid Element"; return; }
+                
                 let pool = liveDatabaseState.photographyPool || [];
                 const photoItem = { title, desc, date, url };
                 if(index === -1) pool.push(photoItem); else pool[index] = photoItem;
+                
                 await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
                 clearPhotoForm();
                 btn.innerText = "COMMIT SUCCESS!";
@@ -552,7 +662,7 @@
         function renderPhotographyList(arr) {
             const container = document.getElementById('admin-photography-list'); container.innerHTML = '';
             arr.forEach((p, i) => {
-                container.innerHTML += `<div class="bg-black/40 border border-white/5 rounded-xl overflow-hidden"><img src="${p.url}" class="w-full h-24 object-cover"><div class="p-3 flex justify-between items-center"><h4 class="text-xs truncate max-w-[120px]">${p.title || 'Untitled'}</h4><div class="flex gap-1"><button onclick="editPhoto(${i})" class="text-[9px] text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded">Edit</button><button onclick="deletePhoto(${i})" class="text-[9px] text-red-400 bg-red-400/10 px-2 py-0.5 rounded">Delete</button></div></div></div>`;
+                container.innerHTML += `<div class="bg-black/40 border border-white/5 rounded-xl overflow-hidden"><img src="${p.url}" class="w-full h-20 object-cover"><div class="p-2 flex justify-between items-center bg-black/60"><h4 class="text-[11px] truncate max-w-[100px]">${p.title || 'Untitled'}</h4><div class="flex gap-1"><button onclick="editPhoto(${i})" class="text-[9px] text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded">Edit</button><button onclick="deletePhoto(${i})" class="text-[9px] text-red-400 bg-red-400/10 px-2 py-0.5 rounded">Delete</button></div></div></div>`;
             });
         }
 
@@ -561,7 +671,94 @@
             document.getElementById('photo-title').value = ""; document.getElementById('photo-desc').value = "";
             document.getElementById('photo-date').value = ""; document.getElementById('photo-url').value = ""; document.getElementById('photo-file').value = "";
         };
+
+        // Master Consolidated Matrix Deployment Method Engine
+        document.getElementById('main-deploy-btn').onclick = async function() {
+            const btn = document.getElementById('main-deploy-btn');
+            btn.innerText = "DEPLOYING MESH PACKAGE...";
+            
+            try {
+                // Async image asset check layers
+                let logoUrl = document.getElementById('headerLogoInput').value.trim();
+                const freshLogo = await uploadFileToImgBB('p-logo-file');
+                if(freshLogo) { logoUrl = freshLogo; document.getElementById('headerLogoInput').value = logoUrl; }
+
+                let avatarUrl = document.getElementById('profAvatar').value.trim();
+                const freshAvatar = await uploadFileToImgBB('p-avatar-file');
+                if(freshAvatar) { avatarUrl = freshAvatar; document.getElementById('profAvatar').value = avatarUrl; }
+
+                const packageData = {
+                    headerLogo: logoUrl,
+                    headerStyle: document.getElementById('headerStyleSelect').value,
+                    projectImages: localProjectImages,
+                    selectedAvatarAnim: document.getElementById('selected-avatar-anim').value,
+                    selectedBgAnim: document.getElementById('selected-bg-anim').value,
+                    customAnimationCode: document.getElementById('custom-animation-code').value,
+                    customBgCode: document.getElementById('custom-bg-code').value,
+                    
+                    profile: {
+                        fullName: document.getElementById('profName').value.trim(),
+                        avatar: avatarUrl,
+                        bio: document.getElementById('profBio').value.trim(),
+                        aboutMe: document.getElementById('profAboutMe').value.trim(),
+                        category: document.getElementById('p-cat').value.trim()
+                    },
+                    socials: {
+                        linkedin: document.getElementById('s-li').value.trim(),
+                        whatsapp: document.getElementById('s-wa').value.trim(),
+                        facebook: document.getElementById('s-fb').value.trim(),
+                        instagram: document.getElementById('s-ig').value.trim(),
+                        telegram: document.getElementById('s-tg').value.trim(),
+                        youtube: document.getElementById('s-yt').value.trim()
+                    },
+                    sectionalFonts: {
+                        home: document.getElementById('font-home').value,
+                        projects: document.getElementById('font-projects').value,
+                        photography: document.getElementById('font-photography').value,
+                        writing: document.getElementById('font-writing').value,
+                        about: document.getElementById('font-about').value
+                    },
+                    matrixColors: {
+                        nav: document.getElementById('col-nav').value,
+                        mainTitle: document.getElementById('col-mainTitle').value,
+                        secTitle: document.getElementById('col-secTitle').value,
+                        caption: document.getElementById('col-caption').value,
+                        date: document.getElementById('col-date').value,
+                        userInfo: document.getElementById('col-userInfo').value,
+                        bio: document.getElementById('col-bio').value,
+                        about: document.getElementById('col-about').value,
+                        footer: document.getElementById('col-footer').value
+                    },
+                    animationSettings: {
+                        selectedLoader: document.getElementById('loaderSelect').value,
+                        customLoaderCode: document.getElementById('custom-loader-code').value,
+                        customFontAnimCode: document.getElementById('custom-font-anim-code').value,
+                        fontAnimations: {
+                            mainTitle: document.getElementById('anim-main-title').value,
+                            header: document.getElementById('anim-header').value,
+                            title: document.getElementById('anim-title').value,
+                            caption: document.getElementById('anim-caption').value,
+                            footer: document.getElementById('anim-footer').value
+                        }
+                    },
+                    securitySystem: {
+                        enabled: document.getElementById('sec-enabled').value === "true",
+                        soundEnabled: document.getElementById('sec-sound-enabled').value === "true",
+                        message: document.getElementById('sec-message').value,
+                        soundUrl: document.getElementById('sec-sound-url').value
+                    }
+                };
+
+                await setDoc(doc(db, "portfolio", "liveData"), packageData, { merge: true });
+                btn.innerHTML = "<i class='fa-solid fa-check mr-2'></i> OVERRIDE SYNC COMPLETE!";
+            } catch(err) {
+                console.error(err);
+                btn.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> ROUTING ERROR";
+            }
+            setTimeout(() => { btn.innerHTML = "<i class='fa-solid fa-cloud-arrow-up mr-2'></i> Deploy Live Updates"; }, 2000);
+        };
     </script>
+
     <script>
         function switchTab(tabId) {
             document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.add('hidden'));
@@ -569,6 +766,79 @@
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(`tab-${tabId}`).classList.add('active');
         }
+    </script>
+
+    <script>
+        const canvas = document.getElementById('galaxy-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        class StarParticle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.8 + 0.4;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.hue = Math.random() > 0.6 ? 190 : 280; 
+                this.alpha = Math.random() * 0.5 + 0.1;
+                this.fade = (Math.random() * 0.004) + 0.001;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha += this.fade;
+                if (this.alpha > 0.7 || this.alpha < 0.1) this.fade = -this.fade;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 100%, 75%, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor(canvas.width / 10), 120);
+            for (let i = 0; i < count; i++) {
+                particles.push(new StarParticle());
+            }
+        }
+
+        function animateEngine() {
+            ctx.fillStyle = 'rgba(2, 2, 5, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            let cloudGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 20, canvas.width/2, canvas.height/2, canvas.width*0.75);
+            cloudGrad.addColorStop(0, 'rgba(0, 243, 255, 0.025)');
+            cloudGrad.addColorStop(0.6, 'rgba(147, 51, 234, 0.015)');
+            cloudGrad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = cloudGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateEngine);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animateEngine();
     </script>
 </body>
 </html>
