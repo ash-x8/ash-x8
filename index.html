@@ -459,6 +459,7 @@
 
     <script>
         let isBrowserAudioUnlocked = false;
+        let currentAlertSound = null; // ප්ලේ වන සවුන්ඩ් එක මතක තබා ගැනීමට Global Variable එකක්
 
         // සයිට් එකට ආපු ගමන් බ්‍රවුසර් එකෙන් සවුන්ඩ් බ්ලොක් කරන එක නැති කරන්න පළමු ක්ලික් එක ලබා ගැනීම
         document.addEventListener('click', () => {
@@ -469,25 +470,38 @@
             if (!window.securityConfig || !window.securityConfig.enabled) return true;
             if (e) e.preventDefault();
 
-            // 1. Trigger Modal Alert Display
+            // 1. Warning Modal එක තිරය මත පෙන්වීම
             document.getElementById('security-modal').style.display = 'flex';
 
-            // 2. Trigger Premium Security Audio Sound (Bypassing Browser Interception)
+            // 2. සවුන්ඩ් එක ප්ලේ කිරීම (ලූප් වන ආකාරයට)
             if (window.securityConfig.soundEnabled && window.securityConfig.soundUrl) {
-                // ක්ෂණිකව බ්‍රවුසර් එක ඇතුලේ runtime audio object එකක් සාදා සවුන්ඩ් එක ක්ෂණිකව ප්ලේ කිරීම
-                const customAlertSound = new Audio(window.securityConfig.soundUrl);
-                customAlertSound.preload = "auto";
-                customAlertSound.volume = 1.0; 
+                if (currentAlertSound) {
+                    currentAlertSound.pause();
+                }
+
+                // අලුත් සවුන්ඩ් ඔබ්ජෙක්ට් එකක් සාදා ප්ලේ කිරීම
+                currentAlertSound = new Audio(window.securityConfig.soundUrl);
+                currentAlertSound.preload = "auto";
+                currentAlertSound.volume = 1.0; 
+                currentAlertSound.loop = true; // 🌟 Warning එක තියෙනකම් සවුන්ඩ් එක දිගටම ලූප් වී ප්ලේ වේ!
                 
-                customAlertSound.play().catch(error => {
-                    console.log("Audio play blocked by browser sandbox policy. User needs to click first:", error);
+                currentAlertSound.play().catch(error => {
+                    console.log("Audio play blocked by browser. User needs to click first:", error);
                 });
             }
             return false;
         }
 
+        // 🌟 Warning එක අයින් කරද්දී සවුන්ඩ් එක එකපාරම නතර කරන කේතය
         function closeSecurityAlert() {
+            // Warning පෙට්ටිය හංගන්න
             document.getElementById('security-modal').style.display = 'none';
+            
+            // සවුන්ඩ් එක ප්ලේ වෙමින් පවතී නම් එය සම්පූර්ණයෙන්ම නතර කර මුලටම රීසෙට් කරන්න
+            if (currentAlertSound) {
+                currentAlertSound.pause();
+                currentAlertSound.currentTime = 0;
+            }
         }
 
         // Right-Click Lock Engine
@@ -549,4 +563,3 @@
     </script>
 </body>
 </html>
-
