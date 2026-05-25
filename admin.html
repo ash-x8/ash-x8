@@ -10,7 +10,7 @@
     <style>
         body { background: #020205; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; position: relative; }
         #galaxy-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        .glass { background: rgba(5, 5, 15, 0.55); backdrop-filter: blur(25px); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass { background: rgba(5, 5, 15, 0.55); backdrop-filter: blur Comm25px); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .glass:hover { border-color: rgba(0, 243, 255, 0.35); box-shadow: 0 0 45px rgba(0, 243, 255, 0.08); }
         .input-cyber { background: rgba(0,0,0,0.7) !important; border: 1px solid rgba(0, 243, 255, 0.18) !important; color: #fff !important; transition: all 0.3s; }
         .input-cyber:focus { border-color: #00f3ff !important; box-shadow: 0 0 18px rgba(0, 243, 255, 0.3) !important; outline: none; }
@@ -85,12 +85,20 @@
                             <input type="text" id="profBio" class="w-full p-3 rounded-xl input-cyber text-xs">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Profile Avatar Image URL</label>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Profile Avatar Image URL (About Section)</label>
                             <input type="text" id="profAvatar" class="w-full p-3 rounded-xl input-cyber text-xs">
                         </div>
                         <div>
                             <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Upload Avatar From Device</label>
                             <input type="file" id="p-avatar-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400 input-cyber p-1.5">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Home Section Hero Image URL</label>
+                            <input type="text" id="homeHeroImg" class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="https://...">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Upload Home Hero From Device</label>
+                            <input type="file" id="p-homehero-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400 input-cyber p-1.5">
                         </div>
                     </div>
                     <div>
@@ -109,6 +117,21 @@
                         <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Telegram Direct</label><input type="text" id="s-tg" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
                         <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">YouTube Link</label><input type="text" id="s-yt" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
                         <div><label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Categories (Comma separated)</label><input type="text" id="p-cat" class="w-full p-2.5 rounded-xl input-cyber text-xs" placeholder="Developer, Designer, Hacker"></div>
+                    </div>
+                    
+                    <div class="border-t border-white/10 pt-3 mt-2 space-y-2">
+                        <h4 class="text-[11px] font-black font-['Orbitron'] text-cyan-400 uppercase">// Contact Area & Social Icons Overlay</h4>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Contact Section Header Title</label>
+                            <input type="text" id="contactSectionTitle" class="w-full p-2 rounded-lg input-cyber text-xs" placeholder="CONTACT ME">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Show Social Grid Above Footer</label>
+                            <select id="showContactGrid" class="w-full p-2 rounded-lg input-cyber text-xs font-bold">
+                                <option value="true">Show Matrix Links Grid (ON)</option>
+                                <option value="false">Hide Matrix Links Grid (OFF)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -389,19 +412,23 @@
                         <button id="save-bg-code-btn" class="px-3 py-1 bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-black font-bold text-[10px] uppercase rounded border border-red-500/30 transition-all">Save & Inject Engine</button>
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Select Master Active Ambient Layer</label>
+                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Select Master Active Ambient Layer (15 Premium Options)</label>
                         <select id="selected-bg-anim" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
-                            <option value="none">Default Galaxy Engine Particles Flow</option>
-                            <option value="bg-matrix-rain">Premium 1: Dark Matrix Digital Gradient Flow</option>
-                            <option value="bg-cyber-grid">Premium 2: Moving Cyber Grid Matrix Horizon</option>
-                            <option value="bg-neon-matrix">Premium 3: Deep Space Pulse Neon Glow Vignette</option>
-                            <option value="bg-scanline">Premium 4: Vintage Cathode Terminal Scanline Grid</option>
-                            <option value="bg-starfield">Premium 5: Sci-Fi Starfield Warp Speed Ambient</option>
-                            <option value="bg-aurora">Premium 6: Aurora Nexus Cosmic Cloud Shifting</option>
-                            <option value="bg-quantum">Premium 7: Quantum Mechanics Particle Field Matrix</option>
-                            <option value="bg-synthwave">Premium 8: 80s Retro Synthwave Deep Sunset Linear</option>
-                            <option value="bg-vortex">Premium 9: Cyber Vortex Void Distortion Center</option>
-                            <option value="bg-dna">Premium 10: Helix Cyber Dark Nebula Ambient</option>
+                            <option value="galaxy">01. Deep Cosmic Galaxy Engine Particles Flow (Default)</option>
+                            <option value="hacker">02. Hacker Terminal Green Code Rain</option>
+                            <option value="cyber">03. Cyberpunk Moving Grid Matrix Horizon</option>
+                            <option value="nature">04. Natural Micro Flow Organic Particles</option>
+                            <option value="relax">05. Calm Liquid Sea Waves Fluid Drift</option>
+                            <option value="cool">06. Feeling Cool Arctic Ice Pulse Grid</option>
+                            <option value="nebula">07. Interstellar Gas Nebula Drift Cloud</option>
+                            <option value="neon">08. Neon Aura Chromatic Wave Shield</option>
+                            <option value="glitch">09. Digital Error Glitch Tech Interference</option>
+                            <option value="fire">10. Subtle Volcano Fire Floating Embers</option>
+                            <option value="water">11. Hydro Quantum Water Ripple Physics</option>
+                            <option value="stars">12. Sci-Fi Starfield Warp Speed Accelerate</option>
+                            <option value="dna">13. Helix DNA Biometric Light Strings</option>
+                            <option value="waves">14. Retro Synthwave Sunset Vector Lines</option>
+                            <option value="void">15. Dark Void Deep Static Dust Storm</option>
                         </select>
                     </div>
                     <div><label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Custom Background Script Layer Integration</label><textarea id="custom-bg-code" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea></div>
@@ -533,7 +560,8 @@
 
         function selectThemeEngine(themeId) {
             document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
-            document.getElementById(`card-${themeId}`).classList.add('selected');
+            const matchedCard = document.getElementById(`card-${themeId}`);
+            if(matchedCard) matchedCard.classList.add('selected');
             document.getElementById('selected-theme-id').value = themeId;
             
             const selectedTheme = uiThemesLibrary.find(x => x.id === themeId);
@@ -623,6 +651,14 @@
                     document.getElementById('profAvatar').value = p.avatar || '';
                     document.getElementById('p-cat').value = p.category || '';
                     document.getElementById('profAboutMe').value = p.aboutMe || '';
+                    // Dual Image Sync Load Nodes
+                    document.getElementById('homeHeroImg').value = p.homeHero || '';
+                }
+
+                // Contact Section Live State Load Sync
+                if(liveDatabaseState.contactSettings) {
+                    document.getElementById('contactSectionTitle').value = liveDatabaseState.contactSettings.title || 'CONTACT';
+                    document.getElementById('showContactGrid').value = liveDatabaseState.contactSettings.showGrid !== false ? "true" : "false";
                 }
 
                 // Social Overlink Network Nodes
@@ -703,8 +739,9 @@
 
         // Cloud Storage Token ImgBB Uploader with Auto-Compression Matrix Integration
         async function uploadFileToImgBB(fileElementId) {
-            let file = document.getElementById(fileElementId).files[0];
-            if(!file) return null;
+            const fileInput = document.getElementById(fileElementId);
+            if(!fileInput || !fileInput.files[0]) return null;
+            let file = fileInput.files[0];
             
             // Auto compress to optimize latency performance and eliminate browser tab crashes
             try {
@@ -893,6 +930,11 @@
                 const freshAvatar = await uploadFileToImgBB('p-avatar-file');
                 if(freshAvatar) { avatarUrl = freshAvatar; document.getElementById('profAvatar').value = avatarUrl; }
 
+                // Dual Image Upload Engine Sync Node
+                let homeHeroUrl = document.getElementById('homeHeroImg').value.trim();
+                const freshHomeHero = await uploadFileToImgBB('p-homehero-file');
+                if(freshHomeHero) { homeHeroUrl = freshHomeHero; document.getElementById('homeHeroImg').value = homeHeroUrl; }
+
                 const packageData = {
                     activeThemeId: document.getElementById('selected-theme-id').value,
                     headerLogo: logoUrl,
@@ -906,9 +948,15 @@
                     profile: {
                         fullName: document.getElementById('profName').value.trim(),
                         avatar: avatarUrl,
+                        homeHero: homeHeroUrl, // Exported to Live Firebase Realtime Matrix Node
                         bio: document.getElementById('profBio').value.trim(),
                         aboutMe: document.getElementById('profAboutMe').value.trim(),
                         category: document.getElementById('p-cat').value.trim()
+                    },
+                    // Contact Overlay Configuration Array Package
+                    contactSettings: {
+                        title: document.getElementById('contactSectionTitle').value.trim(),
+                        showGrid: document.getElementById('showContactGrid').value === "true"
                     },
                     socials: {
                         linkedin: document.getElementById('s-li').value.trim(),
