@@ -23,48 +23,51 @@
         .theme-card { transition: all 0.3s ease; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
         .theme-card:hover { transform: translateY(-2px); border-color: rgba(0, 243, 255, 0.4); }
         .theme-card.selected { border-color: #00f3ff; box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); background: rgba(0, 243, 255, 0.05); }
+        
+        /* Login Overlay Styles */
+        #login-overlay { position: fixed; inset: 0; background: rgba(2, 2, 5, 0.95); z-index: 9999; display: flex; items-center: center; justify-content: center; backdrop-filter: blur(20px); }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
+<body class="p-4 md:p-8 min-h-screen">
 
-    <canvas id="galaxy-bg"></canvas>
-
-    <div id="login-overlay" class="w-full max-w-md glass p-8 rounded-3xl border border-cyan-500/30 space-y-6 relative z-50">
-        <div class="text-center">
-            <h2 class="text-lg font-black font-['Orbitron'] text-cyan-400 tracking-wider">🔒 SECURE MAINFRAME</h2>
-            <p class="text-[10px] text-gray-400 mt-1">// ENTER DECRYPTION CREDENTIALS</p>
-        </div>
-        <div class="space-y-4">
+    <div id="login-overlay">
+        <div class="glass p-8 rounded-3xl border border-cyan-500/30 max-w-sm w-full space-y-6 mx-4 text-center">
             <div>
-                <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">ADMIN IDENTITY (EMAIL)</label>
-                <input type="email" id="login-email" class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="admin@ashx8.com">
+                <div class="w-16 h-16 bg-cyan-500/10 border border-cyan-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-cyan-400 text-2xl animate-pulse">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <h2 class="text-lg font-black font-['Orbitron'] text-cyan-400 tracking-widest uppercase">MAINFRAME LOCK</h2>
+                <p class="text-[10px] text-gray-500 mt-1">// ENTER SECURE DECRYPTION KEYS</p>
             </div>
-            <div>
-                <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">DECRYPTION KEY (PASSWORD)</label>
-                <input type="password" id="login-password" class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="••••••••">
-            </div>
-            <p id="login-error" class="text-red-400 text-[10px] hidden font-bold">// ACCESS DENIED: INVALID CREDENTIALS</p>
-            <button id="login-submit-btn" class="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_15px_rgba(0,243,255,0.2)]">
-                Initialize Bypass
-            </button>
+            <form id="cyber-login-form" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-[9px] uppercase font-bold text-cyan-400 mb-1 tracking-wider">Matrix User ID</label>
+                    <input type="text" id="cyber-username" required class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="Username">
+                </div>
+                <div>
+                    <label class="block text-[9px] uppercase font-bold text-cyan-400 mb-1 tracking-wider">Access Pass Key</label>
+                    <input type="password" id="cyber-password" required class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="••••••••••••••">
+                </div>
+                <button type="submit" class="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+                    Initiate Override <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i>
+                </button>
+            </form>
+            <p id="login-error-msg" class="text-[11px] text-red-400 font-bold hidden animate-bounce">// INVALID GATEWAY ACCESS KEY</p>
         </div>
     </div>
 
-    <div id="admin-mainframe" class="w-full max-w-6xl mx-auto space-y-8 relative z-10 hidden">
+    <canvas id="galaxy-bg"></canvas>
+
+    <div id="mainframe-content" class="max-w-6xl mx-auto space-y-8 relative z-10 opacity-0 transition-opacity duration-700 pointer-events-none">
         
         <div class="glass p-6 rounded-3xl border border-cyan-500/20 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
                 <h1 class="text-xl md:text-2xl font-black font-['Orbitron'] text-cyan-400 tracking-wider">⚡ GHOSTDEV PORTFOLIO MAINFRAME</h1>
                 <p class="text-xs text-gray-400 mt-1">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
             </div>
-            <div class="flex gap-3">
-                <button id="main-deploy-btn" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_25px_rgba(0,243,255,0.3)] hover:scale-105">
-                    <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Deploy Live Updates
-                </button>
-                <button id="logout-btn" class="px-4 py-3 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 text-xs font-black uppercase rounded-xl transition-all">
-                    <i class="fa-solid fa-power-off"></i>
-                </button>
-            </div>
+            <button id="main-deploy-btn" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_25px_rgba(0,243,255,0.3)] hover:scale-105">
+                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Deploy Live Updates
+            </button>
         </div>
 
         <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
@@ -501,11 +504,12 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        // Auth Module එක මෙතනට එකතු කර ඇත
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        // Firebase Core v12 SDK එකට අනුකූල වන සේ මොඩියුල ලබාගැනීම
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
+        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
+        // ඔබ ලබාදුන් සක්‍රීය Firebase Config දත්ත ගොනුව
         const firebaseConfig = {
             apiKey: "AIzaSyCnXtXpynpkN5SOi-l8zSuaeuLFUByQVhQ",
             authDomain: "ash-x8.firebaseapp.com",
@@ -516,58 +520,38 @@
             measurementId: "G-Z9GEG1ZJHR"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
         const db = getFirestore(app);
-        const auth = getAuth(app); // Auth Initialize කිරීම
         
         let liveDatabaseState = {};
         let localProjectImages = [];
 
-        // --- AUTHENTICATION STATE WATCHER ---
-        // පරිශීලකයා ලොග් වී ඇත්දැයි නිරන්තරයෙන් පරීක්ෂා කිරීම
-        onAuthStateChanged(auth, (user) => {
-            const loginOverlay = document.getElementById('login-overlay');
-            const adminMainframe = document.getElementById('admin-mainframe');
-            const body = document.body;
+        // --- PASSWORD LOGIN OVERRIDE ENGINE SYSTEM ---
+        document.getElementById('cyber-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('cyber-username').value;
+            const passInput = document.getElementById('cyber-password').value;
+            const errorLabel = document.getElementById('login-error-msg');
 
-            if (user) {
-                // පරිශීලකයා සාර්ථකව ලොග් වී ඇත්නම් Dashboard එක පෙන්වන්න
-                loginOverlay.classList.add('hidden');
-                adminMainframe.classList.remove('hidden');
-                body.className = "p-4 md:p-8 min-h-screen block"; // Reset alignment
+            const secureUser = "Ash_x8";
+            const securePass = "Ashwickramasinghe@888";
+
+            if (userInput === secureUser && passInput === securePass) {
+                // සත්‍යාපනය සාර්ථක වූ විට Login Panel එක ඉවත් කර ප්‍රධාන පැනලය සක්‍රීය කිරීම
+                document.getElementById('login-overlay').style.display = 'none';
+                const mainPanel = document.getElementById('mainframe-content');
+                mainPanel.classList.remove('pointer-events-none');
+                mainPanel.style.opacity = "1";
+                errorLabel.classList.add('hidden');
             } else {
-                // ලොග් වී නැත්නම් ලොගින් පැනල් එක පෙන්වන්න
-                loginOverlay.classList.remove('hidden');
-                adminMainframe.classList.add('hidden');
-                body.className = "p-4 md:p-8 min-h-screen flex items-center justify-center";
+                // වැරදි මුරපදයක් ඇතුළු කළ විට
+                errorLabel.classList.remove('hidden');
+                document.getElementById('cyber-password').value = '';
+                document.getElementById('cyber-password').focus();
             }
         });
-
-        // ලොගින් බොත්තම ක්‍රියාත්මක කිරීම
-        document.getElementById('login-submit-btn').onclick = async () => {
-            const email = document.getElementById('login-email').value.trim();
-            const pass = document.getElementById('login-password').value;
-            const errorMsg = document.getElementById('login-error');
-            const btn = document.getElementById('login-submit-btn');
-
-            if(!email || !pass) return;
-            btn.innerText = "AUTHENTICATING...";
-            errorMsg.classList.add('hidden');
-
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-                btn.innerText = "Initialize Bypass";
-            } catch (error) {
-                console.error(error);
-                errorMsg.classList.remove('hidden');
-                btn.innerText = "Initialize Bypass";
-            }
-        };
-
-        // Logout බොත්තම ක්‍රියාත්මක කිරීම
-        document.getElementById('logout-btn').onclick = async () => {
-            await signOut(auth);
-        };
 
         // 15 Premium UI Configurations Database Array
         const uiThemesLibrary = [
@@ -640,6 +624,7 @@
             
             const selectedTheme = uiThemesLibrary.find(x => x.id === themeId);
             if(selectedTheme) {
+                // Instantly inject configuration values to individual color pickers inputs
                 document.getElementById('col-nav').value = selectedTheme.colors.nav;
                 document.getElementById('col-mainTitle').value = selectedTheme.colors.mainTitle;
                 document.getElementById('col-secTitle').value = selectedTheme.colors.secTitle;
@@ -652,6 +637,7 @@
             }
         }
 
+        // Smart Canvas Compressor to Fix Lag/Crash Bugs
         function compressImageBeforeUpload(file, maxDimension = 1200, quality = 0.7) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -699,19 +685,23 @@
             });
         }
 
+        // Live Mainframe Database Listening Snapshot Node
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
             if (docSnap.exists()) {
                 liveDatabaseState = docSnap.data();
                 
+                // Active Layout UI Theme Parsing Configuration
                 if(liveDatabaseState.activeThemeId) {
                     selectThemeEngine(liveDatabaseState.activeThemeId);
                 } else {
                     selectThemeEngine("theme-charm-neon");
                 }
 
+                // Header Logo & Theme Style
                 if(liveDatabaseState.headerLogo) document.getElementById('headerLogoInput').value = liveDatabaseState.headerLogo;
                 if(liveDatabaseState.headerStyle) document.getElementById('headerStyleSelect').value = liveDatabaseState.headerStyle;
 
+                // Profile Configuration Structure
                 if(liveDatabaseState.profile) {
                     const p = liveDatabaseState.profile;
                     document.getElementById('profName').value = p.fullName || '';
@@ -722,11 +712,13 @@
                     document.getElementById('homeHeroImg').value = p.homeHero || '';
                 }
 
+                // Contact Section Live State Load Sync
                 if(liveDatabaseState.contactSettings) {
                     document.getElementById('contactSectionTitle').value = liveDatabaseState.contactSettings.title || 'CONTACT';
                     document.getElementById('showContactGrid').value = liveDatabaseState.contactSettings.showGrid !== false ? "true" : "false";
                 }
 
+                // Social Overlink Network Nodes
                 if(liveDatabaseState.socials) {
                     const s = liveDatabaseState.socials;
                     document.getElementById('s-li').value = s.linkedin || '';
@@ -737,6 +729,7 @@
                     document.getElementById('s-yt').value = s.youtube || '';
                 }
 
+                // Advanced Section Font Controllers
                 if(liveDatabaseState.sectionalFonts) {
                     const f = liveDatabaseState.sectionalFonts;
                     if(f.home) document.getElementById('font-home').value = f.home;
@@ -746,6 +739,7 @@
                     if(f.about) document.getElementById('font-about').value = f.about;
                 }
 
+                // Granular Matrix Color Configuration
                 if(liveDatabaseState.matrixColors) {
                     const c = liveDatabaseState.matrixColors;
                     document.getElementById('col-nav').value = c.nav || '#00f3ff';
@@ -759,6 +753,7 @@
                     document.getElementById('col-footer').value = c.footer || '#6b7280';
                 }
 
+                // Animation Engine State Map
                 if(liveDatabaseState.selectedAvatarAnim) document.getElementById('selected-avatar-anim').value = liveDatabaseState.selectedAvatarAnim;
                 if(liveDatabaseState.selectedBgAnim) document.getElementById('selected-bg-anim').value = liveDatabaseState.selectedBgAnim;
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
@@ -780,6 +775,7 @@
                     }
                 }
 
+                // Security Firewall Configurations
                 if(liveDatabaseState.securitySystem) {
                     const sec = liveDatabaseState.securitySystem;
                     document.getElementById('sec-enabled').value = sec.enabled !== false ? "true" : "false";
@@ -788,6 +784,7 @@
                     document.getElementById('sec-sound-url').value = sec.soundUrl || '';
                 }
 
+                // Array Lists Synchronization Parsing
                 localProjectImages = liveDatabaseState.projectImages || [];
                 renderProjectThumbs();
 
@@ -797,6 +794,7 @@
             }
         });
 
+        // Cloud Storage Token ImgBB Uploader with Auto-Compression Matrix Integration
         async function uploadFileToImgBB(fileElementId) {
             const fileInput = document.getElementById(fileElementId);
             if(!fileInput || !fileInput.files[0]) return null;
@@ -813,6 +811,7 @@
             const d = await r.json(); return d.data.url;
         }
 
+        // Project Stack Management Methods
         document.getElementById('inject-proj-btn').onclick = function() {
             const val = document.getElementById('newProjectUrlInput').value.trim();
             if(!val) return;
@@ -821,6 +820,7 @@
             renderProjectThumbs();
         };
 
+        // Window scope injection required for inline HTML onclick methods
         window.removeProjectImg = function(idx) {
             localProjectImages.splice(idx, 1);
             renderProjectThumbs();
@@ -838,6 +838,7 @@
             });
         }
 
+        // Cross-Section Connector
         function renderQuickGallerySelector(pool) {
             const container = document.getElementById('gallery-connector-container');
             const grid = document.getElementById('quick-gallery-injector-grid');
@@ -861,6 +862,7 @@
             });
         }
 
+        // Quotes Operation Handlers
         document.getElementById('save-quote-btn').onclick = async () => {
             const index = parseInt(document.getElementById('quote-edit-index').value);
             const text = document.getElementById('quote-text').value.trim();
@@ -891,6 +893,7 @@
 
         window.clearQuoteForm = () => { document.getElementById('quote-edit-index').value = "-1"; document.getElementById('quote-text').value = ""; };
 
+        // Photography Operation Modules
         document.getElementById('commit-photo-btn').onclick = async () => {
             const btn = document.getElementById('commit-photo-btn'); btn.innerText = "COMMITTING DATA...";
             try {
@@ -942,6 +945,7 @@
             document.getElementById('photo-date').value = ""; document.getElementById('photo-url').value = ""; document.getElementById('photo-file').value = "";
         };
 
+        // Code Injection Trigger Handlers
         document.getElementById('save-avatar-code-btn').onclick = async () => {
             const btn = document.getElementById('save-avatar-code-btn');
             const code = document.getElementById('custom-animation-code').value;
@@ -949,9 +953,7 @@
             try {
                 await setDoc(doc(db, "portfolio", "liveData"), { customAnimationCode: code }, { merge: true });
                 btn.innerText = "SAVE SUCCESS!";
-            } catch(e) {
-                btn.innerText = "SAVE ERROR";
-            }
+            } catch(e) { btn.innerText = "SAVE ERROR"; }
             setTimeout(() => btn.innerText = "Save & Inject Engine", 2000);
         };
 
@@ -962,12 +964,11 @@
             try {
                 await setDoc(doc(db, "portfolio", "liveData"), { customBgCode: code }, { merge: true });
                 btn.innerText = "SAVE SUCCESS!";
-            } catch(e) {
-                btn.innerText = "SAVE ERROR";
-            }
+            } catch(e) { btn.innerText = "SAVE ERROR"; }
             setTimeout(() => btn.innerText = "Save & Inject Engine", 2000);
         };
 
+        // Master Consolidated Matrix Deployment Method Engine
         document.getElementById('main-deploy-btn').onclick = async function() {
             const btn = document.getElementById('main-deploy-btn');
             btn.innerText = "DEPLOYING MESH PACKAGE...";
@@ -1084,9 +1085,7 @@
         }
 
         class StarParticle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
@@ -1102,9 +1101,7 @@
                 this.y += this.speedY;
                 this.alpha += this.fade;
                 if (this.alpha > 0.7 || this.alpha < 0.1) this.fade = -this.fade;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); }
             }
             draw() {
                 ctx.beginPath();
@@ -1117,9 +1114,7 @@
         function initParticles() {
             particles = [];
             const count = Math.min(Math.floor(canvas.width / 10), 120);
-            for (let i = 0; i < count; i++) {
-                particles.push(new StarParticle());
-            }
+            for (let i = 0; i < count; i++) { particles.push(new StarParticle()); }
         }
 
         function animateEngine() {
@@ -1133,10 +1128,7 @@
             ctx.fillStyle = cloudGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateEngine);
         }
 
