@@ -6,7 +6,7 @@
     <title>ASH_X8 | Mainframe Control Admin Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { background: #020205; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; position: relative; }
         #galaxy-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
@@ -20,6 +20,9 @@
         .tab-btn.active { background: #00f3ff !important; color: #000 !important; font-weight: 900; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
         .gallery-select-card { transition: all 0.2s; cursor: pointer; }
         .gallery-select-card:hover { border-color: #00f3ff; transform: scale(1.02); }
+        .theme-card { transition: all 0.3s ease; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
+        .theme-card:hover { transform: translateY(-2px); border-color: rgba(0, 243, 255, 0.4); }
+        .theme-card.selected { border-color: #00f3ff; box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); background: rgba(0, 243, 255, 0.05); }
     </style>
 </head>
 <body class="p-4 md:p-8 min-h-screen">
@@ -40,11 +43,24 @@
 
         <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
             <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Identity Systems</button>
+            <button onclick="switchTab('themes')" id="tab-themes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 text-amber-400 border border-amber-500/20">🎨 UI Templates (15 Styles)</button>
             <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Quotes (නිසදැස්)</button>
             <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Photography (ගැලරිය)</button>
             <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Section Fonts & Colors</button>
             <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Engine</button>
             <button onclick="switchTab('security')" id="tab-security" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 border border-red-500/20 text-red-400">🚨 Security Layer</button>
+        </div>
+
+        <div id="panel-themes" class="dashboard-panel hidden space-y-6">
+            <div class="glass p-6 rounded-3xl border border-amber-500/20 space-y-4">
+                <div>
+                    <h3 class="text-sm font-black font-['Orbitron'] text-amber-400 uppercase tracking-widest">// Global Website UI Master Engine</h3>
+                    <p class="text-xs text-gray-400 mt-1">Select from 15 premium layout structures built for both Desktop and Mobile environments. Choosing a template automatically optimizes core text colors.</p>
+                </div>
+                <input type="hidden" id="selected-theme-id" value="theme-charm-neon">
+                <div id="themes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+                    </div>
+            </div>
         </div>
 
         <div id="panel-profile" class="dashboard-panel space-y-6">
@@ -452,6 +468,25 @@
         let liveDatabaseState = {};
         let localProjectImages = [];
 
+        // 15 Premium UI Configurations Database Array
+        const uiThemesLibrary = [
+            { id: "theme-charm-neon", name: "01. Charm Cyan Neon (Default)", desc: "Charm default aesthetic layout with sleek neon lines.", colors: { nav: "#00f3ff", mainTitle: "#ffffff", secTitle: "#00f3ff", caption: "#e5e7eb", date: "#9ca3af", userInfo: "#ffffff", bio: "#00f3ff", about: "#f3f4f6", footer: "#6b7280" } },
+            { id: "theme-minimal-light", name: "02. Minimalist Plain Light", desc: "Clean layout, without intense hacker vibes. Crisp white canvas rules.", colors: { nav: "#0f172a", mainTitle: "#0f172a", secTitle: "#2563eb", caption: "#475569", date: "#64748b", userInfo: "#0f172a", bio: "#334155", about: "#1e293b", footer: "#94a3b8" } },
+            { id: "theme-deep-matrix", name: "03. Pure Terminal Hacker Matrix", desc: "Monochrome bright phosphor terminal aesthetics.", colors: { nav: "#10b981", mainTitle: "#10b981", secTitle: "#059669", caption: "#34d399", date: "#047857", userInfo: "#10b981", bio: "#10b981", about: "#a7f3d0", footer: "#065f46" } },
+            { id: "theme-royal-gold", name: "04. Luxury Royal Gold Charm", desc: "Premium obsidian black polished with elite luxury gold accents.", colors: { nav: "#fbbf24", mainTitle: "#ffffff", secTitle: "#fbbf24", caption: "#f3f4f6", date: "#d97706", userInfo: "#fbbf24", bio: "#f59e0b", about: "#e5e7eb", footer: "#78350f" } },
+            { id: "theme-sakura-pink", name: "05. Cute Pastel Sakura", desc: "Gentle anime aesthetic pink blossom layout frame.", colors: { nav: "#ec4899", mainTitle: "#ffffff", secTitle: "#f43f5e", caption: "#fbcfe8", date: "#f472b6", userInfo: "#ffffff", bio: "#f472b6", about: "#fce7f3", footer: "#db2777" } },
+            { id: "theme-dracula-dark", name: "06. Dracula Dev Theme", desc: "Classic software developer rich purple configuration.", colors: { nav: "#bd93f9", mainTitle: "#f8f8f2", secTitle: "#ff79c6", caption: "#6272a4", date: "#ffb86c", userInfo: "#f8f8f2", bio: "#50fa7b", about: "#f8f8f2", footer: "#6272a4" } },
+            { id: "theme-retrowave", name: "07. 80s Synth Retrowave", desc: "Hot pink and cyber sunset violet pulse layout.", colors: { nav: "#ff007f", mainTitle: "#00f3ff", secTitle: "#ff007f", caption: "#e2e8f0", date: "#94a3b8", userInfo: "#ffffff", bio: "#ff007f", about: "#f8fafc", footer: "#475569" } },
+            { id: "theme-nordic-frost", name: "08. Arctic Nordic Frost Minimal", desc: "Elegant cold blue clean tech vibe without screaming hacker.", colors: { nav: "#38bdf8", mainTitle: "#f8fafc", secTitle: "#0284c7", caption: "#cbd5e1", date: "#64748b", userInfo: "#f1f5f9", bio: "#7dd3fc", about: "#e2e8f0", footer: "#475569" } },
+            { id: "theme-crimson-red", name: "09. Crimson Phantom Suite", desc: "Aggressive deep blood red security mainframe framework.", colors: { nav: "#ef4444", mainTitle: "#ffffff", secTitle: "#dc2626", caption: "#fca5a5", date: "#991b1b", userInfo: "#ffffff", bio: "#ef4444", about: "#f9fafb", footer: "#7f1d1d" } },
+            { id: "theme-monochrome", name: "10. Stealth Grayscale Flat", desc: "Ultimate minimalist layout using only absolute high contrast shades.", colors: { nav: "#ffffff", mainTitle: "#ffffff", secTitle: "#e5e7eb", caption: "#9ca3af", date: "#4b5563", userInfo: "#ffffff", bio: "#9ca3af", about: "#d1d5db", footer: "#374151" } },
+            { id: "theme-cyber-yellow", name: "11. Industrial Cyber Warning", desc: "High contrast bright hazard caution block setup design.", colors: { nav: "#eab308", mainTitle: "#ffffff", secTitle: "#eab308", caption: "#fef08a", date: "#a16207", userInfo: "#ffffff", bio: "#eab308", about: "#fef9c3", footer: "#854d0e" } },
+            { id: "theme-ghost-premium", name: "12. GhostDev Executive White", desc: "Highly professional enterprise dark clean mode look.", colors: { nav: "#f8fafc", mainTitle: "#ffffff", secTitle: "#cbd5e1", caption: "#94a3b8", date: "#475569", userInfo: "#ffffff", bio: "#cbd5e1", about: "#f1f5f9", footer: "#334155" } },
+            { id: "theme-toxic-lime", name: "13. Biohazard Toxic Green", desc: "Vibrant high voltage neon green radioactive look.", colors: { nav: "#22c55e", mainTitle: "#ffffff", secTitle: "#4ade80", caption: "#bbf7d0", date: "#166534", userInfo: "#ffffff", bio: "#4ade80", about: "#f0fdf4", footer: "#14532d" } },
+            { id: "theme-electric-orange", name: "14. Electric Quantum Orange", desc: "Sleek machinery dark theme with premium burst sunset copper accents.", colors: { nav: "#f97316", mainTitle: "#ffffff", secTitle: "#ea580c", caption: "#fed7aa", date: "#9a3412", userInfo: "#ffffff", bio: "#f97316", about: "#fff7ed", footer: "#7c2d12" } },
+            { id: "theme-subatomic", name: "15. Deep Galaxy Nebula Quantum", desc: "Deep space cosmic indigo layout for artistic tech portfolios.", colors: { nav: "#a855f7", mainTitle: "#ffffff", secTitle: "#c084fc", caption: "#e9d5ff", date: "#7e22ce", userInfo: "#ffffff", bio: "#c084fc", about: "#faf5ff", footer: "#581c87" } }
+        ];
+
         // Font Options Core Dictionary
         const fontsLibrary = [
             { name: "Orbitron Cyber", val: "'Orbitron', sans-serif" },
@@ -468,10 +503,53 @@
             { name: "Abhaya Libre (සිංහල රාජකීය)", val: "'Abhaya Libre', serif" }
         ];
 
+        // Inject Font Selectors Dropdown Options
         document.querySelectorAll('.font-dropdown').forEach(d => {
             d.innerHTML = '';
             fontsLibrary.forEach(f => d.innerHTML += `<option value="${f.val}">${f.name}</option>`);
         });
+
+        // Inject 15 Themes Grid items
+        const themesGridContainer = document.getElementById('themes-grid');
+        uiThemesLibrary.forEach(t => {
+            const card = document.createElement('div');
+            card.id = `card-${t.id}`;
+            card.className = "theme-card bg-black/50 p-4 rounded-2xl border flex flex-col justify-between space-y-3";
+            card.innerHTML = `
+                <div>
+                    <h4 class="text-xs font-black font-['Orbitron'] text-white">${t.name}</h4>
+                    <p class="text-[11px] text-gray-400 mt-1">${t.desc}</p>
+                </div>
+                <div class="flex items-center gap-1.5 flex-wrap pt-1">
+                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.nav}"></span>
+                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.secTitle}"></span>
+                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.caption}"></span>
+                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.bio}"></span>
+                </div>
+            `;
+            card.onclick = () => selectThemeEngine(t.id);
+            themesGridContainer.appendChild(card);
+        });
+
+        function selectThemeEngine(themeId) {
+            document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById(`card-${themeId}`).classList.add('selected');
+            document.getElementById('selected-theme-id').value = themeId;
+            
+            const selectedTheme = uiThemesLibrary.find(x => x.id === themeId);
+            if(selectedTheme) {
+                // Instantly inject configuration values to individual color pickers inputs
+                document.getElementById('col-nav').value = selectedTheme.colors.nav;
+                document.getElementById('col-mainTitle').value = selectedTheme.colors.mainTitle;
+                document.getElementById('col-secTitle').value = selectedTheme.colors.secTitle;
+                document.getElementById('col-caption').value = selectedTheme.colors.caption;
+                document.getElementById('col-date').value = selectedTheme.colors.date;
+                document.getElementById('col-userInfo').value = selectedTheme.colors.userInfo;
+                document.getElementById('col-bio').value = selectedTheme.colors.bio;
+                document.getElementById('col-about').value = selectedTheme.colors.about;
+                document.getElementById('col-footer').value = selectedTheme.colors.footer;
+            }
+        }
 
         // Smart Canvas Compressor to Fix Lag/Crash Bugs
         function compressImageBeforeUpload(file, maxDimension = 1200, quality = 0.7) {
@@ -526,6 +604,13 @@
             if (docSnap.exists()) {
                 liveDatabaseState = docSnap.data();
                 
+                // Active Layout UI Theme Parsing Configuration
+                if(liveDatabaseState.activeThemeId) {
+                    selectThemeEngine(liveDatabaseState.activeThemeId);
+                } else {
+                    selectThemeEngine("theme-charm-neon");
+                }
+
                 // Header Logo & Theme Style
                 if(liveDatabaseState.headerLogo) document.getElementById('headerLogoInput').value = liveDatabaseState.headerLogo;
                 if(liveDatabaseState.headerStyle) document.getElementById('headerStyleSelect').value = liveDatabaseState.headerStyle;
@@ -564,14 +649,14 @@
                 // Granular Matrix Color Configuration
                 if(liveDatabaseState.matrixColors) {
                     const c = liveDatabaseState.matrixColors;
-                    document.getElementById('col-nav').value = c.nav || '#ffffff';
+                    document.getElementById('col-nav').value = c.nav || '#00f3ff';
                     document.getElementById('col-mainTitle').value = c.mainTitle || '#ffffff';
                     document.getElementById('col-secTitle').value = c.secTitle || '#00f3ff';
-                    document.getElementById('col-caption').value = c.caption || '#9ca3af';
-                    document.getElementById('col-date').value = c.date || '#4b5563';
+                    document.getElementById('col-caption').value = c.caption || '#e5e7eb';
+                    document.getElementById('col-date').value = c.date || '#9ca3af';
                     document.getElementById('col-userInfo').value = c.userInfo || '#ffffff';
-                    document.getElementById('col-bio').value = c.bio || '#9ca3af';
-                    document.getElementById('col-about').value = c.about || '#d1d5db';
+                    document.getElementById('col-bio').value = c.bio || '#00f3ff';
+                    document.getElementById('col-about').value = c.about || '#f3f4f6';
                     document.getElementById('col-footer').value = c.footer || '#6b7280';
                 }
 
@@ -809,6 +894,7 @@
                 if(freshAvatar) { avatarUrl = freshAvatar; document.getElementById('profAvatar').value = avatarUrl; }
 
                 const packageData = {
+                    activeThemeId: document.getElementById('selected-theme-id').value,
                     headerLogo: logoUrl,
                     headerStyle: document.getElementById('headerStyleSelect').value,
                     projectImages: localProjectImages,
