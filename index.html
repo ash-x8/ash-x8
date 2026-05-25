@@ -46,15 +46,46 @@
     <style id="custom-animation-styles"></style>
     <style id="custom-bg-styles"></style>
     <style>
-        :root { --neon: #00f3ff; --bg: #030303; --cyber-neon: #66fcf1; }
-        body { background: var(--bg); color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; user-select: none; }
-        canvas#bg-canvas { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
+        :root { 
+            --neon: #00f3ff; 
+            --bg: #020205; 
+            --cyber-neon: #66fcf1; 
+            --galaxy-purple: #a855f7;
+            --hacker-green: #00ff66;
+        }
+        body { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'JetBrains Mono', monospace; 
+            overflow-x: hidden; 
+            user-select: none; 
+        }
+        
+        /* GALAXY + HACKER CANVAS LAYER */
+        canvas#bg-canvas { 
+            position: fixed; 
+            inset: 0; 
+            z-index: -2; 
+            pointer-events: none; 
+            background: radial-gradient(circle at 50% 50%, #080214 0%, #020205 100%);
+        }
         #bg-animation-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .info-box { border-left: 3px solid var(--neon); background: rgba(0, 243, 255, 0.03); }
+        
+        /* MODERN GLASSMORPHISM WITH CYBER GLOW */
+        .glass { 
+            background: rgba(6, 4, 12, 0.45); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(0, 243, 255, 0.1); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .info-box { 
+            border-left: 3px solid var(--neon); 
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.05) 0%, transparent 100%); 
+        }
         .quote-pre { white-space: pre-wrap; font-family: inherit; }
 
-        /* CAMERA LENS CODE */
+        /* CAMERA LENS CODE (PHOTOGRAPHER THEME) */
         .lens-container { position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; }
         .focus-ring { position: absolute; inset: -15px; border: 2px dashed rgba(102, 252, 241, 0.3); border-radius: 50%; animation: rotateCounter 16s linear infinite; }
         @keyframes rotateCounter { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
@@ -121,21 +152,21 @@
         #security-modal { display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(25px); align-items: center; justify-content: center; padding: 20px; animation: modalFade 0.3s ease-out forwards; }
         @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
 
-        /* BACKGROUND ENGINE STYLES */
-        .bg-matrix-rain { background: linear-gradient(180deg, rgba(0,243,255,0.02) 0%, rgba(0,0,0,0) 100%); }
-        .bg-cyber-grid { background-image: linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px); background-size: 30px 30px; animation: gridMove 20s linear infinite; }
-        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 0 60px; } }
-        .bg-neon-matrix { background: radial-gradient(circle at 50% 50%, rgba(15, 10, 30, 0.6), #030303); }
-        .bg-scanline::after { content: " "; display: block; position: fixed; inset: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 243, 255, 0.08) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); z-index: 999; background-size: 100% 4px, 6px 100%; pointer-events: none; }
-        .bg-starfield { background: #020205; overflow: hidden; }
-        .bg-aurora { background: radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.06) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(147, 51, 234, 0.06) 0%, transparent 40%); }
-        .bg-quantum { background-image: radial-gradient(rgba(0, 243, 255, 0.15) 1px, transparent 0); background-size: 24px 24px; }
-        .bg-synthwave { background: linear-gradient(to bottom, #050014 0%, #190032 50%, #030303 100%); }
-        .bg-vortex { background: radial-gradient(ellipse at center, rgba(0,243,255,0.03) 0%, rgba(0,0,0,0.9) 80%); }
-        .bg-dna { background: linear-gradient(45deg, #020202, #0d0518); }
+        /* CYBER MATRIX GRID + SPACE MATRIX GENERATION ENGINE */
+        .bg-matrix-rain { background: linear-gradient(180deg, rgba(0,255,102,0.03) 0%, rgba(0,0,0,0) 100%); }
+        .bg-cyber-grid { background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px); background-size: 40px 40px; animation: gridMove 24s linear infinite; }
+        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 0 80px; } }
+        .bg-neon-matrix { background: radial-gradient(circle at 50% 50%, rgba(20, 10, 40, 0.7), #020205); }
+        .bg-scanline::after { content: " "; display: block; position: fixed; inset: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 243, 255, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02)); z-index: 999; background-size: 100% 4px, 6px 100%; pointer-events: none; }
+        .bg-starfield { background: #010103; overflow: hidden; }
+        .bg-aurora { background: radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.08) 0%, transparent 50%), radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); }
+        .bg-quantum { background-image: radial-gradient(rgba(0, 255, 102, 0.12) 1px, transparent 0); background-size: 24px 24px; }
+        .bg-synthwave { background: linear-gradient(to bottom, #06001a 0%, #14002a 50%, #020205 100%); }
+        .bg-vortex { background: radial-gradient(ellipse at center, rgba(168,85,247,0.05) 0%, rgba(2,2,5,0.95) 80%); }
+        .bg-dna { background: linear-gradient(45deg, #010102, #0a0414); }
 
         /* DYNAMIC LOADING LAYER */
-        #mainframe-loader-screen { position: fixed; inset: 0; z-index: 9999999; background: #030303; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; transition: opacity 0.6s ease-in-out; }
+        #mainframe-loader-screen { position: fixed; inset: 0; z-index: 9999999; background: #020205; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; transition: opacity 0.6s ease-in-out; }
         .loader-ring-node { width: 50px; height: 50px; border: 3px solid transparent; border-top-color: #00f3ff; border-radius: 50%; animation: loadSpin 1s linear infinite; }
         @keyframes loadSpin { to { transform: rotate(360deg); } }
     </style>
@@ -190,8 +221,8 @@
         <section id="sec-home" class="app-section active-section">
             <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
                 <div class="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0 group">
-                    <div class="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-[2.5rem] opacity-20 blur-xl"></div>
-                    <div class="w-full h-full bg-black rounded-[2.5rem] border border-cyan-500/20 overflow-hidden relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-cyan-500 via-purple-600 to-emerald-500 rounded-[2.5rem] opacity-25 blur-xl group-hover:opacity-40 transition duration-700"></div>
+                    <div class="w-full h-full bg-black rounded-[2.5rem] border border-cyan-500/30 overflow-hidden relative shadow-[0_0_30px_rgba(0,243,255,0.15)]">
                         <img id="home-avatar-display" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -424,8 +455,6 @@
                 let animationStyleBuffer = `
                     .cyber-glitch { animation: cyShiver 0.15s infinite alternate; font-weight: 900; letter-spacing: 0.1em; }
                     .neon-flicker { animation: neonFlickering 2s infinite; text-shadow: 0 0 8px var(--neon); }
-                    @keyframes neonFlickering { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; } 20%, 24%, 55% { opacity: 0.4; } }
-                    .typewriter { overflow: hidden; border-right: 2px solid var(--neon); white-space: nowrap; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; }
                     @keyframes typing { from { width: 0 } to { width: 100% } }
                     @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--neon); } }
                     .matrix-scan { background: linear-gradient(rgba(0,243,255,0.2) 50%, rgba(0,0,0,0) 50%); background-size: 100% 4px; color: #00ffcc; text-shadow: 0 0 4px #00ffcc; }
@@ -548,7 +577,6 @@
             else { el.style.display = "none"; }
         }
 
-        // SYNC FIXED PROJECT GRID LOADING CAPABILITY
         function renderProjects(arr) {
             const grid = document.getElementById('projects-grid'); grid.innerHTML = '';
             arr.forEach((url, i) => {
@@ -701,22 +729,85 @@
             } catch { document.getElementById('user-ip').innerText = "SECURED MAIN"; }
         }
 
-        const bgCanvas = document.getElementById('bg-canvas'); const bgCtx = bgCanvas.getContext('2d');
-        let dots = [];
+        // ADVANCED SCI-FI GALAXY CANVAS ENGINE
+        const bgCanvas = document.getElementById('bg-canvas'); 
+        const bgCtx = bgCanvas.getContext('2d');
+        let stars = [];
+        let matrixNodes = [];
+
         function initBg() {
-            bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; dots = [];
-            for(let i=0; i<40; i++) dots.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, dx:Math.random()*0.3-0.15, dy:Math.random()*0.3-0.15});
+            bgCanvas.width = window.innerWidth; 
+            bgCanvas.height = window.innerHeight; 
+            stars = [];
+            matrixNodes = [];
+            
+            // Generate deep space starfield cluster nodes
+            for(let i=0; i<120; i++) {
+                stars.push({
+                    x: Math.random() * bgCanvas.width, 
+                    y: Math.random() * bgCanvas.height, 
+                    size: Math.random() * 1.8, 
+                    color: i % 3 === 0 ? 'rgba(0, 243, 255, 0.7)' : (i % 3 === 1 ? 'rgba(168, 85, 247, 0.6)' : 'rgba(255, 255, 255, 0.8)'),
+                    speed: Math.random() * 0.05 + 0.01
+                });
+            }
+
+            // Hacker tech-grid connection matrix lines
+            for(let j=0; j<25; j++) {
+                matrixNodes.push({
+                    x: Math.random() * bgCanvas.width,
+                    y: Math.random() * bgCanvas.height,
+                    vx: Math.random() * 0.4 - 0.2,
+                    vy: Math.random() * 0.4 - 0.2
+                });
+            }
         }
+
         function drawBg() {
-            bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-            dots.forEach(d => {
-                d.x+=d.dx; d.y+=d.dy; if(d.x<0 || d.x>bgCanvas.width) d.dx*=-1; if(d.y<0 || d.y>bgCanvas.height) d.dy*=-1;
-                bgCtx.fillStyle = 'rgba(0, 243, 255, 0.06)'; bgCtx.beginPath(); bgCtx.arc(d.x, d.y, 1.2, 0, Math.PI*2); bgCtx.fill();
+            bgCtx.fillStyle = 'rgba(2, 2, 5, 0.2)'; // Smooth frames animation persistence trace
+            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+            
+            // 1. Draw Starfield Galaxy Architecture
+            stars.forEach(s => {
+                s.y -= s.speed;
+                if(s.y < 0) s.y = bgCanvas.height;
+                bgCtx.fillStyle = s.color;
+                bgCtx.beginPath();
+                bgCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                bgCtx.fill();
             });
+
+            // 2. Draw Hacker Matrix Floating Connections
+            matrixNodes.forEach((n, idx) => {
+                n.x += n.vx;
+                n.y += n.vy;
+
+                if(n.x < 0 || n.x > bgCanvas.width) n.vx *= -1;
+                if(n.y < 0 || n.y > bgCanvas.height) n.vy *= -1;
+
+                bgCtx.fillStyle = 'rgba(0, 255, 102, 0.15)';
+                bgCtx.fillRect(n.x, n.y, 2, 2);
+
+                // Draw network link strands between close nodes
+                for(let k = idx + 1; k < matrixNodes.length; k++) {
+                    let target = matrixNodes[k];
+                    let dist = Math.hypot(n.x - target.x, n.y - target.y);
+                    if(dist < 130) {
+                        bgCtx.strokeStyle = `rgba(0, 243, 255, ${0.15 * (1 - dist/130)})`;
+                        bgCtx.lineWidth = 0.6;
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(n.x, n.y);
+                        bgCtx.lineTo(target.x, target.y);
+                        bgCtx.stroke();
+                    }
+                }
+            });
+
             requestAnimationFrame(drawBg);
         }
+
+        window.addEventListener('resize', initBg);
         window.onload = () => { initBg(); drawBg(); loadStats(); };
     </script>
 </body>
 </html>
-
