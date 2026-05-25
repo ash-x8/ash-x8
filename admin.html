@@ -139,13 +139,21 @@
 
                 <div class="glass p-6 rounded-3xl border border-cyan-500/30 space-y-4">
                     <h2 class="text-sm font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest"><i class="fa-solid fa-diagram-project mr-2"></i> Project Asset Stream</h2>
-                    <p class="text-[11px] text-gray-400">Insert direct web source links below to append new imagery representations into your portfolio work stack grid.</p>
+                    <p class="text-[11px] text-gray-400">Insert direct web source links below OR upload an image from your device to append new imagery representations into your portfolio work stack grid.</p>
                     
                     <div class="space-y-2">
                         <label class="block text-[10px] uppercase font-bold text-cyan-400">Inject Project Image URL</label>
                         <div class="flex gap-2">
                             <input type="text" id="newProjectUrlInput" placeholder="https://i.ibb.co/.../image.jpg" class="w-full p-3 rounded-xl input-cyber text-xs flex-grow">
                             <button id="inject-proj-btn" class="px-4 bg-cyan-500 text-black font-black rounded-xl text-xs uppercase hover:bg-cyan-400 transition-all">+</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 border-t border-white/5 pt-3">
+                        <label class="block text-[10px] uppercase font-bold text-purple-400">Or Upload Project Image File</label>
+                        <div class="flex gap-2">
+                            <input type="file" id="project-file-input" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-purple-500/10 file:text-purple-400 input-cyber p-1.5">
+                            <button id="upload-proj-file-btn" class="px-4 bg-purple-500 text-white font-black rounded-xl text-xs uppercase hover:bg-purple-400 transition-all"><i class="fa-solid fa-upload"></i></button>
                         </div>
                     </div>
 
@@ -460,6 +468,65 @@
             fontsLibrary.forEach(f => d.innerHTML += `<option value="${f.val}">${f.name}</option>`);
         });
 
+        // Helper Function to safely Compress Images client-side before upload to prevent browser crash/lag
+        function compressAndOptimizeImage(file) {
+            return new Promise((resolve) => {
+                if (!file) return resolve(null);
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement("canvas");
+                        const MAX_WIDTH = 1920;
+                        const MAX_HEIGHT = 1080;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0, width, height);
+                        canvas.toBlob((blob) => {
+                            resolve(blob || file);
+                        }, "image/webp", 0.8);
+                    };
+                };
+            });
+        }
+
+        // Cloud Storage Token ImgBB Uploader (With Integrated Compression Support)
+        async function uploadFileToImgBB(fileElementId) {
+            const rawFile = document.getElementById(fileElementId).files[0];
+            if(!rawFile) return null;
+            
+            // Compress image file to optimize bandwidth and prevent system crash
+            const processedBlob = await compressAndOptimizeImage(rawFile);
+            const fd = new FormData(); 
+            fd.append("image", processedBlob || rawFile, "optimized_node.webp");
+            
+            try {
+                const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
+                const d = await r.json(); 
+                return d.data.url;
+            } catch (err) {
+                console.error("ImgBB upload channel error:", err);
+                return null;
+            }
+        }
+
         // Live Mainframe Database Listening Snapshot Node
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
             if (docSnap.exists()) {
@@ -514,7 +581,7 @@
                     document.getElementById('col-footer').value = c.footer || '#6b7280';
                 }
 
-                // Animation Engine State Map
+                // Animation Engine State Map & Custom Code Loading
                 if(liveDatabaseState.selectedAvatarAnim) document.getElementById('selected-avatar-anim').value = liveDatabaseState.selectedAvatarAnim;
                 if(liveDatabaseState.selectedBgAnim) document.getElementById('selected-bg-anim').value = liveDatabaseState.selectedBgAnim;
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
@@ -554,15 +621,6 @@
             }
         });
 
-        // Cloud Storage Token ImgBB Uploader
-        async function uploadFileToImgBB(fileElementId) {
-            const file = document.getElementById(fileElementId).files[0];
-            if(!file) return null;
-            const fd = new FormData(); fd.append("image", file);
-            const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
-            const d = await r.json(); return d.data.url;
-        }
-
         // Project Stack Management Methods
         document.getElementById('inject-proj-btn').onclick = function() {
             const val = document.getElementById('newProjectUrlInput').value.trim();
@@ -570,6 +628,24 @@
             localProjectImages.push(val);
             document.getElementById('newProjectUrlInput').value = '';
             renderProjectThumbs();
+        };
+
+        // Custom local file uploader mechanism for Project Section Gallery
+        document.getElementById('upload-proj-file-btn').onclick = async function() {
+            const btn = document.getElementById('upload-proj-file-btn');
+            const fileInput = document.getElementById('project-file-input');
+            if(!fileInput.files[0]) { alert("Please select an image file first!"); return; }
+            
+            btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin text-purple-400'></i>";
+            const uploadedUrl = await uploadFileToImgBB('project-file-input');
+            if(uploadedUrl) {
+                localProjectImages.push(uploadedUrl);
+                fileInput.value = ''; // Reset file input box
+                renderProjectThumbs();
+            } else {
+                alert("Project image deployment crashed or failed!");
+            }
+            btn.innerHTML = "<i class='fa-solid fa-upload'></i>";
         };
 
         window.removeProjectImg = function(idx) {
@@ -632,7 +708,7 @@
                 
                 const uploadedUrl = await uploadFileToImgBB('photo-file');
                 if(uploadedUrl) url = uploadedUrl;
-                if(!url) { btn.innerText = "Commit Grid Element"; return; }
+                if(!url) { btn.innerText = "Commit Grid Element"; alert("Please provide an image URL or choose a valid file node."); return; }
                 
                 let pool = liveDatabaseState.photographyPool || [];
                 const photoItem = { title, desc, date, url };
@@ -842,4 +918,3 @@
     </script>
 </body>
 </html>
-
