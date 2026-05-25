@@ -3,477 +3,494 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASH_X8 | Mainframe Control Admin Suite</title>
+    
+    <title>Kushan A Wickramasinghe | Ash-x8 Portfolio</title>
+    <meta name="description" content="Kushan A Wickramasinghe (Ash-x8) is a versatile photographer, graphic designer, and author. President of the Communication, Broadcasting, and Photography Units at Sandalanka Central College. Contact Ash for professional social media posts and creative designs.">
+    <meta name="keywords" content="Kushan A Wickramasinghe, Ash Wickramasinghe, Ash-x8, Ash, Writer Ash, Writer Tizzy, Tizzy, Kushan Wickramasinghe, Kushan Ashwika, Kushan, Sandalanka Central College, Photographer Sri Lanka, Graphic Designer Sri Lanka, Creative Post Design">
+    <meta name="author" content="Kushan A Wickramasinghe (Ash-x8)">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Kushan A Wickramasinghe | Ash-x8 Portfolio">
+    <meta property="og:description" content="Photographer, Graphic Designer, and Author. Leading creative units at Sandalanka Central College.">
+    <meta property="og:image" content="https://api.imagecloud.online/uploads/u/4e579678-6c97-49e1-83cf-c4fb49036523/o/0bb7ab73-0e5d-48ed-b2b6-018f185e68f7.webp">
+    <meta property="og:url" content="https://ash-x8.vercel.app/">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Kushan A Wickramasinghe",
+      "alternateName": ["Ash Wickramasinghe", "Ash-x8", "Ash", "Writer Ash", "Writer Tizzy", "Tizzy", "Kushan Wickramasinghe", "Kushan Ashwika"],
+      "url": "https://ash-x8.vercel.app/",
+      "image": "https://api.imagecloud.online/uploads/u/4e579678-6c97-49e1-83cf-c4fb49036523/o/0bb7ab73-0e5d-48ed-b2b6-018f185e68f7.webp",
+      "jobTitle": ["Photographer", "Graphic Designer", "Author"],
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Sandalanka Central College"
+      },
+      "sameAs": [
+        "https://www.youtube.com/@Ash-x8",
+        "https://www.facebook.com/share/1UeTQSvLik/",
+        "https://www.linkedin.com/in/kushan-a-wickramasinghe-28b1aa2a0",
+        "https://wa.me/+94752269410",
+        "https://t.me/kawickramasinghe",
+        "https://vm.tiktok.com/ZS9Ypfen3rcYL-KiVCP/"
+      ]
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;800&family=Noto+Sans+Sinhala:wght@400;700&family=Noto+Serif+Sinhala:wght@400;700&family=Gemunu+Libre:wght@400;700&family=Abhaya+Libre:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Space+Grotesk:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style id="custom-dynamic-fonts"></style>
+    <style id="custom-animation-styles"></style>
+    <style id="custom-bg-styles"></style>
     <style>
-        body { background: #020205; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; position: relative; }
-        #galaxy-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        .glass { background: rgba(5, 5, 15, 0.55); backdrop-filter: blur Comm25px); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .glass:hover { border-color: rgba(0, 243, 255, 0.35); box-shadow: 0 0 45px rgba(0, 243, 255, 0.08); }
-        .input-cyber { background: rgba(0,0,0,0.7) !important; border: 1px solid rgba(0, 243, 255, 0.18) !important; color: #fff !important; transition: all 0.3s; }
-        .input-cyber:focus { border-color: #00f3ff !important; box-shadow: 0 0 18px rgba(0, 243, 255, 0.3) !important; outline: none; }
-        input[type="color"] { border-radius: 0.5rem; transition: transform 0.2s ease; }
-        input[type="color"]:hover { transform: scale(1.1); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
-        .tab-btn { transition: all 0.3s ease; }
-        .tab-btn.active { background: #00f3ff !important; color: #000 !important; font-weight: 900; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
-        .gallery-select-card { transition: all 0.2s; cursor: pointer; }
-        .gallery-select-card:hover { border-color: #00f3ff; transform: scale(1.02); }
-        .theme-card { transition: all 0.3s ease; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
-        .theme-card:hover { transform: translateY(-2px); border-color: rgba(0, 243, 255, 0.4); }
-        .theme-card.selected { border-color: #00f3ff; box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); background: rgba(0, 243, 255, 0.05); }
+        /* DEFAULT PREMIUM CHARM THEME PALETTE */
+        :root { 
+            --charm-primary: #a78bfa; 
+            --charm-secondary: #f472b6;
+            --bg: #0b071a; 
+            --neon: var(--charm-primary);
+            --cyber-neon: #66fcf1; 
+            --galaxy-purple: #a855f7;
+            --hacker-green: #00ff66;
+            --premium-gold: #e2ba43;
+        }
+        body { 
+            background: var(--bg); 
+            color: #f1f5f9; 
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            user-select: none; 
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+        
+        /* GALAXY CANVAS LAYER */
+        canvas#bg-canvas { 
+            position: fixed; 
+            inset: 0; 
+            z-index: -2; 
+            pointer-events: none; 
+            background: radial-gradient(circle at 50% 50%, #0d0624 0%, #05020c 100%);
+        }
+        #bg-animation-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        
+        /* MODERN GLASSMORPHISM WITH PREMIUM GLOW */
+        .glass { 
+            background: rgba(15, 10, 30, 0.4); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(167, 139, 250, 0.15); 
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .info-box { 
+            border-left: 3px solid var(--charm-primary); 
+            background: linear-gradient(90deg, rgba(167, 139, 250, 0.08) 0%, transparent 100%); 
+        }
+        .quote-pre { white-space: pre-wrap; font-family: inherit; }
+
+        /* CAMERA LENS CODE (PHOTOGRAPHER THEME MODERNIZED) */
+        .lens-container { position: relative; width: 190px; height: 190px; display: flex; align-items: center; justify-content: center; }
+        .focus-ring { position: absolute; inset: -12px; border: 2px dashed rgba(167, 139, 250, 0.5); border-radius: 50%; animation: rotateCounter 20s linear infinite; box-shadow: 0 0 15px rgba(167, 139, 250, 0.2); }
+        @keyframes rotateCounter { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+        
+        .shutter-blades-wrapper { position: absolute; inset: -4px; border-radius: 50%; overflow: hidden; filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.4)); animation: rotateClockwise 25s linear infinite; pointer-events: none; }
+        @keyframes rotateClockwise { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .aperture-blade { position: absolute; width: 0; height: 0; border-left: 35px solid transparent; border-right: 35px solid transparent; border-bottom: 85px solid rgba(167, 139, 250, 0.12); border-top: 2px solid var(--charm-primary); transform-origin: 50% 100%; animation: autoFocus 5s ease-in-out infinite; }
+        @keyframes autoFocus { 0%, 100% { transform: rotate(inherit) translateY(-42px) scale(1); } 50% { transform: rotate(inherit) translateY(-30px) scale(0.85); } }
+        .blade-1 { transform: rotate(0deg) translateY(-42px); } 
+        .blade-2 { transform: rotate(60deg) translateY(-42px); } 
+        .blade-3 { transform: rotate(120deg) translateY(-42px); } 
+        .blade-4 { transform: rotate(180deg) translateY(-42px); } 
+        .blade-5 { transform: rotate(240deg) translateY(-42px); } 
+        .blade-6 { transform: rotate(300deg) translateY(-42px); }
+
+        /* HEADER 10 DYNAMIC ARCHITECTURAL STYLES Engine */
+        .h-style-style1 { background: rgba(3, 3, 3, 0.75) !important; border: 2px solid #00f3ff !important; box-shadow: 0 0 25px rgba(0, 243, 255, 0.25) !important; }
+        .h-style-style2 { background: rgba(15, 5, 25, 0.85) !important; border: 1px solid purple !important; box-shadow: 0 0 30px rgba(128, 0, 128, 0.4) !important; }
+        .h-style-style3 { background: transparent !important; border: 0 !important; border-bottom: 2px solid rgba(0, 243, 255, 0.3) !important; border-radius: 0 !important; width: 100% !important; max-width: 100% !important; top: 0 !important; }
+        .h-style-style4 { background: rgba(255, 255, 255, 0.03) !important; backdrop-filter: blur(40px) !important; border: 1px solid rgba(255,255,255,0.15) !important; }
+        .h-style-style5 { background: #111 !important; border: 3px dashed #ffff00 !important; border-radius: 0px !important; }
+        .h-style-style6 { background: #ffff00 !important; border: 4px solid #000 !important; }
+        .h-style-style6 button, .h-style-style6 span { font-weight: 900 !important; }
+        .h-style-style7 { background: rgba(10, 0, 0, 0.9) !important; border-left: 5px solid #ff0000 !important; border-right: 5px solid #ff0000 !important; }
+        .h-style-style8 { background: rgba(0,0,0,0.95) !important; border: 1px solid #fff !important; border-radius: 0.5rem !important; }
+        .h-style-style9 { background: linear-gradient(90deg, rgba(0,243,255,0.1), rgba(128,0,128,0.1)) !important; border: 1px solid rgba(255,255,255,0.05) !important; }
+        .h-style-style10 { background: #09090e !important; border: 0 !important; box-shadow: 0 20px 40px rgba(0,0,0,0.8) !important; }
+
+        /* 15 GLOBAL THEMES ENGINE FOR SITE CONTAINER MIDDLEWARE */
+        body.theme-charm { --bg: #090514; --neon: #a78bfa; }
+        body.theme-cyber-neon { --bg: #020205; --neon: #00f3ff; }
+        body.theme-hacker-green { --bg: #010803; --neon: #00ff66; }
+        body.theme-minimalist-dark { --bg: #0f172a; --neon: #f8fafc; }
+        body.theme-minimalist-light { --bg: #f8fafc; --neon: #0f172a; color: #1e293b !important; }
+        body.theme-minimalist-light .glass { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); color: #1e293b; }
+        body.theme-retro-arcade { --bg: #11001c; --neon: #ffff00; }
+        body.theme-glass-frost { --bg: #1e1b4b; --neon: #38bdf8; }
+        body.theme-matrix-code { --bg: #000000; --neon: #00ff00; }
+        body.theme-premium-gold { --bg: #0a0903; --neon: #d4af37; }
+        body.theme-ocean-blue { --bg: #021124; --neon: #0ea5e9; }
+        body.theme-sunset-vibe { --bg: #1c0a10; --neon: #f43f5e; }
+        body.theme-monochrome { --bg: #121212; --neon: #ffffff; }
+        body.theme-emerald-tech { --bg: #022c22; --neon: #10b981; }
+        body.theme-fire-vortex { --bg: #1a0500; --neon: #f97316; }
+        body.theme-quantum-mesh { --bg: #03001e; --neon: #ec4899; }
+
+        /* 15 ADVANCED LIVE BACKGROUND ANIMATION MODES */
+        .bg-anim-natural { background: radial-gradient(circle at top, #062f19 0%, #010a05 100%); }
+        .bg-anim-hacker { background: linear-gradient(180deg, rgba(0,255,102,0.02) 0%, rgba(0,0,0,1) 100%); font-family: 'Fira Code', monospace; }
+        .bg-anim-galaxy { background: radial-gradient(circle at center, #1b0c3a 0%, #03010a 100%); }
+        .bg-anim-relax { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+        .bg-anim-feeling-cool { background: radial-gradient(circle at bottom right, #0c4a6e 0%, #020617 100%); }
+        .bg-anim-cyber { background-image: linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px); background-size: 30px 30px; }
+        .bg-anim-aurora-glow { background: radial-gradient(circle at 20% 30%, rgba(167,139,250,0.1) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(244,114,182,0.1) 0%, transparent 40%); }
+        .bg-anim-quantum-vibe { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 0); background-size: 20px 20px; }
+        .bg-anim-synthwave-grid { background: linear-gradient(to bottom, #140526 0%, #050110 100%); background-image: linear-gradient(rgba(244,114,182,0.04) 1px, transparent 1px); background-size: 100% 20px; }
+        .bg-anim-deep-ocean { background: radial-gradient(circle at 50% 0%, #032b4d 0%, #010710 100%); }
+        .bg-anim-matrix-rain { background: #000000; box-shadow: inset 0 0 100px rgba(0,255,102,0.2); }
+        .bg-anim-sunset-warmth { background: radial-gradient(circle at 50% 50%, #2e0817 0%, #080105 100%); }
+        .bg-anim-monochrome-dark { background: #0a0a0a; }
+        .bg-anim-emerald-space { background: radial-gradient(circle at top left, #022c22 0%, #010504 100%); }
+        .bg-anim-magma-flow { background: radial-gradient(circle at bottom left, #2a0800 0%, #050100 100%); }
+
+        /* MASTER AVATAR EFFECTS */
+        .anim-pixel-glitch { animation: pixelGlitch 1.5s infinite steps(2); }
+        @keyframes pixelGlitch { 0%, 100% { clip-path: inset(0 0 0 0); } 20% { clip-path: inset(10% 0 80% 0); transform: skew(-5deg); } 40% { clip-path: inset(60% 0 5% 0); transform: skew(5deg); } 60% { clip-path: inset(30% 0 40% 0); } 80% { clip-path: inset(80% 0 10% 0); } }
+        .anim-hologram-pulse { animation: holoPulse 2s infinite ease-in-out; filter: hue-rotate(90deg) brightness(1.2); }
+        @keyframes holoPulse { 0%, 100% { opacity: 0.8; transform: scale(1); filter: drop-shadow(0 0 5px #00f3ff); } 50% { opacity: 1; transform: scale(1.03); filter: drop-shadow(0 0 25px #00f3ff); } }
+        .anim-neon-rotate { position: relative; border: 4px solid transparent; border-image: linear-gradient(to right, #00f3ff, purple) 1; animation: borderRot 4s linear infinite; }
+        @keyframes borderRot { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        .anim-matrix-rain { animation: matRain 0.8s infinite alternate; filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4); }
+        @keyframes matRain { 0% { opacity: 0.9; } 100% { opacity: 1; transform: translateY(2px); } }
+        .anim-cyber-scan { position: relative; }
+        .anim-cyber-scan::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, #00f3ff, transparent); animation: cyScan 2.5s linear infinite; height: 20%; width: 100%; }
+        @keyframes cyScan { 0% { top: -20%; } 100% { top: 120%; } }
+        .anim-cyber-horizon { animation: cyHor 6s infinite ease-in-out; }
+        @keyframes cyHor { 0%, 100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(3deg) scale(1.05); } }
+        .anim-glitch-shiver { animation: cyShiver 0.2s infinite alternate; }
+        @keyframes cyShiver { 0% { transform: translate(1px, 1px) rotate(0deg); } 100% { transform: translate(-1px, -1px) rotate(0.5deg); } }
+        .anim-audio-wave { animation: audWave 1.8s infinite ease-in-out; border-radius: 50% 40% 60% 50% / 40% 50% 50% 60%; }
+        @keyframes audWave { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+        .anim-rgb-split { animation: rgbSpl 1.2s infinite; box-shadow: 4px 0 0 rgba(255,0,0,0.4), -4px 0 0 rgba(0,0,255,0.4); }
+        @keyframes rgbSpl { 0%, 100% { transform: skew(0deg); } 50% { transform: skew(3deg); } }
+
+        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(50%); } }
+        
+        header { transition: transform 0.4s ease, background-color 0.3s; }
+        .header-hidden { transform: translate(-50%, -120%); }
+        .header-scrolled { background: rgba(3, 3, 3, 0.85) !important; border-color: rgba(0, 243, 255, 0.2); }
+        
+        .social-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); color: #ccc; }
+        .social-icon:hover { color: #fff; background: linear-gradient(135deg, var(--neon), var(--charm-secondary, #f472b6)); border-color: transparent; box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4); transform: translateY(-4px) scale(1.05); }
+        .app-section { display: none; }
+        .app-section.active-section { display: block; animation: sectionIn 0.5s ease-out forwards; }
+        @keyframes sectionIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* SECURITY SYSTEM MODAL GLASS EFFECT */
+        #security-modal { display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(25px); align-items: center; justify-content: center; padding: 20px; animation: modalFade 0.3s ease-out forwards; }
+        @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+
+        /* BACKGROUND ENGINE OPTIONS MAPPED VIA SCRIPT */
+        .bg-matrix-rain { background: linear-gradient(180deg, rgba(0,255,102,0.03) 0%, rgba(0,0,0,0) 100%); }
+        .bg-cyber-grid { background-image: linear-gradient(rgba(167, 139, 250, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(167, 139, 250, 0.05) 1px, transparent 1px); background-size: 40px 40px; animation: gridMove 24s linear infinite; }
+        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 0 80px; } }
+        .bg-neon-matrix { background: radial-gradient(circle at 50% 50%, rgba(20, 10, 40, 0.7), #020205); }
+        .bg-scanline::after { content: " "; display: block; position: fixed; inset: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(167, 139, 250, 0.03) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01)); z-index: 999; background-size: 100% 4px, 6px 100%; pointer-events: none; }
+        .bg-starfield { background: #010103; overflow: hidden; }
+        .bg-aurora { background: radial-gradient(circle at 10% 20%, rgba(167, 139, 250, 0.08) 0%, transparent 50%), radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%); }
+        .bg-quantum { background-image: radial-gradient(rgba(167, 139, 250, 0.12) 1px, transparent 0); background-size: 24px 24px; }
+        .bg-synthwave { background: linear-gradient(to bottom, #06001a 0%, #14002a 50%, #020205 100%); }
+        .bg-vortex { background: radial-gradient(ellipse at center, rgba(168,85,247,0.05) 0%, rgba(2,2,5,0.95) 80%); }
+        .bg-dna { background: linear-gradient(45deg, #010102, #0a0414); }
+
+        /* DYNAMIC LOADING LAYER */
+        #mainframe-loader-screen { position: fixed; inset: 0; z-index: 9999999; background: #070412; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; transition: opacity 0.6s ease-in-out; }
+        .loader-ring-node { width: 50px; height: 50px; border: 3px solid transparent; border-top-color: #a78bfa; border-radius: 50%; animation: loadSpin 1s linear infinite; }
+        @keyframes loadSpin { to { transform: rotate(360deg); } }
+
+        /* PREVENT CROP ISSUES ON IMAGES */
+        .inner-gallery-img {
+            width: 100% !important;
+            height: auto !important;
+            max-height: 450px !important;
+            object-fit: contain !important;
+            object-position: center !important;
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen">
+<body class="theme-charm bg-scanline">
+    <div id="mainframe-loader-screen">
+        <div id="loader-graphic-render" class="loader-ring-node"></div>
+        <div id="loader-status-text" class="text-[10px] tracking-[0.3em] font-bold text-purple-400 mt-4 uppercase font-mono">// BOOTING SECURE CORESYNC NODE //</div>
+    </div>
 
-    <canvas id="galaxy-bg"></canvas>
+    <canvas id="bg-canvas"></canvas>
+    <div id="bg-animation-container"></div>
+    <div id="custom-injected-bg-space"></div>
 
-    <div class="max-w-6xl mx-auto space-y-8 relative z-10">
-        
-        <div class="glass p-6 rounded-3xl border border-cyan-500/20 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <h1 class="text-xl md:text-2xl font-black font-['Orbitron'] text-cyan-400 tracking-wider">⚡ GHOSTDEV PORTFOLIO MAINFRAME</h1>
-                <p class="text-xs text-gray-400 mt-1">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
+    <div id="security-modal" onclick="closeSecurityAlert()">
+        <div class="glass p-8 rounded-[2rem] border border-red-500/30 max-w-md w-full text-center space-y-6 shadow-[0_0_50px_rgba(239,68,68,0.2)]" onclick="event.stopPropagation()">
+            <div class="w-20 h-20 bg-red-500/10 border-2 border-red-500 text-red-500 text-3xl rounded-full flex items-center justify-center mx-auto animate-pulse">
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <button id="main-deploy-btn" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_25px_rgba(0,243,255,0.3)] hover:scale-105">
-                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Deploy Live Updates
+            <div class="space-y-2">
+                <h3 class="font-['Orbitron'] font-black text-xl text-red-500 tracking-wider uppercase">BREACH DETECTED</h3>
+                <p id="security-warning-msg" class="text-sm text-gray-300 leading-relaxed font-sans font-medium">Core theft is highly restricted on this terminal mainframe matrix.</p>
+            </div>
+            <button onclick="closeSecurityAlert()" class="w-full py-3 bg-red-500 hover:bg-red-600 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                Acknowledge Threat
             </button>
         </div>
+    </div>
 
-        <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
-            <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Identity Systems</button>
-            <button onclick="switchTab('themes')" id="tab-themes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 text-amber-400 border border-amber-500/20">🎨 UI Templates (15 Styles)</button>
-            <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Quotes (නිසදැස්)</button>
-            <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Photography (ගැලරිය)</button>
-            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Section Fonts & Colors</button>
-            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Engine</button>
-            <button onclick="switchTab('security')" id="tab-security" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 border border-red-500/20 text-red-400">🚨 Security Layer</button>
+    <header id="main-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-[5000] rounded-[1.5rem] px-4 md:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 transition-all">
+        <div class="flex items-center gap-3">
+            <img id="header-logo-img" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-8 h-8 rounded-lg object-cover border border-purple-400/30">
+            <span id="header-brand-title" class="font-['Orbitron'] font-black text-base tracking-wider selector-nav-color">ASH_X8</span>
         </div>
+        <nav class="flex flex-wrap justify-center gap-3 md:gap-6">
+            <button onclick="switchSection('home')" id="nav-home" class="text-[10px] font-black tracking-widest uppercase selector-nav-color">HOME</button>
+            <button onclick="switchSection('projects')" id="nav-projects" class="text-[10px] font-black tracking-widest uppercase opacity-60 hover:opacity-100 selector-nav-color">PROJECTS</button>
+            <button onclick="switchSection('photography')" id="nav-photography" class="text-[10px] font-black tracking-widest uppercase opacity-60 hover:opacity-100 selector-nav-color">PHOTOGRAPHY</button>
+            <button onclick="switchSection('writing')" id="nav-writing" class="text-[10px] font-black tracking-widest uppercase opacity-60 hover:opacity-100 selector-nav-color">WRITING</button>
+            <button onclick="switchSection('user-details')" id="nav-user-details" class="text-[10px] font-black tracking-widest uppercase opacity-60 hover:opacity-100 selector-nav-color">USER DETAILS</button>
+            <button onclick="switchSection('about')" id="nav-about" class="text-[10px] font-black tracking-widest uppercase opacity-60 hover:opacity-100 selector-nav-color">ABOUT</button>
+        </nav>
+    </header>
 
-        <div id="panel-themes" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl border border-amber-500/20 space-y-4">
-                <div>
-                    <h3 class="text-sm font-black font-['Orbitron'] text-amber-400 uppercase tracking-widest">// Global Website UI Master Engine</h3>
-                    <p class="text-xs text-gray-400 mt-1">Select from 15 premium layout structures built for both Desktop and Mobile environments. Choosing a template automatically optimizes core text colors.</p>
-                </div>
-                <input type="hidden" id="selected-theme-id" value="theme-charm-neon">
-                <div id="themes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
-                    </div>
-            </div>
-        </div>
-
-        <div id="panel-profile" class="dashboard-panel space-y-6">
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 glass p-6 rounded-3xl space-y-4 border border-white/5">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest">// Identity Branding Setup</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Header Brand Logo URL</label>
-                            <input type="text" id="headerLogoInput" class="w-full p-3 rounded-xl input-cyber text-xs">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Upload Logo From Storage</label>
-                            <input type="file" id="p-logo-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400 input-cyber p-1.5">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Full Identity Name</label>
-                            <input type="text" id="profName" class="w-full p-3 rounded-xl input-cyber text-xs">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Status Bio Row / Banner</label>
-                            <input type="text" id="profBio" class="w-full p-3 rounded-xl input-cyber text-xs">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Profile Avatar Image URL (About Section)</label>
-                            <input type="text" id="profAvatar" class="w-full p-3 rounded-xl input-cyber text-xs">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Upload Avatar From Device</label>
-                            <input type="file" id="p-avatar-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400 input-cyber p-1.5">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Home Section Hero Image URL</label>
-                            <input type="text" id="homeHeroImg" class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="https://...">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Upload Home Hero From Device</label>
-                            <input type="file" id="p-homehero-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-cyan-500/10 file:text-cyan-400 input-cyber p-1.5">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">About Objective Core Statement</label>
-                        <textarea id="profAboutMe" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
+    <main class="pt-36 md:pt-40 pb-12 px-4 max-w-6xl mx-auto space-y-12">
+        
+        <section id="sec-home" class="app-section active-section">
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0 group">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-[2.5rem] opacity-25 blur-xl group-hover:opacity-40 transition duration-700"></div>
+                    <div class="w-full h-full bg-black rounded-[2.5rem] border border-purple-500/30 overflow-hidden relative shadow-[0_0_30px_rgba(167,139,250,0.15)]">
+                        <img id="home-avatar-display" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-full h-full object-cover">
                     </div>
                 </div>
-
-                <div class="glass p-6 rounded-3xl space-y-4 border border-purple-500/10">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest">// Social Overlink Gateways</h3>
-                    <div class="space-y-3">
-                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">LinkedIn Link</label><input type="text" id="s-li" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">WhatsApp Target</label><input type="text" id="s-wa" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Facebook Interface</label><input type="text" id="s-fb" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Instagram Node</label><input type="text" id="s-ig" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Telegram Direct</label><input type="text" id="s-tg" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">YouTube Link</label><input type="text" id="s-yt" class="w-full p-2.5 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Categories (Comma separated)</label><input type="text" id="p-cat" class="w-full p-2.5 rounded-xl input-cyber text-xs" placeholder="Developer, Designer, Hacker"></div>
-                    </div>
+                <div class="text-center lg:text-left space-y-4 max-w-xl">
+                    <h2 id="home-mini-header" class="font-bold tracking-[0.4em] text-[10px] uppercase selector-caption-color">OPERATOR MAIN MATRIX // 01</h2>
+                    <h1 id="dynamic-name" class="text-4xl md:text-5xl font-black font-['Orbitron'] leading-tight tracking-wide selector-mainTitle-color">KUSHAN A. <br><span>WICKRAMASINGHE</span></h1>
+                    <p id="dynamic-bio" class="text-sm italic border-l-2 border-white/10 pl-4 selector-bio-color">"Connecting to system..."</p>
+                    <div id="dynamic-categories" class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2"></div>
                     
-                    <div class="border-t border-white/10 pt-3 mt-2 space-y-2">
-                        <h4 class="text-[11px] font-black font-['Orbitron'] text-cyan-400 uppercase">// Contact Area & Social Icons Overlay</h4>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Contact Section Header Title</label>
-                            <input type="text" id="contactSectionTitle" class="w-full p-2 rounded-lg input-cyber text-xs" placeholder="CONTACT ME">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Show Social Grid Above Footer</label>
-                            <select id="showContactGrid" class="w-full p-2 rounded-lg input-cyber text-xs font-bold">
-                                <option value="true">Show Matrix Links Grid (ON)</option>
-                                <option value="false">Hide Matrix Links Grid (OFF)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-quotes" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl space-y-4 border border-cyan-500/20">
-                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest">// Deploy / Edit Thought Segment</h3>
-                <input type="hidden" id="quote-edit-index" value="-1">
-                <div>
-                    <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Quote Content (සිංහල හෝ English)</label>
-                    <textarea id="quote-text" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
-                </div>
-                <div class="flex gap-2">
-                    <button id="save-quote-btn" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg shadow-lg hover:bg-cyan-400 transition-all">Save Thought</button>
-                    <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg hover:bg-white/10">Cancel</button>
-                </div>
-            </div>
-            <div class="glass p-6 rounded-3xl"><div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div></div>
-        </div>
-
-        <div id="panel-photography" class="dashboard-panel hidden space-y-6">
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 glass p-6 rounded-3xl space-y-4 border border-purple-500/20">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest">// Inject Picture to Cloud Gallery Archive</h3>
-                    <input type="hidden" id="photo-edit-index" value="-1">
-                    <div class="grid md:grid-cols-3 gap-4">
-                        <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Frame Title Tag</label><input type="text" id="photo-title" class="w-full p-3 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Captured Timestamp</label><input type="text" id="photo-date" class="w-full p-3 rounded-xl input-cyber text-xs"></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Direct Photo URL Asset</label><input type="text" id="photo-url" class="w-full p-3 rounded-xl input-cyber text-xs"></div>
-                    </div>
-                    <div><label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Brief Photo Context</label><textarea id="photo-desc" rows="2" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea></div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-purple-400 mb-1">Upload Photo Grid Asset (Auto-Compressed Engine Pre-Active)</label>
-                        <input type="file" id="photo-file" accept="image/*" class="w-full text-xs file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-purple-500/10 file:text-purple-400 input-cyber p-1.5">
-                    </div>
-                    <div class="flex gap-2">
-                        <button id="commit-photo-btn" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg hover:bg-purple-400 transition-all">Commit Grid Element</button>
-                        <button onclick="clearPhotoForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs uppercase rounded-lg hover:bg-white/10">Cancel</button>
-                    </div>
-                    <div class="border-t border-white/5 pt-4">
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-2">Live Gallery Stream</label>
-                        <div id="admin-photography-list" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-                    </div>
-                </div>
-
-                <div class="glass p-6 rounded-3xl border border-cyan-500/30 space-y-4">
-                    <h2 class="text-sm font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest"><i class="fa-solid fa-diagram-project mr-2"></i> Project Asset Stream</h2>
-                    <p class="text-[11px] text-gray-400">Insert direct web source links below or use the fast matrix link selector engine below to inject elements smoothly.</p>
-                    
-                    <div class="space-y-2">
-                        <label class="block text-[10px] uppercase font-bold text-cyan-400">Inject Project Image URL</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="newProjectUrlInput" placeholder="https://i.ibb.co/.../image.jpg" class="w-full p-3 rounded-xl input-cyber text-xs flex-grow">
-                            <button id="inject-proj-btn" class="px-4 bg-cyan-500 text-black font-black rounded-xl text-xs uppercase hover:bg-cyan-400 transition-all">+</button>
-                        </div>
-                    </div>
-
-                    <div id="gallery-connector-container" class="border-t border-dashed border-cyan-500/20 pt-2 hidden">
-                        <label class="block text-[9px] uppercase font-bold text-purple-400 mb-1"><i class="fa-solid fa-bolt mr-1"></i> Quick Connect Gallery Image Matrix</label>
-                        <div id="quick-gallery-injector-grid" class="grid grid-cols-4 gap-1 max-h-24 overflow-y-auto pr-1"></div>
-                    </div>
-
-                    <div class="border-t border-white/5 pt-4">
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-2">Live Project Stack Images</label>
-                        <div id="adminProjectThumbsGrid" class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-fonts" class="dashboard-panel hidden space-y-6">
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-1 glass p-6 rounded-3xl space-y-4 border border-yellow-500/20">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400 uppercase tracking-widest">// Override Target Font Structures</h3>
-                    <div class="space-y-4">
-                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Home Screen Font</label><select id="font-home" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Projects Layer Font</label><select id="font-projects" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Photography Font</label><select id="font-photography" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Writing Core Font</label><select id="font-writing" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
-                        <div><label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">About Dossier Font</label><select id="font-about" class="font-dropdown w-full p-3 rounded-xl input-cyber text-xs"></select></div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-2 glass p-6 rounded-3xl border border-yellow-500/20 space-y-4">
-                    <h2 class="text-sm font-black font-['Orbitron'] text-yellow-400 uppercase tracking-widest"><i class="fa-solid fa-palette mr-2"></i> Granular Text Matrix Color Matrix</h2>
-                    <p class="text-[11px] text-gray-400">Change any localized element font colors instantly across the global layout view.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">Navigation Font</span>
-                            <input type="color" id="col-nav" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">Main Core Title</span>
-                            <input type="color" id="col-mainTitle" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">Section Titles</span>
-                            <input type="color" id="col-secTitle" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">Captions & Desc</span>
-                            <input type="color" id="col-caption" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">Timeline / Dates</span>
-                            <input type="color" id="col-date" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">System Info Box</span>
-                            <input type="color" id="col-userInfo" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">Operator Bio</span>
-                            <input type="color" id="col-bio" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">About Section Text</span>
-                            <input type="color" id="col-about" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                        <div class="bg-black/40 p-3 rounded-xl border border-white/5 flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-gray-300">Footer Text</span>
-                            <input type="color" id="col-footer" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                        </div>
-                    </div>
-                    
-                    <div class="pt-4 border-t border-white/5">
-                        <label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Select Navigation Theme (10 Styles Architecture)</label>
-                        <select id="headerStyleSelect" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
-                            <option value="style1">Style 01 - Cyber Glow Cyan (Classic)</option>
-                            <option value="style2">Style 02 - Dark Neon Purple Silhouette</option>
-                            <option value="style3">Style 03 - Minimal Transparent Matrix Line</option>
-                            <option value="style4">Style 04 - Glassmorphic Blur Heavy</option>
-                            <option value="style5">Style 05 - Retro Arcade Gold Border</option>
-                            <option value="style6">Style 06 - Cyberpunk Warning Stripe (Yellow/Black)</option>
-                            <option value="style7">Style 07 - Tech Futuristic Red Alert Accent</option>
-                            <option value="style8">Style 08 - Ghost Dev Premium White Border</option>
-                            <option value="style9">Style 09 - Sub-Atomic Quantum Gradient Pulse</option>
-                            <option value="style10">Style 10 - Stealth Agent Deep Shadow Flat</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="panel-animation" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl border border-cyan-500/20 space-y-4">
-                <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest">// Master Site Loading Animation</h3>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Select Active Loader Engine</label>
-                        <select id="loaderSelect" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
-                            <option value="cyber-pulse">Cyber Cosmic Pulse</option>
-                            <option value="neon-ring">Bi-Directional Neon Ring</option>
-                            <option value="glitch-bar">Linear Glitch Progress Bar</option>
-                            <option value="dna-helix">Rotating DNA Helix Mesh</option>
-                            <option value="digital-rain">Matrix Static Bit Stream</option>
-                            <option value="quantum-mesh">Quantum Shape-Shifting Wave</option>
-                            <option value="ascii-shifter">Retro ASCII State Terminal</option>
-                            <option value="retro-arcade">Blinking Classic Arcade Core</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Custom Loader Code Injection</label>
-                        <textarea id="custom-loader-code" rows="1" placeholder="/* CSS/HTML Custom Injection */" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
+                    <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-4 items-center">
+                        <a id="hire-me-wa-btn" href="#" target="_blank" class="px-6 py-2.5 bg-transparent border-2 border-purple-400 hover:bg-purple-400 hover:text-black transition-all duration-300 rounded-xl text-xs font-black tracking-widest shadow-[0_0_15px_rgba(167,139,250,0.1)] flex items-center gap-2 uppercase selector-caption-color">
+                            <i class="fa-solid fa-bolt"></i> Hire Me Operator
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="glass p-6 rounded-3xl border border-yellow-500/20 space-y-4">
-                <h3 class="text-xs font-black font-['Orbitron'] text-yellow-400 uppercase tracking-widest">// Individual Font Animation Matrix</h3>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Main Title (Name)</label>
-                        <select id="anim-main-title" class="w-full p-2.5 rounded-xl input-cyber text-xs">
-                            <option value="none">Static (None)</option>
-                            <option value="cyber-glitch">Glitch & Shiver</option>
-                            <option value="neon-flicker">Neon Flicker</option>
-                            <option value="typewriter">Typewriter</option>
-                            <option value="matrix-scan">Matrix Scan</option>
-                            <option value="wave-float">Wave Float</option>
-                            <option value="chromatic-split">RGB Split</option>
-                            <option value="blur-reveal">Blur Reveal</option>
-                            <option value="bounce-retro">Retro Bounce</option>
-                        </select>
+            <div class="mt-16 space-y-6">
+                <div class="flex items-center gap-2"><span class="w-2 h-2 bg-purple-500 rounded-full animate-ping"></span><h3 id="story-block-title" class="font-['Orbitron'] font-black text-sm uppercase tracking-widest selector-secTitle-color">// AUTOMATIC CYBER MEMORY SYNC STORY</h3></div>
+                <div class="w-full max-w-2xl mx-auto glass p-4 rounded-3xl border border-purple-500/10 shadow-2xl relative overflow-hidden">
+                    <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black relative">
+                        <img id="story-player-img" src="" class="w-full h-full object-cover transition-all duration-700 scale-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+                        <div class="absolute bottom-4 left-4 z-20 space-y-1">
+                            <span id="story-player-badge" class="px-2 py-0.5 bg-purple-500/20 rounded font-mono text-[9px] font-bold uppercase tracking-wider selector-caption-color">Loading Sync</span>
+                            <h4 id="story-player-title" class="text-sm font-black font-['Orbitron'] tracking-wide selector-caption-color">Connecting Data...</h4>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Header Text</label>
-                        <select id="anim-header" class="w-full p-2.5 rounded-xl input-cyber text-xs">
-                            <option value="none">Static (None)</option>
-                            <option value="cyber-glitch">Glitch & Shiver</option>
-                            <option value="neon-flicker">Neon Flicker</option>
-                            <option value="typewriter">Typewriter</option>
-                            <option value="matrix-scan">Matrix Scan</option>
-                            <option value="wave-float">Wave Float</option>
-                            <option value="chromatic-split">RGB Split</option>
-                            <option value="blur-reveal">Blur Reveal</option>
-                            <option value="bounce-retro">Retro Bounce</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Sub-Titles</label>
-                        <select id="anim-title" class="w-full p-2.5 rounded-xl input-cyber text-xs">
-                            <option value="none">Static (None)</option>
-                            <option value="cyber-glitch">Glitch & Shiver</option>
-                            <option value="neon-flicker">Neon Flicker</option>
-                            <option value="typewriter">Typewriter</option>
-                            <option value="matrix-scan">Matrix Scan</option>
-                            <option value="wave-float">Wave Float</option>
-                            <option value="chromatic-split">RGB Split</option>
-                            <option value="blur-reveal">Blur Reveal</option>
-                            <option value="bounce-retro">Retro Bounce</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Captions & Bios</label>
-                        <select id="anim-caption" class="w-full p-2.5 rounded-xl input-cyber text-xs">
-                            <option value="none">Static (None)</option>
-                            <option value="cyber-glitch">Glitch & Shiver</option>
-                            <option value="neon-flicker">Neon Flicker</option>
-                            <option value="typewriter">Typewriter</option>
-                            <option value="matrix-scan">Matrix Scan</option>
-                            <option value="wave-float">Wave Float</option>
-                            <option value="chromatic-split">RGB Split</option>
-                            <option value="blur-reveal">Blur Reveal</option>
-                            <option value="bounce-retro">Retro Bounce</option>
-                        </select>
-                    </div>
-                    <div class="col-span-2 md:col-span-1">
-                        <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Footer Text</label>
-                        <select id="anim-footer" class="w-full p-2.5 rounded-xl input-cyber text-xs">
-                            <option value="none">Static (None)</option>
-                            <option value="cyber-glitch">Glitch & Shiver</option>
-                            <option value="neon-flicker">Neon Flicker</option>
-                            <option value="typewriter">Typewriter</option>
-                            <option value="matrix-scan">Matrix Scan</option>
-                            <option value="wave-float">Wave Float</option>
-                            <option value="chromatic-split">RGB Split</option>
-                            <option value="blur-reveal">Blur Reveal</option>
-                            <option value="bounce-retro">Retro Bounce</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase font-bold text-yellow-400 mb-1">Custom Font Keyframes / CSS Animation Code</label>
-                    <textarea id="custom-font-anim-code" rows="2" placeholder="/* Custom keyframes CSS layout rules setup */" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass p-6 rounded-3xl space-y-4 border border-green-400/20">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-xs font-black font-['Orbitron'] text-green-400 uppercase tracking-widest">// Home Avatar System Animation</h3>
-                        <button id="save-avatar-code-btn" class="px-3 py-1 bg-green-500/20 hover:bg-green-500 text-green-400 hover:text-black font-bold text-[10px] uppercase rounded border border-green-500/30 transition-all">Save & Inject Engine</button>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-green-400 mb-1">Select Avatar Dynamic Render Type</label>
-                        <select id="selected-avatar-anim" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
-                            <option value="none">No Animation / Static Display</option>
-                            <option value="anim-pixel-glitch">Effect 1: Cyber Pixel Glitch Matrix</option>
-                            <option value="anim-hologram-pulse">Effect 2: Hologram Shimmer Pulse Mode</option>
-                            <option value="anim-neon-rotate">Effect 3: Infinite Hue Neon Border Rotation</option>
-                            <option value="anim-matrix-rain">Effect 4: Core Matrix Code Rain Hue Overlay</option>
-                            <option value="anim-cyber-scan">Effect 5: Realtime Horizontal Cyber Scan Line</option>
-                            <option value="anim-cyber-horizon">Effect 6: Cyber Horizon Organic Tilt Drift</option>
-                            <option value="anim-glitch-shiver">Effect 7: High-Frequency Glitch Shiver Trigger</option>
-                            <option value="anim-audio-wave">Effect 8: Liquid Audio Wave Floating Form</option>
-                            <option value="anim-rgb-split">Effect 9: RGB Chromatic Aberration Split Edge</option>
-                        </select>
-                    </div>
-                    <div><label class="block text-[10px] uppercase font-bold text-green-400 mb-1">Custom Global CSS Styling Injection Matrix</label><textarea id="custom-animation-code" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea></div>
+            <div class="mt-12 border-t border-white/5 pt-12">
+                <div class="flex items-center gap-2 mb-6">
+                    <span class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+                    <h3 class="font-['Orbitron'] font-black text-sm uppercase tracking-widest text-purple-400">// OPERATOR LIVE TERMINAL METRICS</h3>
                 </div>
-
-                <div class="glass p-6 rounded-3xl space-y-4 border border-red-400/20">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-xs font-black font-['Orbitron'] text-red-400 uppercase tracking-widest">// Premium Background Animation Engine</h3>
-                        <button id="save-bg-code-btn" class="px-3 py-1 bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-black font-bold text-[10px] uppercase rounded border border-red-500/30 transition-all">Save & Inject Engine</button>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Select Master Active Ambient Layer (15 Premium Options)</label>
-                        <select id="selected-bg-anim" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
-                            <option value="galaxy">01. Deep Cosmic Galaxy Engine Particles Flow (Default)</option>
-                            <option value="hacker">02. Hacker Terminal Green Code Rain</option>
-                            <option value="cyber">03. Cyberpunk Moving Grid Matrix Horizon</option>
-                            <option value="nature">04. Natural Micro Flow Organic Particles</option>
-                            <option value="relax">05. Calm Liquid Sea Waves Fluid Drift</option>
-                            <option value="cool">06. Feeling Cool Arctic Ice Pulse Grid</option>
-                            <option value="nebula">07. Interstellar Gas Nebula Drift Cloud</option>
-                            <option value="neon">08. Neon Aura Chromatic Wave Shield</option>
-                            <option value="glitch">09. Digital Error Glitch Tech Interference</option>
-                            <option value="fire">10. Subtle Volcano Fire Floating Embers</option>
-                            <option value="water">11. Hydro Quantum Water Ripple Physics</option>
-                            <option value="stars">12. Sci-Fi Starfield Warp Speed Accelerate</option>
-                            <option value="dna">13. Helix DNA Biometric Light Strings</option>
-                            <option value="waves">14. Retro Synthwave Sunset Vector Lines</option>
-                            <option value="void">15. Dark Void Deep Static Dust Storm</option>
-                        </select>
-                    </div>
-                    <div><label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Custom Background Script Layer Integration</label><textarea id="custom-bg-code" rows="4" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea></div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+                    <div class="info-box p-4 rounded-xl glass text-xs selector-userInfo-color transition-all duration-300 hover:translate-y-[-4px]"><p class="font-bold uppercase mb-1 opacity-60 text-[10px] tracking-wider"><i class="fa-solid fa-network-wired text-purple-400 mr-1"></i> Terminal IP</p><p id="user-ip" class="font-black truncate">Loading...</p></div>
+                    <div class="info-box p-4 rounded-xl glass text-xs selector-userInfo-color transition-all duration-300 hover:translate-y-[-4px]"><p class="font-bold uppercase mb-1 opacity-60 text-[10px] tracking-wider"><i class="fa-solid fa-earth-asia text-pink-400 mr-1"></i> Uplink Loc</p><p id="user-loc" class="font-bold truncate">Detecting...</p></div>
+                    <div class="info-box p-4 rounded-xl glass text-xs selector-userInfo-color transition-all duration-300 hover:translate-y-[-4px]"><p class="font-bold uppercase mb-1 opacity-60 text-[10px] tracking-wider"><i class="fa-solid fa-battery-three-quarters text-rose-400 mr-1"></i> Mainframe Energy</p><p id="user-bat" class="font-bold truncate">Scanning...</p></div>
+                    <div class="info-box p-4 rounded-xl glass text-xs selector-userInfo-color transition-all duration-300 hover:translate-y-[-4px]"><p class="font-bold uppercase mb-1 opacity-60 text-[10px] tracking-wider"><i class="fa-solid fa-clock text-blue-400 mr-1"></i> System Time</p><p id="real-time" class="font-black">00:00:00</p></div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="panel-security" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl space-y-6 max-w-2xl mx-auto border border-red-500/20">
-                <div class="flex items-center gap-2 border-b border-red-500/20 pb-3">
-                    <i class="fa-solid fa-shield-halved text-red-500 text-lg"></i>
-                    <h3 class="text-sm font-black font-['Orbitron'] text-red-400 uppercase tracking-widest">Anti-Copy System Override Configuration</h3>
+        <section id="sec-projects" class="app-section">
+            <h2 id="head-projects" class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest border-l-4 border-purple-500 pl-3 selector-secTitle-color">DEVELOPED WORK PROJECTS</h2>
+            <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="sec-photography" class="app-section">
+            <h2 id="head-photography" class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest border-l-4 border-purple-500 pl-3 selector-secTitle-color">PHOTOGRAPHY GALLERY</h2>
+            <div id="photography-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="sec-writing" class="app-section">
+            <h2 id="head-writing" class="text-xl font-black font-['Orbitron'] mb-6 tracking-widest border-l-4 border-purple-500 pl-3 selector-secTitle-color">WRITING CORE QUOTES</h2>
+            <div id="writing-container" class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"></div>
+        </section>
+
+        <section id="sec-user-details" class="app-section">
+            <div class="w-full max-w-5xl mx-auto space-y-8">
+                <div class="flex items-center gap-3 border-b border-purple-500/20 pb-4">
+                    <span class="w-2 h-2 bg-purple-400 rounded-full animate-ping"></span>
+                    <h2 id="head-user-details" class="text-xl font-black font-['Orbitron'] tracking-[0.25em] text-purple-400 uppercase selector-secTitle-color">SECURE METADATA MAIN CORE</h2>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Lock Security Firewall Status</label>
-                        <select id="sec-enabled" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
-                            <option value="true">Active (Right-Click Lock ON)</option>
-                            <option value="false">Inactive (Lock OFF)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Warning Siren Audio Trigger</label>
-                        <select id="sec-sound-enabled" class="w-full p-3 rounded-xl input-cyber text-xs font-bold">
-                            <option value="true">Sound Activated ON</option>
-                            <option value="false">Muted OFF</option>
-                        </select>
-                    </div>
-                </div>
+                <p class="text-xs text-gray-400 font-mono tracking-wide bg-white/[0.02] p-4 rounded-xl border border-white/5">// THIS DIRECTORY DISPLAYS THE DYNAMIC LIVE LOGISTICS ARCHITECTURE TRANSFERRED FROM THE VISITOR NODES IN REALTIME.</p>
 
-                <div>
-                    <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Dynamic Warning Alert Broadcast Message</label>
-                    <textarea id="sec-message" rows="3" placeholder="Enter cyber security threat text alert warning context..." class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-[10px] uppercase font-bold text-red-400 mb-1">Siren Audio Link Network Target Asset URL (.mp3)</label>
-                    <input type="text" id="sec-sound-url" placeholder="https://example.com/alert.mp3" class="w-full p-3 rounded-xl input-cyber text-xs">
-                    <span class="text-[10px] text-gray-500 block mt-1">Default Fallback Frame Core: https://www.soundjay.com/buttons/sounds/button-10.mp3</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
+                    <div class="glass p-5 rounded-2xl border border-white/5 flex gap-4 items-start transition-all duration-300 hover:border-purple-500/30">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-base"><i class="fa-solid fa-network-wired"></i></div>
+                        <div class="space-y-1 flex-1 min-w-0">
+                            <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase">UPLINK & NETWORK</p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-purple-400 font-bold">IP:</span> <span id="detect-ip">Detecting...</span></p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-purple-400 font-bold">ISP:</span> <span id="detect-isp">Scanning...</span></p>
+                        </div>
+                    </div>
+                    <div class="glass p-5 rounded-2xl border border-white/5 flex gap-4 items-start transition-all duration-300 hover:border-pink-500/30">
+                        <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-base"><i class="fa-solid fa-earth-asia"></i></div>
+                        <div class="space-y-1 flex-1 min-w-0">
+                            <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase">GEO LOCATION</p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-pink-400 font-bold">COUNTRY:</span> <span id="detect-country">Detecting...</span></p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-pink-400 font-bold">REGION:</span> <span id="detect-region">Scanning...</span></p>
+                        </div>
+                    </div>
+                    <div class="glass p-5 rounded-2xl border border-white/5 flex gap-4 items-start transition-all duration-300 hover:border-amber-500/30">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-base"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                        <div class="space-y-1 flex-1 min-w-0">
+                            <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase">DEVICE HARDWARE</p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-amber-400 font-bold">TYPE:</span> <span id="detect-device-type">Scanning...</span></p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-amber-400 font-bold">NAME/OS:</span> <span id="detect-device-os" class="text-amber-200">Detecting...</span></p>
+                        </div>
+                    </div>
+                    <div class="glass p-5 rounded-2xl border border-white/5 flex gap-4 items-start transition-all duration-300 hover:border-emerald-500/30">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-base"><i class="fa-solid fa-window-restore"></i></div>
+                        <div class="space-y-1 flex-1 min-w-0">
+                            <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase">BROWSER INFRASTRUCTURE</p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-emerald-400 font-bold">BROWSER:</span> <span id="detect-browser">Scanning...</span></p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-emerald-400 font-bold">LANG:</span> <span id="detect-lang">Detecting...</span></p>
+                        </div>
+                    </div>
+                    <div class="glass p-5 rounded-2xl border border-white/5 flex gap-4 items-start transition-all duration-300 hover:border-rose-500/30">
+                        <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 text-base"><i class="fa-solid fa-battery-three-quarters"></i></div>
+                        <div class="space-y-1 flex-1 min-w-0">
+                            <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase">MAINFRAME ENERGY</p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-rose-400 font-bold">LEVEL:</span> <span id="detect-bat-level">Scanning...</span></p>
+                            <p class="text-xs text-rose-400 font-bold truncate"><span class="text-rose-400 font-bold">STATUS:</span> <span id="detect-bat-status">Detecting...</span></p>
+                        </div>
+                    </div>
+                    <div class="glass p-5 rounded-2xl border border-white/5 flex gap-4 items-start transition-all duration-300 hover:border-blue-500/30">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-base"><i class="fa-solid fa-clock"></i></div>
+                        <div class="space-y-1 flex-1 min-w-0">
+                            <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase">LIVE CHRONO NODE</p>
+                            <p class="text-xs text-gray-200 truncate"><span class="text-blue-400 font-bold">DATE:</span> <span id="detect-date">0000.00.00</span></p>
+                            <p class="text-xs text-purple-400 font-black tracking-widest truncate"><span class="text-blue-400 font-bold">TIME:</span> <span id="detect-time">00:00:00</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-    </div>
+        <section id="sec-about" class="app-section">
+            <div class="w-full max-w-5xl mx-auto space-y-8">
+                <div class="flex items-center justify-between border-b border-purple-500/20 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2 h-2 bg-purple-400 rounded-full animate-ping"></span>
+                        <h2 id="head-about" class="text-xl font-black font-['Orbitron'] tracking-[0.25em] text-purple-400 uppercase selector-secTitle-color">SYSTEM OPERATOR DOSSIER</h2>
+                    </div>
+                    <a id="about-highlight-linkedin" href="#" target="_blank" class="px-4 py-2 bg-purple-500/10 border border-purple-500/40 rounded-xl text-[10px] font-black flex items-center gap-2 hover:bg-purple-400 hover:text-black transition-all duration-300 tracking-wider uppercase selector-caption-color"><i class="fa-brands fa-linkedin-in text-xs"></i> Verified Operator LinkedIn</a>
+                </div>
+
+                <div class="relative rounded-[2.5rem] p-1 md:p-1.5 bg-gradient-to-br from-purple-500/30 via-transparent to-pink-500/20 shadow-[0_0_50px_rgba(167,139,250,0.15)]">
+                    <div class="glass p-8 md:p-12 rounded-[2.3rem] border border-white/5 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/[0.04] to-transparent w-full h-[200%] -translate-y-full animate-[scan_8s_linear_infinite] pointer-events-none"></div>
+                        
+                        <div class="flex flex-col lg:flex-row gap-10 items-center relative z-10">
+                            <div class="flex-shrink-0">
+                                <div class="lens-container scale-110 md:scale-125 my-4">
+                                    <div class="focus-ring"></div>
+                                    <div class="shutter-blades-wrapper">
+                                        <div class="aperture-blade blade-1"></div>
+                                        <div class="aperture-blade blade-2"></div>
+                                        <div class="aperture-blade blade-3"></div>
+                                        <div class="aperture-blade blade-4"></div>
+                                        <div class="aperture-blade blade-5"></div>
+                                        <div class="aperture-blade blade-6"></div>
+                                    </div>
+                                    <div class="w-28 h-28 rounded-full border border-purple-400/40 overflow-hidden bg-black relative z-10 p-1">
+                                        <img id="about-avatar" class="w-full h-full rounded-full object-cover transition-transform duration-700 hover:scale-110 filter contrast-110" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center lg:text-left space-y-4 flex-grow lg:pl-6">
+                                <div id="about-status-node" class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-purple-500/10 border border-purple-500/30 text-[9px] font-black text-purple-400 uppercase tracking-widest selector-caption-color">Status: Mainframe Director Authorized</div>
+                                <h3 id="about-name" class="text-3xl md:text-4xl font-black font-['Orbitron'] tracking-wide bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent selector-mainTitle-color">KUSHAN A. WICKRAMASINGHE</h3>
+                                <div class="flex flex-wrap justify-center lg:justify-start gap-4 text-xs font-mono text-gray-400 pt-1">
+                                    <div><span class="text-purple-400 font-bold">NODE//</span> ASH_X8</div>
+                                    <div><span class="text-pink-400 font-bold">LOC//</span> UP-LINK.SL</div>
+                                    <div><span class="text-emerald-400 font-bold">VER//</span> 4.0.0-PROD</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-8 border-t border-white/10 mt-10 pt-10 relative z-10 font-mono">
+                            <div class="md:col-span-2 space-y-4 border-r border-white/5 pr-0 md:pr-8">
+                                <div class="flex items-center gap-2 text-purple-400 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-terminal"></i> core Operational Objective</div>
+                                <p id="about-me-text" class="text-sm leading-relaxed font-sans font-medium bg-black/40 p-5 rounded-2xl border border-white/5 text-gray-200 selector-about-color">Intersection of clean software system development, visual web architectures, and dark art.</p>
+                            </div>
+                            <div class="space-y-5">
+                                <div class="space-y-2">
+                                    <div class="text-pink-400 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-circle-nodes"></i> Current Operations</div>
+                                    <div id="about-ops-list" class="space-y-1.5 text-xs text-gray-300">
+                                        <div class="flex items-center gap-2"><span class="text-purple-400 text-[10px]">✦</span> Writer & Post-Editor</div>
+                                        <div class="flex items-center gap-2"><span class="text-purple-400 text-[10px]">✦</span> Web Infrastructure Director</div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="text-emerald-400 text-[10px] uppercase font-bold tracking-wider"><i class="fa-solid fa-microchip"></i> Active Core Stack</div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span class="px-2 py-1 bg-white/5 border border-white/10 rounded text-[9px] font-bold uppercase text-gray-300 selector-caption-color">HTML5 / Tailwind</span>
+                                        <span class="px-2 py-1 bg-white/5 border border-white/10 rounded text-[9px] font-bold uppercase text-gray-300 selector-caption-color">Cloudflare Net</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-contact-dock" class="w-full max-w-5xl mx-auto space-y-6 pt-6">
+            <div class="flex items-center gap-3 border-b border-purple-500/20 pb-4">
+                <span class="w-2 h-2 bg-pink-500 rounded-full animate-pulse"></span>
+                <h2 class="text-xl font-black font-['Orbitron'] tracking-[0.25em] text-pink-400 uppercase">// CONTACT MATRIX HUB</h2>
+            </div>
+            <div class="glass p-6 rounded-[2rem] border border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left space-y-1">
+                    <p class="text-xs font-mono text-purple-400 uppercase tracking-widest">// SECURE UPLINK CHANNELS</p>
+                    <p class="text-sm font-sans font-medium text-gray-300">Connect with the operator directly through external encrypted matrix grids.</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-3" id="social-dock">
+                    <a href="#" id="link-whatsapp" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" id="link-facebook" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" id="link-instagram" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" id="link-telegram" target="_blank" class="social-icon"><i class="fa-brands fa-telegram-plane"></i></a>
+                    <a href="#" id="link-tiktok" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" id="link-youtube" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" id="link-linkedin" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full mt-12 border-t border-white/5 glass py-8 px-6 text-center text-xs">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
+            <div id="footer-copyright-text" class="selector-footer-color">© 2026 <span>ASH_X8</span> // CONTROL STATION CENTER</div>
+        </div>
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -491,609 +508,567 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        
-        let liveDatabaseState = {};
-        let localProjectImages = [];
+        let globalData = {};
+        let storyPool = [];
+        let currentStoryIndex = 0;
+        let storyTimer = null;
 
-        // 15 Premium UI Configurations Database Array
-        const uiThemesLibrary = [
-            { id: "theme-charm-neon", name: "01. Charm Cyan Neon (Default)", desc: "Charm default aesthetic layout with sleek neon lines.", colors: { nav: "#00f3ff", mainTitle: "#ffffff", secTitle: "#00f3ff", caption: "#e5e7eb", date: "#9ca3af", userInfo: "#ffffff", bio: "#00f3ff", about: "#f3f4f6", footer: "#6b7280" } },
-            { id: "theme-minimal-light", name: "02. Minimalist Plain Light", desc: "Clean layout, without intense hacker vibes. Crisp white canvas rules.", colors: { nav: "#0f172a", mainTitle: "#0f172a", secTitle: "#2563eb", caption: "#475569", date: "#64748b", userInfo: "#0f172a", bio: "#334155", about: "#1e293b", footer: "#94a3b8" } },
-            { id: "theme-deep-matrix", name: "03. Pure Terminal Hacker Matrix", desc: "Monochrome bright phosphor terminal aesthetics.", colors: { nav: "#10b981", mainTitle: "#10b981", secTitle: "#059669", caption: "#34d399", date: "#047857", userInfo: "#10b981", bio: "#10b981", about: "#a7f3d0", footer: "#065f46" } },
-            { id: "theme-royal-gold", name: "04. Luxury Royal Gold Charm", desc: "Premium obsidian black polished with elite luxury gold accents.", colors: { nav: "#fbbf24", mainTitle: "#ffffff", secTitle: "#fbbf24", caption: "#f3f4f6", date: "#d97706", userInfo: "#fbbf24", bio: "#f59e0b", about: "#e5e7eb", footer: "#78350f" } },
-            { id: "theme-sakura-pink", name: "05. Cute Pastel Sakura", desc: "Gentle anime aesthetic pink blossom layout frame.", colors: { nav: "#ec4899", mainTitle: "#ffffff", secTitle: "#f43f5e", caption: "#fbcfe8", date: "#f472b6", userInfo: "#ffffff", bio: "#f472b6", about: "#fce7f3", footer: "#db2777" } },
-            { id: "theme-dracula-dark", name: "06. Dracula Dev Theme", desc: "Classic software developer rich purple configuration.", colors: { nav: "#bd93f9", mainTitle: "#f8f8f2", secTitle: "#ff79c6", caption: "#6272a4", date: "#ffb86c", userInfo: "#f8f8f2", bio: "#50fa7b", about: "#f8f8f2", footer: "#6272a4" } },
-            { id: "theme-retrowave", name: "07. 80s Synth Retrowave", desc: "Hot pink and cyber sunset violet pulse layout.", colors: { nav: "#ff007f", mainTitle: "#00f3ff", secTitle: "#ff007f", caption: "#e2e8f0", date: "#94a3b8", userInfo: "#ffffff", bio: "#ff007f", about: "#f8fafc", footer: "#475569" } },
-            { id: "theme-nordic-frost", name: "08. Arctic Nordic Frost Minimal", desc: "Elegant cold blue clean tech vibe without screaming hacker.", colors: { nav: "#38bdf8", mainTitle: "#f8fafc", secTitle: "#0284c7", caption: "#cbd5e1", date: "#64748b", userInfo: "#f1f5f9", bio: "#7dd3fc", about: "#e2e8f0", footer: "#475569" } },
-            { id: "theme-crimson-red", name: "09. Crimson Phantom Suite", desc: "Aggressive deep blood red security mainframe framework.", colors: { nav: "#ef4444", mainTitle: "#ffffff", secTitle: "#dc2626", caption: "#fca5a5", date: "#991b1b", userInfo: "#ffffff", bio: "#ef4444", about: "#f9fafb", footer: "#7f1d1d" } },
-            { id: "theme-monochrome", name: "10. Stealth Grayscale Flat", desc: "Ultimate minimalist layout using only absolute high contrast shades.", colors: { nav: "#ffffff", mainTitle: "#ffffff", secTitle: "#e5e7eb", caption: "#9ca3af", date: "#4b5563", userInfo: "#ffffff", bio: "#9ca3af", about: "#d1d5db", footer: "#374151" } },
-            { id: "theme-cyber-yellow", name: "11. Industrial Cyber Warning", desc: "High contrast bright hazard caution block setup design.", colors: { nav: "#eab308", mainTitle: "#ffffff", secTitle: "#eab308", caption: "#fef08a", date: "#a16207", userInfo: "#ffffff", bio: "#eab308", about: "#fef9c3", footer: "#854d0e" } },
-            { id: "theme-ghost-premium", name: "12. GhostDev Executive White", desc: "Highly professional enterprise dark clean mode look.", colors: { nav: "#f8fafc", mainTitle: "#ffffff", secTitle: "#cbd5e1", caption: "#94a3b8", date: "#475569", userInfo: "#ffffff", bio: "#cbd5e1", about: "#f1f5f9", footer: "#334155" } },
-            { id: "theme-toxic-lime", name: "13. Biohazard Toxic Green", desc: "Vibrant high voltage neon green radioactive look.", colors: { nav: "#22c55e", mainTitle: "#ffffff", secTitle: "#4ade80", caption: "#bbf7d0", date: "#166534", userInfo: "#ffffff", bio: "#4ade80", about: "#f0fdf4", footer: "#14532d" } },
-            { id: "theme-electric-orange", name: "14. Electric Quantum Orange", desc: "Sleek machinery dark theme with premium burst sunset copper accents.", colors: { nav: "#f97316", mainTitle: "#ffffff", secTitle: "#ea580c", caption: "#fed7aa", date: "#9a3412", userInfo: "#ffffff", bio: "#f97316", about: "#fff7ed", footer: "#7c2d12" } },
-            { id: "theme-subatomic", name: "15. Deep Galaxy Nebula Quantum", desc: "Deep space cosmic indigo layout for artistic tech portfolios.", colors: { nav: "#a855f7", mainTitle: "#ffffff", secTitle: "#c084fc", caption: "#e9d5ff", date: "#7e22ce", userInfo: "#ffffff", bio: "#c084fc", about: "#faf5ff", footer: "#581c87" } }
-        ];
+        window.securityConfig = {
+            enabled: true,
+            soundEnabled: true,
+            message: "Core theft is highly restricted on this terminal mainframe matrix.",
+            soundUrl: "https://www.soundjay.com/buttons/sounds/button-10.mp3"
+        };
 
-        // Font Options Core Dictionary
-        const fontsLibrary = [
-            { name: "Orbitron Cyber", val: "'Orbitron', sans-serif" },
-            { name: "JetBrains Mono Core", val: "'JetBrains Mono', monospace" },
-            { name: "Plus Jakarta", val: "'Plus Jakarta Sans', sans-serif" },
-            { name: "Inter Minimalist", val: "'Inter', sans-serif" },
-            { name: "Montserrat Tech", val: "'Montserrat', sans-serif" },
-            { name: "Poppins Modern", val: "'Poppins', sans-serif" },
-            { name: "Space Grotesk Neo", val: "'Space Grotesk', sans-serif" },
-            { name: "Fira Code Terminal", val: "'Fira Code', monospace" },
-            { name: "Noto Sans Sinhala (සිංහල)", val: "'Noto Sans Sinhala', sans-serif" },
-            { name: "Noto Serif Sinhala (සිංහල පුරාණ)", val: "'Noto Serif Sinhala', serif" },
-            { name: "Gemunu Libre (සිංහල Bold)", val: "'Gemunu Libre', sans-serif" },
-            { name: "Abhaya Libre (සිංහල රාජකීය)", val: "'Abhaya Libre', serif" }
-        ];
-
-        // Inject Font Selectors Dropdown Options
-        document.querySelectorAll('.font-dropdown').forEach(d => {
-            d.innerHTML = '';
-            fontsLibrary.forEach(f => d.innerHTML += `<option value="${f.val}">${f.name}</option>`);
-        });
-
-        // Inject 15 Themes Grid items
-        const themesGridContainer = document.getElementById('themes-grid');
-        uiThemesLibrary.forEach(t => {
-            const card = document.createElement('div');
-            card.id = `card-${t.id}`;
-            card.className = "theme-card bg-black/50 p-4 rounded-2xl border flex flex-col justify-between space-y-3";
-            card.innerHTML = `
-                <div>
-                    <h4 class="text-xs font-black font-['Orbitron'] text-white">${t.name}</h4>
-                    <p class="text-[11px] text-gray-400 mt-1">${t.desc}</p>
-                </div>
-                <div class="flex items-center gap-1.5 flex-wrap pt-1">
-                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.nav}"></span>
-                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.secTitle}"></span>
-                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.caption}"></span>
-                    <span class="w-3 h-3 rounded-full inline-block" style="background:${t.colors.bio}"></span>
-                </div>
-            `;
-            card.onclick = () => selectThemeEngine(t.id);
-            themesGridContainer.appendChild(card);
-        });
-
-        function selectThemeEngine(themeId) {
-            document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
-            const matchedCard = document.getElementById(`card-${themeId}`);
-            if(matchedCard) matchedCard.classList.add('selected');
-            document.getElementById('selected-theme-id').value = themeId;
-            
-            const selectedTheme = uiThemesLibrary.find(x => x.id === themeId);
-            if(selectedTheme) {
-                // Instantly inject configuration values to individual color pickers inputs
-                document.getElementById('col-nav').value = selectedTheme.colors.nav;
-                document.getElementById('col-mainTitle').value = selectedTheme.colors.mainTitle;
-                document.getElementById('col-secTitle').value = selectedTheme.colors.secTitle;
-                document.getElementById('col-caption').value = selectedTheme.colors.caption;
-                document.getElementById('col-date').value = selectedTheme.colors.date;
-                document.getElementById('col-userInfo').value = selectedTheme.colors.userInfo;
-                document.getElementById('col-bio').value = selectedTheme.colors.bio;
-                document.getElementById('col-about').value = selectedTheme.colors.about;
-                document.getElementById('col-footer').value = selectedTheme.colors.footer;
-            }
-        }
-
-        // Smart Canvas Compressor to Fix Lag/Crash Bugs
-        function compressImageBeforeUpload(file, maxDimension = 1200, quality = 0.7) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (event) => {
-                    const img = new Image();
-                    img.src = event.target.result;
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-
-                        if (width > height) {
-                            if (width > maxDimension) {
-                                height = Math.round((height * maxDimension) / width);
-                                width = maxDimension;
-                            }
-                        } else {
-                            if (height > maxDimension) {
-                                width = Math.round((width * maxDimension) / height);
-                                height = maxDimension;
-                            }
-                        }
-
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        
-                        canvas.toBlob((blob) => {
-                            if (blob) {
-                                const compressedFile = new File([blob], file.name, {
-                                    type: 'image/jpeg',
-                                    lastModified: Date.now()
-                                });
-                                resolve(compressedFile);
-                            } else {
-                                reject(new Error("Canvas conversion to blob failed"));
-                            }
-                        }, 'image/jpeg', quality);
-                    };
-                    img.onerror = (err) => reject(err);
-                };
-                reader.onerror = (err) => reject(err);
-            });
-        }
-
-        // Live Mainframe Database Listening Snapshot Node
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
             if (docSnap.exists()) {
-                liveDatabaseState = docSnap.data();
+                globalData = docSnap.data();
                 
-                // Active Layout UI Theme Parsing Configuration
-                if(liveDatabaseState.activeThemeId) {
-                    selectThemeEngine(liveDatabaseState.activeThemeId);
+                // 1. DYNAMIC NAVIGATION THEME SELECTOR LAYER
+                const headerEl = document.getElementById('main-header');
+                headerEl.className = "fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-[5000] rounded-[1.5rem] px-4 md:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 transition-all";
+                if(globalData.headerStyle) {
+                    headerEl.classList.add(`h-style-${globalData.headerStyle}`);
                 } else {
-                    selectThemeEngine("theme-charm-neon");
+                    headerEl.classList.add('glass');
                 }
 
-                // Header Logo & Theme Style
-                if(liveDatabaseState.headerLogo) document.getElementById('headerLogoInput').value = liveDatabaseState.headerLogo;
-                if(liveDatabaseState.headerStyle) document.getElementById('headerStyleSelect').value = liveDatabaseState.headerStyle;
-
-                // Profile Configuration Structure
-                if(liveDatabaseState.profile) {
-                    const p = liveDatabaseState.profile;
-                    document.getElementById('profName').value = p.fullName || '';
-                    document.getElementById('profBio').value = p.bio || '';
-                    document.getElementById('profAvatar').value = p.avatar || '';
-                    document.getElementById('p-cat').value = p.category || '';
-                    document.getElementById('profAboutMe').value = p.aboutMe || '';
-                    // Dual Image Sync Load Nodes
-                    document.getElementById('homeHeroImg').value = p.homeHero || '';
+                // 2. 15 THEMES CONTROLLER MIDDLEWARE INTERACTION SYSTEM
+                if(globalData.selectedTheme) {
+                    document.body.className = document.body.className.replace(/\btheme-\S+/g, '');
+                    document.body.classList.add(`theme-${globalData.selectedTheme}`);
                 }
 
-                // Contact Section Live State Load Sync
-                if(liveDatabaseState.contactSettings) {
-                    document.getElementById('contactSectionTitle').value = liveDatabaseState.contactSettings.title || 'CONTACT';
-                    document.getElementById('showContactGrid').value = liveDatabaseState.contactSettings.showGrid !== false ? "true" : "false";
+                // 3. GRANULAR FONT COLOR ENGINE INJECTION SYSTEM
+                if(globalData.matrixColors) {
+                    const c = globalData.matrixColors;
+                    document.getElementById('custom-dynamic-fonts').innerHTML = `
+                        .selector-nav-color { color: ${c.nav || '#ffffff'} !important; }
+                        .selector-mainTitle-color, .selector-mainTitle-color span { color: ${c.mainTitle || '#ffffff'} !important; }
+                        .selector-secTitle-color { color: ${c.secTitle || '#a78bfa'} !important; }
+                        .selector-caption-color { color: ${c.caption || '#9ca3af'} !important; }
+                        .selector-date-color { color: ${c.date || '#4b5563'} !important; }
+                        .selector-userInfo-color, .selector-userInfo-color p { color: ${c.userInfo || '#ffffff'} !important; border-left-color: ${c.secTitle || '#a78bfa'} !important; }
+                        .selector-bio-color { color: ${c.bio || '#9ca3af'} !important; }
+                        .selector-about-color { color: ${c.about || '#d1d5db'} !important; }
+                        .selector-footer-color, .selector-footer-color span { color: ${c.footer || '#6b7280'} !important; }
+                    `;
                 }
 
-                // Social Overlink Network Nodes
-                if(liveDatabaseState.socials) {
-                    const s = liveDatabaseState.socials;
-                    document.getElementById('s-li').value = s.linkedin || '';
-                    document.getElementById('s-wa').value = s.whatsapp || '';
-                    document.getElementById('s-fb').value = s.facebook || '';
-                    document.getElementById('s-ig').value = s.instagram || '';
-                    document.getElementById('s-tg').value = s.telegram || '';
-                    document.getElementById('s-yt').value = s.youtube || '';
+                if(globalData.securitySystem) {
+                    const sec = globalData.securitySystem;
+                    window.securityConfig.enabled = sec.enabled !== false;
+                    window.securityConfig.soundEnabled = sec.soundEnabled !== false;
+                    window.securityConfig.message = sec.message || "Core theft is highly restricted on this terminal mainframe matrix.";
+                    window.securityConfig.soundUrl = sec.soundUrl || "https://www.soundjay.com/buttons/sounds/button-10.mp3";
+                    document.getElementById('security-warning-msg').innerText = window.securityConfig.message;
                 }
 
-                // Advanced Section Font Controllers
-                if(liveDatabaseState.sectionalFonts) {
-                    const f = liveDatabaseState.sectionalFonts;
-                    if(f.home) document.getElementById('font-home').value = f.home;
-                    if(f.projects) document.getElementById('font-projects').value = f.projects;
-                    if(f.photography) document.getElementById('font-photography').value = f.photography;
-                    if(f.writing) document.getElementById('font-writing').value = f.writing;
-                    if(f.about) document.getElementById('font-about').value = f.about;
+                if(globalData.headerLogo) document.getElementById('header-logo-img').src = globalData.headerLogo;
+                if(globalData.socials && globalData.socials.whatsapp) {
+                    document.getElementById('hire-me-wa-btn').href = "https://wa.me/" + globalData.socials.whatsapp.replace(/[^0-9]/g, "");
                 }
 
-                // Granular Matrix Color Configuration
-                if(liveDatabaseState.matrixColors) {
-                    const c = liveDatabaseState.matrixColors;
-                    document.getElementById('col-nav').value = c.nav || '#00f3ff';
-                    document.getElementById('col-mainTitle').value = c.mainTitle || '#ffffff';
-                    document.getElementById('col-secTitle').value = c.secTitle || '#00f3ff';
-                    document.getElementById('col-caption').value = c.caption || '#e5e7eb';
-                    document.getElementById('col-date').value = c.date || '#9ca3af';
-                    document.getElementById('col-userInfo').value = c.userInfo || '#ffffff';
-                    document.getElementById('col-bio').value = c.bio || '#00f3ff';
-                    document.getElementById('col-about').value = c.about || '#f3f4f6';
-                    document.getElementById('col-footer').value = c.footer || '#6b7280';
-                }
-
-                // Animation Engine State Map
-                if(liveDatabaseState.selectedAvatarAnim) document.getElementById('selected-avatar-anim').value = liveDatabaseState.selectedAvatarAnim;
-                if(liveDatabaseState.selectedBgAnim) document.getElementById('selected-bg-anim').value = liveDatabaseState.selectedBgAnim;
-                if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
-                if(liveDatabaseState.customBgCode) document.getElementById('custom-bg-code').value = liveDatabaseState.customBgCode;
-                
-                if(liveDatabaseState.animationSettings) {
-                    const anim = liveDatabaseState.animationSettings;
-                    if(anim.selectedLoader) document.getElementById('loaderSelect').value = anim.selectedLoader;
-                    if(anim.customLoaderCode) document.getElementById('custom-loader-code').value = anim.customLoaderCode;
-                    if(anim.customFontAnimCode) document.getElementById('custom-font-anim-code').value = anim.customFontAnimCode;
+                if(globalData.profile) {
+                    const p = globalData.profile;
+                    if(p.fullName) {
+                        const words = p.fullName.split(' ');
+                        const first = words.slice(0, -1).join(' ');
+                        const last = words[words.length - 1];
+                        document.getElementById('dynamic-name').innerHTML = `${first} <br><span>${last}</span>`;
+                        if(document.getElementById('about-name')) {
+                            document.getElementById('about-name').innerText = p.fullName;
+                        }
+                    }
+                    if(p.bio) document.getElementById('dynamic-bio').innerText = `"${p.bio}"`;
+                    if(p.aboutMe && document.getElementById('about-me-text')) {
+                        document.getElementById('about-me-text').innerText = p.aboutMe;
+                    }
                     
-                    if(anim.fontAnimations) {
-                        const fx = anim.fontAnimations;
-                        if(fx.mainTitle) document.getElementById('anim-main-title').value = fx.mainTitle;
-                        if(fx.header) document.getElementById('anim-header').value = fx.header;
-                        if(fx.title) document.getElementById('anim-title').value = fx.title;
-                        if(fx.caption) document.getElementById('anim-caption').value = fx.caption;
-                        if(fx.footer) document.getElementById('anim-footer').value = fx.footer;
+                    // SPLIT IMAGES CONTROLLER FOR HOME & ABOUT SECTIONS
+                    if(p.avatar) {
+                        document.getElementById('home-avatar-display').src = p.avatar;
+                    }
+                    if(p.aboutAvatar) {
+                        document.getElementById('about-avatar').src = p.aboutAvatar;
+                    } else if(p.avatar) {
+                        document.getElementById('about-avatar').src = p.avatar;
+                    }
+
+                    if(p.category) {
+                        const container = document.getElementById('dynamic-categories'); container.innerHTML = '';
+                        p.category.split(',').forEach(cat => {
+                            container.innerHTML += `<span class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-black uppercase selector-caption-color">${cat.trim()}</span>`;
+                        });
                     }
                 }
 
-                // Security Firewall Configurations
-                if(liveDatabaseState.securitySystem) {
-                    const sec = liveDatabaseState.securitySystem;
-                    document.getElementById('sec-enabled').value = sec.enabled !== false ? "true" : "false";
-                    document.getElementById('sec-sound-enabled').value = sec.soundEnabled !== false ? "true" : "false";
-                    document.getElementById('sec-message').value = sec.message || '';
-                    document.getElementById('sec-sound-url').value = sec.soundUrl || '';
+                if(globalData.sectionalFonts) {
+                    const f = globalData.sectionalFonts;
+                    document.getElementById('custom-dynamic-fonts').innerHTML += `
+                        #sec-home { font-family: ${f.home || 'inherit'} !important; }
+                        #sec-projects { font-family: ${f.projects || 'inherit'} !important; }
+                        #sec-photography { font-family: ${f.photography || 'inherit'} !important; }
+                        #sec-writing { font-family: ${f.writing || 'inherit'} !important; }
+                        #sec-user-details { font-family: ${f.home || 'inherit'} !important; }
+                        #sec-about { font-family: ${f.about || 'inherit'} !important; }
+                    `;
                 }
 
-                // Array Lists Synchronization Parsing
-                localProjectImages = liveDatabaseState.projectImages || [];
-                renderProjectThumbs();
+                let animationStyleBuffer = `
+                    .cyber-glitch { animation: cyShiver 0.15s infinite alternate; font-weight: 900; letter-spacing: 0.1em; }
+                    .neon-flicker { animation: neonFlickering 2s infinite; text-shadow: 0 0 8px var(--neon); }
+                    @keyframes typing { from { width: 0 } to { width: 100% } }
+                    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--neon); } }
+                    .matrix-scan { background: linear-gradient(rgba(167,139,250,0.2) 50%, rgba(0,0,0,0) 50%); background-size: 100% 4px; color: #a78bfa; text-shadow: 0 0 4px #a78bfa; }
+                    .wave-float { animation: floatingText 3s ease-in-out infinite; }
+                    @keyframes floatingText { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+                    .chromatic-split { text-shadow: 3px 0 0 rgba(255,0,0,0.4), -3px 0 0 rgba(0,0,255,0.4); }
+                    .blur-reveal { animation: blurringReveal 1.5s ease-out forwards; }
+                    @keyframes blurringReveal { from { filter: blur(12px); opacity: 0; } to { filter: blur(0); opacity: 1; } }
+                    .bounce-retro { animation: retroBouncing 0.6s infinite alternate; }
+                    @keyframes retroBouncing { from { transform: translateY(0); } to { transform: translateY(-4px); } }
 
-                renderQuotesList(liveDatabaseState.quotes || []);
-                renderPhotographyList(liveDatabaseState.photographyPool || []);
-                renderQuickGallerySelector(liveDatabaseState.photographyPool || []);
+                    .loader-cyber-pulse { width: 40px; height: 40px; background: var(--neon); border-radius: 50%; animation: cyPulse 1.2s infinite ease-in-out; }
+                    @keyframes cyPulse { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+                    .loader-neon-ring { width: 45px; height: 45px; border: 3px solid rgba(255,255,255,0.05); border-top: 3px solid #a78bfa; border-bottom: 3px solid purple; border-radius: 50%; animation: loadSpin 0.8s linear infinite; }
+                    .loader-glitch-bar { width: 120px; height: 6px; background: rgba(255,255,255,0.1); relative; overflow:hidden; }
+                    .loader-glitch-bar::after { content:''; position:absolute; left:0; top:0; height:100%; width:40%; background:var(--neon); animation: barMove 1s infinite linear; }
+                    @keyframes barMove { 0% { left: -40%; } 100% { left: 100%; } }
+                    .loader-dna-helix { width: 30px; height: 30px; border: 4px dotted purple; border-left-color: var(--neon); border-right-color: var(--neon); border-radius: 50%; animation: loadSpin 1.5s ease-in-out infinite; }
+                    .loader-digital-rain { font-size: 24px; color: #a78bfa; font-family: monospace; animation: cyShiver 0.1s infinite; }
+                    .loader-digital-rain::before { content: "10101"; }
+                    .loader-quantum-mesh { width: 40px; height: 40px; border-radius: 35% 65% 70% 30% / 30% 40% 60% 70%; background: linear-gradient(45deg, #a78bfa, purple); animation: audWave 2s infinite linear; }
+                    .loader-ascii-shifter { font-family: monospace; font-size: 14px; color: var(--neon); animation: asciiChange 1s steps(4) infinite; }
+                    @keyframes asciiChange { 0% { content: "[ / ]"; } 25% { content: "[ - ]"; } 50% { content: "[ \\ ]"; } 75% { content: "[ | ]"; } }
+                    .loader-retro-arcade { width: 20px; height: 20px; background: #ffff00; animation: retroBlink 0.4s steps(2) infinite; }
+                    @keyframes retroBlink { to { opacity: 0; } }
+                `;
+                
+                if(globalData.customAnimationCode) animationStyleBuffer += globalData.customAnimationCode;
+                document.getElementById('custom-animation-styles').innerHTML = animationStyleBuffer;
+                document.getElementById('custom-bg-styles').innerHTML = globalData.customBgCode || '';
+
+                if(globalData.animationSettings) {
+                    const anim = globalData.animationSettings;
+                    const loaderGraphic = document.getElementById('loader-graphic-render');
+                    
+                    if(anim.customLoaderCode && anim.customLoaderCode.trim() !== "") {
+                        document.getElementById('mainframe-loader-screen').innerHTML = anim.customLoaderCode;
+                    } else if(anim.selectedLoader) {
+                        loaderGraphic.className = "";
+                        loaderGraphic.classList.add(`loader-${anim.selectedLoader}`);
+                        if(anim.selectedLoader === "ascii-shifter") {
+                            loaderGraphic.innerText = "[ - ]";
+                            setInterval(() => {
+                                const chars = ["[-]", "[ text ]", "[//]", "[O]"];
+                                loaderGraphic.innerText = chars[Math.floor(Math.random() * chars.length)];
+                            }, 250);
+                        }
+                    }
+
+                    if(anim.fontAnimations) {
+                        const fx = anim.fontAnimations;
+                        applyFontFx('dynamic-name', fx.mainTitle);
+                        applyFontFx('header-brand-title', fx.header);
+                        applyFontFx('home-mini-header', fx.header);
+                        applyFontFx('head-projects', fx.title);
+                        applyFontFx('head-photography', fx.title);
+                        applyFontFx('head-writing', fx.title);
+                        applyFontFx('head-user-details', fx.title);
+                        applyFontFx('head-about', fx.title);
+                        applyFontFx('story-block-title', fx.title);
+                        applyFontFx('dynamic-bio', fx.caption);
+                        if(document.getElementById('about-me-text')) applyFontFx('about-me-text', fx.caption);
+                        if(document.getElementById('about-status-node')) applyFontFx('about-status-node', fx.caption);
+                        applyFontFx('footer-copyright-text', fx.footer);
+                    }
+                }
+
+                setTimeout(() => {
+                    const loaderScreen = document.getElementById('mainframe-loader-screen');
+                    if(loaderScreen) {
+                        loaderScreen.style.opacity = '0';
+                        setTimeout(() => loaderScreen.style.display = 'none', 600);
+                    }
+                }, 1200);
+
+                const avatarImg = document.getElementById('home-avatar-display');
+                avatarImg.className = "w-full h-full object-cover"; 
+                if(globalData.selectedAvatarAnim && globalData.selectedAvatarAnim !== "none") {
+                    avatarImg.classList.add(globalData.selectedAvatarAnim);
+                }
+                
+                // 15 ENGINE MAPPED BACKGROUND ANIMATION SYSTEM VIA FIREBASE DYNAMICS
+                const bgAnimContainer = document.getElementById('bg-animation-container');
+                bgAnimContainer.className = "";
+                if(globalData.selectedBgAnim && globalData.selectedBgAnim !== "none") {
+                    bgAnimContainer.classList.add(`bg-anim-${globalData.selectedBgAnim}`);
+                }
+
+                renderProjects(globalData.projectImages || []);
+                renderPhotography(globalData.photographyPool || []);
+                renderWritingQuotes(globalData.quotes || []);
+
+                if(globalData.socials) {
+                    const s = globalData.socials;
+                    toggleSocial('link-whatsapp', s.whatsapp);
+                    toggleSocial('link-facebook', s.facebook);
+                    toggleSocial('link-instagram', s.instagram);
+                    toggleSocial('link-telegram', s.telegram);
+                    toggleSocial('link-tiktok', s.tiktok);
+                    toggleSocial('link-youtube', s.youtube);
+                    toggleSocial('link-linkedin', s.linkedin);
+                    if(s.linkedin && document.getElementById('about-highlight-linkedin')) {
+                        document.getElementById('about-highlight-linkedin').href = s.linkedin;
+                    }
+                }
+
+                assembleStoryPool();
             }
         });
 
-        // Cloud Storage Token ImgBB Uploader with Auto-Compression Matrix Integration
-        async function uploadFileToImgBB(fileElementId) {
-            const fileInput = document.getElementById(fileElementId);
-            if(!fileInput || !fileInput.files[0]) return null;
-            let file = fileInput.files[0];
-            
-            // Auto compress to optimize latency performance and eliminate browser tab crashes
-            try {
-                file = await compressImageBeforeUpload(file, 1200, 0.7);
-            } catch(e) {
-                console.warn("Compression pipeline bypassed: ", e);
+        function applyFontFx(elementId, effectName) {
+            const el = document.getElementById(elementId);
+            if(!el) return;
+            const fxClasses = ['cyber-glitch', 'neon-flicker', 'typewriter', 'matrix-scan', 'wave-float', 'chromatic-split', 'blur-reveal', 'bounce-retro'];
+            fxClasses.forEach(c => el.classList.remove(c));
+            if(effectName && effectName !== "none") {
+                el.classList.add(effectName);
             }
-
-            const fd = new FormData(); fd.append("image", file);
-            const r = await fetch("https://api.imgbb.com/1/upload?key=7ca79a5403801d6ee629b06938c0b2c3", { method: "POST", body: fd });
-            const d = await r.json(); return d.data.url;
         }
 
-        // Project Stack Management Methods
-        document.getElementById('inject-proj-btn').onclick = function() {
-            const val = document.getElementById('newProjectUrlInput').value.trim();
-            if(!val) return;
-            localProjectImages.push(val);
-            document.getElementById('newProjectUrlInput').value = '';
-            renderProjectThumbs();
-        };
+        function toggleSocial(id, url) {
+            const el = document.getElementById(id);
+            if(url && url.trim() !== "") { el.href = url; el.style.display = "flex"; }
+            else { el.style.display = "none"; }
+        }
 
-        window.removeProjectImg = function(idx) {
-            localProjectImages.splice(idx, 1);
-            renderProjectThumbs();
-        };
-
-        function renderProjectThumbs() {
-            const grid = document.getElementById('adminProjectThumbsGrid');
-            grid.innerHTML = '';
-            localProjectImages.forEach((url, i) => {
+        function renderProjects(arr) {
+            const grid = document.getElementById('projects-grid'); grid.innerHTML = '';
+            arr.forEach((url, i) => {
                 grid.innerHTML += `
-                    <div class="relative rounded-lg overflow-hidden border border-white/10 group aspect-video bg-black">
-                        <img src="${url}" class="w-full h-full object-cover">
-                        <button onclick="removeProjectImg(${i})" class="absolute inset-0 bg-red-600/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all font-bold text-xs uppercase tracking-wider">Delete Node</button>
+                    <div class="glass rounded-2xl overflow-hidden border border-white/5 relative group p-2">
+                        <div class="overflow-hidden rounded-xl bg-black/20">
+                            <img src="${url}" class="inner-gallery-img transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        <div class="p-3 mt-1 bg-black/30 rounded-xl backdrop-blur-sm">
+                            <h4 class="font-['Orbitron'] font-bold text-xs selector-caption-color">PROJECT NODE // LAYER ${i+1}</h4>
+                        </div>
                     </div>`;
             });
         }
 
-        // Cross-Section Connector: Inject image link instantly from current live photography gallery
-        function renderQuickGallerySelector(pool) {
-            const container = document.getElementById('gallery-connector-container');
-            const grid = document.getElementById('quick-gallery-injector-grid');
-            if(!pool || pool.length === 0) {
-                container.classList.add('hidden');
-                return;
+        function renderPhotography(pool) {
+            const grid = document.getElementById('photography-grid'); grid.innerHTML = '';
+            pool.forEach((item) => {
+                grid.innerHTML += `
+                    <div class="glass rounded-2xl overflow-hidden border border-white/5 p-2 flex flex-col justify-between">
+                        <div class="overflow-hidden rounded-xl bg-black/20">
+                            <img src="${item.url}" class="inner-gallery-img">
+                        </div>
+                        <div class="p-3 mt-2 bg-black/20 rounded-xl">
+                            <h4 class="text-xs font-bold font-['Orbitron'] uppercase mb-1 selector-caption-color">${item.title || 'Untitled Click'}</h4>
+                            <p class="text-[11px] selector-about-color">${item.desc || ''}</p>
+                            <span class="text-[9px] block mt-1 selector-date-color">${item.date || ''}</span>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function renderWritingQuotes(quotes) {
+            const container = document.getElementById('writing-container'); container.innerHTML = '';
+            quotes.forEach((q, index) => {
+                const likes = q.likes || 0;
+                const comments = q.comments || [];
+                let cmtsMarkup = comments.map(c => `<div class="text-[11px] selector-about-color bg-white/[0.01] p-2 rounded-lg border border-white/5">💬 ${c}</div>`).join('');
+                container.innerHTML += `
+                    <div class="glass p-6 rounded-3xl border border-white/10 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[9px] font-bold block mb-2 selector-date-color">// CORE THOUGHT MODULE ${index+1}</span>
+                            <div class="quote-pre text-sm md:text-base italic font-sans leading-relaxed selector-about-color">"${q.text}"</div>
+                        </div>
+                        <div class="space-y-3 pt-3 border-t border-white/5">
+                            <button onclick="window.processLike(${index})" class="text-[11px] flex items-center gap-1.5 font-bold selector-caption-color"><i class="fa-solid fa-heart text-red-500"></i> LIKES (${likes})</button>
+                            <div class="space-y-1 max-h-24 overflow-y-auto pr-1">${cmtsMarkup}</div>
+                            <div class="flex gap-2">
+                                <input type="text" id="cmt-input-${index}" placeholder="Type comment..." class="bg-black border border-white/10 text-xs px-3 py-1.5 rounded-xl w-full text-white focus:outline-none font-sans">
+                                <button onclick="window.processComment(${index})" class="bg-cyan-500 text-black font-black text-[9px] px-3 rounded-xl uppercase">Send</button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function assembleStoryPool() {
+            storyPool = [];
+            if(globalData.projectImages) {
+                globalData.projectImages.forEach((url, idx) => storyPool.push({ url: url, type: "Project Design", title: `Design Architecture Frame #${idx+1}` }));
             }
-            container.classList.remove('hidden');
-            grid.innerHTML = '';
-            pool.forEach((photo) => {
-                if(photo.url) {
-                    const div = document.createElement('div');
-                    div.className = "gallery-select-card aspect-square rounded border border-white/10 overflow-hidden relative group";
-                    div.innerHTML = `<img src="${photo.url}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-cyan-500/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><i class="fa-solid fa-link text-white text-[10px]"></i></div>`;
-                    div.onclick = () => {
-                        document.getElementById('newProjectUrlInput').value = photo.url;
-                        document.getElementById('newProjectUrlInput').focus();
-                    };
-                    grid.appendChild(div);
+            if(globalData.photographyPool) {
+                globalData.photographyPool.forEach(p => storyPool.push({ url: p.url, type: "Photography Click", title: p.title || "Captured Dynamic Moment" }));
+            }
+            if(storyPool.length === 0) return;
+            storyPool.sort(() => Math.random() - 0.5);
+            if(storyTimer) clearInterval(storyTimer);
+            playNextStory();
+            storyTimer = setInterval(playNextStory, 4000);
+        }
+
+        function playNextStory() {
+            if(!storyPool.length) return;
+            const imgEl = document.getElementById('story-player-img');
+            if(!imgEl) return;
+            imgEl.style.opacity = '0';
+            setTimeout(() => {
+                const current = storyPool[currentStoryIndex];
+                imgEl.src = current.url;
+                document.getElementById('story-player-badge').innerText = current.type;
+                document.getElementById('story-player-title').innerText = current.title;
+                imgEl.style.opacity = '1';
+                currentStoryIndex = (currentStoryIndex + 1) % storyPool.length;
+            }, 300);
+        }
+
+        window.processLike = async (index) => {
+            if(!globalData.quotes) return;
+            globalData.quotes[index].likes = (globalData.quotes[index].likes || 0) + 1;
+            await setDoc(doc(db, "portfolio", "liveData"), { quotes: globalData.quotes }, { merge: true });
+        };
+        window.processComment = async (index) => {
+            const input = document.getElementById(`cmt-input-${index}`);
+            if(!input || !input.value.trim()) return;
+            if(!globalData.quotes[index].comments) globalData.quotes[index].comments = [];
+            globalData.quotes[index].comments.push(input.value.trim());
+            await setDoc(doc(db, "portfolio", "liveData"), { quotes: globalData.quotes }, { merge: true });
+            input.value = '';
+        };
+    </script>
+
+    <script>
+        let isBrowserAudioUnlocked = false;
+        let currentAlertSound = null;
+
+        document.addEventListener('click', () => { isBrowserAudioUnlocked = true; }, { once: true });
+
+        function triggerSecurityViolation(e) {
+            if (!window.securityConfig || !window.securityConfig.enabled) return true;
+            if (e) e.preventDefault();
+
+            document.getElementById('security-modal').style.display = 'flex';
+
+            if (window.securityConfig.soundEnabled && window.securityConfig.soundUrl) {
+                if (currentAlertSound) currentAlertSound.pause();
+                currentAlertSound = new Audio(window.securityConfig.soundUrl);
+                currentAlertSound.preload = "auto";
+                currentAlertSound.volume = 1.0; 
+                currentAlertSound.loop = true; 
+                currentAlertSound.play().catch(err => console.log("Audio blocked", err));
+            }
+            return false;
+        }
+
+        function closeSecurityAlert() {
+            document.getElementById('security-modal').style.display = 'none';
+            if (currentAlertSound) {
+                currentAlertSound.pause();
+                currentAlertSound.currentTime = 0;
+            }
+        }
+
+        document.addEventListener('contextmenu', triggerSecurityViolation);
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) { 
+                triggerSecurityViolation(e);
+            }
+        });
+    </script>
+
+    <script>
+        function switchSection(id) {
+            document.querySelectorAll('.app-section').forEach(s => s.classList.remove('active-section'));
+            document.getElementById(`sec-${id}`).classList.add('active-section');
+            
+            const buttons = ['home', 'projects', 'photography', 'writing', 'user-details', 'about'];
+            buttons.forEach(b => {
+                const btn = document.getElementById(`nav-${b}`);
+                if(btn) {
+                    if(b === id) btn.className = "text-[10px] font-black tracking-widest uppercase selector-nav-color";
+                    else btn.className = "text-[10px] font-black tracking-widest uppercase opacity-60 hover:opacity-100 selector-nav-color";
                 }
             });
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Quotes Operation Handlers
-        document.getElementById('save-quote-btn').onclick = async () => {
-            const index = parseInt(document.getElementById('quote-edit-index').value);
-            const text = document.getElementById('quote-text').value.trim();
-            if(!text) return;
-            let list = liveDatabaseState.quotes || [];
-            if(index === -1) list.push({ text: text, likes: 0, comments: [] });
-            else list[index].text = text;
-            await setDoc(doc(db, "portfolio", "liveData"), { quotes: list }, { merge: true });
-            clearQuoteForm();
-        };
-
-        window.editQuote = (i) => {
-            document.getElementById('quote-edit-index').value = i;
-            document.getElementById('quote-text').value = liveDatabaseState.quotes[i].text;
-        };
-
-        window.deleteQuote = async (i) => {
-            let list = liveDatabaseState.quotes || []; list.splice(i, 1);
-            await setDoc(doc(db, "portfolio", "liveData"), { quotes: list }, { merge: true });
-        };
-
-        function renderQuotesList(arr) {
-            const container = document.getElementById('admin-quotes-list'); container.innerHTML = '';
-            arr.forEach((q, i) => {
-                container.innerHTML += `<div class="p-4 bg-black/40 border border-white/5 rounded-xl flex flex-col justify-between"><p class="text-xs whitespace-pre-wrap">"${q.text}"</p><div class="flex gap-2 justify-end mt-4 pt-2"><button onclick="editQuote(${i})" class="text-[10px] text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded">Edit</button><button onclick="deleteQuote(${i})" class="text-[10px] text-red-400 bg-red-400/10 px-3 py-1 rounded">Delete</button></div></div>`;
-            });
-        }
-
-        window.clearQuoteForm = () => { document.getElementById('quote-edit-index').value = "-1"; document.getElementById('quote-text').value = ""; };
-
-        // Photography Operation Modules
-        document.getElementById('commit-photo-btn').onclick = async () => {
-            const btn = document.getElementById('commit-photo-btn'); btn.innerText = "COMMITTING DATA...";
-            try {
-                const index = parseInt(document.getElementById('photo-edit-index').value);
-                const title = document.getElementById('photo-title').value;
-                const desc = document.getElementById('photo-desc').value;
-                const date = document.getElementById('photo-date').value;
-                let url = document.getElementById('photo-url').value;
-                
-                const uploadedUrl = await uploadFileToImgBB('photo-file');
-                if(uploadedUrl) url = uploadedUrl;
-                if(!url) { btn.innerText = "Commit Grid Element"; return; }
-                
-                let pool = liveDatabaseState.photographyPool || [];
-                const photoItem = { title, desc, date, url };
-                if(index === -1) pool.push(photoItem); else pool[index] = photoItem;
-                
-                await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
-                clearPhotoForm();
-                btn.innerText = "COMMIT SUCCESS!";
-            } catch(e) { console.error(e); btn.innerText = "COMMIT ERROR"; }
-            setTimeout(() => btn.innerText = "Commit Grid Element", 2000);
-        };
-
-        window.editPhoto = (i) => {
-            const item = liveDatabaseState.photographyPool[i];
-            document.getElementById('photo-edit-index').value = i;
-            document.getElementById('photo-title').value = item.title || '';
-            document.getElementById('photo-desc').value = item.desc || '';
-            document.getElementById('photo-date').value = item.date || '';
-            document.getElementById('photo-url').value = item.url || '';
-        };
-
-        window.deletePhoto = async (i) => {
-            let pool = liveDatabaseState.photographyPool || []; pool.splice(i, 1);
-            await setDoc(doc(db, "portfolio", "liveData"), { photographyPool: pool }, { merge: true });
-        };
-
-        function renderPhotographyList(arr) {
-            const container = document.getElementById('admin-photography-list'); container.innerHTML = '';
-            arr.forEach((p, i) => {
-                container.innerHTML += `<div class="bg-black/40 border border-white/5 rounded-xl overflow-hidden"><img src="${p.url}" class="w-full h-20 object-cover"><div class="p-2 flex justify-between items-center bg-black/60"><h4 class="text-[11px] truncate max-w-[100px]">${p.title || 'Untitled'}</h4><div class="flex gap-1"><button onclick="editPhoto(${i})" class="text-[9px] text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded">Edit</button><button onclick="deletePhoto(${i})" class="text-[9px] text-red-400 bg-red-400/10 px-2 py-0.5 rounded">Delete</button></div></div></div>`;
-            });
-        }
-
-        window.clearPhotoForm = () => {
-            document.getElementById('photo-edit-index').value = "-1";
-            document.getElementById('photo-title').value = ""; document.getElementById('photo-desc').value = "";
-            document.getElementById('photo-date').value = ""; document.getElementById('photo-url').value = ""; document.getElementById('photo-file').value = "";
-        };
-
-        // Realtime Save Operations for Custom Embedded Animation Source Code Blocks
-        document.getElementById('save-avatar-code-btn').onclick = async () => {
-            const btn = document.getElementById('save-avatar-code-btn');
-            const code = document.getElementById('custom-animation-code').value;
-            btn.innerText = "SAVING MATRIX...";
-            try {
-                await setDoc(doc(db, "portfolio", "liveData"), { customAnimationCode: code }, { merge: true });
-                btn.innerText = "SAVE SUCCESS!";
-            } catch(e) {
-                btn.innerText = "SAVE ERROR";
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            let currentScrollY = window.scrollY;
+            if (currentScrollY === 0) {
+                header.classList.remove('header-hidden');
+            } else {
+                header.classList.add('header-hidden');
             }
-            setTimeout(() => btn.innerText = "Save & Inject Engine", 2000);
-        };
+        });
 
-        document.getElementById('save-bg-code-btn').onclick = async () => {
-            const btn = document.getElementById('save-bg-code-btn');
-            const code = document.getElementById('custom-bg-code').value;
-            btn.innerText = "SAVING CORE...";
+        async function loadStats() {
+            setInterval(() => { 
+                const d = new Date();
+                const timeStr = d.toLocaleTimeString();
+                if(document.getElementById('real-time')) document.getElementById('real-time').innerText = timeStr; 
+                if(document.getElementById('detect-time')) document.getElementById('detect-time').innerText = timeStr;
+                
+                const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                if(document.getElementById('detect-date')) document.getElementById('detect-date').innerText = d.toLocaleDateString(undefined, options);
+            }, 1000);
+
             try {
-                await setDoc(doc(db, "portfolio", "liveData"), { customBgCode: code }, { merge: true });
-                btn.innerText = "SAVE SUCCESS!";
-            } catch(e) {
-                btn.innerText = "SAVE ERROR";
+                const res = await fetch('https://ipapi.co/json/'); 
+                const data = await res.json();
+                
+                if(document.getElementById('user-ip')) document.getElementById('user-ip').innerText = data.ip || "SECURED";
+                if(document.getElementById('user-loc')) document.getElementById('user-loc').innerText = `${data.country_code || 'SL'} | ${data.org ? data.org.split(' ')[0] : 'UPLINK'}`;
+                
+                if(document.getElementById('detect-ip')) document.getElementById('detect-ip').innerText = data.ip || "N/A";
+                if(document.getElementById('detect-isp')) document.getElementById('detect-isp').innerText = data.org || "Unknown Service Provider";
+                if(document.getElementById('detect-country')) document.getElementById('detect-country').innerText = data.country_name || "Unknown Matrix";
+                if(document.getElementById('detect-region')) document.getElementById('detect-region').innerText = `${data.region || ''}, ${data.city || ''}`;
+            } catch { 
+                if(document.getElementById('user-ip')) document.getElementById('user-ip').innerText = "SECURED MAIN"; 
+                if(document.getElementById('detect-ip')) document.getElementById('detect-ip').innerText = "Matrix Shielded";
+                if(document.getElementById('detect-isp')) document.getElementById('detect-isp').innerText = "Proxy/VPN Encrypted";
+                if(document.getElementById('detect-country')) document.getElementById('detect-country').innerText = "Hidden Domain";
+                if(document.getElementById('detect-region')) document.getElementById('detect-region').innerText = "Secure Gateway Node";
             }
-            setTimeout(() => btn.innerText = "Save & Inject Engine", 2000);
-        };
 
-        // Master Consolidated Matrix Deployment Method Engine
-        document.getElementById('main-deploy-btn').onclick = async function() {
-            const btn = document.getElementById('main-deploy-btn');
-            btn.innerText = "DEPLOYING MESH PACKAGE...";
-            
-            try {
-                // Async image asset check layers
-                let logoUrl = document.getElementById('headerLogoInput').value.trim();
-                const freshLogo = await uploadFileToImgBB('p-logo-file');
-                if(freshLogo) { logoUrl = freshLogo; document.getElementById('headerLogoInput').value = logoUrl; }
+            const ua = navigator.userAgent;
+            let devType = "Desktop PC / Laptop";
+            let devOS = "Windows / MacOS / Linux";
 
-                let avatarUrl = document.getElementById('profAvatar').value.trim();
-                const freshAvatar = await uploadFileToImgBB('p-avatar-file');
-                if(freshAvatar) { avatarUrl = freshAvatar; document.getElementById('profAvatar').value = avatarUrl; }
-
-                // Dual Image Upload Engine Sync Node
-                let homeHeroUrl = document.getElementById('homeHeroImg').value.trim();
-                const freshHomeHero = await uploadFileToImgBB('p-homehero-file');
-                if(freshHomeHero) { homeHeroUrl = freshHomeHero; document.getElementById('homeHeroImg').value = homeHeroUrl; }
-
-                const packageData = {
-                    activeThemeId: document.getElementById('selected-theme-id').value,
-                    headerLogo: logoUrl,
-                    headerStyle: document.getElementById('headerStyleSelect').value,
-                    projectImages: localProjectImages,
-                    selectedAvatarAnim: document.getElementById('selected-avatar-anim').value,
-                    selectedBgAnim: document.getElementById('selected-bg-anim').value,
-                    customAnimationCode: document.getElementById('custom-animation-code').value,
-                    customBgCode: document.getElementById('custom-bg-code').value,
-                    
-                    profile: {
-                        fullName: document.getElementById('profName').value.trim(),
-                        avatar: avatarUrl,
-                        homeHero: homeHeroUrl, // Exported to Live Firebase Realtime Matrix Node
-                        bio: document.getElementById('profBio').value.trim(),
-                        aboutMe: document.getElementById('profAboutMe').value.trim(),
-                        category: document.getElementById('p-cat').value.trim()
-                    },
-                    // Contact Overlay Configuration Array Package
-                    contactSettings: {
-                        title: document.getElementById('contactSectionTitle').value.trim(),
-                        showGrid: document.getElementById('showContactGrid').value === "true"
-                    },
-                    socials: {
-                        linkedin: document.getElementById('s-li').value.trim(),
-                        whatsapp: document.getElementById('s-wa').value.trim(),
-                        facebook: document.getElementById('s-fb').value.trim(),
-                        instagram: document.getElementById('s-ig').value.trim(),
-                        telegram: document.getElementById('s-tg').value.trim(),
-                        youtube: document.getElementById('s-yt').value.trim()
-                    },
-                    sectionalFonts: {
-                        home: document.getElementById('font-home').value,
-                        projects: document.getElementById('font-projects').value,
-                        photography: document.getElementById('font-photography').value,
-                        writing: document.getElementById('font-writing').value,
-                        about: document.getElementById('font-about').value
-                    },
-                    matrixColors: {
-                        nav: document.getElementById('col-nav').value,
-                        mainTitle: document.getElementById('col-mainTitle').value,
-                        secTitle: document.getElementById('col-secTitle').value,
-                        caption: document.getElementById('col-caption').value,
-                        date: document.getElementById('col-date').value,
-                        userInfo: document.getElementById('col-userInfo').value,
-                        bio: document.getElementById('col-bio').value,
-                        about: document.getElementById('col-about').value,
-                        footer: document.getElementById('col-footer').value
-                    },
-                    animationSettings: {
-                        selectedLoader: document.getElementById('loaderSelect').value,
-                        customLoaderCode: document.getElementById('custom-loader-code').value,
-                        customFontAnimCode: document.getElementById('custom-font-anim-code').value,
-                        fontAnimations: {
-                            mainTitle: document.getElementById('anim-main-title').value,
-                            header: document.getElementById('anim-header').value,
-                            title: document.getElementById('anim-title').value,
-                            caption: document.getElementById('anim-caption').value,
-                            footer: document.getElementById('anim-footer').value
-                        }
-                    },
-                    securitySystem: {
-                        enabled: document.getElementById('sec-enabled').value === "true",
-                        soundEnabled: document.getElementById('sec-sound-enabled').value === "true",
-                        message: document.getElementById('sec-message').value,
-                        soundUrl: document.getElementById('sec-sound-url').value
+            if (/Mobi|Android|iPhone|iPad|iPod/i.test(ua)) {
+                devType = "Mobile Device";
+                if (/iPhone|iPad|iPod/i.test(ua)) {
+                    devOS = "Apple iOS Terminal";
+                    const matches = ua.match(/OS (\d+)_(\d+)/);
+                    if(matches) devOS = `iPhone (iOS ${matches[1]}.${matches[2]})`;
+                } else if (/Android/i.test(ua)) {
+                    devOS = "Android Node";
+                    const match = ua.match(/Android\s([0-9\.]+);\s([^;)]+)/);
+                    if(match) {
+                        devOS = match[2].includes("Build") ? match[2].split("Build")[0] : match[2];
                     }
-                };
-
-                await setDoc(doc(db, "portfolio", "liveData"), packageData, { merge: true });
-                btn.innerHTML = "<i class='fa-solid fa-check mr-2'></i> OVERRIDE SYNC COMPLETE!";
-            } catch(err) {
-                console.error(err);
-                btn.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> ROUTING ERROR";
-            }
-            setTimeout(() => { btn.innerHTML = "<i class='fa-solid fa-cloud-arrow-up mr-2'></i> Deploy Live Updates"; }, 2000);
-        };
-    </script>
-
-    <script>
-        function switchTab(tabId) {
-            document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.add('hidden'));
-            document.getElementById(`panel-${tabId}`).classList.remove('hidden');
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`tab-${tabId}`).classList.add('active');
-        }
-    </script>
-
-    <script>
-        const canvas = document.getElementById('galaxy-bg');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        }
-
-        class StarParticle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.8 + 0.4;
-                this.speedX = (Math.random() - 0.5) * 0.3;
-                this.speedY = (Math.random() - 0.5) * 0.3;
-                this.hue = Math.random() > 0.6 ? 190 : 280; 
-                this.alpha = Math.random() * 0.5 + 0.1;
-                this.fade = (Math.random() * 0.004) + 0.001;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.alpha += this.fade;
-                if (this.alpha > 0.7 || this.alpha < 0.1) this.fade = -this.fade;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
                 }
+            } else {
+                if(navigator.platform) devOS = navigator.platform;
             }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${this.hue}, 100%, 75%, ${this.alpha})`;
-                ctx.fill();
+            if(document.getElementById('detect-device-type')) document.getElementById('detect-device-type').innerText = devType;
+            if(document.getElementById('detect-device-os')) document.getElementById('detect-device-os').innerText = devOS;
+
+            let browser = "Unknown Engine";
+            if (ua.includes("Firefox")) browser = "Mozilla Firefox";
+            else if (ua.includes("SamsungBrowser")) browser = "Samsung Internet";
+            else if (ua.includes("Opera") || ua.includes("OPR")) browser = "Opera Quantum";
+            else if (ua.includes("Edge")) browser = "Microsoft Edge (Chromium)";
+            else if (ua.includes("Chrome")) browser = "Google Chrome Node";
+            else if (ua.includes("Safari")) browser = "Apple Safari Engine";
+
+            if(document.getElementById('detect-browser')) document.getElementById('detect-browser').innerText = browser;
+            if(document.getElementById('detect-lang')) document.getElementById('detect-lang').innerText = (navigator.language || "EN").toUpperCase();
+
+            if (navigator.getBattery) {
+                navigator.getBattery().then(function(battery) {
+                    function syncBatteryStatus() {
+                        const lvl = Math.round(battery.level * 100) + "%";
+                        const stat = battery.charging ? "Charging ⚡" : "Discharging CELLS";
+                        
+                        if(document.getElementById('user-bat')) document.getElementById('user-bat').innerText = lvl + (battery.charging ? " ⚡" : "");
+                        if(document.getElementById('detect-bat-level')) document.getElementById('detect-bat-level').innerText = lvl;
+                        if(document.getElementById('detect-bat-status')) document.getElementById('detect-bat-status').innerText = stat;
+                    }
+                    syncBatteryStatus();
+                    battery.addEventListener('levelchange', syncBatteryStatus);
+                    battery.addEventListener('chargingchange', syncBatteryStatus);
+                });
+            } else {
+                if(document.getElementById('user-bat')) document.getElementById('user-bat').innerText = "Online Core";
+                if(document.getElementById('detect-bat-level')) document.getElementById('detect-bat-level').innerText = "Protected Cells";
+                if(document.getElementById('detect-bat-status')) document.getElementById('detect-bat-status').innerText = "Stable Continuous Power";
             }
         }
 
-        function initParticles() {
-            particles = [];
-            const count = Math.min(Math.floor(canvas.width / 10), 120);
-            for (let i = 0; i < count; i++) {
-                particles.push(new StarParticle());
-            }
-        }
+        const bgCanvas = document.getElementById('bg-canvas'); 
+        const bgCtx = bgCanvas.getContext('2d');
+        let stars = [];
+        let matrixNodes = [];
 
-        function animateEngine() {
-            ctx.fillStyle = 'rgba(2, 2, 5, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        function initBg() {
+            bgCanvas.width = window.innerWidth; 
+            bgCanvas.height = window.innerHeight; 
+            stars = [];
+            matrixNodes = [];
             
-            let cloudGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 20, canvas.width/2, canvas.height/2, canvas.width*0.75);
-            cloudGrad.addColorStop(0, 'rgba(0, 243, 255, 0.025)');
-            cloudGrad.addColorStop(0.6, 'rgba(147, 51, 234, 0.015)');
-            cloudGrad.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = cloudGrad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for(let i=0; i<120; i++) {
+                stars.push({
+                    x: Math.random() * bgCanvas.width, 
+                    y: Math.random() * bgCanvas.height, 
+                    size: Math.random() * 1.8, 
+                    color: i % 3 === 0 ? 'rgba(167, 139, 250, 0.7)' : (i % 3 === 1 ? 'rgba(244, 114, 182, 0.6)' : 'rgba(255, 255, 255, 0.8)'),
+                    speed: Math.random() * 0.05 + 0.01
+                });
+            }
 
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateEngine);
+            for(let j=0; j<25; j++) {
+                matrixNodes.push({
+                    x: Math.random() * bgCanvas.width,
+                    y: Math.random() * bgCanvas.height,
+                    vx: Math.random() * 0.4 - 0.2,
+                    vy: Math.random() * 0.4 - 0.2
+                });
+            }
         }
 
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-        animateEngine();
+        function drawBg() {
+            bgCtx.fillStyle = 'rgba(7, 4, 15, 0.2)'; 
+            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+            
+            stars.forEach(s => {
+                s.y -= s.speed;
+                if(s.y < 0) s.y = bgCanvas.height;
+                bgCtx.fillStyle = s.color;
+                bgCtx.beginPath();
+                bgCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                bgCtx.fill();
+            });
+
+            matrixNodes.forEach((n, idx) => {
+                n.x += n.vx;
+                n.y += n.vy;
+
+                if(n.x < 0 || n.x > bgCanvas.width) n.vx *= -1;
+                if(n.y < 0 || n.y > bgCanvas.height) n.vy *= -1;
+
+                bgCtx.fillStyle = 'rgba(167, 139, 250, 0.15)';
+                bgCtx.fillRect(n.x, n.y, 2, 2);
+
+                for(let k = idx + 1; k < matrixNodes.length; k++) {
+                    let target = matrixNodes[k];
+                    let dist = Math.hypot(n.x - target.x, n.y - target.y);
+                    if(dist < 130) {
+                        bgCtx.strokeStyle = `rgba(167, 139, 250, ${0.15 * (1 - dist/130)})`;
+                        bgCtx.lineWidth = 0.6;
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(n.x, n.y);
+                        bgCtx.lineTo(target.x, target.y);
+                        bgCtx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(drawBg);
+        }
+
+        window.addEventListener('resize', initBg);
+        window.onload = () => { initBg(); drawBg(); loadStats(); };
     </script>
 </body>
 </html>
