@@ -10,7 +10,7 @@
     <style>
         body { background: #020205; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; position: relative; }
         #galaxy-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        .glass { background: rgba(5, 5, 15, 0.55); backdrop-filter: blur Comm25px); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass { background: rgba(5, 5, 15, 0.55); backdrop-filter: blur(25px); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .glass:hover { border-color: rgba(0, 243, 255, 0.35); box-shadow: 0 0 45px rgba(0, 243, 255, 0.08); }
         .input-cyber { background: rgba(0,0,0,0.7) !important; border: 1px solid rgba(0, 243, 255, 0.18) !important; color: #fff !important; transition: all 0.3s; }
         .input-cyber:focus { border-color: #00f3ff !important; box-shadow: 0 0 18px rgba(0, 243, 255, 0.3) !important; outline: none; }
@@ -25,20 +25,46 @@
         .theme-card.selected { border-color: #00f3ff; box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); background: rgba(0, 243, 255, 0.05); }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen">
+<body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
 
     <canvas id="galaxy-bg"></canvas>
 
-    <div class="max-w-6xl mx-auto space-y-8 relative z-10">
+    <div id="login-overlay" class="w-full max-w-md glass p-8 rounded-3xl border border-cyan-500/30 space-y-6 relative z-50">
+        <div class="text-center">
+            <h2 class="text-lg font-black font-['Orbitron'] text-cyan-400 tracking-wider">🔒 SECURE MAINFRAME</h2>
+            <p class="text-[10px] text-gray-400 mt-1">// ENTER DECRYPTION CREDENTIALS</p>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">ADMIN IDENTITY (EMAIL)</label>
+                <input type="email" id="login-email" class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="admin@ashx8.com">
+            </div>
+            <div>
+                <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">DECRYPTION KEY (PASSWORD)</label>
+                <input type="password" id="login-password" class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="••••••••">
+            </div>
+            <p id="login-error" class="text-red-400 text-[10px] hidden font-bold">// ACCESS DENIED: INVALID CREDENTIALS</p>
+            <button id="login-submit-btn" class="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+                Initialize Bypass
+            </button>
+        </div>
+    </div>
+
+    <div id="admin-mainframe" class="w-full max-w-6xl mx-auto space-y-8 relative z-10 hidden">
         
         <div class="glass p-6 rounded-3xl border border-cyan-500/20 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
                 <h1 class="text-xl md:text-2xl font-black font-['Orbitron'] text-cyan-400 tracking-wider">⚡ GHOSTDEV PORTFOLIO MAINFRAME</h1>
                 <p class="text-xs text-gray-400 mt-1">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
             </div>
-            <button id="main-deploy-btn" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_25px_rgba(0,243,255,0.3)] hover:scale-105">
-                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Deploy Live Updates
-            </button>
+            <div class="flex gap-3">
+                <button id="main-deploy-btn" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_25px_rgba(0,243,255,0.3)] hover:scale-105">
+                    <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Deploy Live Updates
+                </button>
+                <button id="logout-btn" class="px-4 py-3 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 text-xs font-black uppercase rounded-xl transition-all">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
+            </div>
         </div>
 
         <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
@@ -58,8 +84,7 @@
                     <p class="text-xs text-gray-400 mt-1">Select from 15 premium layout structures built for both Desktop and Mobile environments. Choosing a template automatically optimizes core text colors.</p>
                 </div>
                 <input type="hidden" id="selected-theme-id" value="theme-charm-neon">
-                <div id="themes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
-                    </div>
+                <div id="themes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2"></div>
             </div>
         </div>
 
@@ -478,6 +503,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        // Auth Module එක මෙතනට එකතු කර ඇත
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCnXtXpynpkN5SOi-l8zSuaeuLFUByQVhQ",
@@ -491,9 +518,56 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app); // Auth Initialize කිරීම
         
         let liveDatabaseState = {};
         let localProjectImages = [];
+
+        // --- AUTHENTICATION STATE WATCHER ---
+        // පරිශීලකයා ලොග් වී ඇත්දැයි නිරන්තරයෙන් පරීක්ෂා කිරීම
+        onAuthStateChanged(auth, (user) => {
+            const loginOverlay = document.getElementById('login-overlay');
+            const adminMainframe = document.getElementById('admin-mainframe');
+            const body = document.body;
+
+            if (user) {
+                // පරිශීලකයා සාර්ථකව ලොග් වී ඇත්නම් Dashboard එක පෙන්වන්න
+                loginOverlay.classList.add('hidden');
+                adminMainframe.classList.remove('hidden');
+                body.className = "p-4 md:p-8 min-h-screen block"; // Reset alignment
+            } else {
+                // ලොග් වී නැත්නම් ලොගින් පැනල් එක පෙන්වන්න
+                loginOverlay.classList.remove('hidden');
+                adminMainframe.classList.add('hidden');
+                body.className = "p-4 md:p-8 min-h-screen flex items-center justify-center";
+            }
+        });
+
+        // ලොගින් බොත්තම ක්‍රියාත්මක කිරීම
+        document.getElementById('login-submit-btn').onclick = async () => {
+            const email = document.getElementById('login-email').value.trim();
+            const pass = document.getElementById('login-password').value;
+            const errorMsg = document.getElementById('login-error');
+            const btn = document.getElementById('login-submit-btn');
+
+            if(!email || !pass) return;
+            btn.innerText = "AUTHENTICATING...";
+            errorMsg.classList.add('hidden');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                btn.innerText = "Initialize Bypass";
+            } catch (error) {
+                console.error(error);
+                errorMsg.classList.remove('hidden');
+                btn.innerText = "Initialize Bypass";
+            }
+        };
+
+        // Logout බොත්තම ක්‍රියාත්මක කිරීම
+        document.getElementById('logout-btn').onclick = async () => {
+            await signOut(auth);
+        };
 
         // 15 Premium UI Configurations Database Array
         const uiThemesLibrary = [
@@ -566,7 +640,6 @@
             
             const selectedTheme = uiThemesLibrary.find(x => x.id === themeId);
             if(selectedTheme) {
-                // Instantly inject configuration values to individual color pickers inputs
                 document.getElementById('col-nav').value = selectedTheme.colors.nav;
                 document.getElementById('col-mainTitle').value = selectedTheme.colors.mainTitle;
                 document.getElementById('col-secTitle').value = selectedTheme.colors.secTitle;
@@ -579,7 +652,6 @@
             }
         }
 
-        // Smart Canvas Compressor to Fix Lag/Crash Bugs
         function compressImageBeforeUpload(file, maxDimension = 1200, quality = 0.7) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -627,23 +699,19 @@
             });
         }
 
-        // Live Mainframe Database Listening Snapshot Node
         onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
             if (docSnap.exists()) {
                 liveDatabaseState = docSnap.data();
                 
-                // Active Layout UI Theme Parsing Configuration
                 if(liveDatabaseState.activeThemeId) {
                     selectThemeEngine(liveDatabaseState.activeThemeId);
                 } else {
                     selectThemeEngine("theme-charm-neon");
                 }
 
-                // Header Logo & Theme Style
                 if(liveDatabaseState.headerLogo) document.getElementById('headerLogoInput').value = liveDatabaseState.headerLogo;
                 if(liveDatabaseState.headerStyle) document.getElementById('headerStyleSelect').value = liveDatabaseState.headerStyle;
 
-                // Profile Configuration Structure
                 if(liveDatabaseState.profile) {
                     const p = liveDatabaseState.profile;
                     document.getElementById('profName').value = p.fullName || '';
@@ -651,17 +719,14 @@
                     document.getElementById('profAvatar').value = p.avatar || '';
                     document.getElementById('p-cat').value = p.category || '';
                     document.getElementById('profAboutMe').value = p.aboutMe || '';
-                    // Dual Image Sync Load Nodes
                     document.getElementById('homeHeroImg').value = p.homeHero || '';
                 }
 
-                // Contact Section Live State Load Sync
                 if(liveDatabaseState.contactSettings) {
                     document.getElementById('contactSectionTitle').value = liveDatabaseState.contactSettings.title || 'CONTACT';
                     document.getElementById('showContactGrid').value = liveDatabaseState.contactSettings.showGrid !== false ? "true" : "false";
                 }
 
-                // Social Overlink Network Nodes
                 if(liveDatabaseState.socials) {
                     const s = liveDatabaseState.socials;
                     document.getElementById('s-li').value = s.linkedin || '';
@@ -672,7 +737,6 @@
                     document.getElementById('s-yt').value = s.youtube || '';
                 }
 
-                // Advanced Section Font Controllers
                 if(liveDatabaseState.sectionalFonts) {
                     const f = liveDatabaseState.sectionalFonts;
                     if(f.home) document.getElementById('font-home').value = f.home;
@@ -682,7 +746,6 @@
                     if(f.about) document.getElementById('font-about').value = f.about;
                 }
 
-                // Granular Matrix Color Configuration
                 if(liveDatabaseState.matrixColors) {
                     const c = liveDatabaseState.matrixColors;
                     document.getElementById('col-nav').value = c.nav || '#00f3ff';
@@ -696,7 +759,6 @@
                     document.getElementById('col-footer').value = c.footer || '#6b7280';
                 }
 
-                // Animation Engine State Map
                 if(liveDatabaseState.selectedAvatarAnim) document.getElementById('selected-avatar-anim').value = liveDatabaseState.selectedAvatarAnim;
                 if(liveDatabaseState.selectedBgAnim) document.getElementById('selected-bg-anim').value = liveDatabaseState.selectedBgAnim;
                 if(liveDatabaseState.customAnimationCode) document.getElementById('custom-animation-code').value = liveDatabaseState.customAnimationCode;
@@ -718,7 +780,6 @@
                     }
                 }
 
-                // Security Firewall Configurations
                 if(liveDatabaseState.securitySystem) {
                     const sec = liveDatabaseState.securitySystem;
                     document.getElementById('sec-enabled').value = sec.enabled !== false ? "true" : "false";
@@ -727,7 +788,6 @@
                     document.getElementById('sec-sound-url').value = sec.soundUrl || '';
                 }
 
-                // Array Lists Synchronization Parsing
                 localProjectImages = liveDatabaseState.projectImages || [];
                 renderProjectThumbs();
 
@@ -737,13 +797,11 @@
             }
         });
 
-        // Cloud Storage Token ImgBB Uploader with Auto-Compression Matrix Integration
         async function uploadFileToImgBB(fileElementId) {
             const fileInput = document.getElementById(fileElementId);
             if(!fileInput || !fileInput.files[0]) return null;
             let file = fileInput.files[0];
             
-            // Auto compress to optimize latency performance and eliminate browser tab crashes
             try {
                 file = await compressImageBeforeUpload(file, 1200, 0.7);
             } catch(e) {
@@ -755,7 +813,6 @@
             const d = await r.json(); return d.data.url;
         }
 
-        // Project Stack Management Methods
         document.getElementById('inject-proj-btn').onclick = function() {
             const val = document.getElementById('newProjectUrlInput').value.trim();
             if(!val) return;
@@ -781,7 +838,6 @@
             });
         }
 
-        // Cross-Section Connector: Inject image link instantly from current live photography gallery
         function renderQuickGallerySelector(pool) {
             const container = document.getElementById('gallery-connector-container');
             const grid = document.getElementById('quick-gallery-injector-grid');
@@ -805,7 +861,6 @@
             });
         }
 
-        // Quotes Operation Handlers
         document.getElementById('save-quote-btn').onclick = async () => {
             const index = parseInt(document.getElementById('quote-edit-index').value);
             const text = document.getElementById('quote-text').value.trim();
@@ -836,7 +891,6 @@
 
         window.clearQuoteForm = () => { document.getElementById('quote-edit-index').value = "-1"; document.getElementById('quote-text').value = ""; };
 
-        // Photography Operation Modules
         document.getElementById('commit-photo-btn').onclick = async () => {
             const btn = document.getElementById('commit-photo-btn'); btn.innerText = "COMMITTING DATA...";
             try {
@@ -888,7 +942,6 @@
             document.getElementById('photo-date').value = ""; document.getElementById('photo-url').value = ""; document.getElementById('photo-file').value = "";
         };
 
-        // Realtime Save Operations for Custom Embedded Animation Source Code Blocks
         document.getElementById('save-avatar-code-btn').onclick = async () => {
             const btn = document.getElementById('save-avatar-code-btn');
             const code = document.getElementById('custom-animation-code').value;
@@ -915,13 +968,11 @@
             setTimeout(() => btn.innerText = "Save & Inject Engine", 2000);
         };
 
-        // Master Consolidated Matrix Deployment Method Engine
         document.getElementById('main-deploy-btn').onclick = async function() {
             const btn = document.getElementById('main-deploy-btn');
             btn.innerText = "DEPLOYING MESH PACKAGE...";
             
             try {
-                // Async image asset check layers
                 let logoUrl = document.getElementById('headerLogoInput').value.trim();
                 const freshLogo = await uploadFileToImgBB('p-logo-file');
                 if(freshLogo) { logoUrl = freshLogo; document.getElementById('headerLogoInput').value = logoUrl; }
@@ -930,7 +981,6 @@
                 const freshAvatar = await uploadFileToImgBB('p-avatar-file');
                 if(freshAvatar) { avatarUrl = freshAvatar; document.getElementById('profAvatar').value = avatarUrl; }
 
-                // Dual Image Upload Engine Sync Node
                 let homeHeroUrl = document.getElementById('homeHeroImg').value.trim();
                 const freshHomeHero = await uploadFileToImgBB('p-homehero-file');
                 if(freshHomeHero) { homeHeroUrl = freshHomeHero; document.getElementById('homeHeroImg').value = homeHeroUrl; }
@@ -948,12 +998,11 @@
                     profile: {
                         fullName: document.getElementById('profName').value.trim(),
                         avatar: avatarUrl,
-                        homeHero: homeHeroUrl, // Exported to Live Firebase Realtime Matrix Node
+                        homeHero: homeHeroUrl,
                         bio: document.getElementById('profBio').value.trim(),
                         aboutMe: document.getElementById('profAboutMe').value.trim(),
                         category: document.getElementById('p-cat').value.trim()
                     },
-                    // Contact Overlay Configuration Array Package
                     contactSettings: {
                         title: document.getElementById('contactSectionTitle').value.trim(),
                         showGrid: document.getElementById('showContactGrid').value === "true"
