@@ -595,15 +595,23 @@
                 <div class="lg:col-span-2 glass p-8 rounded-3xl space-y-6 border border-pink-500/30 anim-fade-scale">
                     <h3 class="text-sm font-black font-['Orbitron'] text-pink-400 uppercase tracking-widest">// Gallery Management System</h3>
                     <input type="hidden" id="photo-edit-index" value="-1">
-                    <div class="grid md:grid-cols-3 gap-4">
+                    <div class="grid md:grid-cols-2 gap-4">
                         <input type="text" id="photo-title" placeholder="Title" class="w-full p-3 rounded-xl input-cyber text-xs">
-                        <input type="text" id="photo-date" placeholder="Date" class="w-full p-3 rounded-xl input-cyber text-xs">
-                        <input type="text" id="photo-url" placeholder="Direct URL" class="w-full p-3 rounded-xl input-cyber text-xs">
+                        <input type="text" id="photo-date" placeholder="Date (e.g. 2026-01-01)" class="w-full p-3 rounded-xl input-cyber text-xs">
                     </div>
                     <textarea id="photo-desc" rows="2" placeholder="Description" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
+
+                    <!-- Gallery-only URL field (read-only, set by gallery picker) -->
+                    <div class="relative">
+                        <div class="flex items-center gap-2 p-3 rounded-xl text-xs" style="background:rgba(0,0,0,0.4); border:1.5px solid rgba(168,85,247,0.2);">
+                            <i class="fa-solid fa-lock text-purple-400 text-xs"></i>
+                            <span id="photo-url-display" class="text-gray-400 flex-1 truncate" style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.05em;">// No image selected — use gallery below</span>
+                            <input type="hidden" id="photo-url">
+                        </div>
+                    </div>
                     
                     <button id="gallery-selector-btn" class="w-full px-5 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-black text-xs uppercase rounded-lg transition-all anim-pulse-text">
-                        <i class="fa-solid fa-images mr-2"></i> Select from Gallery Only
+                        <i class="fa-solid fa-images mr-2"></i> Select Image from Gallery
                     </button>
                     
                     <button id="commit-photo-btn" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black text-xs uppercase rounded-lg transition-all">
@@ -859,6 +867,8 @@
 
         function selectFromGallery(photo) {
             document.getElementById('photo-url').value = photo.url;
+            document.getElementById('photo-url-display').textContent = '✓ ' + photo.url;
+            document.getElementById('photo-url-display').style.color = '#a855f7';
             document.getElementById('photo-title').value = photo.title;
             document.getElementById('photo-date').value = photo.date;
             document.getElementById('photo-desc').value = photo.description;
