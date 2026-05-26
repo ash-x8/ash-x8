@@ -524,7 +524,6 @@
             if (docSnap.exists()) {
                 globalData = docSnap.data();
                 
-                // 1. DYNAMIC NAVIGATION THEME SELECTOR LAYER
                 const headerEl = document.getElementById('main-header');
                 headerEl.className = "fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-[5000] rounded-[1.5rem] px-4 md:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 transition-all";
                 if(globalData.headerStyle) {
@@ -533,13 +532,11 @@
                     headerEl.classList.add('glass');
                 }
 
-                // 2. 15 THEMES CONTROLLER MIDDLEWARE INTERACTION SYSTEM
                 if(globalData.selectedTheme) {
                     document.body.className = document.body.className.replace(/\btheme-\S+/g, '');
                     document.body.classList.add(`theme-${globalData.selectedTheme}`);
                 }
 
-                // 3. GRANULAR FONT COLOR ENGINE INJECTION SYSTEM
                 if(globalData.matrixColors) {
                     const c = globalData.matrixColors;
                     document.getElementById('custom-dynamic-fonts').innerHTML = `
@@ -585,7 +582,6 @@
                         document.getElementById('about-me-text').innerText = p.aboutMe;
                     }
                     
-                    // SPLIT IMAGES CONTROLLER FOR HOME & ABOUT SECTIONS
                     if(p.avatar) {
                         document.getElementById('home-avatar-display').src = p.avatar;
                     }
@@ -699,7 +695,6 @@
                     avatarImg.classList.add(globalData.selectedAvatarAnim);
                 }
                 
-                // 15 ENGINE MAPPED BACKGROUND ANIMATION SYSTEM VIA FIREBASE DYNAMICS
                 const bgAnimContainer = document.getElementById('bg-animation-container');
                 bgAnimContainer.className = "";
                 if(globalData.selectedBgAnim && globalData.selectedBgAnim !== "none") {
