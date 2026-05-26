@@ -3,727 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Kushan A Wickramasinghe | Professional Creative Services</title>
     <meta name="description" content="Professional Photography, Creative Graphic Design, and Social Media Post Design by Kushan A Wickramasinghe. Elevate your brand with premium visuals.">
-    <meta name="keywords" content="Kushan A Wickramasinghe, Ash Wickramasinghe, Professional Photographer, Graphic Designer Sri Lanka, Creative Post Design, Social Media Manager">
+    <meta name="keywords" content="Kushan A Wickramasinghe, Ash Wickramasinghe, Professional Photographer, Graphic Designer Sri Lanka">
     <meta name="author" content="Kushan A Wickramasinghe">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:title" content="Kushan A Wickramasinghe | Creative Portfolio">
-    <meta property="og:description" content="Premium Photography, Graphic Design, and Content Creation services.">
-    <meta property="og:image" content="https://api.imagecloud.online/uploads/u/4e579678-6c97-49e1-83cf-c4fb49036523/o/0bb7ab73-0e5d-48ed-b2b6-018f185e68f7.webp">
-    <meta property="og:url" content="https://ash-x8.vercel.app/">
-    <meta property="og:type" content="website">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Kushan A Wickramasinghe",
-      "url": "https://ash-x8.vercel.app/",
-      "image": "https://api.imagecloud.online/uploads/u/4e579678-6c97-49e1-83cf-c4fb49036523/o/0bb7ab73-0e5d-48ed-b2b6-018f185e68f7.webp",
-      "jobTitle": ["Photographer", "Graphic Designer", "Content Creator"],
-      "affiliation": {
-        "@type": "Organization",
-        "name": "Sandalanka Central College"
-      },
-      "sameAs": [
-        "https://www.youtube.com/@Ash-x8",
-        "https://www.facebook.com/share/1UeTQSvLik/",
-        "https://www.linkedin.com/in/kushan-a-wickramasinghe-28b1aa2a0",
-        "https://wa.me/+94752269410",
-        "https://t.me/kawickramasinghe",
-        "https://vm.tiktok.com/ZS9Ypfen3rcYL-KiVCP/"
-      ]
-    }
-    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-    <style id="custom-dynamic-fonts"></style>
-    <style id="custom-animation-styles"></style>
-    <style id="custom-bg-styles"></style>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root { 
-            --charm-primary: #6366f1; 
-            --charm-secondary: #4f46e5;
-            --bg: #0f172a; 
-            --neon: var(--charm-primary);
+        :root {
+            --primary: #a855f7;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
         }
-        body { 
-            background: var(--bg); 
-            color: #f8fafc; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            overflow-x: hidden; 
-            user-select: none; 
-            transition: background 0.5s ease, color 0.5s ease;
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0f2e 50%, #0f1530 100%);
+            background-attachment: fixed;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
-        
-        canvas#bg-canvas { 
-            position: fixed; 
-            inset: 0; 
-            z-index: -2; 
-            pointer-events: none; 
-            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
-        #bg-animation-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-        
-        /* PREMIUM BUSINESS GLASSMORPHISM */
-        .glass { 
-            background: rgba(30, 41, 59, 0.45); 
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInScale 1s ease-out forwards;
         }
-        .info-box { 
-            border-left: 4px solid var(--charm-primary); 
-            background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, transparent 100%); 
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGlitch 4s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
         }
-        .quote-pre { white-space: pre-wrap; font-family: inherit; }
 
-        /* CLEAN BUSINESS AVATAR BORDER */
-        .lens-container { position: relative; width: 190px; height: 190px; display: flex; align-items: center; justify-content: center; }
-        .focus-ring { position: absolute; inset: -8px; border: 2px solid rgba(99, 102, 241, 0.4); border-radius: 50%; }
-        
-        /* 15 GLOBAL THEMES ENGINE */
-        body.theme-charm { --bg: #0f172a; --neon: #6366f1; }
-        body.theme-cyber-neon { --bg: #020205; --neon: #00f3ff; }
-        body.theme-hacker-green { --bg: #010803; --neon: #00ff66; }
-        body.theme-minimalist-dark { --bg: #0f172a; --neon: #f8fafc; }
-        body.theme-minimalist-light { --bg: #f8fafc; --neon: #0f172a; color: #1e293b !important; }
-        body.theme-minimalist-light .glass { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); color: #1e293b; }
-        body.theme-retro-arcade { --bg: #11001c; --neon: #ffff00; }
-        body.theme-glass-frost { --bg: #1e1b4b; --neon: #38bdf8; }
-        body.theme-matrix-code { --bg: #000000; --neon: #00ff00; }
-        body.theme-premium-gold { --bg: #0a0903; --neon: #d4af37; }
-        body.theme-ocean-blue { --bg: #021124; --neon: #0ea5e9; }
-        body.theme-sunset-vibe { --bg: #1c0a10; --neon: #f43f5e; }
-        body.theme-monochrome { --bg: #121212; --neon: #ffffff; }
-        body.theme-emerald-tech { --bg: #022c22; --neon: #10b981; }
-        body.theme-fire-vortex { --bg: #1a0500; --neon: #f97316; }
-        body.theme-quantum-mesh { --bg: #03001e; --neon: #ec4899; }
+        .hero p {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            animation: slideInText 0.8s ease-out 0.2s both;
+        }
 
-        header { transition: transform 0.4s ease, background-color 0.3s; }
-        .header-hidden { transform: translate(-50%, -120%); }
-        
-        .social-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; color: #ccc; }
-        .social-icon:hover { color: #fff; background: var(--neon); border-color: transparent; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3); transform: translateY(-4px); }
-        .app-section { display: none; }
-        .app-section.active-section { display: block; animation: sectionIn 0.4s ease-out forwards; }
-        @keyframes sectionIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.4);
+            animation: slideInText 0.8s ease-out 0.4s both;
+        }
 
-        #security-modal { display: none; position: fixed; inset: 0; z-index: 999999; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(16px); align-items: center; justify-content: center; padding: 20px; }
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.6);
+        }
 
-        #mainframe-loader-screen { position: fixed; inset: 0; z-index: 9999999; background: #0f172a; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease-in-out; }
-        .loader-ring-node { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: #6366f1; border-radius: 50%; animation: loadSpin 1s linear infinite; }
-        @keyframes loadSpin { to { transform: rotate(360deg); } }
+        .section {
+            padding: 4rem 2rem;
+            max-width: 7xl;
+            margin: 0 auto;
+        }
 
-        .inner-gallery-img {
-            width: 100% !important;
-            height: auto !important;
-            max-height: 400px !important;
-            object-fit: contain !important;
-            object-position: center !important;
-            background: rgba(0,0,0,0.2);
-            border-radius: 12px;
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 3rem;
+            animation: slideInText 0.8s ease-out;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(20, 15, 40, 0.6), rgba(30, 20, 50, 0.6));
+            border: 1.5px solid rgba(168, 85, 247, 0.2);
+            border-radius: 1.2rem;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeInScale 0.8s ease-out both;
+        }
+
+        .card:hover {
+            border-color: rgba(168, 85, 247, 0.7);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.4);
+            transform: translateY(-6px);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
     </style>
 </head>
-<body class="theme-charm">
-    <div id="mainframe-loader-screen">
-        <div id="loader-graphic-render" class="loader-ring-node"></div>
-        <div id="loader-status-text" class="text-xs font-semibold text-slate-400 mt-4 tracking-wider">Loading Portfolio System...</div>
-    </div>
-
-    <canvas id="bg-canvas"></canvas>
-    <div id="bg-animation-container"></div>
-    <div id="custom-injected-bg-space"></div>
-
-    <div id="security-modal" onclick="closeSecurityAlert()">
-        <div class="glass p-8 rounded-3xl max-w-md w-full text-center space-y-6" onclick="event.stopPropagation()">
-            <div class="w-16 h-16 bg-red-500/10 text-red-500 text-2xl rounded-full flex items-center justify-center mx-auto">
-                <i class="fa-solid fa-lock"></i>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-50 bg-black/10 rounded-full border border-purple-500/30 backdrop-blur-xl shadow-2xl">
+        <div class="px-6 py-3 flex items-center justify-between">
+            <a href="/" class="text-xl font-black tracking-widest uppercase font-['Orbitron'] bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">ASH_X8</a>
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="/" class="text-purple-400 hover:text-pink-400 transition-all">Home</a>
+                <a href="/about.html" class="text-gray-400 hover:text-purple-400 transition-all">About</a>
+                <a href="/projects.html" class="text-gray-400 hover:text-purple-400 transition-all">Services</a>
             </div>
-            <div class="space-y-2">
-                <h3 class="font-bold text-lg text-red-500 uppercase tracking-wide">Action Restricted</h3>
-                <p id="security-warning-msg" class="text-sm text-slate-300 leading-relaxed font-medium">Content protection is enabled on this profile.</p>
-            </div>
-            <button onclick="closeSecurityAlert()" class="w-full py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all">
-                Close Notice
-            </button>
         </div>
-    </div>
+    </nav>
 
-    <header id="main-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-6xl z-[5000] rounded-2xl px-6 py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 glass">
-        <div class="flex items-center gap-3">
-            <img id="header-logo-img" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-8 h-8 rounded-full object-cover border border-indigo-500/30">
-            <span id="header-brand-title" class="font-bold text-sm tracking-wider uppercase selector-nav-color">KUSHAN A.</span>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content px-4">
+            <h1>Creative Excellence</h1>
+            <p>Photography • Graphic Design • Content Creation</p>
+            <a href="#contact" class="cta-button">Get Started</a>
         </div>
-        <nav class="flex flex-wrap justify-center gap-2 md:gap-6">
-            <button onclick="switchSection('home')" id="nav-home" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition-all selector-nav-color">Home</button>
-            <button onclick="switchSection('projects')" id="nav-projects" class="text-xs font-semibold px-3 py-1.5 rounded-lg opacity-70 hover:opacity-100 transition-all selector-nav-color">Designs</button>
-            <button onclick="switchSection('photography')" id="nav-photography" class="text-xs font-semibold px-3 py-1.5 rounded-lg opacity-70 hover:opacity-100 transition-all selector-nav-color">Photography</button>
-            <button onclick="switchSection('writing')" id="nav-writing" class="text-xs font-semibold px-3 py-1.5 rounded-lg opacity-70 hover:opacity-100 transition-all selector-nav-color">Quotes</button>
-            <button onclick="switchSection('user-details')" id="nav-user-details" class="text-xs font-semibold px-3 py-1.5 rounded-lg opacity-70 hover:opacity-100 transition-all selector-nav-color">System Info</button>
-            <button onclick="switchSection('about')" id="nav-about" class="text-xs font-semibold px-3 py-1.5 rounded-lg opacity-70 hover:opacity-100 transition-all selector-nav-color">About Me</button>
-        </nav>
-    </header>
+    </section>
 
-    <main class="pt-32 md:pt-36 pb-12 px-4 max-w-6xl mx-auto space-y-12">
-        
-        <section id="sec-home" class="app-section active-section space-y-12">
-            <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 py-6">
-                <div class="relative w-56 h-56 md:w-64 md:h-64 flex-shrink-0">
-                    <div class="w-full h-full bg-slate-800 rounded-2xl overflow-hidden border border-white/10 shadow-xl">
-                        <img id="home-avatar-display" src="https://i.ibb.co/BHn4zg5c/profile.jpg" class="w-full h-full object-cover">
-                    </div>
-                </div>
-                <div class="text-center lg:text-left space-y-4 max-w-xl">
-                    <h2 id="home-mini-header" class="font-bold text-xs uppercase tracking-widest text-indigo-400 selector-caption-color">Welcome to My Portfolio</h2>
-                    <h1 id="dynamic-name" class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-white selector-mainTitle-color">KUSHAN A. <br><span>WICKRAMASINGHE</span></h1>
-                    <p id="dynamic-bio" class="text-sm md:text-base text-slate-300 leading-relaxed selector-bio-color">Professional Photography, Creative Graphic Designing, and Premium Social Media Content Creation.</p>
-                    <div id="dynamic-categories" class="flex flex-wrap gap-2 justify-center lg:justify-start pt-2"></div>
-                    
-                    <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-4 items-center">
-                        <a id="hire-me-wa-btn" href="#" target="_blank" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white transition-all duration-300 rounded-xl text-xs font-bold tracking-wider flex items-center gap-2 uppercase">
-                            <i class="fa-solid fa-envelope"></i> Contact Me Now
-                        </a>
-                    </div>
-                </div>
+    <!-- Services Section -->
+    <section class="section">
+        <h2 class="section-title">Our Services</h2>
+        <div class="grid-3">
+            <div class="card" style="animation-delay: 0.1s;">
+                <div class="text-4xl mb-4 text-purple-400"><i class="fas fa-camera"></i></div>
+                <h3 class="text-xl font-bold mb-2 text-white">Professional Photography</h3>
+                <p class="text-gray-400">Stunning visual content that captures your brand's essence with premium photography services.</p>
             </div>
-
-            <!-- EXTREMELY SIMPLE SERVICES SUMMARY FOR NON-TECH USERS -->
-            <div class="grid sm:grid-cols-3 gap-6 pt-6 border-t border-white/5">
-                <div class="glass p-6 rounded-2xl text-center space-y-3">
-                    <div class="text-indigo-400 text-2xl"><i class="fa-solid fa-camera"></i></div>
-                    <h3 class="font-bold text-sm text-white">Professional Photography</h3>
-                    <p class="text-xs text-slate-400">Capturing high-quality events, portraits, and premium creative visuals.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl text-center space-y-3">
-                    <div class="text-indigo-400 text-2xl"><i class="fa-solid fa-palette"></i></div>
-                    <h3 class="font-bold text-sm text-white">Graphic Designing</h3>
-                    <p class="text-xs text-slate-400">Creating modern layouts, premium flyers, branding, and graphics.</p>
-                </div>
-                <div class="glass p-6 rounded-2xl text-center space-y-3">
-                    <div class="text-indigo-400 text-2xl"><i class="fa-solid fa-share-nodes"></i></div>
-                    <h3 class="font-bold text-sm text-white">Social Media Posts</h3>
-                    <p class="text-xs text-slate-400">Designing highly engaging creative posts for business pages.</p>
-                </div>
+            <div class="card" style="animation-delay: 0.2s;">
+                <div class="text-4xl mb-4 text-pink-400"><i class="fas fa-palette"></i></div>
+                <h3 class="text-xl font-bold mb-2 text-white">Graphic Design</h3>
+                <p class="text-gray-400">Creative design solutions that elevate your brand identity with modern and professional aesthetics.</p>
             </div>
-
-            <div class="space-y-4 pt-4">
-                <div class="flex items-center gap-2"><h3 id="story-block-title" class="font-bold text-xs uppercase tracking-wider selector-secTitle-color">// Recent Work Highlights</h3></div>
-                <div class="w-full max-w-xl mx-auto glass p-3 rounded-2xl border border-white/5 relative overflow-hidden">
-                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-black/40 relative">
-                        <img id="story-player-img" src="" class="w-full h-full object-cover transition-all duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10"></div>
-                        <div class="absolute bottom-4 left-4 z-20 space-y-0.5">
-                            <span id="story-player-badge" class="px-2 py-0.5 bg-indigo-600/30 text-indigo-300 rounded text-[9px] font-bold uppercase tracking-wider">Featured Showcase</span>
-                            <h4 id="story-player-title" class="text-xs font-bold text-white">Loading Visuals...</h4>
-                        </div>
-                    </div>
-                </div>
+            <div class="card" style="animation-delay: 0.3s;">
+                <div class="text-4xl mb-4 text-cyan-400"><i class="fas fa-pen-fancy"></i></div>
+                <h3 class="text-xl font-bold mb-2 text-white">Content Creation</h3>
+                <p class="text-gray-400">Engaging social media content that connects with your audience and drives meaningful engagement.</p>
             </div>
-
-            <div class="border-t border-white/5 pt-8">
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-                    <div class="info-box p-4 rounded-xl glass selector-userInfo-color"><p class="font-semibold uppercase mb-0.5 text-[10px] text-slate-400">Your IP Network</p><p id="user-ip" class="font-bold truncate">Loading...</p></div>
-                    <div class="info-box p-4 rounded-xl glass selector-userInfo-color"><p class="font-semibold uppercase mb-0.5 text-[10px] text-slate-400">Your Location</p><p id="user-loc" class="font-bold truncate">Detecting...</p></div>
-                    <div class="info-box p-4 rounded-xl glass selector-userInfo-color"><p class="font-semibold uppercase mb-0.5 text-[10px] text-slate-400">Device Status</p><p id="user-bat" class="font-bold truncate">Scanning...</p></div>
-                    <div class="info-box p-4 rounded-xl glass selector-userInfo-color"><p class="font-semibold uppercase mb-0.5 text-[10px] text-slate-400">System Time</p><p id="real-time" class="font-bold">00:00:00</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="sec-projects" class="app-section">
-            <h2 id="head-projects" class="text-lg font-bold mb-6 tracking-wide border-l-4 border-indigo-500 pl-3 selector-secTitle-color">Graphic Design Works</h2>
-            <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section id="sec-photography" class="app-section">
-            <h2 id="head-photography" class="text-lg font-bold mb-6 tracking-wide border-l-4 border-indigo-500 pl-3 selector-secTitle-color">Photography Collection</h2>
-            <div id="photography-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <section id="sec-writing" class="app-section">
-            <h2 id="head-writing" class="text-lg font-bold mb-6 tracking-wide border-l-4 border-indigo-500 pl-3 selector-secTitle-color">Creative Thoughts & Quotes</h2>
-            <div id="writing-container" class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"></div>
-        </section>
-
-        <section id="sec-user-details" class="app-section">
-            <div class="w-full max-w-5xl mx-auto space-y-6">
-                <div class="flex items-center gap-2 border-b border-white/5 pb-4">
-                    <h2 id="head-user-details" class="text-lg font-bold tracking-wide text-indigo-400 uppercase selector-secTitle-color">Visitor Logistics & Metadata</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="glass p-5 rounded-xl border border-white/5 flex gap-4 items-center">
-                        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i class="fa-solid fa-network-wired"></i></div>
-                        <div class="space-y-0.5 flex-1 min-w-0">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Network Connection</p>
-                            <p class="text-xs text-slate-200 truncate">IP: <span id="detect-ip">Detecting...</span></p>
-                            <p class="text-xs text-slate-200 truncate">ISP: <span id="detect-isp">Scanning...</span></p>
-                        </div>
-                    </div>
-                    <div class="glass p-5 rounded-xl border border-white/5 flex gap-4 items-center">
-                        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i class="fa-solid fa-earth-asia"></i></div>
-                        <div class="space-y-0.5 flex-1 min-w-0">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Region Location</p>
-                            <p class="text-xs text-slate-200 truncate">Country: <span id="detect-country">Detecting...</span></p>
-                            <p class="text-xs text-slate-200 truncate">City: <span id="detect-region">Scanning...</span></p>
-                        </div>
-                    </div>
-                    <div class="glass p-5 rounded-xl border border-white/5 flex gap-4 items-center">
-                        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i class="fa-solid fa-mobile-screen-button"></i></div>
-                        <div class="space-y-0.5 flex-1 min-w-0">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Device Specification</p>
-                            <p class="text-xs text-slate-200 truncate">Type: <span id="detect-device-type">Scanning...</span></p>
-                            <p class="text-xs text-slate-200 truncate">Operating System: <span id="detect-device-os">Detecting...</span></p>
-                        </div>
-                    </div>
-                    <div class="glass p-5 rounded-xl border border-white/5 flex gap-4 items-center">
-                        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i class="fa-solid fa-window-restore"></i></div>
-                        <div class="space-y-0.5 flex-1 min-w-0">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Browser Software</p>
-                            <p class="text-xs text-slate-200 truncate">Browser: <span id="detect-browser">Scanning...</span></p>
-                            <p class="text-xs text-slate-200 truncate">Language: <span id="detect-lang">Detecting...</span></p>
-                        </div>
-                    </div>
-                    <div class="glass p-5 rounded-xl border border-white/5 flex gap-4 items-center">
-                        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i class="fa-solid fa-battery-three-quarters"></i></div>
-                        <div class="space-y-0.5 flex-1 min-w-0">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Battery System</p>
-                            <p class="text-xs text-slate-200 truncate">Power Level: <span id="detect-bat-level">Scanning...</span></p>
-                            <p class="text-xs text-slate-200 truncate">Status: <span id="detect-bat-status">Detecting...</span></p>
-                        </div>
-                    </div>
-                    <div class="glass p-5 rounded-xl border border-white/5 flex gap-4 items-center">
-                        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i class="fa-solid fa-clock"></i></div>
-                        <div class="space-y-0.5 flex-1 min-w-0">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Time Tracking</p>
-                            <p class="text-xs text-slate-200 truncate">Date: <span id="detect-date">0000.00.00</span></p>
-                            <p class="text-xs text-indigo-400 font-bold truncate">Time: <span id="detect-time">00:00:00</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="sec-about" class="app-section">
-            <div class="w-full max-w-5xl mx-auto space-y-6">
-                <div class="flex items-center justify-between border-b border-white/5 pb-4">
-                    <h2 id="head-about" class="text-lg font-bold tracking-wide text-indigo-400 uppercase selector-secTitle-color">Professional Dossier</h2>
-                    <a id="about-highlight-linkedin" href="#" target="_blank" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 transition-all duration-300"><i class="fa-brands fa-linkedin-in text-xs"></i> LinkedIn Profile</a>
-                </div>
-
-                <div class="glass p-8 md:p-10 rounded-3xl border border-white/5">
-                    <div class="flex flex-col lg:flex-row gap-8 items-center">
-                        <div class="lens-container">
-                            <div class="focus-ring"></div>
-                            <div class="w-32 h-32 rounded-full overflow-hidden bg-slate-900 p-1">
-                                <img id="about-avatar" class="w-full h-full rounded-full object-cover" src="https://i.ibb.co/BHn4zg5c/profile.jpg">
-                            </div>
-                        </div>
-
-                        <div class="text-center lg:text-left space-y-3 flex-grow">
-                            <div id="about-status-node" class="inline-flex items-center px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-bold text-indigo-300 uppercase tracking-wider">Verified Professional Creator</div>
-                            <h3 id="about-name" class="text-2xl md:text-3xl font-extrabold text-white selector-mainTitle-color">KUSHAN A. WICKRAMASINGHE</h3>
-                            <p id="about-me-text" class="text-sm leading-relaxed text-slate-300 max-w-2xl selector-about-color">Dedicated to providing high-quality digital assets, corporate graphics, and outstanding photography services tailored for brands and individuals.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="sec-contact-dock" class="w-full max-w-5xl mx-auto space-y-4">
-            <div class="flex items-center gap-2 border-b border-white/5 pb-3">
-                <h2 class="text-lg font-bold text-indigo-400 uppercase">// Secure Communication Channels</h2>
-            </div>
-            <div class="glass p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="text-center md:text-left space-y-0.5">
-                    <p class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Get In Touch</p>
-                    <p class="text-sm text-slate-300">Choose your preferred social channel below to discuss your creative requirements.</p>
-                </div>
-                <div class="flex flex-wrap justify-center gap-3" id="social-dock">
-                    <a href="#" id="link-whatsapp" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" id="link-facebook" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" id="link-instagram" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" id="link-telegram" target="_blank" class="social-icon"><i class="fa-brands fa-telegram-plane"></i></a>
-                    <a href="#" id="link-tiktok" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" id="link-youtube" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" id="link-linkedin" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="w-full mt-12 border-t border-white/5 glass py-6 text-center text-xs text-slate-500">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div id="footer-copyright-text" class="selector-footer-color">© 2026 Kushan A. Wickramasinghe. All Rights Reserved.</div>
         </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-purple-500/20 py-8 px-4 text-center text-gray-400">
+        <p>&copy; 2026 Kushan A Wickramasinghe. All rights reserved.</p>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCnXtXpynpkN5SOi-l8zSuaeuLFUByQVhQ",
-            authDomain: "ash-x8.firebaseapp.com",
-            projectId: "ash-x8",
-            storageBucket: "ash-x8.firebasestorage.app",
-            messagingSenderId: "430061337740",
-            appId: "1:430061337740:web:50a52de99da51e88960fa9",
-            measurementId: "G-Z9GEG1ZJHR"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        let globalData = {};
-        let storyPool = [];
-        let currentStoryIndex = 0;
-        let storyTimer = null;
-
-        window.securityConfig = {
-            enabled: true,
-            soundEnabled: true,
-            message: "Content protection is enabled on this profile.",
-            soundUrl: "https://www.soundjay.com/buttons/sounds/button-10.mp3"
-        };
-
-        onSnapshot(doc(db, "portfolio", "liveData"), (docSnap) => {
-            if (docSnap.exists()) {
-                globalData = docSnap.data();
-                
-                if(globalData.selectedTheme) {
-                    document.body.className = document.body.className.replace(/\btheme-\S+/g, '');
-                    document.body.classList.add(`theme-${globalData.selectedTheme}`);
-                }
-
-                if(globalData.matrixColors) {
-                    const c = globalData.matrixColors;
-                    document.getElementById('custom-dynamic-fonts').innerHTML = `
-                        .selector-nav-color { color: ${c.nav || '#ffffff'} !important; }
-                        .selector-mainTitle-color, .selector-mainTitle-color span { color: ${c.mainTitle || '#ffffff'} !important; }
-                        .selector-secTitle-color { color: ${c.secTitle || '#6366f1'} !important; }
-                        .selector-caption-color { color: ${c.caption || '#818cf8'} !important; }
-                        .selector-date-color { color: ${c.date || '#64748b'} !important; }
-                        .selector-userInfo-color, .selector-userInfo-color p { color: ${c.userInfo || '#ffffff'} !important; border-left-color: ${c.secTitle || '#6366f1'} !important; }
-                        .selector-bio-color { color: ${c.bio || '#94a3b8'} !important; }
-                        .selector-about-color { color: ${c.about || '#cbd5e1'} !important; }
-                        .selector-footer-color { color: ${c.footer || '#64748b'} !important; }
-                    `;
-                }
-
-                if(globalData.securitySystem) {
-                    const sec = globalData.securitySystem;
-                    window.securityConfig.enabled = sec.enabled !== false;
-                    window.securityConfig.soundEnabled = sec.soundEnabled !== false;
-                    window.securityConfig.message = sec.message || "Content protection is enabled on this profile.";
-                    window.securityConfig.soundUrl = sec.soundUrl || "https://www.soundjay.com/buttons/sounds/button-10.mp3";
-                    document.getElementById('security-warning-msg').innerText = window.securityConfig.message;
-                }
-
-                if(globalData.headerLogo) document.getElementById('header-logo-img').src = globalData.headerLogo;
-                if(globalData.socials && globalData.socials.whatsapp) {
-                    document.getElementById('hire-me-wa-btn').href = "https://wa.me/" + globalData.socials.whatsapp.replace(/[^0-9]/g, "");
-                }
-
-                if(globalData.profile) {
-                    const p = globalData.profile;
-                    if(p.fullName) {
-                        const words = p.fullName.split(' ');
-                        const first = words.slice(0, -1).join(' ');
-                        const last = words[words.length - 1];
-                        document.getElementById('dynamic-name').innerHTML = `${first} <br><span>${last}</span>`;
-                        if(document.getElementById('about-name')) {
-                            document.getElementById('about-name').innerText = p.fullName;
-                        }
-                    }
-                    if(p.bio) document.getElementById('dynamic-bio').innerText = p.bio;
-                    if(p.aboutMe && document.getElementById('about-me-text')) {
-                        document.getElementById('about-me-text').innerText = p.aboutMe;
-                    }
-                    if(p.avatar) document.getElementById('home-avatar-display').src = p.avatar;
-                    if(p.aboutAvatar) document.getElementById('about-avatar').src = p.aboutAvatar;
-                    else if(p.avatar) document.getElementById('about-avatar').src = p.avatar;
-
-                    if(p.category) {
-                        const container = document.getElementById('dynamic-categories'); container.innerHTML = '';
-                        p.category.split(',').forEach(cat => {
-                            container.innerHTML += `<span class="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-xs font-semibold selector-caption-color">${cat.trim()}</span>`;
-                        });
-                    }
-                }
-
-                setTimeout(() => {
-                    const loaderScreen = document.getElementById('mainframe-loader-screen');
-                    if(loaderScreen) {
-                        loaderScreen.style.opacity = '0';
-                        setTimeout(() => loaderScreen.style.display = 'none', 400);
-                    }
-                }, 800);
-
-                renderProjects(globalData.projectImages || []);
-                renderPhotography(globalData.photographyPool || []);
-                renderWritingQuotes(globalData.quotes || []);
-
-                if(globalData.socials) {
-                    const s = globalData.socials;
-                    toggleSocial('link-whatsapp', s.whatsapp);
-                    toggleSocial('link-facebook', s.facebook);
-                    toggleSocial('link-instagram', s.instagram);
-                    toggleSocial('link-telegram', s.telegram);
-                    toggleSocial('link-tiktok', s.tiktok);
-                    toggleSocial('link-youtube', s.youtube);
-                    toggleSocial('link-linkedin', s.linkedin);
-                    if(s.linkedin && document.getElementById('about-highlight-linkedin')) {
-                        document.getElementById('about-highlight-linkedin').href = s.linkedin;
-                    }
-                }
-
-                assembleStoryPool();
-            }
-        });
-
-        function toggleSocial(id, url) {
-            const el = document.getElementById(id);
-            if(url && url.trim() !== "") { el.href = url; el.style.display = "flex"; }
-            else { el.style.display = "none"; }
-        }
-
-        function renderProjects(arr) {
-            const grid = document.getElementById('projects-grid'); grid.innerHTML = '';
-            arr.forEach((url, i) => {
-                grid.innerHTML += `
-                    <div class="glass rounded-xl overflow-hidden border border-white/5 relative group p-2">
-                        <div class="overflow-hidden rounded-lg">
-                            <img src="${url}" class="inner-gallery-img transition-transform duration-300 group-hover:scale-102">
-                        </div>
-                        <div class="p-3 mt-1 text-center">
-                            <h4 class="font-bold text-xs text-slate-300">Graphic Portfolio Showcase #${i+1}</h4>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function renderPhotography(pool) {
-            const grid = document.getElementById('photography-grid'); grid.innerHTML = '';
-            pool.forEach((item) => {
-                grid.innerHTML += `
-                    <div class="glass rounded-xl overflow-hidden border border-white/5 p-2 flex flex-col justify-between">
-                        <div class="overflow-hidden rounded-lg">
-                            <img src="${item.url}" class="inner-gallery-img">
-                        </div>
-                        <div class="p-3 mt-2 bg-slate-900/30 rounded-lg space-y-1">
-                            <h4 class="text-xs font-bold text-white uppercase">${item.title || 'Creative Capture'}</h4>
-                            <p class="text-xs text-slate-400">${item.desc || ''}</p>
-                            <span class="text-[10px] block text-slate-500">${item.date || ''}</span>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function renderWritingQuotes(quotes) {
-            const container = document.getElementById('writing-container'); container.innerHTML = '';
-            quotes.forEach((q, index) => {
-                const likes = q.likes || 0;
-                const comments = q.comments || [];
-                let cmtsMarkup = comments.map(c => `<div class="text-xs text-slate-300 bg-black/20 p-2 rounded-lg">💬 ${c}</div>`).join('');
-                container.innerHTML += `
-                    <div class="glass p-6 rounded-2xl border border-white/5 flex flex-col justify-between space-y-4">
-                        <div>
-                            <span class="text-[10px] font-bold block mb-1 text-slate-500">Thought Log #${index+1}</span>
-                            <div class="quote-pre text-sm italic text-slate-200">"${q.text}"</div>
-                        </div>
-                        <div class="space-y-3 pt-3 border-t border-white/5">
-                            <button onclick="window.processLike(${index})" class="text-xs flex items-center gap-1.5 font-semibold text-slate-400"><i class="fa-solid fa-heart text-red-500"></i> Likes (${likes})</button>
-                            <div class="space-y-1 max-h-24 overflow-y-auto">${cmtsMarkup}</div>
-                            <div class="flex gap-2">
-                                <input type="text" id="cmt-input-${index}" placeholder="Write a comment..." class="bg-slate-900 border border-white/10 text-xs px-3 py-1.5 rounded-lg w-full text-white focus:outline-none">
-                                <button onclick="window.processComment(${index})" class="bg-indigo-600 text-white font-bold text-xs px-3 rounded-lg uppercase">Send</button>
-                            </div>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function assembleStoryPool() {
-            storyPool = [];
-            if(globalData.projectImages) {
-                globalData.projectImages.forEach((url, idx) => storyPool.push({ url: url, type: "Graphic Design", title: `Design Portfolio Frame #${idx+1}` }));
-            }
-            if(globalData.photographyPool) {
-                globalData.photographyPool.forEach(p => storyPool.push({ url: p.url, type: "Photography Portfolio", title: p.title || "Captured Visual Art" }));
-            }
-            if(storyPool.length === 0) return;
-            if(storyTimer) clearInterval(storyTimer);
-            playNextStory();
-            storyTimer = setInterval(playNextStory, 4000);
-        }
-
-        function playNextStory() {
-            if(!storyPool.length) return;
-            const imgEl = document.getElementById('story-player-img');
-            if(!imgEl) return;
-            imgEl.style.opacity = '0';
-            setTimeout(() => {
-                const current = storyPool[currentStoryIndex];
-                imgEl.src = current.url;
-                document.getElementById('story-player-badge').innerText = current.type;
-                document.getElementById('story-player-title').innerText = current.title;
-                imgEl.style.opacity = '1';
-                currentStoryIndex = (currentStoryIndex + 1) % storyPool.length;
-            }, 250);
-        }
-
-        window.processLike = async (index) => {
-            if(!globalData.quotes) return;
-            globalData.quotes[index].likes = (globalData.quotes[index].likes || 0) + 1;
-            await setDoc(doc(db, "portfolio", "liveData"), { quotes: globalData.quotes }, { merge: true });
-        };
-        window.processComment = async (index) => {
-            const input = document.getElementById(`cmt-input-${index}`);
-            if(!input || !input.value.trim()) return;
-            if(!globalData.quotes[index].comments) globalData.quotes[index].comments = [];
-            globalData.quotes[index].comments.push(input.value.trim());
-            await setDoc(doc(db, "portfolio", "liveData"), { quotes: globalData.quotes }, { merge: true });
-            input.value = '';
-        };
-    </script>
-
     <script>
-        let currentAlertSound = null;
-        function triggerSecurityViolation(e) {
-            if (!window.securityConfig || !window.securityConfig.enabled) return true;
-            if (e) e.preventDefault();
-            document.getElementById('security-modal').style.display = 'flex';
-            if (window.securityConfig.soundEnabled && window.securityConfig.soundUrl) {
-                if (currentAlertSound) currentAlertSound.pause();
-                currentAlertSound = new Audio(window.securityConfig.soundUrl);
-                currentAlertSound.play().catch(err => console.log("Audio blocked"));
-            }
-            return false;
-        }
-        function closeSecurityAlert() {
-            document.getElementById('security-modal').style.display = 'none';
-            if (currentAlertSound) currentAlertSound.pause();
-        }
-        document.addEventListener('contextmenu', triggerSecurityViolation);
-        document.addEventListener('keydown', function(e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) { 
-                triggerSecurityViolation(e);
-            }
-        });
-    </script>
-
-    <script>
-        function switchSection(id) {
-            document.querySelectorAll('.app-section').forEach(s => s.classList.remove('active-section'));
-            document.getElementById(`sec-${id}`).classList.add('active-section');
-            const buttons = ['home', 'projects', 'photography', 'writing', 'user-details', 'about'];
-            buttons.forEach(b => {
-                const btn = document.getElementById(`nav-${b}`);
-                if(btn) {
-                    if(b === id) btn.style.opacity = "1";
-                    else btn.style.opacity = "0.7";
-                }
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('main-header');
-            if (window.scrollY === 0) header.classList.remove('header-hidden');
-            else header.classList.add('header-hidden');
         });
-
-        async function loadStats() {
-            setInterval(() => { 
-                const d = new Date();
-                if(document.getElementById('real-time')) document.getElementById('real-time').innerText = d.toLocaleTimeString(); 
-                if(document.getElementById('detect-time')) document.getElementById('detect-time').innerText = d.toLocaleTimeString();
-                if(document.getElementById('detect-date')) document.getElementById('detect-date').innerText = d.toLocaleDateString();
-            }, 1000);
-
-            try {
-                const res = await fetch('https://ipapi.co/json/'); 
-                const data = await res.json();
-                if(document.getElementById('user-ip')) document.getElementById('user-ip').innerText = data.ip || "Connected";
-                if(document.getElementById('user-loc')) document.getElementById('user-loc').innerText = `${data.country_code || 'SL'} | Connected`;
-                if(document.getElementById('detect-ip')) document.getElementById('detect-ip').innerText = data.ip || "N/A";
-                if(document.getElementById('detect-isp')) document.getElementById('detect-isp').innerText = data.org || "Network Service";
-                if(document.getElementById('detect-country')) document.getElementById('detect-country').innerText = data.country_name || "Online";
-                if(document.getElementById('detect-region')) document.getElementById('detect-region').innerText = `${data.region || ''}, ${data.city || ''}`;
-            } catch { 
-                if(document.getElementById('user-ip')) document.getElementById('user-ip').innerText = "Protected"; 
-                if(document.getElementById('detect-ip')) document.getElementById('detect-ip').innerText = "Shielded Info";
-            }
-
-            const ua = navigator.userAgent;
-            let devType = "Desktop Computer";
-            let devOS = "Standard OS";
-            if (/Mobi|Android|iPhone/i.test(ua)) {
-                devType = "Mobile Phone";
-                devOS = ua.includes("iPhone") ? "Apple iOS" : "Android OS";
-            }
-            if(document.getElementById('detect-device-type')) document.getElementById('detect-device-type').innerText = devType;
-            if(document.getElementById('detect-device-os')) document.getElementById('detect-device-os').innerText = devOS;
-
-            if(document.getElementById('detect-browser')) document.getElementById('detect-browser').innerText = "Web Browser Engine";
-            if(document.getElementById('detect-lang')) document.getElementById('detect-lang').innerText = (navigator.language || "EN").toUpperCase();
-
-            if (navigator.getBattery) {
-                navigator.getBattery().then(function(battery) {
-                    function sync() {
-                        const lvl = Math.round(battery.level * 100) + "%";
-                        if(document.getElementById('user-bat')) document.getElementById('user-bat').innerText = lvl;
-                        if(document.getElementById('detect-bat-level')) document.getElementById('detect-bat-level').innerText = lvl;
-                        if(document.getElementById('detect-bat-status')) document.getElementById('detect-bat-status').innerText = battery.charging ? "Charging" : "Battery Power";
-                    }
-                    sync();
-                    battery.addEventListener('levelchange', sync);
-                });
-            }
-        }
-
-        const bgCanvas = document.getElementById('bg-canvas'); 
-        const bgCtx = bgCanvas.getContext('2d');
-        let stars = [];
-
-        function initBg() {
-            bgCanvas.width = window.innerWidth; 
-            bgCanvas.height = window.innerHeight; 
-            stars = [];
-            for(let i=0; i<60; i++) {
-                stars.push({
-                    x: Math.random() * bgCanvas.width, 
-                    y: Math.random() * bgCanvas.height, 
-                    size: Math.random() * 1.5, 
-                    speed: Math.random() * 0.03 + 0.01
-                });
-            }
-        }
-
-        function drawBg() {
-            bgCtx.fillStyle = '#0f172a'; 
-            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-            bgCtx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-            stars.forEach(s => {
-                s.y -= s.speed;
-                if(s.y < 0) s.y = bgCanvas.height;
-                bgCtx.beginPath();
-                bgCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                bgCtx.fill();
-            });
-            requestAnimationFrame(drawBg);
-        }
-
-        window.addEventListener('resize', initBg);
-        window.onload = () => { initBg(); drawBg(); loadStats(); };
     </script>
 </body>
 </html>
