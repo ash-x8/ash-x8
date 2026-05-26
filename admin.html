@@ -8,962 +8,896 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --p:#a855f7; --s:#ec4899; --a:#06b6d4; }
+        :root { --p:#0ea5e9; --s:#06b6d4; --a:#38bdf8; }
         *{ margin:0; padding:0; box-sizing:border-box; }
-        body{ background:linear-gradient(135deg,#0a0e27,#1a0f2e,#0f1530); background-attachment:fixed; color:#fff; font-family:'JetBrains Mono',monospace; overflow-x:hidden; min-height:100vh; }
-        body::before{ content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(168,85,247,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(168,85,247,.04) 1px,transparent 1px); background-size:60px 60px; pointer-events:none; z-index:0; }
+        body{ background:linear-gradient(135deg,#030d1a,#071428,#050e24); background-attachment:fixed; color:#f0f8ff; font-family:'JetBrains Mono',monospace; overflow-x:hidden; min-height:100vh; }
+        body::before{ content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(14,165,233,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.04) 1px,transparent 1px); background-size:60px 60px; pointer-events:none; z-index:0; }
         #gal-bg{ position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
 
-        /* ── GLASS ──────────────────────── */
-        .glass{ background:rgba(20,15,40,.45); backdrop-filter:blur(30px); border:1px solid rgba(168,85,247,.2); box-shadow:0 8px 32px rgba(168,85,247,.1); transition:all .4s; }
-        .glass:hover{ border-color:rgba(168,85,247,.45); box-shadow:0 0 40px rgba(168,85,247,.25); }
+        /* ── GLASS ──────────────────────────────── */
+        .glass{ background:rgba(5,15,38,.45); backdrop-filter:blur(30px); border:1px solid rgba(14,165,233,.2); box-shadow:0 8px 32px rgba(14,165,233,.08); transition:all .4s; }
+        .glass:hover{ border-color:rgba(14,165,233,.45); box-shadow:0 0 40px rgba(14,165,233,.2); }
 
-        /* ── INPUT ──────────────────────── */
-        .inp{ background:rgba(0,0,0,.5)!important; border:1.5px solid rgba(168,85,247,.25)!important; color:#fff!important; padding:.75rem 1rem; border-radius:.75rem; width:100%; font-family:'JetBrains Mono',monospace; font-size:.78rem; transition:all .3s; outline:none; }
-        .inp:focus{ border-color:#a855f7!important; box-shadow:0 0 20px rgba(168,85,247,.35)!important; background:rgba(0,0,0,.7)!important; }
-        .inp::placeholder{ color:#4a5568; }
+        /* ── INPUTS ─────────────────────────────── */
+        .inp{ background:rgba(0,0,0,.5)!important; border:1.5px solid rgba(14,165,233,.25)!important; color:#f0f8ff!important; padding:.75rem 1rem; border-radius:.75rem; width:100%; font-family:'JetBrains Mono',monospace; font-size:.78rem; transition:all .3s; outline:none; }
+        .inp:focus{ border-color:#0ea5e9!important; box-shadow:0 0 20px rgba(14,165,233,.3)!important; background:rgba(0,0,0,.7)!important; }
+        .inp::placeholder{ color:#334155; }
         textarea.inp{ resize:vertical; }
         select.inp{ cursor:pointer; }
+        select.inp option{ background:#071428; color:#f0f8ff; }
 
-        /* ── BUTTONS ────────────────────── */
-        .btn-primary{ background:linear-gradient(135deg,#a855f7,#ec4899); color:#fff; border:none; padding:.7rem 1.6rem; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.85rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:all .3s; position:relative; overflow:hidden; }
+        /* ── BUTTONS ────────────────────────────── */
+        .btn-primary{ background:linear-gradient(135deg,#0ea5e9,#06b6d4); color:#fff; border:none; padding:.7rem 1.6rem; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.85rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:all .3s; position:relative; overflow:hidden; }
         .btn-primary::before{ content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent); transform:translateX(-100%); transition:transform .4s; }
         .btn-primary:hover::before{ transform:translateX(100%); }
-        .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 0 25px rgba(168,85,247,.5); }
-        .btn-sec{ background:rgba(168,85,247,.12); color:#a855f7; border:1.5px solid rgba(168,85,247,.3); padding:.6rem 1.2rem; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
-        .btn-sec:hover{ background:rgba(168,85,247,.2); border-color:#a855f7; transform:translateY(-1px); box-shadow:0 0 15px rgba(168,85,247,.3); }
-        .btn-danger{ background:rgba(239,68,68,.12); color:#ef4444; border:1.5px solid rgba(239,68,68,.3); padding:.55rem 1rem; border-radius:.5rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
-        .btn-danger:hover{ background:rgba(239,68,68,.2); border-color:#ef4444; }
-        .btn-cyan{ background:rgba(6,182,212,.12); color:#06b6d4; border:1.5px solid rgba(6,182,212,.3); padding:.6rem 1.2rem; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
+        .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 0 25px rgba(14,165,233,.5); }
+        .btn-sec{ background:rgba(14,165,233,.1); color:#0ea5e9; border:1.5px solid rgba(14,165,233,.3); padding:.6rem 1.2rem; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
+        .btn-sec:hover{ background:rgba(14,165,233,.2); border-color:#0ea5e9; transform:translateY(-1px); box-shadow:0 0 15px rgba(14,165,233,.3); }
+        .btn-cyan{ background:rgba(6,182,212,.1); color:#06b6d4; border:1.5px solid rgba(6,182,212,.3); padding:.6rem 1.2rem; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
         .btn-cyan:hover{ background:rgba(6,182,212,.2); border-color:#06b6d4; transform:translateY(-1px); }
+        .btn-danger{ background:rgba(239,68,68,.1); color:#ef4444; border:1.5px solid rgba(239,68,68,.3); padding:.5rem 1rem; border-radius:.5rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
+        .btn-danger:hover{ background:rgba(239,68,68,.2); border-color:#ef4444; }
+        .btn-file{ display:inline-flex; align-items:center; gap:.5rem; background:rgba(56,189,248,.08); color:#38bdf8; border:1.5px solid rgba(56,189,248,.25); padding:.6rem 1.2rem; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
+        .btn-file:hover{ background:rgba(56,189,248,.18); border-color:#38bdf8; transform:translateY(-1px); }
+        .btn-file input[type=file]{ display:none; }
 
-        /* ── TABS ───────────────────────── */
-        .tab-btn{ transition:all .35s cubic-bezier(.34,1.56,.64,1); border:1.5px solid rgba(168,85,247,.15); padding:.5rem .9rem; border-radius:.5rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; background:rgba(168,85,247,.06); color:#888; cursor:pointer; white-space:nowrap; position:relative; overflow:hidden; }
-        .tab-btn::before{ content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(168,85,247,.2),transparent); transform:translateX(-100%); transition:transform .4s; }
+        /* ── TABS ───────────────────────────────── */
+        .tab-btn{ transition:all .35s cubic-bezier(.34,1.56,.64,1); border:1.5px solid rgba(14,165,233,.15); padding:.5rem .9rem; border-radius:.5rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; background:rgba(14,165,233,.05); color:#64748b; cursor:pointer; white-space:nowrap; position:relative; overflow:hidden; }
+        .tab-btn::before{ content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(14,165,233,.15),transparent); transform:translateX(-100%); transition:transform .4s; }
         .tab-btn:hover::before{ transform:translateX(100%); }
-        .tab-btn:hover{ border-color:rgba(168,85,247,.4); color:#a855f7; }
-        .tab-btn.active{ background:linear-gradient(135deg,#a855f7,#ec4899)!important; color:#fff!important; font-weight:900; box-shadow:0 0 20px rgba(168,85,247,.5); border-color:#a855f7; }
+        .tab-btn:hover{ border-color:rgba(14,165,233,.4); color:#0ea5e9; }
+        .tab-btn.active{ background:linear-gradient(135deg,#0ea5e9,#06b6d4)!important; color:#fff!important; font-weight:900; box-shadow:0 0 20px rgba(14,165,233,.45); border-color:#0ea5e9; }
 
-        /* ── PANELS ─────────────────────── */
+        /* ── PANELS ─────────────────────────────── */
         .panel{ display:none; animation:fadeIn .3s ease; }
         .panel.active{ display:block; }
         @keyframes fadeIn{ from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
 
-        /* ── SECTION CARD ───────────────── */
-        .sec-card{ background:linear-gradient(135deg,rgba(20,15,40,.6),rgba(30,20,50,.6)); border:1.5px solid rgba(168,85,247,.15); border-radius:1.2rem; padding:2rem; }
-        .sec-title{ font-family:'Orbitron',sans-serif; font-size:.8rem; font-weight:900; letter-spacing:.15em; text-transform:uppercase; color:#a855f7; margin-bottom:1.5rem; display:flex; align-items:center; gap:.6rem; }
-        .label{ display:block; font-size:.65rem; letter-spacing:.12em; text-transform:uppercase; color:#a855f7; margin-bottom:.4rem; font-weight:700; }
+        /* ── SECTION CARD ───────────────────────── */
+        .sec-card{ background:linear-gradient(135deg,rgba(5,15,38,.6),rgba(8,22,50,.6)); border:1.5px solid rgba(14,165,233,.15); border-radius:1.2rem; padding:2rem; }
+        .sec-title{ font-family:'Orbitron',sans-serif; font-size:.78rem; font-weight:900; letter-spacing:.15em; text-transform:uppercase; color:#0ea5e9; margin-bottom:1.5rem; display:flex; align-items:center; gap:.6rem; }
+        .label{ display:block; font-size:.63rem; letter-spacing:.12em; text-transform:uppercase; color:#0ea5e9; margin-bottom:.4rem; font-weight:700; }
+        .hint{ font-family:'JetBrains Mono',monospace; font-size:.6rem; color:#334155; margin-top:.3rem; line-height:1.5; }
 
-        /* ── LOGIN ──────────────────────── */
-        #login-overlay{ position:fixed; inset:0; background:linear-gradient(135deg,rgba(10,14,39,.96),rgba(26,15,46,.96)); z-index:9999; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(25px); }
+        /* ── LOGIN ──────────────────────────────── */
+        #login-overlay{ position:fixed; inset:0; background:linear-gradient(135deg,rgba(3,13,26,.96),rgba(7,20,40,.96)); z-index:9999; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(25px); }
 
-        /* ── TOAST ──────────────────────── */
-        #toast{ position:fixed; bottom:2rem; right:2rem; z-index:9000; pointer-events:none; }
-        .toast-item{ background:linear-gradient(135deg,rgba(20,15,40,.95),rgba(30,20,50,.95)); border:1.5px solid rgba(168,85,247,.4); border-radius:.75rem; padding:1rem 1.5rem; font-family:'Rajdhani',sans-serif; font-size:.9rem; font-weight:700; letter-spacing:.05em; display:flex; align-items:center; gap:.7rem; box-shadow:0 0 30px rgba(168,85,247,.3); animation:slideToast .4s cubic-bezier(.34,1.56,.64,1); }
+        /* ── TOAST ──────────────────────────────── */
+        #toast{ position:fixed; bottom:2rem; right:2rem; z-index:9000; pointer-events:none; display:flex; flex-direction:column; gap:.5rem; }
+        .toast-item{ background:linear-gradient(135deg,rgba(5,15,38,.95),rgba(8,22,50,.95)); border:1.5px solid rgba(14,165,233,.4); border-radius:.75rem; padding:1rem 1.5rem; font-family:'Rajdhani',sans-serif; font-size:.9rem; font-weight:700; letter-spacing:.05em; display:flex; align-items:center; gap:.7rem; box-shadow:0 0 30px rgba(14,165,233,.25); animation:slideToast .4s cubic-bezier(.34,1.56,.64,1); }
         @keyframes slideToast{ from{opacity:0;transform:translateX(80px)} to{opacity:1;transform:none} }
 
-        /* ── PHOTO PICK FIELD ───────────── */
-        .photo-pick{ border:1.5px dashed rgba(168,85,247,.3); border-radius:.75rem; padding:1rem; background:rgba(0,0,0,.3); display:flex; flex-direction:column; align-items:center; gap:.8rem; }
-        .photo-pick img{ max-height:160px; max-width:100%; border-radius:.5rem; object-fit:cover; display:none; }
-        .photo-pick-label{ font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.1em; color:#4a5568; text-align:center; }
+        /* ── PHOTO PICK FIELD ───────────────────── */
+        .photo-pick{ border:1.5px dashed rgba(14,165,233,.25); border-radius:.75rem; padding:1.2rem; background:rgba(0,0,0,.25); }
+        .photo-preview{ max-height:160px; max-width:100%; border-radius:.5rem; object-fit:cover; display:none; margin:0 auto .8rem; }
+        .photo-pick-label{ font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.1em; color:#334155; text-align:center; margin-bottom:.8rem; }
 
-        /* ── SERVICE EDITOR ─────────────── */
-        .svc-editor{ border:1.5px solid rgba(168,85,247,.15); border-radius:.75rem; padding:1.5rem; background:rgba(0,0,0,.2); }
-        .svc-editor:hover{ border-color:rgba(168,85,247,.35); }
-        .svc-num-badge{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:.4rem; background:linear-gradient(135deg,#a855f7,#ec4899); font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:900; color:#fff; flex-shrink:0; }
+        /* ── SOCIAL ICON BADGE ──────────────────── */
+        .social-row{ display:grid; grid-template-columns:44px 1fr; align-items:center; gap:.75rem; }
+        .social-icon-badge{ width:44px; height:44px; border-radius:.6rem; display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0; }
 
-        /* ── SOCIAL ICONS ───────────────── */
-        .social-row{ display:grid; grid-template-columns:auto 1fr; align-items:center; gap:.75rem; }
-        .social-icon-badge{ width:40px; height:40px; border-radius:.6rem; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+        /* ── SERVICE EDITOR ─────────────────────── */
+        .svc-editor{ border:1.5px solid rgba(14,165,233,.15); border-radius:.75rem; padding:1.5rem; background:rgba(0,0,0,.2); margin-bottom:1rem; }
+        .svc-editor:hover{ border-color:rgba(14,165,233,.3); }
+        .svc-num-badge{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:.4rem; background:linear-gradient(135deg,#0ea5e9,#06b6d4); font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:900; color:#fff; }
 
-        /* ── GALLERY ────────────────────── */
+        /* ── GALLERY GRID ───────────────────────── */
         .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:.8rem; }
-        .gallery-item{ position:relative; aspect-ratio:1; border-radius:.75rem; overflow:hidden; border:1.5px solid rgba(168,85,247,.15); cursor:pointer; transition:all .3s; }
-        .gallery-item:hover{ border-color:rgba(168,85,247,.6); box-shadow:0 0 20px rgba(168,85,247,.3); transform:scale(1.05); }
+        .gallery-item{ position:relative; aspect-ratio:1; border-radius:.75rem; overflow:hidden; border:1.5px solid rgba(14,165,233,.15); cursor:pointer; transition:all .3s; }
+        .gallery-item:hover{ border-color:rgba(14,165,233,.6); box-shadow:0 0 20px rgba(14,165,233,.3); transform:scale(1.05); }
         .gallery-item img{ width:100%; height:100%; object-fit:cover; }
-        .gallery-item .del-btn{ position:absolute; top:.3rem; right:.3rem; width:22px; height:22px; border-radius:.3rem; background:rgba(239,68,68,.8); color:#fff; border:none; font-size:.65rem; cursor:pointer; display:none; align-items:center; justify-content:center; }
+        .gallery-item .del-btn{ position:absolute; top:.3rem; right:.3rem; width:22px; height:22px; border-radius:.3rem; background:rgba(239,68,68,.85); color:#fff; border:none; font-size:.65rem; cursor:pointer; display:none; align-items:center; justify-content:center; }
         .gallery-item:hover .del-btn{ display:flex; }
 
-        /* ── GALLERY PICKER MODAL ────────── */
-        .modal-overlay{ display:none; position:fixed; inset:0; background:rgba(10,14,39,.95); z-index:8000; align-items:center; justify-content:center; padding:1.5rem; backdrop-filter:blur(20px); }
+        /* ── PICKER MODAL ───────────────────────── */
+        .modal-overlay{ display:none; position:fixed; inset:0; background:rgba(3,13,26,.95); z-index:8000; align-items:center; justify-content:center; padding:1.5rem; backdrop-filter:blur(20px); }
         .modal-overlay.open{ display:flex; }
-        .modal-box{ background:linear-gradient(135deg,rgba(20,15,40,.9),rgba(30,20,50,.9)); border:1.5px solid rgba(168,85,247,.35); border-radius:1.5rem; padding:2rem; max-width:700px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 0 60px rgba(168,85,247,.25); }
+        .modal-box{ background:linear-gradient(135deg,rgba(5,15,38,.9),rgba(8,22,50,.9)); border:1.5px solid rgba(14,165,233,.35); border-radius:1.5rem; padding:2rem; max-width:700px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 0 60px rgba(14,165,233,.2); }
         .picker-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:1rem; max-height:55vh; overflow-y:auto; margin-top:1rem; }
-        .picker-item{ aspect-ratio:1; border-radius:.75rem; overflow:hidden; border:1.5px solid rgba(168,85,247,.15); cursor:pointer; transition:all .35s cubic-bezier(.34,1.56,.64,1); }
-        .picker-item:hover{ border-color:#a855f7; box-shadow:0 0 25px rgba(168,85,247,.4); transform:scale(1.08); }
+        .picker-item{ aspect-ratio:1; border-radius:.75rem; overflow:hidden; border:1.5px solid rgba(14,165,233,.15); cursor:pointer; transition:all .35s cubic-bezier(.34,1.56,.64,1); }
+        .picker-item:hover{ border-color:#0ea5e9; box-shadow:0 0 25px rgba(14,165,233,.4); transform:scale(1.08); }
         .picker-item img{ width:100%; height:100%; object-fit:cover; }
-        .picker-empty{ font-family:'JetBrains Mono',monospace; font-size:.75rem; color:#4a5568; text-align:center; padding:3rem 1rem; }
 
-        /* ── FONT ANIMATOR ──────────────── */
-        .font-preview-box{ background:linear-gradient(135deg,rgba(20,15,40,.7),rgba(26,15,46,.7)); border:2px solid rgba(168,85,247,.35); border-radius:1.2rem; padding:2.5rem; text-align:center; min-height:120px; display:flex; align-items:center; justify-content:center; }
-        .font-preview-text{ font-size:3rem; font-weight:700; background:linear-gradient(135deg,#a855f7,#ec4899,#06b6d4); background-size:300%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:gradientFlow 4s ease infinite; }
-        .font-card-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:.8rem; }
-        .font-card{ padding:1.2rem; background:rgba(20,15,40,.5); border:1.5px solid rgba(168,85,247,.15); border-radius:.75rem; cursor:pointer; transition:all .3s cubic-bezier(.34,1.56,.64,1); }
-        .font-card:hover{ border-color:rgba(168,85,247,.5); box-shadow:0 0 20px rgba(168,85,247,.25); transform:translateY(-3px); }
-        .font-card.selected{ border-color:#a855f7; background:rgba(168,85,247,.12); box-shadow:0 0 30px rgba(168,85,247,.4); transform:scale(1.04); }
-        .anim-btn{ padding:.5rem .9rem; background:rgba(168,85,247,.1); border:1.5px solid rgba(168,85,247,.2); color:#fff; border-radius:.5rem; font-size:.7rem; font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
-        .anim-btn.active{ background:linear-gradient(135deg,#a855f7,#ec4899); border-color:#a855f7; box-shadow:0 0 15px rgba(168,85,247,.4); }
-        .anim-btn:hover{ border-color:#a855f7; }
+        /* ── PORTFOLIO ITEM EDITOR ──────────────── */
+        .portfolio-editor-item{ background:rgba(0,0,0,.2); border:1.5px solid rgba(14,165,233,.12); border-radius:.75rem; padding:1.2rem; margin-bottom:.8rem; display:grid; grid-template-columns:80px 1fr auto; gap:1rem; align-items:center; transition:border-color .3s; }
+        .portfolio-editor-item:hover{ border-color:rgba(14,165,233,.3); }
+        .portfolio-editor-item img{ width:80px; height:60px; object-fit:cover; border-radius:.5rem; border:1px solid rgba(14,165,233,.2); }
+        .portfolio-item-placeholder{ width:80px; height:60px; background:rgba(14,165,233,.06); border:1px solid rgba(14,165,233,.15); border-radius:.5rem; display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:rgba(14,165,233,.3); }
 
+        /* ── FONT CARDS ─────────────────────────── */
+        .font-preview-box{ background:linear-gradient(135deg,rgba(5,15,38,.7),rgba(8,22,50,.7)); border:2px solid rgba(14,165,233,.35); border-radius:1.2rem; padding:2.5rem; text-align:center; min-height:120px; display:flex; align-items:center; justify-content:center; }
+        .font-preview-text{ font-size:3rem; font-weight:700; background:linear-gradient(135deg,#0ea5e9,#06b6d4,#38bdf8); background-size:300%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:gradientFlow 4s ease infinite; }
+        .font-card{ padding:1.2rem; background:rgba(5,15,38,.5); border:1.5px solid rgba(14,165,233,.12); border-radius:.75rem; cursor:pointer; transition:all .3s cubic-bezier(.34,1.56,.64,1); }
+        .font-card:hover{ border-color:rgba(14,165,233,.45); box-shadow:0 0 20px rgba(14,165,233,.2); transform:translateY(-3px); }
+        .font-card.selected{ border-color:#0ea5e9; background:rgba(14,165,233,.1); box-shadow:0 0 30px rgba(14,165,233,.35); transform:scale(1.04); }
+        .anim-btn{ padding:.5rem .9rem; background:rgba(14,165,233,.08); border:1.5px solid rgba(14,165,233,.2); color:#94a3b8; border-radius:.5rem; font-size:.7rem; font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:all .3s; }
+        .anim-btn.active{ background:linear-gradient(135deg,#0ea5e9,#06b6d4); border-color:#0ea5e9; color:#fff; box-shadow:0 0 15px rgba(14,165,233,.4); }
+        .anim-btn:hover{ border-color:#0ea5e9; color:#0ea5e9; }
+
+        /* keyframes */
         @keyframes textGlitch{
-            0%,90%,100%{text-shadow:0 0 10px rgba(168,85,247,.6),0 0 20px rgba(236,72,153,.3);}
-            92%{text-shadow:-3px 0 #ec4899,3px 0 #06b6d4;transform:translate(-1px,0) skewX(-1deg);}
-            94%{text-shadow:3px 0 #a855f7,-3px 0 #ec4899;transform:translate(1px,0);}
-            96%{text-shadow:-3px 0 #06b6d4,3px 0 #a855f7;transform:translate(0,1px);}
+            0%,90%,100%{text-shadow:0 0 10px rgba(14,165,233,.6),0 0 20px rgba(6,182,212,.3);}
+            92%{text-shadow:-3px 0 #06b6d4,3px 0 #38bdf8;transform:translate(-1px,0) skewX(-1deg);}
+            94%{text-shadow:3px 0 #0ea5e9,-3px 0 #06b6d4;transform:translate(1px,0);}
+            96%{text-shadow:-3px 0 #38bdf8,3px 0 #0ea5e9;transform:translate(0,1px);}
         }
-        @keyframes textPulse{
-            0%,100%{opacity:1;letter-spacing:0;text-shadow:0 0 10px rgba(168,85,247,.4);}
-            50%{opacity:.75;letter-spacing:3px;text-shadow:0 0 30px rgba(168,85,247,.8),0 0 50px rgba(236,72,153,.5);}
-        }
-        @keyframes floatText{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-        @keyframes gradientFlow{ 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
-        @keyframes shimmerText{ 0%{background-position:-1000px 0} 100%{background-position:1000px 0} }
+        @keyframes textPulse{0%,100%{opacity:1;text-shadow:0 0 10px rgba(14,165,233,.4);}50%{opacity:.75;letter-spacing:3px;text-shadow:0 0 30px rgba(14,165,233,.8);}}
+        @keyframes floatText{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        @keyframes gradientFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .anim-glitch{animation:textGlitch 4s ease-in-out infinite}
         .anim-pulse{animation:textPulse 2.5s ease-in-out infinite}
         .anim-float{animation:floatText 3s ease-in-out infinite}
-        .anim-pulse-glow{animation:textPulse 2.5s ease-in-out infinite}
+        @keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
     </style>
 </head>
 <body class="p-4 md:p-6">
-    <canvas id="gal-bg"></canvas>
+<canvas id="gal-bg"></canvas>
 
-    <!-- ═══ LOGIN OVERLAY ═══ -->
-    <div id="login-overlay">
-        <div class="glass p-8 rounded-3xl max-w-sm w-full mx-4 text-center space-y-6">
-            <div>
-                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-2xl text-purple-400 animate-pulse" style="background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);">
-                    <i class="fa-solid fa-terminal"></i>
-                </div>
-                <h2 class="text-lg font-black text-purple-400 tracking-widest uppercase anim-glitch" style="font-family:'Orbitron',sans-serif;">MAINFRAME LOCK</h2>
-                <p class="text-xs text-gray-500 mt-1">// ENTER ACCESS CREDENTIALS</p>
+<!-- ═══ LOGIN OVERLAY ═══ -->
+<div id="login-overlay">
+    <div class="glass p-8 rounded-3xl max-w-sm w-full mx-4 text-center space-y-6">
+        <div>
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-2xl" style="background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.3);color:#0ea5e9;" class="animate-pulse">
+                <i class="fa-solid fa-terminal"></i>
             </div>
-            <form id="login-form" class="space-y-4 text-left">
-                <div>
-                    <label class="label">Username</label>
-                    <input type="text" id="l-user" class="inp" placeholder="Enter username">
-                </div>
-                <div>
-                    <label class="label">Password</label>
-                    <input type="password" id="l-pass" class="inp" placeholder="••••••••••••">
-                </div>
-                <button type="submit" class="btn-primary w-full py-3 anim-pulse-glow">
-                    <i class="fa-solid fa-unlock mr-2"></i> Initiate Override
-                </button>
-            </form>
-            <p id="login-err" class="text-xs text-red-400 font-bold hidden">// INVALID CREDENTIALS — ACCESS DENIED</p>
+            <h2 class="text-lg font-black tracking-widest uppercase anim-glitch" style="font-family:'Orbitron',sans-serif;background:linear-gradient(135deg,#0ea5e9,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">MAINFRAME LOCK</h2>
+            <p class="text-xs mt-1" style="color:#334155;">// ENTER ACCESS CREDENTIALS</p>
+        </div>
+        <form id="login-form" class="space-y-4 text-left">
+            <div><label class="label">Username</label><input type="text" id="l-user" class="inp" placeholder="Enter username"></div>
+            <div><label class="label">Password</label><input type="password" id="l-pass" class="inp" placeholder="••••••••••••"></div>
+            <button type="submit" class="btn-primary w-full py-3"><i class="fa-solid fa-unlock mr-2"></i> Initiate Override</button>
+        </form>
+        <p id="login-err" class="text-xs font-bold hidden" style="color:#ef4444;">// INVALID CREDENTIALS — ACCESS DENIED</p>
+    </div>
+</div>
+
+<!-- ═══ GALLERY PICKER MODAL ═══ -->
+<div id="picker-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="flex items-center justify-between mb-1">
+            <h3 class="sec-title" style="margin-bottom:0;"><i class="fas fa-images"></i> Select from Gallery</h3>
+            <button onclick="closePicker()" style="font-size:1.5rem;color:#64748b;background:none;border:none;cursor:pointer;transition:all .3s;" onmouseover="this.style.color='#0ea5e9'" onmouseout="this.style.color='#64748b'"><i class="fas fa-xmark"></i></button>
+        </div>
+        <p class="hint mb-2">// Pick any image from your gallery to use here</p>
+        <div class="picker-grid" id="picker-grid"></div>
+        <p id="picker-empty" class="text-center py-8" style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#334155;">// No images in gallery yet. Add images in the Gallery tab first.</p>
+    </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div id="toast"></div>
+
+<!-- ═══ MAIN PANEL ═══ -->
+<div id="main" class="max-w-7xl mx-auto space-y-5 relative z-10 opacity-0 pointer-events-none transition-opacity duration-500">
+
+    <!-- Header -->
+    <div class="glass p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+            <h1 class="text-xl md:text-2xl font-black anim-glitch" style="font-family:'Orbitron',sans-serif;background:linear-gradient(135deg,#0ea5e9,#06b6d4,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">⚡ ASH_X8 CONTROL PANEL</h1>
+            <p class="text-xs mt-1" style="color:#334155;">// FULL SITE MANAGEMENT SYSTEM — Kushan A Wickramasinghe</p>
+        </div>
+        <div class="flex gap-2 flex-wrap justify-end">
+            <a href="/" target="_blank" class="btn-cyan text-xs"><i class="fas fa-eye mr-1"></i> Preview</a>
+            <a href="/photography.html" target="_blank" class="btn-sec text-xs"><i class="fas fa-camera mr-1"></i> Photos</a>
+            <a href="/designs.html" target="_blank" class="btn-sec text-xs"><i class="fas fa-palette mr-1"></i> Designs</a>
+            <button onclick="saveAll()" class="btn-primary"><i class="fas fa-cloud-arrow-up mr-2"></i> Save All</button>
         </div>
     </div>
 
-    <!-- ═══ GALLERY PICKER MODAL ═══ -->
-    <div id="picker-modal" class="modal-overlay">
-        <div class="modal-box">
-            <div class="flex items-center justify-between mb-1">
-                <h3 class="sec-title" style="margin-bottom:0;"><i class="fas fa-images"></i> Select from Gallery</h3>
-                <button onclick="closePicker()" class="text-2xl text-gray-400 hover:text-purple-400 transition-all hover:rotate-90 transform">
-                    <i class="fas fa-xmark"></i>
-                </button>
-            </div>
-            <p class="text-xs text-gray-500 mb-1" style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">// Add images to Gallery tab first, then pick here</p>
-            <div class="picker-grid" id="picker-grid"></div>
-        </div>
+    <!-- Tab Bar -->
+    <div class="flex flex-wrap gap-2 pb-1 overflow-x-auto">
+        <button onclick="tab('profile')"     id="tb-profile"     class="tab-btn active"><i class="fas fa-user mr-1"></i> Profile</button>
+        <button onclick="tab('photos')"      id="tb-photos"      class="tab-btn"><i class="fas fa-images mr-1"></i> Photos</button>
+        <button onclick="tab('social')"      id="tb-social"      class="tab-btn"><i class="fas fa-share-nodes mr-1"></i> Social</button>
+        <button onclick="tab('hero')"        id="tb-hero"        class="tab-btn"><i class="fas fa-home mr-1"></i> Hero</button>
+        <button onclick="tab('services')"    id="tb-services"    class="tab-btn"><i class="fas fa-briefcase mr-1"></i> Services</button>
+        <button onclick="tab('stats')"       id="tb-stats"       class="tab-btn"><i class="fas fa-chart-bar mr-1"></i> Stats</button>
+        <button onclick="tab('gallery')"     id="tb-gallery"     class="tab-btn"><i class="fas fa-photo-film mr-1"></i> Gallery</button>
+        <button onclick="tab('photography')" id="tb-photography" class="tab-btn"><i class="fas fa-camera mr-1"></i> Photography</button>
+        <button onclick="tab('designs')"     id="tb-designs"     class="tab-btn"><i class="fas fa-palette mr-1"></i> Designs</button>
+        <button onclick="tab('fonts')"       id="tb-fonts"       class="tab-btn anim-glitch"><i class="fas fa-font mr-1"></i> Fonts</button>
+        <button onclick="tab('security')"    id="tb-security"    class="tab-btn" style="color:#f87171;"><i class="fas fa-shield-halved mr-1"></i> Security</button>
     </div>
 
-    <!-- ═══ TOAST ═══ -->
-    <div id="toast"></div>
-
-    <!-- ═══ MAIN PANEL ═══ -->
-    <div id="main" class="max-w-7xl mx-auto space-y-6 relative z-10 opacity-0 pointer-events-none transition-opacity duration-500">
-
-        <!-- Header -->
-        <div class="glass p-5 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <h1 class="text-xl md:text-2xl font-black text-transparent bg-clip-text anim-glitch" style="font-family:'Orbitron',sans-serif;background:linear-gradient(135deg,#a855f7,#ec4899,#06b6d4);-webkit-background-clip:text;">⚡ ASH_X8 CONTROL PANEL</h1>
-                <p class="text-xs text-gray-500 mt-1">// FULL SITE MANAGEMENT SYSTEM</p>
-            </div>
-            <div class="flex gap-2">
-                <a href="/" target="_blank" class="btn-cyan text-xs"><i class="fas fa-eye mr-1"></i> Preview Site</a>
-                <button onclick="saveAll()" class="btn-primary"><i class="fas fa-cloud-arrow-up mr-2"></i> Save & Deploy</button>
-            </div>
-        </div>
-
-        <!-- Tab Bar -->
-        <div class="flex flex-wrap gap-2 pb-2 overflow-x-auto">
-            <button onclick="tab('profile')" id="tb-profile" class="tab-btn active"><i class="fas fa-user mr-1"></i> Profile</button>
-            <button onclick="tab('photos')" id="tb-photos" class="tab-btn"><i class="fas fa-images mr-1"></i> Photos</button>
-            <button onclick="tab('social')" id="tb-social" class="tab-btn"><i class="fas fa-share-nodes mr-1"></i> Social</button>
-            <button onclick="tab('hero')" id="tb-hero" class="tab-btn"><i class="fas fa-home mr-1"></i> Hero</button>
-            <button onclick="tab('services')" id="tb-services" class="tab-btn"><i class="fas fa-briefcase mr-1"></i> Services</button>
-            <button onclick="tab('stats')" id="tb-stats" class="tab-btn"><i class="fas fa-chart-bar mr-1"></i> Stats</button>
-            <button onclick="tab('gallery')" id="tb-gallery" class="tab-btn"><i class="fas fa-photo-film mr-1"></i> Gallery</button>
-            <button onclick="tab('fonts')" id="tb-fonts" class="tab-btn anim-glitch"><i class="fas fa-font mr-1"></i> Fonts</button>
-            <button onclick="tab('security')" id="tb-security" class="tab-btn" style="color:#f87171;"><i class="fas fa-shield-halved mr-1"></i> Security</button>
-        </div>
-
-        <!-- ══════════════════════════════════════
-             TAB: PROFILE
-        ══════════════════════════════════════ -->
-        <div id="panel-profile" class="panel active space-y-4">
-            <div class="sec-card">
-                <p class="sec-title"><i class="fas fa-id-card"></i> Identity Settings</p>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="label">Full Name</label>
-                        <input type="text" id="p-fullname" class="inp" placeholder="Kushan A Wickramasinghe">
-                    </div>
-                    <div>
-                        <label class="label">Nickname / Brand</label>
-                        <input type="text" id="p-nickname" class="inp" placeholder="ASH_X8">
-                    </div>
-                    <div>
-                        <label class="label">Tagline / Motto</label>
-                        <input type="text" id="p-tagline" class="inp" placeholder="Evolving Digital Alchemist">
-                    </div>
-                    <div>
-                        <label class="label">Category / Role</label>
-                        <input type="text" id="p-category" class="inp" placeholder="Photographer &amp; Graphic Designer">
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <label class="label">Bio (Main Description)</label>
-                    <textarea id="p-bio" rows="3" class="inp" placeholder="Short bio shown on home page..."></textarea>
-                </div>
-                <div class="mt-4">
-                    <label class="label">About Text (Extended — shown on About page)</label>
-                    <textarea id="p-about" rows="3" class="inp" placeholder="Longer description for the About page..."></textarea>
-                </div>
-                <button onclick="saveProfile()" class="btn-primary mt-5"><i class="fas fa-save mr-2"></i> Save Profile</button>
-            </div>
-        </div>
-
-        <!-- ══════════════════════════════════════
-             TAB: PHOTOS
-        ══════════════════════════════════════ -->
-        <div id="panel-photos" class="panel space-y-4">
+    <!-- ═══ PROFILE TAB ═══ -->
+    <div id="panel-profile" class="panel active">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-id-card"></i> Identity Settings</p>
             <div class="grid md:grid-cols-2 gap-4">
-                <!-- Home Photo -->
-                <div class="sec-card">
-                    <p class="sec-title"><i class="fas fa-house"></i> Home Page Photo</p>
-                    <div class="photo-pick" id="home-photo-pick">
-                        <img id="home-photo-preview" src="" alt="Preview">
-                        <div class="photo-pick-label" id="home-photo-label">// No photo selected</div>
-                        <div class="flex gap-2 flex-wrap justify-center">
-                            <button onclick="openPicker('home')" class="btn-sec"><i class="fas fa-images mr-1"></i> Pick from Gallery</button>
-                            <button onclick="clearPhoto('home')" class="btn-danger"><i class="fas fa-trash mr-1"></i> Clear</button>
-                        </div>
-                        <div class="w-full">
-                            <label class="label mt-2">Or Paste Image URL</label>
-                            <input type="url" id="home-photo-url-input" class="inp" placeholder="https://..." oninput="previewUrlPhoto('home')">
-                        </div>
-                    </div>
-                    <p class="text-xs mt-3" style="font-family:'JetBrains Mono',monospace;color:#4a5568;font-size:.62rem;">// Appears in the profile section on the Home page</p>
-                </div>
-                <!-- About Photo -->
-                <div class="sec-card">
-                    <p class="sec-title"><i class="fas fa-user-circle"></i> About Page Photo</p>
-                    <div class="photo-pick" id="about-photo-pick">
-                        <img id="about-photo-preview" src="" alt="Preview">
-                        <div class="photo-pick-label" id="about-photo-label">// No photo selected</div>
-                        <div class="flex gap-2 flex-wrap justify-center">
-                            <button onclick="openPicker('about')" class="btn-sec"><i class="fas fa-images mr-1"></i> Pick from Gallery</button>
-                            <button onclick="clearPhoto('about')" class="btn-danger"><i class="fas fa-trash mr-1"></i> Clear</button>
-                        </div>
-                        <div class="w-full">
-                            <label class="label mt-2">Or Paste Image URL</label>
-                            <input type="url" id="about-photo-url-input" class="inp" placeholder="https://..." oninput="previewUrlPhoto('about')">
-                        </div>
-                    </div>
-                    <p class="text-xs mt-3" style="font-family:'JetBrains Mono',monospace;color:#4a5568;font-size:.62rem;">// Appears on the About page profile block</p>
-                </div>
+                <div><label class="label">Full Name</label><input type="text" id="p-fullname" class="inp" placeholder="Kushan A Wickramasinghe"></div>
+                <div><label class="label">Nickname / Brand</label><input type="text" id="p-nickname" class="inp" placeholder="ASH_X8"><p class="hint">// Shown in nav bar (e.g. ASH_X8, Ash-x8)</p></div>
+                <div><label class="label">Tagline / Motto</label><input type="text" id="p-tagline" class="inp" placeholder="Evolving Digital Alchemist"></div>
+                <div><label class="label">Category / Role</label><input type="text" id="p-category" class="inp" placeholder="Photographer &amp; Graphic Designer"></div>
             </div>
-            <div class="text-center">
-                <button onclick="savePhotos()" class="btn-primary"><i class="fas fa-save mr-2"></i> Save Photos</button>
+            <div class="mt-4"><label class="label">Bio (Home Page)</label><textarea id="p-bio" rows="3" class="inp" placeholder="Short bio shown on home page..."></textarea></div>
+            <div class="mt-4"><label class="label">About Text (About Page — Extended)</label><textarea id="p-about" rows="3" class="inp" placeholder="Longer description for the About page..."></textarea></div>
+            <button onclick="saveProfile()" class="btn-primary mt-5"><i class="fas fa-save mr-2"></i> Save Profile</button>
+        </div>
+    </div>
+
+    <!-- ═══ PHOTOS TAB ═══ -->
+    <div id="panel-photos" class="panel">
+        <div class="grid md:grid-cols-2 gap-4">
+            <!-- Home Photo -->
+            <div class="sec-card">
+                <p class="sec-title"><i class="fas fa-house"></i> Home Page Photo</p>
+                <div class="photo-pick" id="home-pp">
+                    <img class="photo-preview" id="home-prev" src="" alt="">
+                    <div class="photo-pick-label" id="home-lbl">// No photo selected</div>
+                    <div class="flex gap-2 flex-wrap justify-center mb-3">
+                        <button onclick="openPicker('home')" class="btn-sec"><i class="fas fa-images mr-1"></i> Pick from Gallery</button>
+                        <label class="btn-file"><i class="fas fa-upload mr-1"></i> Upload File<input type="file" accept="image/*" onchange="handleUpload(this,'home')"></label>
+                        <button onclick="clearPhoto('home')" class="btn-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div><label class="label">Or Paste URL</label><input type="url" id="home-url" class="inp" placeholder="https://..." oninput="previewUrl('home')"></div>
+                </div>
+                <p class="hint mt-2">// Shown in the profile section on the Home page</p>
+            </div>
+            <!-- About Photo -->
+            <div class="sec-card">
+                <p class="sec-title"><i class="fas fa-user-circle"></i> About Page Photo</p>
+                <div class="photo-pick" id="about-pp">
+                    <img class="photo-preview" id="about-prev" src="" alt="">
+                    <div class="photo-pick-label" id="about-lbl">// No photo selected</div>
+                    <div class="flex gap-2 flex-wrap justify-center mb-3">
+                        <button onclick="openPicker('about')" class="btn-sec"><i class="fas fa-images mr-1"></i> Pick from Gallery</button>
+                        <label class="btn-file"><i class="fas fa-upload mr-1"></i> Upload File<input type="file" accept="image/*" onchange="handleUpload(this,'about')"></label>
+                        <button onclick="clearPhoto('about')" class="btn-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div><label class="label">Or Paste URL</label><input type="url" id="about-url" class="inp" placeholder="https://..." oninput="previewUrl('about')"></div>
+                </div>
+                <p class="hint mt-2">// Shown on the About page profile block</p>
             </div>
         </div>
-
-        <!-- ══════════════════════════════════════
-             TAB: SOCIAL LINKS
-        ══════════════════════════════════════ -->
-        <div id="panel-social" class="panel space-y-4">
-            <div class="sec-card">
-                <p class="sec-title"><i class="fas fa-share-nodes"></i> Social Media Links</p>
-                <p class="text-xs text-gray-500 mb-5" style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">// Paste the full URL for each platform. Leave blank to hide.</p>
-                <div class="space-y-4">
-                    <div class="social-row">
-                        <div class="social-icon-badge" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25D366;"><i class="fab fa-whatsapp"></i></div>
-                        <div>
-                            <label class="label" style="color:#25D366;">WhatsApp</label>
-                            <input type="url" id="s-whatsapp" class="inp" placeholder="https://wa.me/94xxxxxxxxx">
-                        </div>
-                    </div>
-                    <div class="social-row">
-                        <div class="social-icon-badge" style="background:rgba(225,48,108,.1);border:1px solid rgba(225,48,108,.25);color:#E1306C;"><i class="fab fa-instagram"></i></div>
-                        <div>
-                            <label class="label" style="color:#E1306C;">Instagram</label>
-                            <input type="url" id="s-instagram" class="inp" placeholder="https://instagram.com/username">
-                        </div>
-                    </div>
-                    <div class="social-row">
-                        <div class="social-icon-badge" style="background:rgba(24,119,242,.1);border:1px solid rgba(24,119,242,.25);color:#1877F2;"><i class="fab fa-facebook"></i></div>
-                        <div>
-                            <label class="label" style="color:#1877F2;">Facebook</label>
-                            <input type="url" id="s-facebook" class="inp" placeholder="https://facebook.com/username">
-                        </div>
-                    </div>
-                    <div class="social-row">
-                        <div class="social-icon-badge" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#fff;"><i class="fab fa-tiktok"></i></div>
-                        <div>
-                            <label class="label" style="color:#ccc;">TikTok</label>
-                            <input type="url" id="s-tiktok" class="inp" placeholder="https://tiktok.com/@username">
-                        </div>
-                    </div>
-                    <div class="social-row">
-                        <div class="social-icon-badge" style="background:rgba(255,0,0,.1);border:1px solid rgba(255,0,0,.25);color:#FF0000;"><i class="fab fa-youtube"></i></div>
-                        <div>
-                            <label class="label" style="color:#FF0000;">YouTube</label>
-                            <input type="url" id="s-youtube" class="inp" placeholder="https://youtube.com/@channel">
-                        </div>
-                    </div>
-                    <div class="social-row">
-                        <div class="social-icon-badge" style="background:rgba(10,102,194,.1);border:1px solid rgba(10,102,194,.25);color:#0A66C2;"><i class="fab fa-linkedin"></i></div>
-                        <div>
-                            <label class="label" style="color:#0A66C2;">LinkedIn</label>
-                            <input type="url" id="s-linkedin" class="inp" placeholder="https://linkedin.com/in/username">
-                        </div>
-                    </div>
-                    <div class="social-row">
-                        <div class="social-icon-badge" style="background:rgba(44,165,224,.1);border:1px solid rgba(44,165,224,.25);color:#2CA5E0;"><i class="fab fa-telegram"></i></div>
-                        <div>
-                            <label class="label" style="color:#2CA5E0;">Telegram</label>
-                            <input type="url" id="s-telegram" class="inp" placeholder="https://t.me/username">
-                        </div>
-                    </div>
-                </div>
-                <button onclick="saveSocial()" class="btn-primary mt-6"><i class="fas fa-save mr-2"></i> Save Social Links</button>
-            </div>
+        <div class="text-center mt-4">
+            <button onclick="savePhotos()" class="btn-primary"><i class="fas fa-save mr-2"></i> Save Photos</button>
         </div>
+    </div>
 
-        <!-- ══════════════════════════════════════
-             TAB: HERO
-        ══════════════════════════════════════ -->
-        <div id="panel-hero" class="panel space-y-4">
-            <div class="sec-card">
-                <p class="sec-title"><i class="fas fa-house"></i> Home Page Hero Section</p>
-                <div class="space-y-4">
-                    <div>
-                        <label class="label">Hero Main Title</label>
-                        <input type="text" id="h-title" class="inp" placeholder="Creative Excellence">
-                        <p class="mt-1" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#4a5568;">// Large animated text at top of homepage</p>
-                    </div>
-                    <div>
-                        <label class="label">Hero Subtitle</label>
-                        <input type="text" id="h-sub" class="inp" placeholder="Photography / Graphic Design / Content Creation">
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="label">CTA Button Text</label>
-                            <input type="text" id="h-cta" class="inp" placeholder="View Services">
-                        </div>
-                        <div>
-                            <label class="label">CTA Button Link</label>
-                            <input type="text" id="h-link" class="inp" placeholder="/projects.html">
-                        </div>
-                    </div>
-                </div>
-                <button onclick="saveHero()" class="btn-primary mt-5"><i class="fas fa-save mr-2"></i> Save Hero</button>
+    <!-- ═══ SOCIAL TAB ═══ -->
+    <div id="panel-social" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-share-nodes"></i> Social Media Links</p>
+            <p class="hint mb-5">// Paste the full URL. Leave blank to hide from site. Shown on Home, About, and footer.</p>
+            <div class="space-y-4">
+                <div class="social-row"><div class="social-icon-badge" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25D366;"><i class="fab fa-whatsapp"></i></div><div><label class="label" style="color:#25D366;">WhatsApp</label><input type="url" id="s-whatsapp" class="inp" placeholder="https://wa.me/94xxxxxxxxx"></div></div>
+                <div class="social-row"><div class="social-icon-badge" style="background:rgba(225,48,108,.1);border:1px solid rgba(225,48,108,.25);color:#E1306C;"><i class="fab fa-instagram"></i></div><div><label class="label" style="color:#E1306C;">Instagram</label><input type="url" id="s-instagram" class="inp" placeholder="https://instagram.com/username"></div></div>
+                <div class="social-row"><div class="social-icon-badge" style="background:rgba(24,119,242,.1);border:1px solid rgba(24,119,242,.25);color:#1877F2;"><i class="fab fa-facebook"></i></div><div><label class="label" style="color:#1877F2;">Facebook</label><input type="url" id="s-facebook" class="inp" placeholder="https://facebook.com/username"></div></div>
+                <div class="social-row"><div class="social-icon-badge" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#e0e0e0;"><i class="fab fa-tiktok"></i></div><div><label class="label">TikTok</label><input type="url" id="s-tiktok" class="inp" placeholder="https://tiktok.com/@username"></div></div>
+                <div class="social-row"><div class="social-icon-badge" style="background:rgba(255,0,0,.1);border:1px solid rgba(255,0,0,.25);color:#FF0000;"><i class="fab fa-youtube"></i></div><div><label class="label" style="color:#FF0000;">YouTube</label><input type="url" id="s-youtube" class="inp" placeholder="https://youtube.com/@channel"></div></div>
+                <div class="social-row"><div class="social-icon-badge" style="background:rgba(10,102,194,.1);border:1px solid rgba(10,102,194,.25);color:#0A66C2;"><i class="fab fa-linkedin"></i></div><div><label class="label" style="color:#0A66C2;">LinkedIn</label><input type="url" id="s-linkedin" class="inp" placeholder="https://linkedin.com/in/username"></div></div>
+                <div class="social-row"><div class="social-icon-badge" style="background:rgba(44,165,224,.1);border:1px solid rgba(44,165,224,.25);color:#2CA5E0;"><i class="fab fa-telegram"></i></div><div><label class="label" style="color:#2CA5E0;">Telegram</label><input type="url" id="s-telegram" class="inp" placeholder="https://t.me/username"></div></div>
             </div>
+            <button onclick="saveSocial()" class="btn-primary mt-6"><i class="fas fa-save mr-2"></i> Save Social Links</button>
         </div>
+    </div>
 
-        <!-- ══════════════════════════════════════
-             TAB: SERVICES
-        ══════════════════════════════════════ -->
-        <div id="panel-services" class="panel space-y-4">
-            <div class="sec-card">
-                <p class="sec-title"><i class="fas fa-briefcase"></i> Service Cards</p>
-                <p class="text-xs text-gray-500 mb-4" style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">// Shown on Home page and Services page</p>
-                <div class="space-y-5" id="services-editor"></div>
-                <button onclick="saveServices()" class="btn-primary mt-5"><i class="fas fa-save mr-2"></i> Save Services</button>
-            </div>
-        </div>
-
-        <!-- ══════════════════════════════════════
-             TAB: STATS
-        ══════════════════════════════════════ -->
-        <div id="panel-stats" class="panel space-y-4">
-            <div class="sec-card">
-                <p class="sec-title"><i class="fas fa-chart-bar"></i> Stats Bar</p>
-                <p class="text-xs text-gray-500 mb-5" style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">// 4 stat blocks shown on the home page</p>
-                <div class="grid md:grid-cols-2 gap-4" id="stats-editor"></div>
-                <button onclick="saveStats()" class="btn-primary mt-5"><i class="fas fa-save mr-2"></i> Save Stats</button>
-            </div>
-        </div>
-
-        <!-- ══════════════════════════════════════
-             TAB: GALLERY
-        ══════════════════════════════════════ -->
-        <div id="panel-gallery" class="panel space-y-4">
-            <div class="sec-card">
-                <p class="sec-title"><i class="fas fa-photo-film"></i> Photo Gallery</p>
-                <p class="text-xs text-gray-500 mb-4" style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">// Add image URLs here. These images are available in the picker for profile photos.</p>
-                <div class="space-y-3 mb-5">
-                    <div class="grid md:grid-cols-3 gap-3">
-                        <div>
-                            <label class="label">Title</label>
-                            <input type="text" id="g-title" class="inp" placeholder="Photo title">
-                        </div>
-                        <div>
-                            <label class="label">Date</label>
-                            <input type="text" id="g-date" class="inp" placeholder="2026-01-01">
-                        </div>
-                        <div>
-                            <label class="label">Image URL</label>
-                            <input type="url" id="g-url" class="inp" placeholder="https://...">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="label">Description (optional)</label>
-                        <input type="text" id="g-desc" class="inp" placeholder="Short description...">
-                    </div>
-                    <button onclick="addToGallery()" class="btn-primary"><i class="fas fa-plus mr-1"></i> Add to Gallery</button>
-                </div>
-                <div class="gallery-grid" id="gallery-display"></div>
-                <p id="gallery-empty" class="text-center py-8" style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#4a5568;">// No photos in gallery yet — add URLs above</p>
-            </div>
-        </div>
-
-        <!-- ══════════════════════════════════════
-             TAB: FONTS
-        ══════════════════════════════════════ -->
-        <div id="panel-fonts" class="panel space-y-4">
-            <div class="sec-card">
-                <p class="sec-title"><i class="fas fa-font"></i> Font Animator Studio</p>
-                <div class="font-preview-box mb-5">
-                    <div id="font-preview" class="font-preview-text anim-glitch" style="font-family:'Orbitron',sans-serif;">CREATIVE TYPOGRAPHY</div>
-                </div>
-                <div class="flex flex-wrap gap-2 mb-5">
-                    <button class="anim-btn active" onclick="setFontAnim('glitch',this)"><i class="fas fa-bolt mr-1"></i> Glitch</button>
-                    <button class="anim-btn" onclick="setFontAnim('pulse',this)"><i class="fas fa-circle-notch mr-1"></i> Pulse</button>
-                    <button class="anim-btn" onclick="setFontAnim('float',this)"><i class="fas fa-feather mr-1"></i> Float</button>
-                    <button class="anim-btn" onclick="setFontAnim('none',this)"><i class="fas fa-ban mr-1"></i> Static</button>
-                </div>
-                <div class="font-card-grid mb-5" id="font-grid"></div>
+    <!-- ═══ HERO TAB ═══ -->
+    <div id="panel-hero" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-home"></i> Home Page Hero Section</p>
+            <div class="space-y-4">
+                <div><label class="label">Hero Main Title</label><input type="text" id="h-title" class="inp" placeholder="Creative Excellence"><p class="hint">// Large animated text at top of homepage (split-text animation)</p></div>
+                <div><label class="label">Hero Subtitle</label><input type="text" id="h-sub" class="inp" placeholder="Photography / Graphic Design / Content Creation"></div>
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="label">Preview Text</label>
-                        <input type="text" id="font-custom-text" class="inp" placeholder="Enter custom text..." oninput="updateFontPreview()">
-                    </div>
-                    <div>
-                        <label class="label">Font Size: <span id="font-size-val">48px</span></label>
-                        <input type="range" min="24" max="100" value="48" oninput="document.getElementById('font-preview').style.fontSize=this.value+'px';document.getElementById('font-size-val').textContent=this.value+'px'" style="width:100%;margin-top:.5rem;">
-                    </div>
+                    <div><label class="label">CTA Button Text</label><input type="text" id="h-cta" class="inp" placeholder="View Services"></div>
+                    <div><label class="label">CTA Button Link</label><input type="text" id="h-link" class="inp" placeholder="/projects.html"></div>
                 </div>
             </div>
+            <button onclick="saveHero()" class="btn-primary mt-5"><i class="fas fa-save mr-2"></i> Save Hero</button>
         </div>
+    </div>
 
-        <!-- ══════════════════════════════════════
-             TAB: SECURITY
-        ══════════════════════════════════════ -->
-        <div id="panel-security" class="panel space-y-4">
-            <div class="sec-card" style="border-color:rgba(239,68,68,.2);">
-                <p class="sec-title" style="color:#f87171;"><i class="fas fa-shield-halved"></i> Security Settings</p>
-                <div class="space-y-4">
-                    <div>
-                        <label class="label" style="color:#f87171;">New Username</label>
-                        <input type="text" id="sec-user" class="inp" placeholder="Enter new username">
-                    </div>
-                    <div>
-                        <label class="label" style="color:#f87171;">Current Password</label>
-                        <input type="password" id="sec-curr" class="inp" placeholder="Current password">
-                    </div>
-                    <div>
-                        <label class="label" style="color:#f87171;">New Password</label>
-                        <input type="password" id="sec-new" class="inp" placeholder="New password">
-                    </div>
-                    <div>
-                        <label class="label" style="color:#f87171;">Confirm New Password</label>
-                        <input type="password" id="sec-confirm" class="inp" placeholder="Confirm new password">
-                    </div>
-                </div>
-                <button onclick="updateSecurity()" class="mt-5" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border:none;padding:.7rem 1.6rem;border-radius:.6rem;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .3s;">
-                    <i class="fas fa-lock mr-2"></i> Update Security
-                </button>
+    <!-- ═══ SERVICES TAB ═══ -->
+    <div id="panel-services" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-briefcase"></i> Service Cards (3 cards)</p>
+            <p class="hint mb-4">// Shown on Home page and Services page. Edit title, icon, color, description, and feature list.</p>
+            <div id="services-editor"></div>
+            <button onclick="saveServices()" class="btn-primary mt-4"><i class="fas fa-save mr-2"></i> Save Services</button>
+        </div>
+    </div>
+
+    <!-- ═══ STATS TAB ═══ -->
+    <div id="panel-stats" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-chart-bar"></i> Stats Bar (Home Page)</p>
+            <div class="grid md:grid-cols-2 gap-4" id="stats-editor"></div>
+            <button onclick="saveStats()" class="btn-primary mt-5"><i class="fas fa-save mr-2"></i> Save Stats</button>
+        </div>
+    </div>
+
+    <!-- ═══ GALLERY TAB ═══ -->
+    <div id="panel-gallery" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-photo-film"></i> Image Gallery</p>
+            <p class="hint mb-4">// Images here are available in all photo pickers. Use URL or upload from your device.</p>
+            <div class="grid md:grid-cols-4 gap-3 mb-4">
+                <div><label class="label">Title</label><input type="text" id="g-title" class="inp" placeholder="Photo title"></div>
+                <div><label class="label">Date</label><input type="text" id="g-date" class="inp" placeholder="2026-01-01"></div>
+                <div class="md:col-span-2"><label class="label">Image URL (or upload below)</label><input type="url" id="g-url" class="inp" placeholder="https://..."></div>
             </div>
+            <div><label class="label">Description (optional)</label><input type="text" id="g-desc" class="inp" placeholder="Short description..." style="margin-bottom:.75rem;"></div>
+            <div class="flex gap-3 flex-wrap mb-5">
+                <button onclick="addToGallery()" class="btn-primary"><i class="fas fa-plus mr-1"></i> Add via URL</button>
+                <label class="btn-file"><i class="fas fa-upload mr-1"></i> Upload from Device<input type="file" accept="image/*" multiple onchange="uploadToGallery(this)"></label>
+            </div>
+            <div class="gallery-grid" id="gallery-display"></div>
+            <p id="gallery-empty" class="text-center py-8" style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#334155;">// No images yet — add via URL or upload from device</p>
         </div>
+    </div>
 
-    </div><!-- /#main -->
+    <!-- ═══ PHOTOGRAPHY TAB ═══ -->
+    <div id="panel-photography" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-camera"></i> Photography Portfolio</p>
+            <p class="hint mb-4">// Shown on the Photography page. Add photos with title, date, description, and tags.</p>
 
-    <script src="site-data.js"></script>
-    <script>
-    /* ═══════════════════════════════════════════
-       AUTH
-    ═══════════════════════════════════════════ */
-    const AUTH_KEY = 'ash_x8_auth';
-    const getAuth = () => JSON.parse(localStorage.getItem(AUTH_KEY) || '{"user":"Ash_x8","pass":"Ashwickramasinghe@888"}');
-
-    document.getElementById('login-form').addEventListener('submit', e => {
-        e.preventDefault();
-        const a = getAuth();
-        if (document.getElementById('l-user').value === a.user &&
-            document.getElementById('l-pass').value === a.pass) {
-            document.getElementById('login-overlay').style.display = 'none';
-            const m = document.getElementById('main');
-            m.classList.remove('opacity-0','pointer-events-none');
-            initAll();
-        } else {
-            document.getElementById('login-err').classList.remove('hidden');
-            setTimeout(() => document.getElementById('login-err').classList.add('hidden'), 3000);
-        }
-    });
-
-    /* ═══════════════════════════════════════════
-       TAB SWITCHER
-    ═══════════════════════════════════════════ */
-    function tab(name) {
-        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('panel-' + name).classList.add('active');
-        document.getElementById('tb-' + name).classList.add('active');
-        if (name === 'fonts') initFonts();
-    }
-
-    /* ═══════════════════════════════════════════
-       TOAST
-    ═══════════════════════════════════════════ */
-    function toast(msg, type = 'success') {
-        const t = document.getElementById('toast');
-        const item = document.createElement('div');
-        item.className = 'toast-item';
-        item.style.color = type === 'success' ? '#a855f7' : '#f87171';
-        item.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${msg}`;
-        t.appendChild(item);
-        setTimeout(() => item.remove(), 3500);
-    }
-
-    /* ═══════════════════════════════════════════
-       INIT — populate all fields from SiteData
-    ═══════════════════════════════════════════ */
-    function initAll() {
-        const d = SiteData.get();
-        // Profile
-        document.getElementById('p-fullname').value = d.profile.fullName || '';
-        document.getElementById('p-nickname').value = d.profile.nickname || '';
-        document.getElementById('p-tagline').value = d.profile.tagline || '';
-        document.getElementById('p-category').value = d.profile.category || '';
-        document.getElementById('p-bio').value = d.profile.bio || '';
-        document.getElementById('p-about').value = d.profile.aboutText || '';
-        // Photos
-        setPhotoPreview('home', d.profile.homePhoto || '');
-        setPhotoPreview('about', d.profile.aboutPhoto || '');
-        // Social
-        document.getElementById('s-whatsapp').value = d.social.whatsapp || '';
-        document.getElementById('s-instagram').value = d.social.instagram || '';
-        document.getElementById('s-facebook').value = d.social.facebook || '';
-        document.getElementById('s-tiktok').value = d.social.tiktok || '';
-        document.getElementById('s-youtube').value = d.social.youtube || '';
-        document.getElementById('s-linkedin').value = d.social.linkedin || '';
-        document.getElementById('s-telegram').value = d.social.telegram || '';
-        // Hero
-        document.getElementById('h-title').value = d.hero.title || '';
-        document.getElementById('h-sub').value = d.hero.subtitle || '';
-        document.getElementById('h-cta').value = d.hero.ctaText || '';
-        document.getElementById('h-link').value = d.hero.ctaLink || '';
-        // Services
-        renderServicesEditor(d.services);
-        // Stats
-        renderStatsEditor(d.stats);
-        // Gallery
-        renderGallery(d.gallery);
-    }
-
-    /* ═══════════════════════════════════════════
-       SAVE FUNCTIONS
-    ═══════════════════════════════════════════ */
-    function saveProfile() {
-        SiteData.update('profile', {
-            fullName: document.getElementById('p-fullname').value,
-            nickname: document.getElementById('p-nickname').value,
-            tagline: document.getElementById('p-tagline').value,
-            category: document.getElementById('p-category').value,
-            bio: document.getElementById('p-bio').value,
-            aboutText: document.getElementById('p-about').value
-        });
-        toast('Profile saved!');
-    }
-
-    function savePhotos() {
-        const homeUrl = document.getElementById('home-photo-url-input').value || _photoTargets.home || '';
-        const aboutUrl = document.getElementById('about-photo-url-input').value || _photoTargets.about || '';
-        SiteData.update('profile', { homePhoto: homeUrl, aboutPhoto: aboutUrl });
-        toast('Photos saved!');
-    }
-
-    function saveSocial() {
-        SiteData.update('social', {
-            whatsapp: document.getElementById('s-whatsapp').value,
-            instagram: document.getElementById('s-instagram').value,
-            facebook: document.getElementById('s-facebook').value,
-            tiktok: document.getElementById('s-tiktok').value,
-            youtube: document.getElementById('s-youtube').value,
-            linkedin: document.getElementById('s-linkedin').value,
-            telegram: document.getElementById('s-telegram').value
-        });
-        toast('Social links saved!');
-    }
-
-    function saveHero() {
-        SiteData.update('hero', {
-            title: document.getElementById('h-title').value,
-            subtitle: document.getElementById('h-sub').value,
-            ctaText: document.getElementById('h-cta').value,
-            ctaLink: document.getElementById('h-link').value
-        });
-        toast('Hero section saved!');
-    }
-
-    function saveServices() {
-        const d = SiteData.get();
-        const services = d.services.map((_, i) => ({
-            icon: document.getElementById(`svc-icon-${i}`).value,
-            color: document.getElementById(`svc-color-${i}`).value,
-            title: document.getElementById(`svc-title-${i}`).value,
-            desc: document.getElementById(`svc-desc-${i}`).value,
-            features: document.getElementById(`svc-feats-${i}`).value.split('\n').filter(f => f.trim())
-        }));
-        SiteData.update('services', services);
-        toast('Services saved!');
-    }
-
-    function saveStats() {
-        const d = SiteData.get();
-        const stats = d.stats.map((_, i) => ({
-            num: document.getElementById(`stat-num-${i}`).value,
-            label: document.getElementById(`stat-label-${i}`).value
-        }));
-        SiteData.update('stats', stats);
-        toast('Stats saved!');
-    }
-
-    function saveAll() {
-        saveProfile();
-        savePhotos();
-        saveSocial();
-        saveHero();
-        saveServices();
-        saveStats();
-        setTimeout(() => toast('✓ All changes saved & deployed!'), 200);
-    }
-
-    /* ═══════════════════════════════════════════
-       SERVICES EDITOR
-    ═══════════════════════════════════════════ */
-    const iconOptions = ['fa-camera','fa-palette','fa-pen-fancy','fa-video','fa-print','fa-laptop','fa-mobile','fa-paintbrush','fa-star','fa-heart','fa-bolt','fa-fire','fa-gem','fa-crown'];
-
-    function renderServicesEditor(services) {
-        const el = document.getElementById('services-editor');
-        el.innerHTML = services.map((s, i) => `
-            <div class="svc-editor">
-                <div class="flex items-center gap-2 mb-4">
-                    <div class="svc-num-badge">0${i+1}</div>
-                    <h4 style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;color:#a855f7;">Service ${i+1}</h4>
+            <!-- Add Form -->
+            <div class="border border-sky-500/15 rounded-xl p-4 mb-5 bg-black/20">
+                <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:#0ea5e9;font-family:'Rajdhani',sans-serif;">Add New Photo</p>
+                <div class="grid md:grid-cols-2 gap-3 mb-3">
+                    <div><label class="label">Title</label><input type="text" id="ph-title" class="inp" placeholder="Portrait Session"></div>
+                    <div><label class="label">Date</label><input type="date" id="ph-date" class="inp"></div>
                 </div>
+                <div class="mb-3"><label class="label">Description</label><textarea id="ph-desc" rows="2" class="inp" placeholder="Brief description of this photo..."></textarea></div>
+                <div class="mb-3"><label class="label">Tags (comma separated)</label><input type="text" id="ph-tags" class="inp" placeholder="Portrait, Outdoor, Golden Hour"></div>
+                <div class="mb-4">
+                    <label class="label">Image</label>
+                    <div class="flex gap-3 flex-wrap items-center mt-1">
+                        <input type="url" id="ph-img" class="inp flex-1" placeholder="https://... or upload below" style="flex:1;min-width:200px;">
+                        <label class="btn-file"><i class="fas fa-upload mr-1"></i> Upload<input type="file" accept="image/*" onchange="handlePortfolioUpload(this,'ph-img','ph-preview')"></label>
+                        <button onclick="openPicker('ph-img-field')" class="btn-sec"><i class="fas fa-images mr-1"></i> Gallery</button>
+                    </div>
+                    <img id="ph-preview" src="" alt="" style="display:none;max-height:100px;margin-top:.5rem;border-radius:.4rem;border:1px solid rgba(14,165,233,.2);">
+                </div>
+                <button onclick="addPhotographyItem()" class="btn-primary"><i class="fas fa-plus mr-1"></i> Add Photo</button>
+            </div>
+
+            <!-- Item list -->
+            <div id="photography-list"></div>
+        </div>
+    </div>
+
+    <!-- ═══ DESIGNS TAB ═══ -->
+    <div id="panel-designs" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-palette"></i> Design Portfolio</p>
+            <p class="hint mb-4">// Shown on the Designs page. Add projects with title, category, date, description, and image.</p>
+
+            <!-- Add Form -->
+            <div class="border border-sky-500/15 rounded-xl p-4 mb-5 bg-black/20">
+                <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:#0ea5e9;font-family:'Rajdhani',sans-serif;">Add New Design Project</p>
                 <div class="grid md:grid-cols-3 gap-3 mb-3">
-                    <div>
-                        <label class="label">Title</label>
-                        <input type="text" id="svc-title-${i}" class="inp" value="${s.title}">
-                    </div>
-                    <div>
-                        <label class="label">Icon (Font Awesome)</label>
-                        <select id="svc-icon-${i}" class="inp">
-                            ${iconOptions.map(ic => `<option value="${ic}" ${ic === s.icon ? 'selected' : ''}>${ic}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div>
-                        <label class="label">Accent Color</label>
-                        <input type="color" id="svc-color-${i}" value="${s.color}" style="height:42px;width:100%;border-radius:.75rem;cursor:pointer;border:1.5px solid rgba(168,85,247,.3);background:transparent;padding:.2rem;">
-                    </div>
+                    <div><label class="label">Title</label><input type="text" id="ds-title" class="inp" placeholder="Brand Identity Package"></div>
+                    <div><label class="label">Category</label><input type="text" id="ds-cat" class="inp" placeholder="Branding, Logo, Social Media..."></div>
+                    <div><label class="label">Date</label><input type="date" id="ds-date" class="inp"></div>
                 </div>
-                <div class="mb-3">
-                    <label class="label">Description</label>
-                    <textarea id="svc-desc-${i}" rows="2" class="inp">${s.desc}</textarea>
+                <div class="mb-3"><label class="label">Description</label><textarea id="ds-desc" rows="2" class="inp" placeholder="Brief description of this design project..."></textarea></div>
+                <div class="mb-4">
+                    <label class="label">Image</label>
+                    <div class="flex gap-3 flex-wrap items-center mt-1">
+                        <input type="url" id="ds-img" class="inp flex-1" placeholder="https://... or upload below" style="flex:1;min-width:200px;">
+                        <label class="btn-file"><i class="fas fa-upload mr-1"></i> Upload<input type="file" accept="image/*" onchange="handlePortfolioUpload(this,'ds-img','ds-preview')"></label>
+                        <button onclick="openPicker('ds-img-field')" class="btn-sec"><i class="fas fa-images mr-1"></i> Gallery</button>
+                    </div>
+                    <img id="ds-preview" src="" alt="" style="display:none;max-height:100px;margin-top:.5rem;border-radius:.4rem;border:1px solid rgba(14,165,233,.2);">
                 </div>
-                <div>
-                    <label class="label">Features (one per line)</label>
-                    <textarea id="svc-feats-${i}" rows="4" class="inp">${s.features.join('\n')}</textarea>
-                </div>
+                <button onclick="addDesignItem()" class="btn-primary"><i class="fas fa-plus mr-1"></i> Add Design</button>
             </div>
-        `).join('');
-    }
 
-    /* ═══════════════════════════════════════════
-       STATS EDITOR
-    ═══════════════════════════════════════════ */
-    function renderStatsEditor(stats) {
-        const el = document.getElementById('stats-editor');
-        el.innerHTML = stats.map((s, i) => `
-            <div class="svc-editor">
-                <label class="label">Stat ${i+1} Number</label>
-                <input type="text" id="stat-num-${i}" class="inp mb-3" value="${s.num}">
-                <label class="label">Stat ${i+1} Label</label>
-                <input type="text" id="stat-label-${i}" class="inp" value="${s.label}">
+            <!-- Item list -->
+            <div id="designs-list"></div>
+        </div>
+    </div>
+
+    <!-- ═══ FONTS TAB ═══ -->
+    <div id="panel-fonts" class="panel">
+        <div class="sec-card">
+            <p class="sec-title"><i class="fas fa-font"></i> Font Animator Studio</p>
+            <div class="font-preview-box mb-5"><div id="font-preview" class="font-preview-text anim-glitch" style="font-family:'Orbitron',sans-serif;">CREATIVE TYPOGRAPHY</div></div>
+            <div class="flex flex-wrap gap-2 mb-5">
+                <button class="anim-btn active" onclick="setFontAnim('glitch',this)"><i class="fas fa-bolt mr-1"></i> Glitch</button>
+                <button class="anim-btn" onclick="setFontAnim('pulse',this)"><i class="fas fa-circle-notch mr-1"></i> Pulse</button>
+                <button class="anim-btn" onclick="setFontAnim('float',this)"><i class="fas fa-feather mr-1"></i> Float</button>
+                <button class="anim-btn" onclick="setFontAnim('none',this)"><i class="fas fa-ban mr-1"></i> Static</button>
             </div>
-        `).join('');
-    }
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5" id="font-grid"></div>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div><label class="label">Preview Text</label><input type="text" id="font-text" class="inp" placeholder="Enter custom text..." oninput="updateFontPreview()"></div>
+                <div><label class="label">Font Size: <span id="font-sz">48px</span></label><input type="range" min="24" max="100" value="48" oninput="document.getElementById('font-preview').style.fontSize=this.value+'px';document.getElementById('font-sz').textContent=this.value+'px'" style="width:100%;margin-top:.5rem;accent-color:#0ea5e9;"></div>
+            </div>
+        </div>
+    </div>
 
-    /* ═══════════════════════════════════════════
-       GALLERY MANAGEMENT
-    ═══════════════════════════════════════════ */
-    function renderGallery(gallery) {
-        const el = document.getElementById('gallery-display');
-        const empty = document.getElementById('gallery-empty');
-        if (!gallery || !gallery.length) {
-            el.innerHTML = '';
-            empty.style.display = 'block';
-            return;
-        }
+    <!-- ═══ SECURITY TAB ═══ -->
+    <div id="panel-security" class="panel">
+        <div class="sec-card" style="border-color:rgba(239,68,68,.2);">
+            <p class="sec-title" style="color:#f87171;"><i class="fas fa-shield-halved"></i> Security Settings</p>
+            <div class="space-y-4">
+                <div><label class="label" style="color:#f87171;">New Username</label><input type="text" id="sec-user" class="inp" placeholder="New username (leave blank to keep current)"></div>
+                <div><label class="label" style="color:#f87171;">Current Password (required)</label><input type="password" id="sec-curr" class="inp" placeholder="Current password"></div>
+                <div><label class="label" style="color:#f87171;">New Password</label><input type="password" id="sec-new" class="inp" placeholder="Leave blank to keep current"></div>
+                <div><label class="label" style="color:#f87171;">Confirm New Password</label><input type="password" id="sec-confirm" class="inp" placeholder="Confirm new password"></div>
+            </div>
+            <button onclick="updateSecurity()" class="mt-5" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border:none;padding:.7rem 1.6rem;border-radius:.6rem;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .3s;">
+                <i class="fas fa-lock mr-2"></i> Update Security
+            </button>
+        </div>
+    </div>
+
+</div><!-- /#main -->
+
+<script src="site-data.js"></script>
+<script>
+/* ═════════════════════════════════════
+   AUTH
+═════════════════════════════════════ */
+const AUTH_KEY = 'ash_x8_auth';
+const getAuth = () => JSON.parse(localStorage.getItem(AUTH_KEY) || '{"user":"Ash_x8","pass":"Ashwickramasinghe@888"}');
+
+document.getElementById('login-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const a = getAuth();
+    if (document.getElementById('l-user').value === a.user &&
+        document.getElementById('l-pass').value === a.pass) {
+        document.getElementById('login-overlay').style.display = 'none';
+        const m = document.getElementById('main');
+        m.classList.remove('opacity-0','pointer-events-none');
+        initAll();
+    } else {
+        const err = document.getElementById('login-err');
+        err.classList.remove('hidden');
+        setTimeout(() => err.classList.add('hidden'), 3000);
+    }
+});
+
+/* ═════════════════════════════════════
+   TABS
+═════════════════════════════════════ */
+function tab(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.getElementById('tb-' + name).classList.add('active');
+    if (name === 'fonts') initFonts();
+}
+
+/* ═════════════════════════════════════
+   TOAST
+═════════════════════════════════════ */
+function toast(msg, type='success') {
+    const t = document.getElementById('toast');
+    const item = document.createElement('div');
+    item.className = 'toast-item';
+    item.style.color = type === 'success' ? '#0ea5e9' : '#ef4444';
+    item.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${msg}`;
+    t.appendChild(item);
+    setTimeout(() => item.style.opacity='0', 3000);
+    setTimeout(() => item.remove(), 3500);
+}
+
+/* ═════════════════════════════════════
+   INIT
+═════════════════════════════════════ */
+function initAll() {
+    const d = SiteData.get();
+    // Profile
+    document.getElementById('p-fullname').value = d.profile.fullName  || '';
+    document.getElementById('p-nickname').value = d.profile.nickname  || '';
+    document.getElementById('p-tagline').value  = d.profile.tagline   || '';
+    document.getElementById('p-category').value = d.profile.category  || '';
+    document.getElementById('p-bio').value      = d.profile.bio       || '';
+    document.getElementById('p-about').value    = d.profile.aboutText || '';
+    // Photos
+    setPhotoPreview('home',  d.profile.homePhoto  || '');
+    setPhotoPreview('about', d.profile.aboutPhoto || '');
+    // Social
+    ['whatsapp','instagram','facebook','tiktok','youtube','linkedin','telegram'].forEach(k => {
+        document.getElementById('s-'+k).value = d.social[k] || '';
+    });
+    // Hero
+    document.getElementById('h-title').value = d.hero.title   || '';
+    document.getElementById('h-sub').value   = d.hero.subtitle || '';
+    document.getElementById('h-cta').value   = d.hero.ctaText  || '';
+    document.getElementById('h-link').value  = d.hero.ctaLink  || '';
+    // Services, stats, gallery, portfolio
+    renderServicesEditor(d.services || []);
+    renderStatsEditor(d.stats || []);
+    renderGallery(d.gallery || []);
+    renderPortfolioList('photography', d.photography || []);
+    renderPortfolioList('designs', d.designs || []);
+}
+
+/* ═════════════════════════════════════
+   SAVE FUNCTIONS
+═════════════════════════════════════ */
+function saveProfile() {
+    SiteData.update('profile', {
+        fullName: document.getElementById('p-fullname').value,
+        nickname: document.getElementById('p-nickname').value,
+        tagline:  document.getElementById('p-tagline').value,
+        category: document.getElementById('p-category').value,
+        bio:      document.getElementById('p-bio').value,
+        aboutText:document.getElementById('p-about').value
+    });
+    toast('Profile saved!');
+}
+function savePhotos() {
+    SiteData.update('profile', {
+        homePhoto:  _photos.home  || document.getElementById('home-url').value  || '',
+        aboutPhoto: _photos.about || document.getElementById('about-url').value || ''
+    });
+    toast('Photos saved!');
+}
+function saveSocial() {
+    SiteData.update('social', {
+        whatsapp:  document.getElementById('s-whatsapp').value,
+        instagram: document.getElementById('s-instagram').value,
+        facebook:  document.getElementById('s-facebook').value,
+        tiktok:    document.getElementById('s-tiktok').value,
+        youtube:   document.getElementById('s-youtube').value,
+        linkedin:  document.getElementById('s-linkedin').value,
+        telegram:  document.getElementById('s-telegram').value
+    });
+    toast('Social links saved!');
+}
+function saveHero() {
+    SiteData.update('hero', {
+        title:    document.getElementById('h-title').value,
+        subtitle: document.getElementById('h-sub').value,
+        ctaText:  document.getElementById('h-cta').value,
+        ctaLink:  document.getElementById('h-link').value
+    });
+    toast('Hero section saved!');
+}
+function saveServices() {
+    const d = SiteData.get();
+    const services = (d.services||[]).map((_, i) => ({
+        icon:  document.getElementById(`sv-icon-${i}`)?.value  || _.icon,
+        color: document.getElementById(`sv-color-${i}`)?.value || _.color,
+        title: document.getElementById(`sv-title-${i}`)?.value || '',
+        desc:  document.getElementById(`sv-desc-${i}`)?.value  || '',
+        features: (document.getElementById(`sv-feats-${i}`)?.value||'').split('\n').filter(f=>f.trim())
+    }));
+    SiteData.update('services', services);
+    toast('Services saved!');
+}
+function saveStats() {
+    const d = SiteData.get();
+    const stats = (d.stats||[]).map((_, i) => ({
+        num:   document.getElementById(`stat-num-${i}`)?.value   || '',
+        label: document.getElementById(`stat-lbl-${i}`)?.value   || ''
+    }));
+    SiteData.update('stats', stats);
+    toast('Stats saved!');
+}
+function saveAll() {
+    saveProfile(); savePhotos(); saveSocial(); saveHero(); saveServices(); saveStats();
+    setTimeout(() => toast('✓ All changes saved!'), 300);
+}
+
+/* ═════════════════════════════════════
+   PHOTO PREVIEW / PICKER
+═════════════════════════════════════ */
+const _photos = { home: '', about: '' };
+let _pickerTarget = null;
+
+function setPhotoPreview(target, url) {
+    _photos[target] = url;
+    const prev = document.getElementById(target+'-prev');
+    const lbl  = document.getElementById(target+'-lbl');
+    const inp  = document.getElementById(target+'-url');
+    if (url) {
+        prev.src = url; prev.style.display = 'block';
+        lbl.textContent = '// ' + (url.startsWith('data:') ? 'File uploaded' : url.substring(0,55)+(url.length>55?'...':''));
+        if (inp) inp.value = url.startsWith('data:') ? '' : url;
+    } else {
+        prev.style.display = 'none';
+        lbl.textContent = '// No photo selected';
+        if (inp) inp.value = '';
+    }
+}
+function previewUrl(target) {
+    const url = document.getElementById(target+'-url').value.trim();
+    setPhotoPreview(target, url);
+}
+function clearPhoto(target) { setPhotoPreview(target, ''); }
+
+function handleUpload(input, target) {
+    const file = input.files[0]; if (!file) return;
+    if (file.size > 4*1024*1024) { toast('File too large (max 4MB). Use URL for larger files.','error'); return; }
+    const reader = new FileReader();
+    reader.onload = e => setPhotoPreview(target, e.target.result);
+    reader.readAsDataURL(file);
+}
+
+function openPicker(target) {
+    _pickerTarget = target;
+    const d = SiteData.get();
+    const grid = document.getElementById('picker-grid');
+    const empty = document.getElementById('picker-empty');
+    if (!d.gallery || !d.gallery.length) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+    } else {
         empty.style.display = 'none';
-        el.innerHTML = gallery.map((p, i) => `
-            <div class="gallery-item" title="${p.title}">
+        grid.innerHTML = d.gallery.map(p => `
+            <div class="picker-item" onclick="selectFromPicker('${p.url.replace(/'/g,"\\'")}')">
                 <img src="${p.url}" alt="${p.title}" loading="lazy">
-                <button class="del-btn" onclick="deleteGalleryItem(${i})"><i class="fas fa-trash"></i></button>
-            </div>
-        `).join('');
+            </div>`).join('');
     }
-
-    function addToGallery() {
-        const url = document.getElementById('g-url').value.trim();
-        if (!url) { toast('Please enter an image URL', 'error'); return; }
-        const d = SiteData.get();
-        d.gallery.push({
-            title: document.getElementById('g-title').value || 'Photo',
-            date: document.getElementById('g-date').value || new Date().toISOString().split('T')[0],
-            url: url,
-            description: document.getElementById('g-desc').value || ''
-        });
-        SiteData.save(d);
-        ['g-title','g-date','g-url','g-desc'].forEach(id => document.getElementById(id).value = '');
-        renderGallery(d.gallery);
-        toast('Photo added to gallery!');
+    document.getElementById('picker-modal').classList.add('open');
+}
+function closePicker() {
+    document.getElementById('picker-modal').classList.remove('open');
+    _pickerTarget = null;
+}
+function selectFromPicker(url) {
+    if (_pickerTarget === 'home' || _pickerTarget === 'about') {
+        setPhotoPreview(_pickerTarget, url);
+    } else if (_pickerTarget === 'ph-img-field') {
+        document.getElementById('ph-img').value = url;
+        document.getElementById('ph-preview').src = url;
+        document.getElementById('ph-preview').style.display = 'block';
+    } else if (_pickerTarget === 'ds-img-field') {
+        document.getElementById('ds-img').value = url;
+        document.getElementById('ds-preview').src = url;
+        document.getElementById('ds-preview').style.display = 'block';
     }
+    closePicker();
+    toast('Image selected!');
+}
 
-    /* ═══════════════════════════════════════════
-       PHOTO PICKER
-    ═══════════════════════════════════════════ */
-    let _pickerTarget = null;
-    const _photoTargets = { home: '', about: '' };
-
-    function setPhotoPreview(target, url) {
-        _photoTargets[target] = url;
-        const preview = document.getElementById(target + '-photo-preview');
-        const label = document.getElementById(target + '-photo-label');
-        const urlInput = document.getElementById(target + '-photo-url-input');
-        if (url) {
-            preview.src = url;
-            preview.style.display = 'block';
-            label.textContent = '// ' + url.substring(0, 50) + (url.length > 50 ? '...' : '');
-            if (urlInput) urlInput.value = url;
-        } else {
-            preview.style.display = 'none';
-            label.textContent = '// No photo selected';
-            if (urlInput) urlInput.value = '';
-        }
-    }
-
-    function previewUrlPhoto(target) {
-        const url = document.getElementById(target + '-photo-url-input').value.trim();
-        _photoTargets[target] = url;
-        const preview = document.getElementById(target + '-photo-preview');
-        const label = document.getElementById(target + '-photo-label');
-        if (url) {
-            preview.src = url;
-            preview.style.display = 'block';
-            label.textContent = '// ' + url.substring(0, 50) + (url.length > 50 ? '...' : '');
-        } else {
-            preview.style.display = 'none';
-            label.textContent = '// No photo selected';
-        }
-    }
-
-    function clearPhoto(target) {
-        _photoTargets[target] = '';
-        setPhotoPreview(target, '');
-    }
-
-    function openPicker(target) {
-        _pickerTarget = target;
-        const d = SiteData.get();
-        const grid = document.getElementById('picker-grid');
-        if (!d.gallery || !d.gallery.length) {
-            grid.innerHTML = '<div class="picker-empty">// No photos in gallery yet.<br>Add photos in the Gallery tab first.</div>';
-        } else {
-            grid.innerHTML = d.gallery.map((p, i) => `
-                <div class="picker-item" onclick="selectFromPicker('${p.url}')" title="${p.title}">
-                    <img src="${p.url}" alt="${p.title}" loading="lazy">
-                </div>
-            `).join('');
-        }
-        document.getElementById('picker-modal').classList.add('open');
-    }
-
-    function closePicker() {
-        document.getElementById('picker-modal').classList.remove('open');
-        _pickerTarget = null;
-    }
-
-    function selectFromPicker(url) {
-        if (_pickerTarget) {
-            setPhotoPreview(_pickerTarget, url);
-        }
-        closePicker();
-        toast('Photo selected!');
-    }
-
-    /* ═══════════════════════════════════════════
-       GALLERY DELETE
-    ═══════════════════════════════════════════ */
-    function deleteGalleryItem(idx) {
-        if (!confirm('Delete this photo from gallery?')) return;
-        const d = SiteData.get();
-        d.gallery.splice(idx, 1);
-        SiteData.save(d);
-        renderGallery(d.gallery);
-        toast('Photo deleted!');
-    }
-
-    /* ═══════════════════════════════════════════
-       FONT ANIMATOR
-    ═══════════════════════════════════════════ */
-    const FONTS = [
-        'Orbitron','Rajdhani','JetBrains Mono','Plus Jakarta Sans','Inter',
-        'Montserrat','Poppins','Roboto','Playfair Display','Bebas Neue',
-        'Space Grotesk','Syne','Unbounded','Righteous','Comfortaa','Cinzel'
-    ];
-    let _selectedFont = 'Orbitron';
-
-    function initFonts() {
-        const grid = document.getElementById('font-grid');
-        if (!grid || grid.children.length > 0) return;
-        grid.innerHTML = FONTS.map(f => `
-            <div class="font-card ${f === _selectedFont ? 'selected' : ''}" onclick="selectFont('${f}', this)" style="font-family:'${f}',sans-serif;">
-                <div style="font-size:1.1rem;color:#a855f7;margin-bottom:.3rem;">${f}</div>
-                <div style="font-size:.75rem;color:#64748b;">ABCDEFG abcdefg 0123</div>
-            </div>
-        `).join('');
-        loadGoogleFont(FONTS);
-    }
-
-    function loadGoogleFont(fonts) {
-        const families = fonts.map(f => f.replace(/ /g,'+') + ':wght@400;700;900').join('|');
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = `https://fonts.googleapis.com/css2?${families.split('|').map(f=>'family='+f).join('&')}&display=swap`;
-        document.head.appendChild(link);
-    }
-
-    function selectFont(font, el) {
-        _selectedFont = font;
-        document.querySelectorAll('.font-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-        document.getElementById('font-preview').style.fontFamily = `'${font}', sans-serif`;
-        document.getElementById('font-preview').style.fontWeight = '700';
-        toast(`Font: ${font}`);
-    }
-
-    function setFontAnim(anim, btn) {
-        const preview = document.getElementById('font-preview');
-        preview.className = 'font-preview-text';
-        if (anim !== 'none') preview.classList.add('anim-' + anim);
-        document.querySelectorAll('.anim-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
-
-    function updateFontPreview() {
-        const t = document.getElementById('font-custom-text').value;
-        if (t) document.getElementById('font-preview').textContent = t.toUpperCase();
-        else document.getElementById('font-preview').textContent = 'CREATIVE TYPOGRAPHY';
-    }
-
-    /* ═══════════════════════════════════════════
-       SECURITY
-    ═══════════════════════════════════════════ */
-    function updateSecurity() {
-        const a = getAuth();
-        const curr = document.getElementById('sec-curr').value;
-        const nw = document.getElementById('sec-new').value;
-        const cf = document.getElementById('sec-confirm').value;
-        const usr = document.getElementById('sec-user').value;
-        if (curr !== a.pass) { toast('Current password incorrect!', 'error'); return; }
-        if (nw && nw !== cf) { toast('Passwords do not match!', 'error'); return; }
-        const newAuth = {
-            user: usr || a.user,
-            pass: nw || a.pass
+/* ═════════════════════════════════════
+   GALLERY MANAGEMENT
+═════════════════════════════════════ */
+function renderGallery(gallery) {
+    const el = document.getElementById('gallery-display');
+    const empty = document.getElementById('gallery-empty');
+    if (!gallery.length) { el.innerHTML=''; empty.style.display='block'; return; }
+    empty.style.display = 'none';
+    el.innerHTML = gallery.map((p,i) => `
+        <div class="gallery-item" title="${p.title}">
+            <img src="${p.url}" alt="${p.title}" loading="lazy">
+            <button class="del-btn" onclick="delGallery(${i})"><i class="fas fa-trash"></i></button>
+        </div>`).join('');
+}
+function addToGallery() {
+    const url = document.getElementById('g-url').value.trim();
+    if (!url) { toast('Please enter an image URL','error'); return; }
+    const d = SiteData.get();
+    d.gallery.push({ title:document.getElementById('g-title').value||'Photo', date:document.getElementById('g-date').value||new Date().toISOString().split('T')[0], url, description:document.getElementById('g-desc').value||'' });
+    SiteData.save(d);
+    ['g-title','g-date','g-url','g-desc'].forEach(id => document.getElementById(id).value='');
+    renderGallery(d.gallery);
+    toast('Added to gallery!');
+}
+function uploadToGallery(input) {
+    const files = Array.from(input.files);
+    if (!files.length) return;
+    let processed = 0;
+    files.forEach(file => {
+        if (file.size > 4*1024*1024) { toast(`${file.name} too large (max 4MB)`, 'error'); processed++; return; }
+        const reader = new FileReader();
+        reader.onload = e => {
+            const d = SiteData.get();
+            d.gallery.push({ title: file.name.replace(/\.[^/.]+$/,''), date: new Date().toISOString().split('T')[0], url: e.target.result, description: '' });
+            SiteData.save(d);
+            processed++;
+            if (processed === files.length) { renderGallery(SiteData.get().gallery); toast(`${processed} image(s) uploaded!`); }
         };
-        localStorage.setItem(AUTH_KEY, JSON.stringify(newAuth));
-        document.getElementById('sec-curr').value = '';
-        document.getElementById('sec-new').value = '';
-        document.getElementById('sec-confirm').value = '';
-        toast('Security updated! Re-login on next visit.');
+        reader.readAsDataURL(file);
+    });
+    input.value = '';
+}
+function delGallery(idx) {
+    if (!confirm('Delete this image from gallery?')) return;
+    const d = SiteData.get();
+    d.gallery.splice(idx, 1);
+    SiteData.save(d);
+    renderGallery(d.gallery);
+    toast('Image deleted.');
+}
+
+/* ═════════════════════════════════════
+   PORTFOLIO (Photography & Designs)
+═════════════════════════════════════ */
+function handlePortfolioUpload(input, imgFieldId, previewId) {
+    const file = input.files[0]; if (!file) return;
+    if (file.size > 4*1024*1024) { toast('File too large (max 4MB). Use URL for larger.','error'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+        document.getElementById(imgFieldId).value = e.target.result;
+        const prev = document.getElementById(previewId);
+        prev.src = e.target.result; prev.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+function addPhotographyItem() {
+    const title = document.getElementById('ph-title').value.trim();
+    if (!title) { toast('Please enter a title','error'); return; }
+    const imgUrl = document.getElementById('ph-img').value.trim();
+    const d = SiteData.get();
+    d.photography.push({
+        id:          Date.now().toString(),
+        title,
+        date:        document.getElementById('ph-date').value || new Date().toISOString().split('T')[0],
+        description: document.getElementById('ph-desc').value || '',
+        imageUrl:    imgUrl,
+        tags:        document.getElementById('ph-tags').value.split(',').map(t=>t.trim()).filter(Boolean)
+    });
+    SiteData.save(d);
+    ['ph-title','ph-date','ph-desc','ph-tags','ph-img'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('ph-preview').style.display='none';
+    renderPortfolioList('photography', d.photography);
+    toast('Photo added!');
+}
+function addDesignItem() {
+    const title = document.getElementById('ds-title').value.trim();
+    if (!title) { toast('Please enter a title','error'); return; }
+    const imgUrl = document.getElementById('ds-img').value.trim();
+    const d = SiteData.get();
+    d.designs.push({
+        id:          Date.now().toString(),
+        title,
+        category:    document.getElementById('ds-cat').value.trim() || 'Design',
+        date:        document.getElementById('ds-date').value || new Date().toISOString().split('T')[0],
+        description: document.getElementById('ds-desc').value || '',
+        imageUrl:    imgUrl
+    });
+    SiteData.save(d);
+    ['ds-title','ds-cat','ds-date','ds-desc','ds-img'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('ds-preview').style.display='none';
+    renderPortfolioList('designs', d.designs);
+    toast('Design added!');
+}
+function renderPortfolioList(type, items) {
+    const el = document.getElementById(type+'-list');
+    if (!items.length) {
+        el.innerHTML = `<p style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#334155;text-align:center;padding:2rem;">// No items yet. Add using the form above.</p>`;
+        return;
     }
-
-    /* ═══════════════════════════════════════════
-       CANVAS GALAXY BACKGROUND
-    ═══════════════════════════════════════════ */
-    (function() {
-        const canvas = document.getElementById('gal-bg');
-        const ctx = canvas.getContext('2d');
-        let W, H, particles = [];
-        const N = 80;
-
-        function resize() {
-            W = canvas.width = window.innerWidth;
-            H = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        for (let i = 0; i < N; i++) {
-            particles.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                r: Math.random() * 1.4 + 0.2,
-                vx: (Math.random() - 0.5) * 0.25,
-                vy: (Math.random() - 0.5) * 0.25,
-                a: Math.random(),
-                c: ['rgba(168,85,247,','rgba(236,72,153,','rgba(6,182,212,'][Math.floor(Math.random()*3)]
-            });
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            particles.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-                if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-                p.a += 0.005;
-                const alpha = (Math.sin(p.a) * 0.4 + 0.5) * 0.6;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = p.c + alpha + ')';
-                ctx.fill();
-            });
-            // Draw faint connection lines
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 100) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(168,85,247,${(1 - dist/100) * 0.08})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
+    el.innerHTML = items.map((item,i) => `
+        <div class="portfolio-editor-item">
+            ${item.imageUrl
+                ? `<img src="${item.imageUrl}" alt="${item.title}">`
+                : `<div class="portfolio-item-placeholder"><i class="fas fa-${type==='photography'?'camera':'palette'}"></i></div>`
             }
-            requestAnimationFrame(draw);
+            <div>
+                <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:#f0f8ff;margin-bottom:.2rem;">${item.title}</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#06b6d4;margin-bottom:.2rem;">${item.category||''} // ${item.date}</div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px;">${item.description||''}</div>
+                ${type==='photography' && item.tags?.length ? `<div style="margin-top:.3rem;display:flex;gap:.3rem;flex-wrap:wrap;">${item.tags.map(t=>`<span style="font-family:'JetBrains Mono',monospace;font-size:.55rem;padding:.15rem .5rem;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.2);border-radius:2rem;color:#0ea5e9;">${t}</span>`).join('')}</div>` : ''}
+            </div>
+            <button onclick="delPortfolioItem('${type}',${i})" class="btn-danger"><i class="fas fa-trash"></i></button>
+        </div>`).join('');
+}
+function delPortfolioItem(type, idx) {
+    if (!confirm('Delete this item?')) return;
+    const d = SiteData.get();
+    d[type].splice(idx, 1);
+    SiteData.save(d);
+    renderPortfolioList(type, d[type]);
+    toast('Item deleted.');
+}
+
+/* ═════════════════════════════════════
+   SERVICES EDITOR
+═════════════════════════════════════ */
+const ICON_OPTS = ['fa-camera','fa-palette','fa-pen-fancy','fa-video','fa-print','fa-laptop','fa-mobile','fa-paintbrush','fa-star','fa-bolt','fa-fire','fa-gem','fa-crown','fa-magic','fa-wand-sparkles'];
+function renderServicesEditor(services) {
+    document.getElementById('services-editor').innerHTML = services.map((s,i) => `
+        <div class="svc-editor">
+            <div class="flex items-center gap-2 mb-4">
+                <div class="svc-num-badge">0${i+1}</div>
+                <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:#0ea5e9;">Service ${i+1}</span>
+            </div>
+            <div class="grid md:grid-cols-3 gap-3 mb-3">
+                <div><label class="label">Title</label><input type="text" id="sv-title-${i}" class="inp" value="${s.title}"></div>
+                <div><label class="label">Icon (Font Awesome)</label><select id="sv-icon-${i}" class="inp">${ICON_OPTS.map(ic=>`<option value="${ic}"${ic===s.icon?' selected':''}>${ic}</option>`).join('')}</select></div>
+                <div><label class="label">Accent Color</label><input type="color" id="sv-color-${i}" value="${s.color}" style="height:42px;width:100%;border-radius:.75rem;cursor:pointer;border:1.5px solid rgba(14,165,233,.3);background:transparent;padding:.2rem;"></div>
+            </div>
+            <div class="mb-3"><label class="label">Description</label><textarea id="sv-desc-${i}" rows="2" class="inp">${s.desc}</textarea></div>
+            <div><label class="label">Features (one per line)</label><textarea id="sv-feats-${i}" rows="4" class="inp">${(s.features||[]).join('\n')}</textarea></div>
+        </div>`).join('');
+}
+
+/* ═════════════════════════════════════
+   STATS EDITOR
+═════════════════════════════════════ */
+function renderStatsEditor(stats) {
+    document.getElementById('stats-editor').innerHTML = stats.map((s,i) => `
+        <div class="svc-editor">
+            <label class="label">Stat ${i+1} — Number/Value</label>
+            <input type="text" id="stat-num-${i}" class="inp mb-3" value="${s.num}">
+            <label class="label">Label</label>
+            <input type="text" id="stat-lbl-${i}" class="inp" value="${s.label}">
+        </div>`).join('');
+}
+
+/* ═════════════════════════════════════
+   FONT ANIMATOR
+═════════════════════════════════════ */
+const FONTS = ['Orbitron','Rajdhani','JetBrains Mono','Plus Jakarta Sans','Inter','Montserrat','Poppins','Roboto','Playfair Display','Bebas Neue','Space Grotesk','Unbounded','Righteous','Comfortaa','Cinzel','Exo 2'];
+let _selFont = 'Orbitron';
+function initFonts() {
+    const grid = document.getElementById('font-grid');
+    if (grid.children.length > 0) return;
+    // Load fonts
+    const link = document.createElement('link'); link.rel='stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?'+FONTS.map(f=>'family='+f.replace(/ /g,'+')+':wght@400;700;900').join('&')+'&display=swap';
+    document.head.appendChild(link);
+    grid.innerHTML = FONTS.map(f => `
+        <div class="font-card${f===_selFont?' selected':''}" onclick="selFont('${f}',this)" style="font-family:'${f}',sans-serif;">
+            <div style="font-size:1rem;color:#0ea5e9;margin-bottom:.2rem;">${f}</div>
+            <div style="font-size:.72rem;color:#475569;">ABCabc 0123</div>
+        </div>`).join('');
+}
+function selFont(font, el) {
+    _selFont = font;
+    document.querySelectorAll('.font-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('font-preview').style.fontFamily = `'${font}',sans-serif`;
+    toast('Font: '+font);
+}
+function setFontAnim(anim, btn) {
+    const p = document.getElementById('font-preview');
+    p.className = 'font-preview-text';
+    if (anim !== 'none') p.classList.add('anim-'+anim);
+    document.querySelectorAll('.anim-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+}
+function updateFontPreview() {
+    const t = document.getElementById('font-text').value;
+    document.getElementById('font-preview').textContent = t ? t.toUpperCase() : 'CREATIVE TYPOGRAPHY';
+}
+
+/* ═════════════════════════════════════
+   SECURITY
+═════════════════════════════════════ */
+function updateSecurity() {
+    const a = getAuth();
+    const curr = document.getElementById('sec-curr').value;
+    if (curr !== a.pass) { toast('Current password incorrect!','error'); return; }
+    const nw = document.getElementById('sec-new').value;
+    const cf = document.getElementById('sec-confirm').value;
+    if (nw && nw !== cf) { toast('Passwords do not match!','error'); return; }
+    const usr = document.getElementById('sec-user').value;
+    localStorage.setItem(AUTH_KEY, JSON.stringify({ user: usr||a.user, pass: nw||a.pass }));
+    ['sec-curr','sec-new','sec-confirm'].forEach(id => document.getElementById(id).value='');
+    toast('Security updated! Re-login on next visit.');
+}
+
+/* ═════════════════════════════════════
+   CANVAS PARTICLE BACKGROUND
+═════════════════════════════════════ */
+(function() {
+    const canvas = document.getElementById('gal-bg');
+    const ctx = canvas.getContext('2d');
+    let W, H, pts = [];
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    const clrs = ['rgba(14,165,233,','rgba(6,182,212,','rgba(56,189,248,'];
+    for (let i = 0; i < 80; i++) pts.push({ x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight, r:Math.random()*1.3+.2, vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25, a:Math.random()*Math.PI*2, c:clrs[i%3] });
+    function draw() {
+        ctx.clearRect(0,0,W,H);
+        pts.forEach(p => {
+            p.x+=p.vx; p.y+=p.vy; p.a+=.005;
+            if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+            const al = (Math.sin(p.a)*.4+.5)*.5;
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle = p.c+al+')'; ctx.fill();
+        });
+        for (let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+            const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+            if(d<100){ ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.strokeStyle=`rgba(14,165,233,${(1-d/100)*.07})`; ctx.lineWidth=.5; ctx.stroke(); }
         }
-        draw();
-    })();
-    </script>
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+</script>
 </body>
 </html>

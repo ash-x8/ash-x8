@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   ASH_X8 SITE DATA MANAGER
+   ASH_X8 SITE DATA MANAGER  v2
    Central localStorage-based data layer.
    All pages read from here. Admin writes here.
 ═══════════════════════════════════════════════════ */
@@ -9,61 +9,63 @@ const SiteData = {
 
     defaults: {
         profile: {
-            fullName: 'Kushan A Wickramasinghe',
-            nickname: 'ASH_X8',
-            tagline: 'Evolving Digital Alchemist',
-            category: 'Photographer & Graphic Designer',
-            bio: "I'm Kushan A Wickramasinghe, a passionate creative professional based in Sri Lanka. With expertise in photography, graphic design, and digital content creation, I help brands tell their stories through stunning visuals and compelling design.",
-            aboutText: "Specializing in professional photography and creative graphic design, I craft visual identities that leave a lasting impression. My work blends technical precision with artistic vision to deliver results that truly stand out.",
-            homePhoto: '',
+            fullName:   'Kushan A Wickramasinghe',
+            nickname:   'ASH_X8',
+            tagline:    'Evolving Digital Alchemist',
+            category:   'Photographer & Graphic Designer',
+            bio:        "I'm Kushan A Wickramasinghe (Ash Wickramasinghe), a passionate creative professional based in Sri Lanka. With expertise in photography, graphic design, and digital content creation, I help brands tell their stories through stunning visuals and compelling design.",
+            aboutText:  "Specializing in professional photography and creative graphic design, I craft visual identities that leave a lasting impression. My work blends technical precision with artistic vision — every project is tailored to stand out.",
+            homePhoto:  '',
             aboutPhoto: '',
-            avatar: ''
+            avatar:     ''
         },
         social: {
-            whatsapp: '',
-            facebook: '',
-            tiktok: '',
-            youtube: '',
-            linkedin: '',
+            whatsapp:  '',
+            facebook:  '',
+            tiktok:    '',
+            youtube:   '',
+            linkedin:  '',
             instagram: '',
-            telegram: ''
+            telegram:  ''
         },
         hero: {
-            title: 'Creative Excellence',
-            subtitle: 'Photography  /  Graphic Design  /  Content Creation',
+            title:   'Creative Excellence',
+            subtitle:'Photography  /  Graphic Design  /  Content Creation',
             ctaText: 'View Services',
-            ctaLink: '/projects.html'
+            ctaLink: '/services.html'
         },
         services: [
             {
-                icon: 'fa-camera',
-                color: '#a855f7',
+                icon:  'fa-camera',
+                color: '#0ea5e9',
                 title: 'Professional Photography',
-                desc: 'Stunning visual content that captures your brand\'s essence with premium, high-quality photography services.',
-                features: ['Product Photography', 'Portrait Sessions', 'Event Coverage', 'Brand Photography']
+                desc:  "Stunning visual content that captures your brand's essence with premium, high-quality photography.",
+                features: ['Product Photography','Portrait Sessions','Event Coverage','Brand Photography']
             },
             {
-                icon: 'fa-palette',
-                color: '#ec4899',
-                title: 'Graphic Design',
-                desc: 'Creative design solutions that elevate your brand identity with modern, professional aesthetics.',
-                features: ['Logo Design', 'Brand Identity', 'Print Design', 'Digital Assets']
-            },
-            {
-                icon: 'fa-pen-fancy',
+                icon:  'fa-palette',
                 color: '#06b6d4',
+                title: 'Graphic Design',
+                desc:  'Creative design solutions that elevate your brand identity with modern, professional aesthetics.',
+                features: ['Logo Design','Brand Identity','Print Design','Digital Assets']
+            },
+            {
+                icon:  'fa-pen-fancy',
+                color: '#38bdf8',
                 title: 'Content Creation',
-                desc: 'Engaging social media content that connects with your audience and drives meaningful engagement.',
-                features: ['Social Media Posts', 'Video Content', 'Copywriting', 'Campaign Management']
+                desc:  'Engaging social media content that connects with your audience and drives meaningful engagement.',
+                features: ['Social Media Posts','Video Content','Copywriting','Campaign Management']
             }
         ],
         stats: [
-            { num: '150+', label: 'Projects Done' },
-            { num: '80+', label: 'Happy Clients' },
-            { num: '3+', label: 'Years Active' },
-            { num: '∞', label: 'Creativity' }
+            { num: '150+', label: 'Projects Done'  },
+            { num: '80+',  label: 'Happy Clients'  },
+            { num: '3+',   label: 'Years Active'   },
+            { num: '∞',    label: 'Creativity'     }
         ],
-        gallery: []
+        gallery:     [],
+        photography: [],
+        designs:     []
     },
 
     /* ── GET ALL DATA ─────────────────────────── */
@@ -71,9 +73,7 @@ const SiteData = {
         try {
             const stored = localStorage.getItem(this.STORAGE_KEY);
             if (!stored) return JSON.parse(JSON.stringify(this.defaults));
-            const parsed = JSON.parse(stored);
-            // Deep merge with defaults to handle new fields
-            return this._deepMerge(JSON.parse(JSON.stringify(this.defaults)), parsed);
+            return this._deepMerge(JSON.parse(JSON.stringify(this.defaults)), JSON.parse(stored));
         } catch (e) {
             return JSON.parse(JSON.stringify(this.defaults));
         }
@@ -116,186 +116,43 @@ const SiteData = {
     },
 
     /* ══════════════════════════════════════════
-       PAGE LOADER — call on each public page
+       BUILD SPLIT TEXT
     ══════════════════════════════════════════ */
-    loadPage(pageName) {
-        const d = this.get();
-        this._applyCommon(d);
-        if (pageName === 'home') this._applyHome(d);
-        if (pageName === 'about') this._applyAbout(d);
-        if (pageName === 'services') this._applyServices(d);
-    },
-
-    /* ── COMMON ELEMENTS (nav, footer) ────────── */
-    _applyCommon(d) {
-        // Nav brand
-        const navBrand = document.getElementById('nav-brand');
-        if (navBrand) navBrand.textContent = d.profile.nickname || 'ASH_X8';
-
-        // Footer
-        const footer = document.getElementById('footer-name');
-        if (footer) footer.textContent = d.profile.fullName;
-
-        // Social links (renders into any .social-links-container)
-        document.querySelectorAll('.social-links-container').forEach(el => {
-            el.innerHTML = this._buildSocialLinks(d.social);
-        });
-    },
-
-    /* ── HOME PAGE ─────────────────────────────── */
-    _applyHome(d) {
-        // Hero title
-        const heroTitleEl = document.getElementById('hero-title-text');
-        if (heroTitleEl) {
-            heroTitleEl.innerHTML = '';
-            this._buildSplitText(heroTitleEl, d.hero.title);
-        }
-
-        // Hero subtitle
-        const heroSub = document.getElementById('hero-subtitle');
-        if (heroSub) heroSub.textContent = d.hero.subtitle;
-
-        // CTA button
-        const ctaBtn = document.getElementById('hero-cta-btn');
-        if (ctaBtn) {
-            ctaBtn.textContent = '';
-            ctaBtn.innerHTML = `<i class="fas fa-bolt"></i> ${d.hero.ctaText}`;
-            ctaBtn.href = d.hero.ctaLink;
-        }
-
-        // Profile section
-        const homePhoto = document.getElementById('home-profile-photo');
-        if (homePhoto && d.profile.homePhoto) homePhoto.src = d.profile.homePhoto;
-
-        const homeName = document.getElementById('home-profile-name');
-        if (homeName) homeName.textContent = d.profile.fullName;
-
-        const homeTagline = document.getElementById('home-profile-tagline');
-        if (homeTagline) homeTagline.textContent = d.profile.tagline;
-
-        const homeCategory = document.getElementById('home-profile-category');
-        if (homeCategory) homeCategory.textContent = d.profile.category;
-
-        const homeBio = document.getElementById('home-profile-bio');
-        if (homeBio) homeBio.textContent = d.profile.bio;
-
-        // Stats
-        const statsEl = document.getElementById('stats-container');
-        if (statsEl && d.stats) {
-            statsEl.innerHTML = d.stats.map(s => `
-                <div class="stat-item">
-                    <span class="stat-num">${s.num}</span>
-                    <span class="stat-label">${s.label}</span>
-                </div>
-            `).join('');
-        }
-
-        // Services
-        const svcEl = document.getElementById('services-grid');
-        if (svcEl && d.services) {
-            svcEl.innerHTML = d.services.map(s => `
-                <div class="service-card reveal-hidden">
-                    <div class="service-icon-wrap" style="background:linear-gradient(135deg,${s.color}22,${s.color}0a); box-shadow:0 0 30px ${s.color}33;">
-                        <i class="fas ${s.icon}" style="color:${s.color};"></i>
-                    </div>
-                    <h3>${s.title}</h3>
-                    <p>${s.desc}</p>
-                </div>
-            `).join('');
-            // Re-observe new elements
-            if (window._revealObserver) {
-                document.querySelectorAll('.reveal-hidden').forEach(el => window._revealObserver.observe(el));
-            }
-        }
-    },
-
-    /* ── ABOUT PAGE ────────────────────────────── */
-    _applyAbout(d) {
-        const aboutPhoto = document.getElementById('about-profile-photo');
-        if (aboutPhoto && d.profile.aboutPhoto) aboutPhoto.src = d.profile.aboutPhoto;
-
-        const aboutName = document.getElementById('about-profile-name');
-        if (aboutName) aboutName.textContent = d.profile.fullName;
-
-        const aboutTagline = document.getElementById('about-profile-tagline');
-        if (aboutTagline) aboutTagline.textContent = d.profile.tagline;
-
-        const aboutCategory = document.getElementById('about-profile-category');
-        if (aboutCategory) aboutCategory.textContent = d.profile.category;
-
-        const aboutBio = document.getElementById('about-bio-text');
-        if (aboutBio) aboutBio.textContent = d.profile.bio;
-
-        const aboutText2 = document.getElementById('about-text-2');
-        if (aboutText2) aboutText2.textContent = d.profile.aboutText;
-
-        // Split text for title
-        const titleEl = document.getElementById('about-title');
-        if (titleEl) {
-            titleEl.innerHTML = '';
-            this._buildSplitText(titleEl, 'About Me');
-        }
-    },
-
-    /* ── SERVICES PAGE ──────────────────────────── */
-    _applyServices(d) {
-        const titleEl = document.getElementById('services-title');
-        if (titleEl) {
-            titleEl.innerHTML = '';
-            this._buildSplitText(titleEl, 'Our Services');
-        }
-
-        const svcGrid = document.getElementById('services-page-grid');
-        if (svcGrid && d.services) {
-            const colors = ['purple-card', 'pink-card', 'cyan-card'];
-            svcGrid.innerHTML = d.services.map((s, i) => `
-                <div class="service-card ${colors[i]} reveal-scale" style="--delay:${0.05 + i * 0.1}s">
-                    <span class="service-num">0${i + 1}</span>
-                    <div class="svc-icon" style="background:linear-gradient(135deg,${s.color}26,${s.color}0d); box-shadow:0 0 30px ${s.color}33;">
-                        <i class="fas ${s.icon}" style="color:${s.color};"></i>
-                    </div>
-                    <h3>${s.title}</h3>
-                    <p>${s.desc}</p>
-                    <ul class="feature-list">
-                        ${s.features.map(f => `<li>${f}</li>`).join('')}
-                    </ul>
-                </div>
-            `).join('');
-        }
-    },
-
-    /* ── BUILD SPLIT TEXT ──────────────────────── */
     _buildSplitText(el, text) {
+        el.innerHTML = '';
+        const clrs = ['#0ea5e9','#06b6d4','#38bdf8'];
         text.split('').forEach((char, i) => {
             const span = document.createElement('span');
             span.className = 'split-text-char';
             span.style.animationDelay = (0.4 + i * 0.06) + 's';
             span.textContent = char === ' ' ? '\u00A0' : char;
-            const clr = ['#a855f7', '#ec4899', '#06b6d4'][i % 3];
-            span.style.background = `linear-gradient(135deg, ${clr}, #ec4899)`;
+            const c = clrs[i % 3];
+            const c2 = clrs[(i + 1) % 3];
+            span.style.background = `linear-gradient(135deg, ${c}, ${c2})`;
             span.style.webkitBackgroundClip = 'text';
-            span.style.webkitTextFillColor = 'transparent';
-            span.style.backgroundClip = 'text';
+            span.style.webkitTextFillColor  = 'transparent';
+            span.style.backgroundClip       = 'text';
             el.appendChild(span);
         });
     },
 
-    /* ── BUILD SOCIAL LINKS HTML ───────────────── */
+    /* ══════════════════════════════════════════
+       BUILD SOCIAL LINKS HTML
+    ══════════════════════════════════════════ */
     _buildSocialLinks(social) {
         const platforms = [
-            { key: 'whatsapp', icon: 'fa-whatsapp', color: '#25D366', label: 'WhatsApp' },
-            { key: 'instagram', icon: 'fa-instagram', color: '#E1306C', label: 'Instagram' },
-            { key: 'facebook', icon: 'fa-facebook', color: '#1877F2', label: 'Facebook' },
-            { key: 'tiktok', icon: 'fa-tiktok', color: '#ffffff', label: 'TikTok' },
-            { key: 'youtube', icon: 'fa-youtube', color: '#FF0000', label: 'YouTube' },
-            { key: 'linkedin', icon: 'fa-linkedin', color: '#0A66C2', label: 'LinkedIn' },
-            { key: 'telegram', icon: 'fa-telegram', color: '#2CA5E0', label: 'Telegram' }
+            { key: 'whatsapp',  icon: 'fa-whatsapp',  color: '#25D366', label: 'WhatsApp'  },
+            { key: 'instagram', icon: 'fa-instagram',  color: '#E1306C', label: 'Instagram' },
+            { key: 'facebook',  icon: 'fa-facebook',   color: '#1877F2', label: 'Facebook'  },
+            { key: 'tiktok',    icon: 'fa-tiktok',     color: '#e0e0e0', label: 'TikTok'    },
+            { key: 'youtube',   icon: 'fa-youtube',    color: '#FF0000', label: 'YouTube'   },
+            { key: 'linkedin',  icon: 'fa-linkedin',   color: '#0A66C2', label: 'LinkedIn'  },
+            { key: 'telegram',  icon: 'fa-telegram',   color: '#2CA5E0', label: 'Telegram'  }
         ];
-
         return platforms
             .filter(p => social[p.key])
             .map(p => `
-                <a href="${social[p.key]}" target="_blank" rel="noopener" class="social-link-btn" 
+                <a href="${social[p.key]}" target="_blank" rel="noopener" class="social-link-btn"
                    style="--sc:${p.color};" title="${p.label}">
                     <i class="fab ${p.icon}"></i>
                 </a>

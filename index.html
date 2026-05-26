@@ -3,102 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kushan A Wickramasinghe | Professional Creative Services</title>
-    <meta name="description" content="Professional Photography, Creative Graphic Design, and Social Media Post Design by Kushan A Wickramasinghe.">
+    <title>Kushan A Wickramasinghe | ASH_X8 — Professional Creative Portfolio</title>
+    <meta name="description" content="Professional Photography, Graphic Design & Content Creation by Kushan A Wickramasinghe (ASH_X8) — Sri Lanka.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="animations.css">
     <style>
-        body { background: linear-gradient(135deg,#0a0e27 0%,#1a0f2e 50%,#0f1530 100%); background-attachment:fixed; color:#f8fafc; font-family:'Plus Jakarta Sans',sans-serif; overflow-x:hidden; }
+        body { background:linear-gradient(135deg,#030d1a 0%,#071428 50%,#050e24 100%); background-attachment:fixed; color:#f0f8ff; font-family:'Plus Jakarta Sans',sans-serif; overflow-x:hidden; }
 
-        /* ── HERO ─────────────────────── */
+        /* ── HERO ─────────────────────────────── */
         .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
         .hero-scanline { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-        .hero-scanline::after { content:''; position:absolute; width:100%; height:3px; background:linear-gradient(90deg,transparent,rgba(168,85,247,0.4),rgba(6,182,212,0.3),transparent); animation:scanline 5s linear infinite; }
+        .hero-scanline::after { content:''; position:absolute; width:100%; height:3px; background:linear-gradient(90deg,transparent,rgba(14,165,233,.4),rgba(6,182,212,.3),transparent); animation:scanline 5s linear infinite; }
         .hero-content { text-align:center; z-index:10; padding:2rem; }
         .hero-eyebrow { font-family:'JetBrains Mono',monospace; font-size:.75rem; letter-spacing:.3em; text-transform:uppercase; color:#06b6d4; margin-bottom:1.5rem; opacity:0; animation:fadeInUp .7s ease-out .2s forwards; }
         .hero-title { font-family:'Orbitron',sans-serif; font-size:clamp(2.2rem,7vw,5rem); font-weight:900; line-height:1.05; letter-spacing:.04em; text-transform:uppercase; margin-bottom:1.5rem; perspective:800px; }
         .hero-subtitle { font-family:'Rajdhani',sans-serif; font-size:clamp(1rem,2.5vw,1.35rem); font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:#94a3b8; margin-bottom:3rem; opacity:0; animation:fadeInUp .7s ease-out .8s forwards; }
         .cta-wrapper { opacity:0; animation:fadeInUp .7s ease-out 1.1s forwards; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
-        .cta-button { display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 2.2rem; background:linear-gradient(135deg,#a855f7,#ec4899); color:white; text-decoration:none; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:.12em; transition:all .4s cubic-bezier(.34,1.56,.64,1); box-shadow:0 0 30px rgba(168,85,247,.4); position:relative; overflow:hidden; }
+        .cta-button { display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 2.2rem; background:linear-gradient(135deg,#0ea5e9,#06b6d4); color:white; text-decoration:none; border-radius:.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:.12em; transition:all .4s cubic-bezier(.34,1.56,.64,1); box-shadow:0 0 30px rgba(14,165,233,.4); position:relative; overflow:hidden; }
         .cta-button::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent); transform:translateX(-100%); transition:transform .5s; }
         .cta-button:hover::before { transform:translateX(100%); }
-        .cta-button:hover { transform:translateY(-4px) scale(1.03); box-shadow:0 0 50px rgba(168,85,247,.7); }
-        .cta-outline { display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 2.2rem; background:transparent; color:#a855f7; text-decoration:none; border-radius:.6rem; border:1.5px solid rgba(168,85,247,.5); font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:.12em; transition:all .4s; }
-        .cta-outline:hover { background:rgba(168,85,247,.1); border-color:#a855f7; transform:translateY(-4px); box-shadow:0 0 30px rgba(168,85,247,.3); }
+        .cta-button:hover { transform:translateY(-4px) scale(1.03); box-shadow:0 0 50px rgba(14,165,233,.7); }
+        .cta-outline { display:inline-flex; align-items:center; gap:.6rem; padding:.9rem 2.2rem; background:transparent; color:#0ea5e9; text-decoration:none; border-radius:.6rem; border:1.5px solid rgba(14,165,233,.5); font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:.12em; transition:all .4s; }
+        .cta-outline:hover { background:rgba(14,165,233,.1); border-color:#0ea5e9; transform:translateY(-4px); box-shadow:0 0 30px rgba(14,165,233,.3); }
         .hero-corner { position:absolute; width:60px; height:60px; opacity:.35; }
-        .hero-corner-tl { top:8rem; left:2rem; border-top:2px solid #a855f7; border-left:2px solid #a855f7; }
+        .hero-corner-tl { top:8rem; left:2rem; border-top:2px solid #0ea5e9; border-left:2px solid #0ea5e9; }
         .hero-corner-tr { top:8rem; right:2rem; border-top:2px solid #06b6d4; border-right:2px solid #06b6d4; }
-        .hero-corner-bl { bottom:2rem; left:2rem; border-bottom:2px solid #ec4899; border-left:2px solid #ec4899; }
-        .hero-corner-br { bottom:2rem; right:2rem; border-bottom:2px solid #a855f7; border-right:2px solid #a855f7; }
+        .hero-corner-bl { bottom:2rem; left:2rem; border-bottom:2px solid #38bdf8; border-left:2px solid #38bdf8; }
+        .hero-corner-br { bottom:2rem; right:2rem; border-bottom:2px solid #0ea5e9; border-right:2px solid #0ea5e9; }
 
-        /* ── SECTION LAYOUT ───────────────── */
+        /* ── SECTIONS ──────────────────────────── */
         .section { padding:5rem 2rem; max-width:1280px; margin:0 auto; position:relative; z-index:1; }
-        .section-header { text-align:center; margin-bottom:4rem; }
         .section-eyebrow { font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.3em; color:#06b6d4; text-transform:uppercase; margin-bottom:1rem; display:block; }
-        .section-title { font-family:'Rajdhani',sans-serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:700; letter-spacing:.06em; text-transform:uppercase; background:linear-gradient(135deg,#a855f7,#ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; position:relative; display:inline-block; padding-bottom:.6rem; }
-        .section-title::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:60%; height:2px; background:linear-gradient(90deg,transparent,#a855f7,#ec4899,#06b6d4,transparent); }
+        .section-title { font-family:'Rajdhani',sans-serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:700; letter-spacing:.06em; text-transform:uppercase; background:linear-gradient(135deg,#0ea5e9,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; position:relative; display:inline-block; padding-bottom:.6rem; }
+        .section-title::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:60%; height:2px; background:linear-gradient(90deg,transparent,#0ea5e9,#06b6d4,#38bdf8,transparent); }
 
-        /* ── STATS ────────────────────────── */
-        .stats-bar { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:rgba(168,85,247,.1); border:1px solid rgba(168,85,247,.15); border-radius:1rem; overflow:hidden; }
-        .stat-item { padding:2.5rem 1.5rem; text-align:center; background:rgba(20,15,40,.6); transition:background .3s; }
-        .stat-item:hover { background:rgba(168,85,247,.08); }
-        .stat-num { font-family:'Orbitron',sans-serif; font-size:2.5rem; font-weight:900; background:linear-gradient(135deg,#a855f7,#ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+        /* ── STATS ──────────────────────────────── */
+        .stats-bar { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:rgba(14,165,233,.1); border:1px solid rgba(14,165,233,.15); border-radius:1rem; overflow:hidden; }
+        .stat-item { padding:2.5rem 1.5rem; text-align:center; background:rgba(5,15,38,.6); transition:background .3s; }
+        .stat-item:hover { background:rgba(14,165,233,.08); }
+        .stat-num { font-family:'Orbitron',sans-serif; font-size:2.5rem; font-weight:900; background:linear-gradient(135deg,#0ea5e9,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
         .stat-label { font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:#64748b; margin-top:.3rem; display:block; }
 
-        /* ── SERVICE CARDS ────────────────── */
+        /* ── SERVICE CARDS ──────────────────────── */
         .grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.8rem; }
-        .service-card { background:linear-gradient(135deg,rgba(20,15,40,.7),rgba(30,20,50,.7)); border:1.5px solid rgba(168,85,247,.15); border-radius:1.2rem; padding:2.5rem 2rem; transition:all .4s cubic-bezier(.34,1.56,.64,1); position:relative; overflow:hidden; }
-        .service-card::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(168,85,247,.08),transparent); transition:left .7s ease; }
-        .service-card::after { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(168,85,247,.8),rgba(6,182,212,.5),transparent); opacity:0; transition:opacity .4s; }
+        .service-card { background:linear-gradient(135deg,rgba(5,15,38,.7),rgba(8,22,50,.7)); border:1.5px solid rgba(14,165,233,.15); border-radius:1.2rem; padding:2.5rem 2rem; transition:all .4s cubic-bezier(.34,1.56,.64,1); position:relative; overflow:hidden; }
+        .service-card::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(14,165,233,.07),transparent); transition:left .7s ease; }
+        .service-card::after { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(14,165,233,.8),rgba(6,182,212,.5),transparent); opacity:0; transition:opacity .4s; }
         .service-card:hover::before { left:100%; }
-        .service-card:hover::after { opacity:1; }
-        .service-card:hover { border-color:rgba(168,85,247,.6); box-shadow:0 0 40px rgba(168,85,247,.3),0 20px 60px rgba(0,0,0,.3); transform:translateY(-8px); }
+        .service-card:hover::after  { opacity:1; }
+        .service-card:hover { border-color:rgba(14,165,233,.6); box-shadow:0 0 40px rgba(14,165,233,.3),0 20px 60px rgba(0,0,0,.3); transform:translateY(-8px); }
         .service-icon-wrap { width:64px; height:64px; border-radius:1rem; display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin-bottom:1.5rem; transition:all .4s; }
         .service-card:hover .service-icon-wrap { transform:scale(1.1) rotate(5deg); }
-        .service-card h3 { font-family:'Rajdhani',sans-serif; font-size:1.4rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:white; margin-bottom:.8rem; }
+        .service-card h3 { font-family:'Rajdhani',sans-serif; font-size:1.4rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#f0f8ff; margin-bottom:.8rem; }
         .service-card p { color:#94a3b8; font-size:.9rem; line-height:1.7; }
 
-        /* ── PROFILE SECTION ──────────────── */
+        /* ── PROFILE SECTION ─────────────────────── */
         .profile-section { display:grid; grid-template-columns:1fr 1.6fr; gap:4rem; align-items:center; }
         @media(max-width:768px) { .profile-section { grid-template-columns:1fr; gap:2rem; text-align:center; } }
-        .profile-photo-wrap { position:relative; }
-        .profile-photo-frame { width:100%; max-width:340px; aspect-ratio:1; border-radius:1.5rem; overflow:hidden; border:2px solid rgba(168,85,247,.3); box-shadow:0 0 50px rgba(168,85,247,.2); position:relative; margin:0 auto; }
+        .profile-photo-frame { width:100%; max-width:340px; aspect-ratio:1; border-radius:1.5rem; overflow:hidden; border:2px solid rgba(14,165,233,.3); box-shadow:0 0 50px rgba(14,165,233,.2); position:relative; margin:0 auto; }
         .profile-photo-frame img { width:100%; height:100%; object-fit:cover; }
-        .profile-photo-placeholder { width:100%; height:100%; background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(236,72,153,.1)); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.8rem; }
-        .profile-photo-frame::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,transparent 60%,rgba(168,85,247,.1)); pointer-events:none; }
+        .profile-photo-placeholder { width:100%; height:100%; background:linear-gradient(135deg,rgba(14,165,233,.12),rgba(6,182,212,.08)); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.8rem; }
         .profile-corner { position:absolute; width:28px; height:28px; }
-        .profile-corner-tl { top:-1px; left:-1px; border-top:3px solid #a855f7; border-left:3px solid #a855f7; border-radius:4px 0 0 0; }
-        .profile-corner-tr { top:-1px; right:-1px; border-top:3px solid #06b6d4; border-right:3px solid #06b6d4; border-radius:0 4px 0 0; }
-        .profile-corner-bl { bottom:-1px; left:-1px; border-bottom:3px solid #ec4899; border-left:3px solid #ec4899; border-radius:0 0 0 4px; }
-        .profile-corner-br { bottom:-1px; right:-1px; border-bottom:3px solid #a855f7; border-right:3px solid #a855f7; border-radius:0 0 4px 0; }
-        .profile-badge { display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .9rem; background:rgba(168,85,247,.1); border:1px solid rgba(168,85,247,.3); border-radius:99px; font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:#a855f7; margin-bottom:1.2rem; animation:neonBorderPulse 3s infinite; }
-        .profile-name { font-family:'Orbitron',sans-serif; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900; letter-spacing:.04em; background:linear-gradient(135deg,#a855f7,#ec4899,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:.5rem; }
+        .profile-corner-tl { top:-1px; left:-1px; border-top:3px solid #0ea5e9; border-left:3px solid #0ea5e9; }
+        .profile-corner-tr { top:-1px; right:-1px; border-top:3px solid #06b6d4; border-right:3px solid #06b6d4; }
+        .profile-corner-bl { bottom:-1px; left:-1px; border-bottom:3px solid #38bdf8; border-left:3px solid #38bdf8; }
+        .profile-corner-br { bottom:-1px; right:-1px; border-bottom:3px solid #0ea5e9; border-right:3px solid #0ea5e9; }
+        .profile-badge { display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .9rem; background:rgba(14,165,233,.1); border:1px solid rgba(14,165,233,.3); border-radius:99px; font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:#0ea5e9; margin-bottom:1.2rem; }
+        .profile-name { font-family:'Orbitron',sans-serif; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900; letter-spacing:.04em; background:linear-gradient(135deg,#0ea5e9,#06b6d4,#38bdf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:.5rem; }
         .profile-tagline { font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#64748b; margin-bottom:1.5rem; }
         .profile-bio { font-family:'Plus Jakarta Sans',sans-serif; color:#94a3b8; font-size:.95rem; line-height:1.8; margin-bottom:2rem; }
 
-        /* ── SOCIAL LINKS ─────────────────── */
+        /* ── SOCIAL LINKS ──────────────────────── */
         .social-links-container { display:flex; gap:.7rem; flex-wrap:wrap; }
         .social-link-btn { display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:.6rem; border:1.5px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04); color:var(--sc,#fff); font-size:1.1rem; text-decoration:none; transition:all .3s cubic-bezier(.34,1.56,.64,1); }
-        .social-link-btn:hover { background:rgba(255,255,255,.08); border-color:var(--sc,#a855f7); box-shadow:0 0 20px color-mix(in srgb,var(--sc,#a855f7) 40%,transparent); transform:translateY(-4px) scale(1.1); }
+        .social-link-btn:hover { background:rgba(255,255,255,.08); border-color:var(--sc,#0ea5e9); box-shadow:0 0 20px color-mix(in srgb,var(--sc,#0ea5e9) 40%,transparent); transform:translateY(-4px) scale(1.1); }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl z-50 bg-black/20 rounded-xl border border-purple-500/20 backdrop-blur-xl shadow-2xl" style="animation:fadeInScale .6s ease-out forwards;">
-        <div class="px-6 py-3.5 flex items-center justify-between">
-            <a href="/" id="nav-brand" style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#a855f7,#ec4899,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:textGlitch 5s infinite;">ASH_X8</a>
-            <div class="flex gap-1">
-                <a href="/" class="px-4 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-purple-400 bg-purple-500/10 border border-purple-500/20" style="font-family:'Rajdhani',sans-serif;">Home</a>
-                <a href="/about.html" class="px-4 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-gray-400 hover:text-purple-400 hover:bg-purple-500/10 transition-all" style="font-family:'Rajdhani',sans-serif;">About</a>
-                <a href="/projects.html" class="px-4 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-gray-400 hover:text-purple-400 hover:bg-purple-500/10 transition-all" style="font-family:'Rajdhani',sans-serif;">Services</a>
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-black/20 rounded-xl border border-sky-500/20 backdrop-blur-xl shadow-2xl" style="animation:fadeInScale .6s ease-out forwards;">
+        <div class="px-5 py-3 flex items-center justify-between gap-2">
+            <a href="/" id="nav-brand" style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#0ea5e9,#06b6d4,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:textGlitch 5s infinite;white-space:nowrap;">ASH_X8</a>
+            <div class="flex gap-1 overflow-x-auto">
+                <a href="/" class="px-3 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-sky-400 bg-sky-500/10 border border-sky-500/20 whitespace-nowrap" style="font-family:'Rajdhani',sans-serif;">Home</a>
+                <a href="/about.html" class="px-3 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-gray-400 hover:text-sky-400 hover:bg-sky-500/10 transition-all whitespace-nowrap" style="font-family:'Rajdhani',sans-serif;">About</a>
+                <a href="/photography.html" class="px-3 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-gray-400 hover:text-sky-400 hover:bg-sky-500/10 transition-all whitespace-nowrap" style="font-family:'Rajdhani',sans-serif;">Photography</a>
+                <a href="/designs.html" class="px-3 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-gray-400 hover:text-sky-400 hover:bg-sky-500/10 transition-all whitespace-nowrap" style="font-family:'Rajdhani',sans-serif;">Designs</a>
+                <a href="/projects.html" class="px-3 py-2 text-xs font-bold tracking-widest uppercase rounded-lg text-gray-400 hover:text-sky-400 hover:bg-sky-500/10 transition-all whitespace-nowrap" style="font-family:'Rajdhani',sans-serif;">Services</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="hero-scanline"></div>
         <div class="hero-corner hero-corner-tl"></div>
@@ -106,7 +103,7 @@
         <div class="hero-corner hero-corner-bl"></div>
         <div class="hero-corner hero-corner-br"></div>
         <div class="hero-content">
-            <div class="hero-eyebrow"><span style="color:#ec4899;">◈</span> &nbsp;Creative Studio&nbsp; <span style="color:#06b6d4;">◈</span> &nbsp;Est. 2024&nbsp; <span style="color:#a855f7;">◈</span></div>
+            <div class="hero-eyebrow"><span style="color:#0ea5e9;">◈</span> &nbsp;Creative Studio&nbsp; <span style="color:#06b6d4;">◈</span> &nbsp;Est. 2024&nbsp; <span style="color:#38bdf8;">◈</span></div>
             <h1 class="hero-title" id="hero-title-text"></h1>
             <p class="hero-subtitle" id="hero-subtitle">Photography &nbsp;/&nbsp; Graphic Design &nbsp;/&nbsp; Content Creation</p>
             <div class="cta-wrapper">
@@ -116,25 +113,18 @@
         </div>
     </section>
 
-    <!-- Stats -->
     <div class="section" style="padding-top:0;padding-bottom:2rem;">
-        <div class="stats-bar reveal-hidden" id="stats-container">
-            <div class="stat-item"><span class="stat-num">150+</span><span class="stat-label">Projects Done</span></div>
-            <div class="stat-item"><span class="stat-num">80+</span><span class="stat-label">Happy Clients</span></div>
-            <div class="stat-item"><span class="stat-num">3+</span><span class="stat-label">Years Active</span></div>
-            <div class="stat-item"><span class="stat-num">∞</span><span class="stat-label">Creativity</span></div>
-        </div>
+        <div class="stats-bar reveal-hidden" id="stats-container"></div>
     </div>
 
-    <!-- Profile Section -->
     <section class="section" id="profile" style="padding-top:2rem;">
         <div class="profile-section">
-            <div class="profile-photo-wrap reveal-left">
+            <div class="reveal-left">
                 <div class="profile-photo-frame">
-                    <img id="home-profile-photo" src="" alt="Profile Photo" style="display:none;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                    <div class="profile-photo-placeholder" id="home-photo-placeholder">
-                        <i class="fas fa-user" style="font-size:4rem;color:rgba(168,85,247,.3);"></i>
-                        <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(168,85,247,.4);letter-spacing:.1em;">// PHOTO</span>
+                    <img id="home-profile-photo" src="" alt="Profile" style="display:none;" onerror="this.style.display='none';document.getElementById('home-photo-ph').style.display='flex'">
+                    <div class="profile-photo-placeholder" id="home-photo-ph">
+                        <i class="fas fa-user" style="font-size:4rem;color:rgba(14,165,233,.3);"></i>
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(14,165,233,.4);letter-spacing:.1em;">// PHOTO</span>
                     </div>
                     <div class="profile-corner profile-corner-tl"></div>
                     <div class="profile-corner profile-corner-tr"></div>
@@ -146,131 +136,89 @@
                 <div class="profile-badge"><i class="fas fa-circle-dot" style="font-size:.5rem;animation:pulse 2s infinite;"></i> <span id="home-profile-category">Photographer &amp; Graphic Designer</span></div>
                 <h2 class="profile-name" id="home-profile-name">Kushan A Wickramasinghe</h2>
                 <p class="profile-tagline" id="home-profile-tagline">Evolving Digital Alchemist</p>
-                <p class="profile-bio" id="home-profile-bio">I'm Kushan A Wickramasinghe, a passionate creative professional based in Sri Lanka. With expertise in photography, graphic design, and digital content creation, I help brands tell their stories through stunning visuals and compelling design.</p>
+                <p class="profile-bio" id="home-profile-bio">I'm Kushan A Wickramasinghe, a passionate creative professional based in Sri Lanka.</p>
                 <div class="social-links-container" id="home-social-links"></div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
     <section class="section" id="services">
-        <div class="section-header reveal-hidden">
+        <div class="section-header reveal-hidden" style="text-align:center;margin-bottom:4rem;">
             <span class="section-eyebrow">// What We Do</span>
             <h2 class="section-title">Our Services</h2>
         </div>
-        <div class="grid-3" id="services-grid">
-            <div class="service-card reveal-hidden" style="--delay:.1s">
-                <div class="service-icon-wrap" style="background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(168,85,247,.05));box-shadow:0 0 30px rgba(168,85,247,.2);"><i class="fas fa-camera" style="color:#a855f7;"></i></div>
-                <h3>Professional Photography</h3>
-                <p>Stunning visual content that captures your brand's essence with premium photography services.</p>
-            </div>
-            <div class="service-card reveal-hidden" style="--delay:.2s">
-                <div class="service-icon-wrap" style="background:linear-gradient(135deg,rgba(236,72,153,.15),rgba(236,72,153,.05));box-shadow:0 0 30px rgba(236,72,153,.2);"><i class="fas fa-palette" style="color:#ec4899;"></i></div>
-                <h3>Graphic Design</h3>
-                <p>Creative design solutions that elevate your brand identity with modern, professional aesthetics.</p>
-            </div>
-            <div class="service-card reveal-hidden" style="--delay:.3s">
-                <div class="service-icon-wrap" style="background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(6,182,212,.05));box-shadow:0 0 30px rgba(6,182,212,.2);"><i class="fas fa-pen-fancy" style="color:#06b6d4;"></i></div>
-                <h3>Content Creation</h3>
-                <p>Engaging social media content that connects with your audience and drives meaningful engagement.</p>
-            </div>
-        </div>
+        <div class="grid-3" id="services-grid"></div>
     </section>
 
-    <!-- CTA -->
     <section class="section" style="padding-top:1rem;">
-        <div class="reveal-hidden" style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(236,72,153,.05));border:1.5px solid rgba(168,85,247,.2);border-radius:1.5rem;padding:4rem 2rem;text-align:center;position:relative;overflow:hidden;">
+        <div class="reveal-hidden" style="background:linear-gradient(135deg,rgba(14,165,233,.07),rgba(6,182,212,.04));border:1.5px solid rgba(14,165,233,.2);border-radius:1.5rem;padding:4rem 2rem;text-align:center;position:relative;overflow:hidden;">
             <div class="scanline-overlay"></div>
             <span class="section-eyebrow" style="margin-bottom:1.5rem;display:block;">// Let's Create Together</span>
-            <h2 style="font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,4vw,2.8rem);font-weight:900;background:linear-gradient(135deg,#a855f7,#ec4899,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.2rem;animation:textGlitch 5s infinite;">Ready to Level Up?</h2>
+            <h2 style="font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,4vw,2.8rem);font-weight:900;background:linear-gradient(135deg,#0ea5e9,#06b6d4,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.2rem;animation:textGlitch 5s infinite;">Ready to Level Up?</h2>
             <p style="color:#94a3b8;font-family:'Rajdhani',sans-serif;font-size:1.1rem;letter-spacing:.05em;margin-bottom:2.5rem;">Transform your brand with professional creative services that make an impact.</p>
             <a href="/projects.html" class="cta-button"><i class="fas fa-rocket"></i> Get Started Now</a>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-purple-500/15 py-10 px-4 text-center relative z-1">
+    <footer style="border-top:1px solid rgba(14,165,233,.15);padding:2.5rem 2rem;text-align:center;position:relative;z-index:1;">
         <div class="social-links-container" style="justify-content:center;margin-bottom:1.5rem;" id="footer-social-links"></div>
         <p style="font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.15em;color:#475569;text-transform:uppercase;">
-            &copy; 2026 &nbsp;/&nbsp; <span style="color:#a855f7;" id="footer-name">Kushan A Wickramasinghe</span> &nbsp;/&nbsp; All Rights Reserved
+            &copy; 2026 &nbsp;/&nbsp; <span style="color:#0ea5e9;" id="footer-name">Kushan A Wickramasinghe</span> &nbsp;/&nbsp; All Rights Reserved
         </p>
     </footer>
 
     <script src="site-data.js"></script>
     <script>
-        /* ── LOAD DATA ───────────────────────── */
         window.addEventListener('DOMContentLoaded', () => {
             const d = SiteData.get();
-
-            // Nav brand
             document.getElementById('nav-brand').textContent = d.profile.nickname || 'ASH_X8';
             document.getElementById('footer-name').textContent = d.profile.fullName;
 
-            // Hero
             SiteData._buildSplitText(document.getElementById('hero-title-text'), d.hero.title);
             document.getElementById('hero-subtitle').textContent = d.hero.subtitle;
             const ctaBtn = document.getElementById('hero-cta-btn');
             ctaBtn.href = d.hero.ctaLink;
             ctaBtn.innerHTML = `<i class="fas fa-bolt"></i> ${d.hero.ctaText}`;
 
-            // Profile
-            const homePhoto = document.getElementById('home-profile-photo');
-            if (d.profile.homePhoto) {
-                homePhoto.src = d.profile.homePhoto;
-                homePhoto.style.display = 'block';
-                document.getElementById('home-photo-placeholder').style.display = 'none';
-            }
-            document.getElementById('home-profile-name').textContent = d.profile.fullName;
-            document.getElementById('home-profile-tagline').textContent = d.profile.tagline;
+            const hp = document.getElementById('home-profile-photo');
+            if (d.profile.homePhoto) { hp.src = d.profile.homePhoto; hp.style.display='block'; document.getElementById('home-photo-ph').style.display='none'; }
+            document.getElementById('home-profile-name').textContent     = d.profile.fullName;
+            document.getElementById('home-profile-tagline').textContent  = d.profile.tagline;
             document.getElementById('home-profile-category').textContent = d.profile.category;
-            document.getElementById('home-profile-bio').textContent = d.profile.bio;
+            document.getElementById('home-profile-bio').textContent      = d.profile.bio;
 
-            // Social links
             const socialHtml = SiteData._buildSocialLinks(d.social);
-            document.getElementById('home-social-links').innerHTML = socialHtml;
+            document.getElementById('home-social-links').innerHTML  = socialHtml;
             document.getElementById('footer-social-links').innerHTML = socialHtml;
 
-            // Stats
-            if (d.stats && d.stats.length) {
-                document.getElementById('stats-container').innerHTML = d.stats.map(s => `
-                    <div class="stat-item"><span class="stat-num">${s.num}</span><span class="stat-label">${s.label}</span></div>
-                `).join('');
-            }
+            document.getElementById('stats-container').innerHTML = (d.stats||[]).map(s =>
+                `<div class="stat-item"><span class="stat-num">${s.num}</span><span class="stat-label">${s.label}</span></div>`
+            ).join('');
 
-            // Services
-            if (d.services && d.services.length) {
-                document.getElementById('services-grid').innerHTML = d.services.map((s, i) => `
-                    <div class="service-card reveal-hidden" style="--delay:${0.1 + i * 0.1}s">
-                        <div class="service-icon-wrap" style="background:linear-gradient(135deg,${s.color}26,${s.color}0d);box-shadow:0 0 30px ${s.color}33;">
-                            <i class="fas ${s.icon}" style="color:${s.color};"></i>
-                        </div>
-                        <h3>${s.title}</h3>
-                        <p>${s.desc}</p>
+            document.getElementById('services-grid').innerHTML = (d.services||[]).map((s,i) => `
+                <div class="service-card reveal-hidden" style="--delay:${0.1+i*.1}s">
+                    <div class="service-icon-wrap" style="background:linear-gradient(135deg,${s.color}26,${s.color}0d);box-shadow:0 0 30px ${s.color}33;">
+                        <i class="fas ${s.icon}" style="color:${s.color};"></i>
                     </div>
-                `).join('');
-            }
+                    <h3>${s.title}</h3>
+                    <p>${s.desc}</p>
+                </div>
+            `).join('');
 
-            // Scroll reveal
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target;
-                        const delay = parseFloat(el.style.getPropertyValue('--delay') || '0');
-                        setTimeout(() => el.classList.add('revealed'), delay * 1000);
-                        observer.unobserve(el);
+            const ob = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const delay = parseFloat(e.target.style.getPropertyValue('--delay')||'0');
+                        setTimeout(() => e.target.classList.add('revealed'), delay*1000);
+                        ob.unobserve(e.target);
                     }
                 });
-            }, { threshold: 0.1 });
-            window._revealObserver = observer;
-            document.querySelectorAll('.reveal-hidden, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+            }, {threshold:0.1});
+            window._revealObserver = ob;
+            document.querySelectorAll('.reveal-hidden,.reveal-left,.reveal-right').forEach(el => ob.observe(el));
         });
-
         document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', e => {
-                e.preventDefault();
-                const t = document.querySelector(a.getAttribute('href'));
-                if (t) t.scrollIntoView({ behavior: 'smooth' });
-            });
+            a.addEventListener('click', e => { e.preventDefault(); const t=document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth'}); });
         });
     </script>
 </body>
