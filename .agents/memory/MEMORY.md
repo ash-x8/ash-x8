@@ -1,0 +1,1 @@
+- [ASH_X8 Site Architecture](ash-x8-arch.md) — localStorage data layer via site-data.js; admin writes, pages read; no backend.
