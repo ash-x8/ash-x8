@@ -6,84 +6,481 @@
     <title>ASH_X8 | Mainframe Control Admin Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&family=Poppins:wght@400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #020205; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; position: relative; }
-        #galaxy-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        .glass { background: rgba(5, 5, 15, 0.55); backdrop-filter: blur(25px); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .glass:hover { border-color: rgba(0, 243, 255, 0.35); box-shadow: 0 0 45px rgba(0, 243, 255, 0.08); }
-        .input-cyber { background: rgba(0,0,0,0.7) !important; border: 1px solid rgba(0, 243, 255, 0.18) !important; color: #fff !important; transition: all 0.3s; }
-        .input-cyber:focus { border-color: #00f3ff !important; box-shadow: 0 0 18px rgba(0, 243, 255, 0.3) !important; outline: none; }
-        input[type="color"] { border-radius: 0.5rem; transition: transform 0.2s ease; cursor: pointer; }
-        input[type="color"]:hover { transform: scale(1.1); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
-        .tab-btn { transition: all 0.3s ease; }
-        .tab-btn.active { background: #00f3ff !important; color: #000 !important; font-weight: 900; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
-        .theme-card { transition: all 0.3s ease; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
-        .theme-card.selected { border-color: #00f3ff; box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); background: rgba(0, 243, 255, 0.05); }
-        #login-overlay { position: fixed; inset: 0; background: rgba(2, 2, 5, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(20px); }
-        
-        /* TEXT & HEADING ANIMATIONS */
-        @keyframes textGlitch { 0%, 100% { text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); } 50% { text-shadow: 0 0 25px rgba(0, 243, 255, 0.8), 0 0 40px rgba(99, 102, 241, 0.6); } }
-        @keyframes textPulse { 0%, 100% { opacity: 1; letter-spacing: 0px; } 50% { opacity: 0.8; letter-spacing: 2px; } }
-        @keyframes textShimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
-        @keyframes slideInText { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
-        .anim-glitch { animation: textGlitch 3s ease-in-out infinite; }
-        .anim-pulse-text { animation: textPulse 2s ease-in-out infinite; }
-        .anim-slide-in { animation: slideInText 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        :root {
+            --primary: #a855f7;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark-bg: #0a0e27;
+            --card-bg: rgba(20, 15, 40, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0f2e 50%, #0f1530 100%);
+            background-attachment: fixed;
+            color: #fff; 
+            font-family: 'JetBrains Mono', monospace; 
+            overflow-x: hidden; 
+            position: relative;
+            min-height: 100vh;
+        }
+
+        #galaxy-bg { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            pointer-events: none;
+        }
+
+        /* ✨ ENHANCED GLASS EFFECT */
+        .glass { 
+            background: rgba(20, 15, 40, 0.4);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.1);
+        }
+        .glass:hover { 
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* 🎨 INPUT STYLES */
+        .input-cyber { 
+            background: rgba(0, 0, 0, 0.5) !important; 
+            border: 1.5px solid rgba(168, 85, 247, 0.3) !important; 
+            color: #fff !important; 
+            transition: all 0.3s ease;
+        }
+        .input-cyber:focus { 
+            border-color: #a855f7 !important; 
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4) !important; 
+            outline: none;
+            background: rgba(0, 0, 0, 0.7) !important;
+        }
+
+        /* 🎚️ COLOR INPUT */
+        input[type="color"] { 
+            border-radius: 0.5rem; 
+            transition: all 0.3s ease; 
+            cursor: pointer;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+        }
+        input[type="color"]:hover { 
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+
+        /* 📑 TAB BUTTONS */
+        .tab-btn { 
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1.5px solid rgba(168, 85, 247, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        .tab-btn:hover::before { left: 100%; }
+        .tab-btn.active { 
+            background: linear-gradient(135deg, #a855f7, #ec4899) !important;
+            color: #fff !important; 
+            font-weight: 900; 
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);
+            border-color: #a855f7 !important;
+        }
+
+        /* 🎭 THEME CARDS */
+        .theme-card { 
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer; 
+            border: 1.5px solid rgba(168, 85, 247, 0.2);
+            background: rgba(20, 15, 40, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .theme-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .theme-card:hover::after { opacity: 1; }
+        .theme-card.selected { 
+            border-color: #a855f7;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+            background: rgba(168, 85, 247, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 🔐 LOGIN OVERLAY */
+        #login-overlay { 
+            position: fixed; 
+            inset: 0; 
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(26, 15, 46, 0.95));
+            z-index: 9999; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            backdrop-filter: blur(25px);
+        }
+
+        /* ✨ ADVANCED TEXT ANIMATIONS */
+        @keyframes textGlitch {
+            0%, 100% { text-shadow: 0 0 10px rgba(168, 85, 247, 0.6), 0 0 20px rgba(236, 72, 153, 0.3); }
+            25% { text-shadow: -3px 0 10px rgba(168, 85, 247, 0.8), 3px 0 10px rgba(236, 72, 153, 0.6); }
+            50% { text-shadow: 0 0 25px rgba(168, 85, 247, 0.9), 0 0 40px rgba(6, 182, 212, 0.5); }
+            75% { text-shadow: 3px 0 10px rgba(236, 72, 153, 0.8), -3px 0 10px rgba(168, 85, 247, 0.6); }
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 1; letter-spacing: 0px; text-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+            50% { opacity: 0.7; letter-spacing: 3px; text-shadow: 0 0 30px rgba(168, 85, 247, 0.8), 0 0 50px rgba(236, 72, 153, 0.5); }
+        }
+
+        @keyframes textShimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes slideInText {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes floatingText {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes rainbowText {
+            0% { color: #a855f7; }
+            25% { color: #ec4899; }
+            50% { color: #06b6d4; }
+            75% { color: #a855f7; }
+            100% { color: #a855f7; }
+        }
+
+        .anim-glitch { animation: textGlitch 4s ease-in-out infinite; }
+        .anim-pulse-text { animation: textPulse 2.5s ease-in-out infinite; }
+        .anim-slide-in { animation: slideInText 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
         .anim-fade-scale { animation: fadeInScale 0.8s ease-out forwards; }
-        
-        /* FONT ANIMATOR STYLES */
-        .font-animator-container { position: relative; overflow: hidden; border-radius: 1.5rem; border: 2px solid rgba(0, 243, 255, 0.3); background: rgba(2, 30, 45, 0.6); backdrop-filter: blur(20px); padding: 2rem; transition: all 0.4s ease; }
-        .font-animator-container:hover { border-color: rgba(0, 243, 255, 0.8); box-shadow: 0 0 40px rgba(0, 243, 255, 0.2); }
-        .font-preview-text { font-size: 3.5rem; font-weight: 700; letter-spacing: 0.05em; text-shadow: 0 0 30px rgba(0, 243, 255, 0.6); animation: fadeInScale 0.6s ease-out; line-height: 1.2; }
-        .font-name-badge { display: inline-block; background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(99, 102, 241, 0.2)); border: 1px solid rgba(0, 243, 255, 0.5); padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; animation: slideInText 0.5s ease-out; }
-        
-        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-        .font-card { cursor: pointer; padding: 1.5rem; background: rgba(10, 20, 35, 0.7); border: 1.5px solid rgba(0, 243, 255, 0.15); border-radius: 1rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .font-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent); transition: left 0.5s ease; }
+        .anim-floating { animation: floatingText 3s ease-in-out infinite; }
+        .anim-rainbow { animation: rainbowText 4s ease-in-out infinite; }
+
+        /* 🎨 FONT ANIMATOR STYLES */
+        .font-animator-container { 
+            position: relative; 
+            overflow: hidden; 
+            border-radius: 1.5rem; 
+            border: 2px solid rgba(168, 85, 247, 0.4);
+            background: linear-gradient(135deg, rgba(20, 15, 40, 0.7), rgba(26, 15, 46, 0.7));
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
+        }
+        .font-animator-container:hover { 
+            border-color: rgba(168, 85, 247, 0.8);
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .font-preview-text { 
+            font-size: 3.5rem; 
+            font-weight: 700; 
+            letter-spacing: 0.05em; 
+            text-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+            animation: fadeInScale 0.8s ease-out;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4, #a855f7);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .font-name-badge { 
+            display: inline-block; 
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3));
+            border: 1.5px solid rgba(168, 85, 247, 0.6);
+            padding: 0.7rem 1.2rem; 
+            border-radius: 0.75rem; 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.12em;
+            animation: slideInText 0.6s ease-out;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .font-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 1.2rem;
+        }
+
+        .font-card { 
+            cursor: pointer; 
+            padding: 1.8rem; 
+            background: linear-gradient(135deg, rgba(20, 15, 40, 0.6), rgba(30, 20, 50, 0.6));
+            border: 1.5px solid rgba(168, 85, 247, 0.2);
+            border-radius: 1.2rem; 
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative; 
+            overflow: hidden;
+        }
+
+        .font-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: -100%; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent); 
+            transition: left 0.6s ease;
+        }
+
         .font-card:hover::before { left: 100%; }
-        .font-card:hover { border-color: rgba(0, 243, 255, 0.6); box-shadow: 0 0 25px rgba(0, 243, 255, 0.25); transform: translateY(-4px); }
-        .font-card.selected { border-color: #00f3ff; box-shadow: 0 0 35px rgba(0, 243, 255, 0.5); background: rgba(0, 243, 255, 0.08); }
-        .font-card-name { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; margin-bottom: 0.5rem; color: #00f3ff; }
-        .font-card-preview { font-size: 1.2rem; color: #ccc; font-weight: 600; }
-        
-        .animation-toggle { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        .animation-toggle button { padding: 0.5rem 1rem; background: rgba(0, 243, 255, 0.1); border: 1px solid rgba(0, 243, 255, 0.3); color: #fff; border-radius: 0.5rem; cursor: pointer; transition: all 0.3s; font-size: 0.75rem; }
-        .animation-toggle button.active { background: #00f3ff; color: #000; font-weight: 700; box-shadow: 0 0 15px rgba(0, 243, 255, 0.5); }
-        .animation-toggle button:hover { border-color: #00f3ff; }
-        
-        .gallery-selector-modal { display: none; position: fixed; inset: 0; background: rgba(2, 2, 5, 0.95); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(20px); padding: 1rem; }
+        .font-card:hover { 
+            border-color: rgba(168, 85, 247, 0.7);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.4);
+            transform: translateY(-6px);
+            background: linear-gradient(135deg, rgba(30, 20, 50, 0.8), rgba(40, 25, 60, 0.8));
+        }
+
+        .font-card.selected { 
+            border-color: #a855f7;
+            box-shadow: 0 0 45px rgba(168, 85, 247, 0.6);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.1));
+            transform: scale(1.08);
+        }
+
+        .font-card-name { 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            font-size: 0.9rem; 
+            margin-bottom: 0.7rem; 
+            color: #a855f7;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .font-card-preview { 
+            font-size: 1.4rem; 
+            color: #ccc; 
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .font-card:hover .font-card-preview { color: #a855f7; }
+
+        /* 🔘 ANIMATION TOGGLE */
+        .animation-toggle { 
+            display: flex; 
+            gap: 0.8rem; 
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .animation-toggle button { 
+            padding: 0.7rem 1.3rem; 
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.1));
+            border: 1.5px solid rgba(168, 85, 247, 0.3); 
+            color: #fff; 
+            border-radius: 0.7rem; 
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.8rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animation-toggle button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .animation-toggle button:hover::before { left: 100%; }
+        .animation-toggle button:hover { 
+            border-color: #a855f7;
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .animation-toggle button.active { 
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: #fff; 
+            font-weight: 700; 
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6);
+            border-color: #a855f7;
+        }
+
+        /* 🖼️ GALLERY MODAL */
+        .gallery-selector-modal { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(26, 15, 46, 0.95));
+            z-index: 5000; 
+            align-items: center; 
+            justify-content: center; 
+            backdrop-filter: blur(25px); 
+            padding: 1.5rem;
+        }
+
         .gallery-selector-modal.active { display: flex; }
-        .gallery-modal-content { background: rgba(5, 5, 15, 0.8); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 1.5rem; padding: 2rem; max-width: 90vw; max-height: 85vh; overflow-y: auto; width: 100%; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem; max-height: 60vh; overflow-y: auto; }
-        .gallery-item { cursor: pointer; position: relative; overflow: hidden; border-radius: 0.75rem; border: 1.5px solid rgba(0, 243, 255, 0.2); transition: all 0.3s; }
-        .gallery-item:hover { border-color: rgba(0, 243, 255, 0.8); box-shadow: 0 0 20px rgba(0, 243, 255, 0.3); transform: scale(1.05); }
-        .gallery-item img { width: 100%; height: 100px; object-fit: cover; }
+
+        .gallery-modal-content { 
+            background: linear-gradient(135deg, rgba(20, 15, 40, 0.8), rgba(30, 20, 50, 0.8));
+            border: 1.5px solid rgba(168, 85, 247, 0.4);
+            border-radius: 2rem; 
+            padding: 2.5rem; 
+            max-width: 92vw; 
+            max-height: 90vh; 
+            overflow-y: auto;
+            width: 100%;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.3);
+        }
+
+        .gallery-modal-content h2 {
+            color: #a855f7;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+            gap: 1.2rem;
+            max-height: 65vh; 
+            overflow-y: auto;
+        }
+
+        .gallery-item { 
+            cursor: pointer; 
+            position: relative; 
+            overflow: hidden; 
+            border-radius: 1rem; 
+            border: 1.5px solid rgba(168, 85, 247, 0.2);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            aspect-ratio: 1;
+        }
+
+        .gallery-item:hover { 
+            border-color: rgba(168, 85, 247, 0.8);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .gallery-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .gallery-item:hover img { transform: scale(1.15); }
+
+        /* 🔘 SLIDERS */
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3));
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+            transition: all 0.3s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+            transform: scale(1.3);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+            transition: all 0.3s;
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+            transform: scale(1.3);
+        }
+
+        /* ✨ DASHBOARD PANELS */
+        .dashboard-panel {
+            animation: fadeInScale 0.6s ease-out forwards;
+        }
+
+        .dashboard-panel.hidden { display: none; }
     </style>
 </head>
 <body class="p-4 md:p-8 min-h-screen">
     
     <div id="login-overlay">
-        <div class="glass p-8 rounded-3xl border border-cyan-500/30 max-w-sm w-full space-y-6 mx-4 text-center">
+        <div class="glass p-8 rounded-3xl border border-purple-500/40 max-w-sm w-full space-y-6 mx-4 text-center anim-fade-scale">
             <div>
-                <div class="w-16 h-16 bg-cyan-500/10 border border-cyan-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-cyan-400 text-2xl animate-pulse">
+                <div class="w-16 h-16 bg-purple-500/20 border border-purple-500/40 rounded-2xl flex items-center justify-center mx-auto mb-4 text-purple-400 text-2xl animate-pulse">
                     <i class="fa-solid fa-terminal"></i>
                 </div>
-                <h2 class="text-lg font-black font-['Orbitron'] text-cyan-400 tracking-widest uppercase anim-glitch">MAINFRAME LOCK</h2>
-                <p class="text-[10px] text-gray-500 mt-1">// ENTER SECURE DECRYPTION KEYS</p>
+                <h2 class="text-lg font-black font-['Orbitron'] text-purple-400 tracking-widest uppercase anim-glitch">MAINFRAME LOCK</h2>
+                <p class="text-[10px] text-gray-400 mt-1">// ENTER SECURE DECRYPTION KEYS</p>
             </div>
             <form id="cyber-login-form" class="space-y-4 text-left">
                 <div>
-                    <label class="block text-[9px] uppercase font-bold text-cyan-400 mb-1 tracking-wider">Matrix User ID</label>
+                    <label class="block text-[9px] uppercase font-bold text-purple-400 mb-1 tracking-wider">Matrix User ID</label>
                     <input type="text" id="cyber-username" required class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="Username">
                 </div>
                 <div>
-                    <label class="block text-[9px] uppercase font-bold text-cyan-400 mb-1 tracking-wider">Access Pass Key</label>
+                    <label class="block text-[9px] uppercase font-bold text-purple-400 mb-1 tracking-wider">Access Pass Key</label>
                     <input type="password" id="cyber-password" required class="w-full p-3 rounded-xl input-cyber text-xs" placeholder="••••••••••••••">
                 </div>
-                <button type="submit" class="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all anim-pulse-text">
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all anim-pulse-text">
                     Initiate Override <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i>
                 </button>
             </form>
@@ -93,48 +490,54 @@
 
     <canvas id="galaxy-bg"></canvas>
 
-    <div id="mainframe-content" class="max-w-6xl mx-auto space-y-8 relative z-10 opacity-0 transition-opacity duration-700 pointer-events-none">
+    <div id="mainframe-content" class="max-w-7xl mx-auto space-y-8 relative z-10 opacity-0 transition-opacity duration-700 pointer-events-none">
         
-        <div class="glass p-6 rounded-3xl border border-cyan-500/20 flex flex-col md:flex-row justify-between items-center gap-4 anim-fade-scale">
+        <div class="glass p-6 rounded-3xl border border-purple-500/30 flex flex-col md:flex-row justify-between items-center gap-4 anim-fade-scale">
             <div>
-                <h1 class="text-xl md:text-2xl font-black font-['Orbitron'] text-cyan-400 tracking-wider anim-slide-in">⚡ GHOSTDEV PORTFOLIO MAINFRAME</h1>
-                <p class="text-xs text-gray-400 mt-1 anim-slide-in" style="animation-delay: 0.1s;">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
+                <h1 class="text-2xl md:text-3xl font-black font-['Orbitron'] bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent tracking-wider anim-slide-in">⚡ GHOSTDEV PORTFOLIO MAINFRAME</h1>
+                <p class="text-xs text-gray-400 mt-2 anim-slide-in" style="animation-delay: 0.1s;">// CONTROL OVERRIDE TO REALTIME DATABASE MATRIX</p>
             </div>
-            <button id="main-deploy-btn" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_25px_rgba(0,243,255,0.3)] anim-pulse-text">
+            <button id="main-deploy-btn" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_35px_rgba(168,85,247,0.4)] anim-pulse-text">
                 <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Deploy Live Updates
             </button>
         </div>
 
-        <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
-            <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Identity Systems</button>
-            <button onclick="switchTab('themes')" id="tab-themes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 text-amber-400 border border-amber-500/20">🎨 UI Templates</button>
-            <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Quotes (නිසදැස්)</button>
-            <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Photography (ගැලරිය)</button>
-            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 anim-glitch">✨ Font Animator</button>
-            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5">Animation Engine</button>
-            <button onclick="switchTab('security')" id="tab-security" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-white/5 border border-red-500/20 text-red-400">🚨 Security Lab</button>
+        <div class="flex flex-wrap gap-2 border-b border-purple-500/20 pb-4 overflow-x-auto">
+            <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase bg-purple-500/10">Identity Systems</button>
+            <button onclick="switchTab('themes')" id="tab-themes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-purple-500/10 text-pink-400">🎨 UI Templates</button>
+            <button onclick="switchTab('quotes')" id="tab-quotes" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-purple-500/10">Quotes (නිසදැස්)</button>
+            <button onclick="switchTab('photography')" id="tab-photography" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-purple-500/10">Photography (ගැලරිය)</button>
+            <button onclick="switchTab('fonts')" id="tab-fonts" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-purple-500/10 anim-glitch">✨ Font Animator</button>
+            <button onclick="switchTab('animation')" id="tab-animation" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-purple-500/10">Animation Engine</button>
+            <button onclick="switchTab('security')" id="tab-security" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold uppercase bg-purple-500/10 text-red-400">🚨 Security Lab</button>
         </div>
 
-        <!-- FONT ANIMATOR PANEL -->
-        <div id="panel-fonts" class="dashboard-panel hidden space-y-6">
+        <!-- ✨ FONT ANIMATOR PANEL -->
+        <div id="panel-fonts" class="dashboard-panel hidden space-y-8">
             <div class="space-y-6">
                 <!-- Main Font Preview -->
                 <div class="font-animator-container anim-fade-scale">
                     <div class="mb-4">
-                        <span class="font-name-badge"><i class="fa-solid fa-sparkles mr-1"></i> Live Font Animator</span>
+                        <span class="font-name-badge"><i class="fa-solid fa-sparkles mr-1"></i> Live Font Animator Studio</span>
                     </div>
-                    <div id="font-preview-display" class="font-preview-text" style="font-family: 'Orbitron';">CREATIVE TYPOGRAPHY</div>
-                    <p id="font-current-name" class="text-cyan-400 text-xs uppercase tracking-widest mt-4 font-['Orbitron']">Current: Orbitron</p>
+                    <div id="font-preview-display" class="font-preview-text anim-glitch" style="font-family: 'Orbitron';">CREATIVE TYPOGRAPHY</div>
+                    <p id="font-current-name" class="text-purple-400 text-xs uppercase tracking-widest mt-6 font-['Orbitron'] anim-slide-in" style="animation-delay: 0.2s;">Current: Orbitron Cyber</p>
                     
                     <div class="animation-toggle mt-6">
                         <button class="active" onclick="applyFontAnimation('glitch')">
-                            <i class="fa-solid fa-bolt mr-1"></i> Glitch
+                            <i class="fa-solid fa-bolt mr-1"></i> Glitch Storm
                         </button>
                         <button onclick="applyFontAnimation('pulse')">
-                            <i class="fa-solid fa-circle-notch mr-1"></i> Pulse
+                            <i class="fa-solid fa-circle-notch mr-1"></i> Cosmic Pulse
                         </button>
                         <button onclick="applyFontAnimation('shimmer')">
-                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Shimmer
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Shimmer Flow
+                        </button>
+                        <button onclick="applyFontAnimation('floating')">
+                            <i class="fa-solid fa-feather mr-1"></i> Floating
+                        </button>
+                        <button onclick="applyFontAnimation('rainbow')">
+                            <i class="fa-solid fa-rainbow mr-1"></i> Rainbow
                         </button>
                         <button onclick="applyFontAnimation('none')">
                             <i class="fa-solid fa-ban mr-1"></i> Static
@@ -143,43 +546,54 @@
                 </div>
 
                 <!-- Font Grid Selector -->
-                <div class="glass p-6 rounded-3xl border border-cyan-500/20">
-                    <h3 class="text-sm font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest mb-6">
-                        <i class="fa-solid fa-book mr-2"></i> Typography Library
+                <div class="glass p-8 rounded-3xl border border-purple-500/30">
+                    <h3 class="text-sm font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest mb-8">
+                        <i class="fa-solid fa-book mr-2"></i> Professional Typography Library
                     </h3>
                     <div class="font-grid" id="font-library-grid"></div>
                 </div>
 
                 <!-- Font Information Panel -->
-                <div class="glass p-6 rounded-3xl border border-purple-500/20 space-y-4">
-                    <h3 class="text-sm font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest">
-                        <i class="fa-solid fa-info-circle mr-2"></i> Font Properties
+                <div class="glass p-8 rounded-3xl border border-pink-500/30 space-y-6">
+                    <h3 class="text-sm font-black font-['Orbitron'] text-pink-400 uppercase tracking-widest">
+                        <i class="fa-solid fa-sliders mr-2"></i> Font Properties & Controls
                     </h3>
-                    <div class="grid md:grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="text-[10px] text-purple-300 uppercase tracking-widest mb-2 block">Font Size</label>
-                            <input type="range" id="font-size-slider" min="24" max="96" value="56" class="w-full cursor-pointer">
-                            <span id="font-size-display" class="text-xs text-cyan-400 mt-1">56px</span>
+                            <label class="text-[11px] text-pink-300 uppercase tracking-widest mb-3 block font-bold">Font Size: <span id="font-size-display" class="text-purple-400">56px</span></label>
+                            <input type="range" id="font-size-slider" min="24" max="120" value="56" class="w-full cursor-pointer">
                         </div>
                         <div>
-                            <label class="text-[10px] text-purple-300 uppercase tracking-widest mb-2 block">Letter Spacing</label>
-                            <input type="range" id="letter-spacing-slider" min="0" max="10" value="0.05" step="0.01" class="w-full cursor-pointer">
-                            <span id="letter-spacing-display" class="text-xs text-cyan-400 mt-1">0.05em</span>
+                            <label class="text-[11px] text-pink-300 uppercase tracking-widest mb-3 block font-bold">Letter Spacing: <span id="letter-spacing-display" class="text-purple-400">0.05em</span></label>
+                            <input type="range" id="letter-spacing-slider" min="0" max="15" value="0.05" step="0.01" class="w-full cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-pink-300 uppercase tracking-widest mb-3 block font-bold">Font Weight</label>
+                            <select id="font-weight-select" class="w-full p-2.5 rounded-lg input-cyber text-xs">
+                                <option value="400">Normal (400)</option>
+                                <option value="600">Semi-Bold (600)</option>
+                                <option value="700">Bold (700)</option>
+                                <option value="900">Black (900)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-pink-300 uppercase tracking-widest mb-3 block font-bold">Line Height</label>
+                            <input type="range" id="line-height-slider" min="1" max="3" value="1.2" step="0.1" class="w-full cursor-pointer">
                         </div>
                     </div>
-                    <textarea id="font-preview-text-input" placeholder="Enter custom preview text..." class="w-full p-3 rounded-xl input-cyber text-xs" rows="2"></textarea>
-                    <button onclick="updatePreviewText()" class="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase rounded-lg transition-all">
-                        Update Preview
+                    <textarea id="font-preview-text-input" placeholder="Enter custom preview text... (e.g., Your Amazing Text)" class="w-full p-3 rounded-xl input-cyber text-xs" rows="3"></textarea>
+                    <button onclick="updatePreviewText()" class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs uppercase rounded-lg transition-all anim-pulse-text">
+                        <i class="fa-solid fa-refresh mr-1"></i> Update Preview Instantly
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- PHOTOGRAPHY PANEL WITH GALLERY SELECTOR -->
+        <!-- 📸 PHOTOGRAPHY PANEL WITH GALLERY SELECTOR -->
         <div id="panel-photography" class="dashboard-panel hidden space-y-6">
             <div class="grid lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 glass p-6 rounded-3xl space-y-4 border border-purple-500/20">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest">// Gallery Management</h3>
+                <div class="lg:col-span-2 glass p-8 rounded-3xl space-y-6 border border-pink-500/30 anim-fade-scale">
+                    <h3 class="text-sm font-black font-['Orbitron'] text-pink-400 uppercase tracking-widest">// Gallery Management System</h3>
                     <input type="hidden" id="photo-edit-index" value="-1">
                     <div class="grid md:grid-cols-3 gap-4">
                         <input type="text" id="photo-title" placeholder="Title" class="w-full p-3 rounded-xl input-cyber text-xs">
@@ -188,23 +602,24 @@
                     </div>
                     <textarea id="photo-desc" rows="2" placeholder="Description" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                     
-                    <!-- GALLERY-ONLY BUTTON (No File Upload) -->
-                    <button id="gallery-selector-btn" class="w-full px-5 py-3 bg-purple-600 hover:bg-purple-500 text-white font-black text-xs uppercase rounded-lg transition-all">
-                        <i class="fa-solid fa-images mr-2"></i> Select from Gallery
+                    <button id="gallery-selector-btn" class="w-full px-5 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-black text-xs uppercase rounded-lg transition-all anim-pulse-text">
+                        <i class="fa-solid fa-images mr-2"></i> Select from Gallery Only
                     </button>
                     
-                    <button id="commit-photo-btn" class="px-5 py-2.5 bg-purple-500 text-white font-black text-xs uppercase rounded-lg">Commit Photo</button>
+                    <button id="commit-photo-btn" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black text-xs uppercase rounded-lg transition-all">
+                        <i class="fa-solid fa-check mr-1"></i> Commit Photo
+                    </button>
                     <div id="admin-photography-list" class="grid sm:grid-cols-3 gap-4 mt-4"></div>
                 </div>
 
-                <div class="glass p-6 rounded-3xl border border-cyan-500/30 space-y-4">
-                    <h2 class="text-sm font-black text-cyan-400 uppercase tracking-widest">// Project Images</h2>
+                <div class="glass p-8 rounded-3xl border border-purple-500/30 space-y-6 anim-fade-scale" style="animation-delay: 0.1s;">
+                    <h2 class="text-sm font-black text-purple-400 uppercase tracking-widest">// Project Images</h2>
                     <div class="flex gap-2">
                         <input type="text" id="newProjectUrlInput" placeholder="Project Image URL" class="w-full p-3 rounded-xl input-cyber text-xs">
-                        <button id="inject-proj-btn" class="px-4 bg-cyan-500 text-black rounded-xl font-bold">+</button>
+                        <button id="inject-proj-btn" class="px-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold hover:shadow-lg transition-all">+</button>
                     </div>
                     <div id="gallery-connector-container" class="hidden">
-                        <p class="text-[9px] text-purple-400 mb-2">Quick Select from Gallery:</p>
+                        <p class="text-[9px] text-pink-400 mb-2 font-bold">Quick Select from Gallery:</p>
                         <div id="quick-gallery-injector-grid" class="grid grid-cols-4 gap-1 max-h-24 overflow-y-auto"></div>
                     </div>
                     <div id="adminProjectThumbsGrid" class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto"></div>
@@ -212,14 +627,14 @@
             </div>
         </div>
 
-        <!-- GALLERY SELECTOR MODAL -->
+        <!-- 🖼️ GALLERY SELECTOR MODAL -->
         <div id="gallery-selector-modal" class="gallery-selector-modal">
             <div class="gallery-modal-content">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-lg font-black text-cyan-400 uppercase tracking-widest">
+                    <h2 class="text-lg font-black text-purple-400 uppercase tracking-widest">
                         <i class="fa-solid fa-images mr-2"></i> Select Image from Gallery
                     </h2>
-                    <button onclick="closeGallerySelector()" class="text-2xl text-gray-400 hover:text-cyan-400 transition-all">
+                    <button onclick="closeGallerySelector()" class="text-3xl text-gray-400 hover:text-purple-400 transition-all transform hover:rotate-90">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -227,37 +642,37 @@
             </div>
         </div>
 
-        <!-- REMAINING PANELS (Profile, Themes, Quotes, etc.) -->
+        <!-- 👤 PROFILE PANEL -->
         <div id="panel-profile" class="dashboard-panel space-y-6">
             <div class="grid lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 glass p-6 rounded-3xl space-y-4 border border-white/5 anim-fade-scale">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest anim-slide-in">// Identity Branding</h3>
+                <div class="lg:col-span-2 glass p-8 rounded-3xl space-y-6 border border-purple-500/30 anim-fade-scale">
+                    <h3 class="text-sm font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest anim-slide-in">// Identity Branding System</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Brand Logo URL</label>
+                            <label class="block text-[10px] uppercase font-bold text-purple-400 mb-2">Brand Logo URL</label>
                             <input type="text" id="headerLogoInput" class="w-full p-3 rounded-xl input-cyber text-xs">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Full Name</label>
+                            <label class="block text-[10px] uppercase font-bold text-purple-400 mb-2">Full Name</label>
                             <input type="text" id="profName" class="w-full p-3 rounded-xl input-cyber text-xs">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Status Bio</label>
+                            <label class="block text-[10px] uppercase font-bold text-purple-400 mb-2">Status Bio</label>
                             <input type="text" id="profBio" class="w-full p-3 rounded-xl input-cyber text-xs">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Avatar Image URL</label>
+                            <label class="block text-[10px] uppercase font-bold text-purple-400 mb-2">Avatar Image URL</label>
                             <input type="text" id="profAvatar" class="w-full p-3 rounded-xl input-cyber text-xs">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase font-bold text-cyan-400 mb-1">Home Hero URL</label>
+                            <label class="block text-[10px] uppercase font-bold text-purple-400 mb-2">Home Hero URL</label>
                             <input type="text" id="homeHeroImg" class="w-full p-3 rounded-xl input-cyber text-xs">
                         </div>
                     </div>
                     <textarea id="profAboutMe" rows="4" placeholder="About Me Statement" class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                 </div>
-                <div class="glass p-6 rounded-3xl space-y-4 border border-purple-500/10 anim-fade-scale" style="animation-delay: 0.1s;">
-                    <h3 class="text-xs font-black font-['Orbitron'] text-purple-400 uppercase tracking-widest">// Social Networks</h3>
+                <div class="glass p-8 rounded-3xl space-y-6 border border-pink-500/30 anim-fade-scale" style="animation-delay: 0.1s;">
+                    <h3 class="text-sm font-black font-['Orbitron'] text-pink-400 uppercase tracking-widest">// Social Networks</h3>
                     <div class="space-y-3">
                         <input type="text" id="s-li" placeholder="LinkedIn" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                         <input type="text" id="s-wa" placeholder="WhatsApp" class="w-full p-2.5 rounded-xl input-cyber text-xs">
@@ -265,101 +680,101 @@
                         <input type="text" id="s-ig" placeholder="Instagram" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                         <input type="text" id="s-tg" placeholder="Telegram" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                         <input type="text" id="s-yt" placeholder="YouTube" class="w-full p-2.5 rounded-xl input-cyber text-xs">
-                        <input type="text" id="p-cat" placeholder="Categories (e.g. Developer, Editor)" class="w-full p-2.5 rounded-xl input-cyber text-xs">
-                    </div>
-                    <div class="pt-3 border-t border-white/10">
-                        <label class="block text-[10px] text-gray-400 mb-1">Contact Title</label>
-                        <input type="text" id="contactSectionTitle" class="w-full p-2 rounded-lg input-cyber text-xs">
-                        <select id="showContactGrid" class="w-full mt-2 p-2 rounded-lg input-cyber text-xs">
-                            <option value="true">Show Social Grid</option>
-                            <option value="false">Hide Social Grid</option>
-                        </select>
+                        <input type="text" id="p-cat" placeholder="Categories" class="w-full p-2.5 rounded-xl input-cyber text-xs">
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- 🎨 THEMES PANEL -->
         <div id="panel-themes" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl border border-amber-500/20 space-y-4 anim-fade-scale">
-                <h3 class="text-sm font-black font-['Orbitron'] text-amber-400 uppercase tracking-widest">// UI Master Engine</h3>
+            <div class="glass p-8 rounded-3xl border border-pink-500/30 space-y-6 anim-fade-scale">
+                <h3 class="text-sm font-black font-['Orbitron'] text-pink-400 uppercase tracking-widest">// UI Master Engine</h3>
                 <input type="hidden" id="selected-theme-id" value="theme-charm-neon">
                 <div id="themes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
         </div>
 
+        <!-- 💬 QUOTES PANEL -->
         <div id="panel-quotes" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl space-y-4 border border-cyan-500/20 anim-fade-scale">
+            <div class="glass p-8 rounded-3xl space-y-6 border border-purple-500/30 anim-fade-scale">
+                <h3 class="text-sm font-black text-purple-400 uppercase tracking-widest">💭 Quote Collection</h3>
                 <input type="hidden" id="quote-edit-index" value="-1">
-                <textarea id="quote-text" rows="4" placeholder="Enter Quote..." class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
+                <textarea id="quote-text" rows="4" placeholder="Enter your inspiring quote..." class="w-full p-3 rounded-xl input-cyber text-xs"></textarea>
                 <div class="flex gap-2">
-                    <button id="save-quote-btn" class="px-5 py-2.5 bg-cyan-500 text-black font-black text-xs uppercase rounded-lg anim-pulse-text">Save Thought</button>
-                    <button onclick="clearQuoteForm()" class="px-5 py-2.5 bg-white/5 text-white text-xs rounded-lg">Cancel</button>
+                    <button id="save-quote-btn" class="flex-1 px-5 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-black text-xs uppercase rounded-lg anim-pulse-text">
+                        <i class="fa-solid fa-save mr-1"></i> Save Thought
+                    </button>
+                    <button onclick="clearQuoteForm()" class="flex-1 px-5 py-3 bg-gray-600 hover:bg-gray-500 text-white text-xs uppercase rounded-lg">Cancel</button>
                 </div>
             </div>
             <div id="admin-quotes-list" class="grid md:grid-cols-2 gap-4"></div>
         </div>
 
+        <!-- ⚙️ ANIMATION ENGINE PANEL -->
         <div id="panel-animation" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl border border-green-500/20 space-y-4 anim-fade-scale">
-                <h3 class="text-sm font-black font-['Orbitron'] text-green-400 uppercase tracking-widest">
-                    <i class="fa-solid fa-film mr-2"></i> Animation Configuration
+            <div class="glass p-8 rounded-3xl border border-cyan-500/30 space-y-6 anim-fade-scale">
+                <h3 class="text-sm font-black font-['Orbitron'] text-cyan-400 uppercase tracking-widest">
+                    <i class="fa-solid fa-film mr-2"></i> Animation Configuration Engine
                 </h3>
-                <p class="text-xs text-gray-400">Animation engine settings coming soon...</p>
+                <p class="text-xs text-gray-400">Advanced animation settings and effects will be configured here...</p>
             </div>
         </div>
 
+        <!-- 🔒 SECURITY PANEL -->
         <div id="panel-security" class="dashboard-panel hidden space-y-6">
-            <div class="glass p-6 rounded-3xl border border-red-500/20 space-y-4 anim-fade-scale">
+            <div class="glass p-8 rounded-3xl border border-red-500/30 space-y-6 anim-fade-scale">
                 <h3 class="text-sm font-black font-['Orbitron'] text-red-400 uppercase tracking-widest">
-                    <i class="fa-solid fa-shield-halved mr-2"></i> Security Settings
+                    <i class="fa-solid fa-shield-halved mr-2"></i> Security Firewall Settings
                 </h3>
-                <p class="text-xs text-gray-400">Security configuration panel coming soon...</p>
+                <p class="text-xs text-gray-400">Security configuration and access control settings...</p>
             </div>
         </div>
     </div>
 
     <script src="config.js"></script>
     <script>
-        // Font Library Data
+        // 🎨 EXTENDED FONT LIBRARY
         const fontLibraryData = [
-            { name: 'Orbitron', category: 'Display', sample: 'ORBITS' },
-            { name: 'Plus Jakarta Sans', category: 'Modern', sample: 'JAKARTA' },
-            { name: 'JetBrains Mono', category: 'Code', sample: 'MONOSPACE' },
-            { name: 'Space Grotesk', category: 'Geometric', sample: 'SPACE' },
-            { name: 'Courier New', category: 'Classic', sample: 'COURIER' },
-            { name: 'Georgia', category: 'Serif', sample: 'GEORGIA' },
-            { name: 'Trebuchet MS', category: 'Clean', sample: 'TREBUCHET' },
-            { name: 'Impact', category: 'Bold', sample: 'IMPACT' }
+            { name: 'Orbitron Cyber', val: "'Orbitron', sans-serif", category: 'Display', sample: 'ORBITS' },
+            { name: 'Plus Jakarta', val: "'Plus Jakarta Sans', sans-serif", category: 'Modern', sample: 'JAKARTA' },
+            { name: 'JetBrains Mono', val: "'JetBrains Mono', monospace", category: 'Code', sample: 'MONO' },
+            { name: 'Space Grotesk', val: "'Space Grotesk', sans-serif", category: 'Geometric', sample: 'SPACE' },
+            { name: 'Poppins Pro', val: "'Poppins', sans-serif", category: 'Friendly', sample: 'POPPINS' },
+            { name: 'Courier Prime', val: "'Courier Prime', monospace", category: 'Classic', sample: 'COURIER' },
+            { name: 'Georgia', val: "'Georgia', serif", category: 'Serif', sample: 'GEORGIA' },
+            { name: 'Impact', val: "'Impact', sans-serif", category: 'Bold', sample: 'IMPACT' }
         ];
 
-        let currentFont = 'Orbitron';
+        let currentFont = fontLibraryData[0];
         let currentAnimation = 'glitch';
         const fontPreview = document.getElementById('font-preview-display');
         const fontCurrentName = document.getElementById('font-current-name');
 
+        // Initialize Font Animator
         function initializeFontAnimator() {
             const gridContainer = document.getElementById('font-library-grid');
             gridContainer.innerHTML = '';
             
             fontLibraryData.forEach((font, index) => {
                 const card = document.createElement('div');
-                card.className = 'font-card' + (font.name === currentFont ? ' selected' : '');
+                card.className = 'font-card' + (font.name === currentFont.name ? ' selected' : '');
                 card.innerHTML = `
                     <div class="font-card-name">${font.name}</div>
-                    <div class="text-[10px] text-gray-400 mb-2">${font.category}</div>
-                    <div class="font-card-preview" style="font-family: '${font.name}';">${font.sample}</div>
+                    <div class="text-[9px] text-gray-500 mb-2">${font.category}</div>
+                    <div class="font-card-preview" style="font-family: ${font.val};">${font.sample}</div>
                 `;
-                card.onclick = () => selectFont(font.name, card);
+                card.onclick = () => selectFont(font, card);
                 gridContainer.appendChild(card);
             });
         }
 
-        function selectFont(fontName, cardElement) {
+        function selectFont(font, cardElement) {
             document.querySelectorAll('.font-card').forEach(c => c.classList.remove('selected'));
             cardElement.classList.add('selected');
-            currentFont = fontName;
-            fontPreview.style.fontFamily = `'${fontName}'`;
-            fontCurrentName.textContent = `Current: ${fontName}`;
+            currentFont = font;
+            fontPreview.style.fontFamily = font.val;
+            fontCurrentName.textContent = `Current: ${font.name}`;
         }
 
         function applyFontAnimation(animType) {
@@ -367,15 +782,24 @@
             event.target.closest('button').classList.add('active');
             
             fontPreview.className = 'font-preview-text';
+            fontPreview.style.background = 'none';
+            fontPreview.style.webkitBackgroundClip = 'unset';
+            fontPreview.style.backgroundClip = 'unset';
+            fontPreview.style.webkitTextFillColor = 'unset';
+            
             if (animType === 'glitch') fontPreview.classList.add('anim-glitch');
             else if (animType === 'pulse') fontPreview.classList.add('anim-pulse-text');
             else if (animType === 'shimmer') {
-                fontPreview.style.background = 'linear-gradient(90deg, transparent, rgba(0,243,255,0.5), transparent)';
+                fontPreview.style.background = 'linear-gradient(90deg, #a855f7, #ec4899, #06b6d4, #a855f7)';
                 fontPreview.style.backgroundSize = '200% 100%';
                 fontPreview.style.backgroundClip = 'text';
                 fontPreview.style.webkitBackgroundClip = 'text';
-                fontPreview.style.animation = 'textShimmer 2s infinite';
+                fontPreview.style.webkitTextFillColor = 'transparent';
+                fontPreview.style.animation = 'textShimmer 3s infinite';
             }
+            else if (animType === 'floating') fontPreview.classList.add('anim-floating');
+            else if (animType === 'rainbow') fontPreview.classList.add('anim-rainbow');
+            
             currentAnimation = animType;
         }
 
@@ -391,13 +815,25 @@
             document.getElementById('letter-spacing-display').textContent = spacing + 'em';
         });
 
+        document.getElementById('font-weight-select').addEventListener('change', (e) => {
+            fontPreview.style.fontWeight = e.target.value;
+        });
+
+        document.getElementById('line-height-slider').addEventListener('input', (e) => {
+            fontPreview.style.lineHeight = e.target.value;
+        });
+
         function updatePreviewText() {
             const customText = document.getElementById('font-preview-text-input').value || 'CREATIVE TYPOGRAPHY';
             fontPreview.textContent = customText.toUpperCase();
         }
 
-        // Gallery Selector Functions
-        let galleryPhotos = [];
+        // Gallery Functions
+        let galleryPhotos = [
+            { title: 'Sample 1', url: 'https://via.placeholder.com/140/a855f7/ffffff?text=Photo+1', date: '2026-01-01', description: 'Sample photo' },
+            { title: 'Sample 2', url: 'https://via.placeholder.com/140/ec4899/ffffff?text=Photo+2', date: '2026-01-02', description: 'Sample photo' },
+            { title: 'Sample 3', url: 'https://via.placeholder.com/140/06b6d4/ffffff?text=Photo+3', date: '2026-01-03', description: 'Sample photo' }
+        ];
         
         function openGallerySelector() {
             document.getElementById('gallery-selector-modal').classList.add('active');
@@ -442,20 +878,27 @@
             }
         }
 
-        // Gallery Selector Button Event
+        // Auth System
+        document.getElementById('cyber-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (document.getElementById('cyber-username').value === "Ash_x8" && 
+                document.getElementById('cyber-password').value === "Ashwickramasinghe@888") {
+                document.getElementById('login-overlay').style.display = 'none';
+                const mainPanel = document.getElementById('mainframe-content');
+                mainPanel.classList.remove('pointer-events-none');
+                mainPanel.style.opacity = "1";
+            } else {
+                document.getElementById('login-error-msg').classList.remove('hidden');
+            }
+        });
+
+        // Gallery Selector Button
         document.getElementById('gallery-selector-btn').addEventListener('click', openGallerySelector);
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             initializeFontAnimator();
         });
-
-        // Placeholder gallery data - replace with actual Firebase data
-        galleryPhotos = [
-            { title: 'Photo 1', url: 'https://via.placeholder.com/120', date: '2026-01-01', description: 'Sample photo' },
-            { title: 'Photo 2', url: 'https://via.placeholder.com/120', date: '2026-01-02', description: 'Sample photo' },
-            { title: 'Photo 3', url: 'https://via.placeholder.com/120', date: '2026-01-03', description: 'Sample photo' }
-        ];
     </script>
 </body>
 </html>
