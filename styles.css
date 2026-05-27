@@ -442,11 +442,97 @@ button:hover, a.btn:hover { transform:translateY(-2px); box-shadow:0 0 30px colo
 [data-style="glass"] .info-card { background:rgba(14,165,233,.05) !important; backdrop-filter:blur(20px) !important; -webkit-backdrop-filter:blur(20px) !important; }
 
 /* ═══════════════════════════════════════
-   RESPONSIVE
+   MISSING KEYFRAMES
+═══════════════════════════════════════ */
+@keyframes pulse {
+  0%,100%{ transform:scale(1); opacity:1; }
+  50%{ transform:scale(1.5); opacity:.6; }
+}
+@keyframes lineExtend{ from{transform:scaleX(0);opacity:0} to{transform:scaleX(1);opacity:1} }
+
+/* ═══════════════════════════════════════
+   INNER PAGE HERO — global shared style
+═══════════════════════════════════════ */
+.page-hero {
+  padding: clamp(6rem,12vh,9rem) 1.5rem clamp(2.5rem,5vh,4rem);
+  text-align: center; position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute;
+  width: min(700px,90vw); height: min(400px,60vw);
+  background: radial-gradient(ellipse,color-mix(in srgb,var(--primary) 8%,transparent) 0%,transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
+}
+.page-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--secondary); margin-bottom: 1rem;
+  opacity: 0; animation: fadeInUp .6s ease .2s forwards; display: block;
+}
+.page-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem,6vw,4rem); font-weight: 900;
+  letter-spacing: .05em; text-transform: uppercase;
+  background: linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));
+  background-size: 200% 200%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: textGlitch 5s ease-in-out infinite, gradientFlow 6s ease infinite;
+  margin-bottom: 1rem;
+}
+.page-sub {
+  font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+  letter-spacing: .14em; text-transform: uppercase; color: #475569;
+  opacity: 0; animation: fadeInUp .6s ease .5s forwards;
+}
+.page-hero-line {
+  display: block; width: 80px; height: 2px; margin: 1.5rem auto 0;
+  background: linear-gradient(90deg,var(--primary),var(--secondary));
+  border-radius: 2px; opacity: 0; animation: fadeInUp .6s ease .7s forwards;
+}
+
+/* ═══════════════════════════════════════
+   FILTER BAR — photography/designs
+═══════════════════════════════════════ */
+.filter-bar {
+  max-width: 1280px; margin: 0 auto; padding: .5rem 1.5rem 1.5rem;
+  display: flex; gap: .6rem; flex-wrap: wrap; position: relative; z-index: 1;
+}
+.filter-btn {
+  padding: .4rem 1.1rem; background: color-mix(in srgb,var(--primary) 8%,transparent);
+  border: 1.5px solid color-mix(in srgb,var(--primary) 18%,transparent);
+  border-radius: .5rem; font-family: 'Rajdhani', sans-serif;
+  font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #475569; cursor: pointer; transition: all .3s;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: color-mix(in srgb,var(--primary) 18%,transparent);
+  border-color: var(--primary); color: var(--primary);
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — global improvements
 ═══════════════════════════════════════ */
 @media(max-width:768px){
   .anim-slide-in { animation-duration:.6s; }
   .anim-fade-scale { animation-duration:.6s; }
   .cyber-title { letter-spacing:.02em; }
   .section-cyber-title { font-size:2rem; }
+
+  /* Nav mobile improvements */
+  .site-nav { width:calc(100% - 1rem); top:.4rem; }
+  .site-nav.scrolled { width:calc(100% - 1rem); }
+
+  /* Touch target improvements */
+  .nav-link { padding:.8rem 1rem; font-size:.85rem; }
+  .filter-btn { padding:.5rem 1rem; font-size:.82rem; }
+
+  /* Page hero mobile */
+  .page-hero { padding:5.5rem 1rem 2rem; }
+  .page-title { font-size:clamp(1.6rem,8vw,3rem); }
+}
+
+@media(max-width:480px){
+  .page-title { font-size:clamp(1.4rem,9vw,2.5rem); letter-spacing:.03em; }
+  .nav-inner { padding:.65rem 1rem; }
+  .nav-brand-name { font-size:.88rem; }
 }
