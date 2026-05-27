@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Premium SEO Optimized Sitemap for Single Page Website -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-    <!-- Main Homepage - ප්‍රධාන පිටුව -->
-    <url>
-        <loc>https://ash-wickramasinghe.site/</loc>
-        <lastmod>2026-05-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
+  <url>
+    <loc>https://ash-x8.replit.app/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
 
-    <!-- About Section (වෙබ් අඩවියේ ඔබේ තොරතුරු ඇති කොටස) -->
-    <url>
-        <loc>https://ash-wickramasinghe.site/#about</loc>
-        <lastmod>2026-05-25</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.80</priority>
-    </url>
+  <url>
+    <loc>https://ash-x8.replit.app/about.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-    <!-- Services / Portfolio Section (නිර්මාණ හෝ සේවාවන් ඇති කොටස) -->
-    <url>
-        <loc>https://ash-wickramasinghe.site/#services</loc>
-        <lastmod>2026-05-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.80</priority>
-    </url>
+  <url>
+    <loc>https://ash-x8.replit.app/photography.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
-    <!-- Contact Section (සම්බන්ධ කර ගැනීමේ කොටස) -->
-    <url>
-        <loc>https://ash-wickramasinghe.site/#contact</loc>
-        <lastmod>2026-05-25</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.50</priority>
-    </url>
+  <url>
+    <loc>https://ash-x8.replit.app/designs.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ash-x8.replit.app/projects.html</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 
 </urlset>

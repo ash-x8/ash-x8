@@ -3,7 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | ASH_X8 — Kushan A Wickramasinghe</title>
+    <title>About Ash Wickramasinghe | Kushan A Wickramasinghe — Best Graphic Designer Sri Lanka</title>
+    <meta name="description" content="Meet Kushan A Wickramasinghe — Ash Wickramasinghe (ASH_X8 / Tizzy / Writer Tizzy), Sri Lanka's best graphic designer, photographer & author. Passionate creative professional based in Sri Lanka specializing in branding, photography & design.">
+    <meta name="keywords" content="Ash Wickramasinghe, Kushan A Wickramasinghe, Kushan Ashwika, Kushan Ashwika Wickramasinghe, Kushan Wickramasinghe, Tizzy, Writer Tizzy, graphic designer Sri Lanka, photographer Sri Lanka, ASH_X8, Ash-x8, ashx8, best designer Sri Lanka, author Sri Lanka, writer Sri Lanka, creative professional Sri Lanka">
+    <meta name="author" content="Kushan A Wickramasinghe">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#0ea5e9">
+    <link rel="canonical" href="https://ash-x8.replit.app/about.html">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="About Ash Wickramasinghe | Best Graphic Designer Sri Lanka">
+    <meta property="og:description" content="Kushan A Wickramasinghe (Ash Wickramasinghe / ASH_X8 / Tizzy) — Sri Lanka's best graphic designer, photographer & author. Creative professional based in Sri Lanka.">
+    <meta property="og:url" content="https://ash-x8.replit.app/about.html">
+    <meta property="og:site_name" content="ASH_X8 Creative Studio — Ash Wickramasinghe">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Ash Wickramasinghe | Best Graphic Designer Sri Lanka">
+    <meta name="twitter:description" content="Kushan A Wickramasinghe (Ash Wickramasinghe / ASH_X8) — Sri Lanka's best graphic designer & photographer.">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://ash-x8.replit.app/#person",
+        "name": "Kushan A Wickramasinghe",
+        "alternateName": ["Ash Wickramasinghe","ASH_X8","Kushan Ashwika","Kushan Ashwika Wickramasinghe","Tizzy","Writer Tizzy","Ash-x8","ashx8"],
+        "jobTitle": "Graphic Designer & Photographer",
+        "description": "Kushan A Wickramasinghe, known as Ash Wickramasinghe or ASH_X8, is Sri Lanka's best graphic designer, photographer, and creative professional. Also known as Tizzy or Writer Tizzy as an author.",
+        "url": "https://ash-x8.replit.app/about.html",
+        "nationality": {"@type":"Country","name":"Sri Lanka"},
+        "knowsAbout": ["Graphic Design","Photography","Branding","Logo Design","Content Creation","Writing","Authoring"]
+      }
+    }
+    </script>
     <script src="theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -74,18 +105,23 @@
     </style>
 </head>
 <body>
+    <div class="nav-scroll-progress" id="nav-progress"></div>
     <nav class="site-nav" id="site-nav">
         <div class="nav-inner">
             <a href="/" class="nav-brand">
-                <span id="nav-brand-name">ASH_X8</span>
-                <span class="nav-brand-sub">Creative Studio</span>
+                <div class="nav-brand-dot"></div>
+                <div class="nav-brand-text">
+                    <span class="nav-brand-name" id="nav-brand-name">ASH_X8</span>
+                    <span class="nav-brand-sub">Creative Studio</span>
+                </div>
             </a>
             <div class="nav-links" id="nav-links">
-                <a href="/"             class="nav-link">Home</a>
-                <a href="/about.html"   class="nav-link active">About</a>
-                <a href="/photography.html" class="nav-link">Photography</a>
-                <a href="/designs.html" class="nav-link">Designs</a>
-                <a href="/projects.html" class="nav-link">Services</a>
+                <a href="/" class="nav-link"><i class="fas fa-house nav-link-icon"></i> Home</a>
+                <a href="/about.html" class="nav-link active"><i class="fas fa-user nav-link-icon"></i> About</a>
+                <a href="/photography.html" class="nav-link"><i class="fas fa-camera nav-link-icon"></i> Photography</a>
+                <a href="/designs.html" class="nav-link"><i class="fas fa-palette nav-link-icon"></i> Designs</a>
+                <a href="/projects.html" class="nav-link"><i class="fas fa-briefcase nav-link-icon"></i> Services</a>
+                <a href="/projects.html" class="nav-hire-btn"><i class="fas fa-bolt"></i> Hire Me</a>
             </div>
             <button class="nav-ham" id="nav-ham" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -190,6 +226,16 @@
             this.classList.toggle('open');
             document.getElementById('nav-links').classList.toggle('open');
         });
+        (function(){
+            const nav=document.getElementById('site-nav');
+            const prog=document.getElementById('nav-progress');
+            window.addEventListener('scroll',function(){
+                const st=window.scrollY;
+                const dh=document.documentElement.scrollHeight-window.innerHeight;
+                if(prog)prog.style.width=(dh>0?(st/dh*100):0)+'%';
+                if(nav)nav.classList.toggle('scrolled',st>80);
+            },{passive:true});
+        })();
 
         window.addEventListener('DOMContentLoaded', () => {
             const d = SiteData.get();

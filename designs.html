@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Designs | ASH_X8 Portfolio</title>
+    <title>Graphic Design Portfolio | Ash Wickramasinghe — Best Graphic Designer Sri Lanka</title>
+    <meta name="description" content="Graphic design portfolio by Kushan A Wickramasinghe (Ash Wickramasinghe / ASH_X8) — Sri Lanka's best graphic designer. Logos, branding, brand identity & digital design work.">
+    <meta name="keywords" content="Ash Wickramasinghe graphic design, Kushan A Wickramasinghe designer, graphic designer Sri Lanka, logo designer Sri Lanka, brand identity Sri Lanka, ASH_X8 designs, best graphic designer Sri Lanka, Kushan Ashwika design">
+    <meta name="author" content="Kushan A Wickramasinghe">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="theme-color" content="#0ea5e9">
+    <link rel="canonical" href="https://ash-x8.replit.app/designs.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Graphic Design Portfolio | Ash Wickramasinghe — Best Graphic Designer Sri Lanka">
+    <meta property="og:description" content="Graphic design portfolio by Ash Wickramasinghe (Kushan A Wickramasinghe / ASH_X8) — Sri Lanka's best graphic designer. Logos, branding & digital design.">
+    <meta property="og:url" content="https://ash-x8.replit.app/designs.html">
+    <meta property="og:site_name" content="ASH_X8 Creative Studio — Ash Wickramasinghe">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Graphic Design Portfolio | Ash Wickramasinghe — Best Graphic Designer Sri Lanka">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Ash Wickramasinghe Graphic Design Portfolio","description":"Graphic design portfolio by Kushan A Wickramasinghe (Ash Wickramasinghe / ASH_X8) — Sri Lanka's best graphic designer","url":"https://ash-x8.replit.app/designs.html","creator":{"@type":"Person","name":"Kushan A Wickramasinghe","alternateName":["Ash Wickramasinghe","ASH_X8","Tizzy"]}}</script>
     <script src="theme.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -56,15 +70,23 @@
     </style>
 </head>
 <body>
-    <nav class="site-nav">
+    <div class="nav-scroll-progress" id="nav-progress"></div>
+    <nav class="site-nav" id="site-nav">
         <div class="nav-inner">
-            <a href="/" class="nav-brand"><span id="nav-brand-name">ASH_X8</span><span class="nav-brand-sub">Creative Studio</span></a>
+            <a href="/" class="nav-brand">
+                <div class="nav-brand-dot"></div>
+                <div class="nav-brand-text">
+                    <span class="nav-brand-name" id="nav-brand-name">ASH_X8</span>
+                    <span class="nav-brand-sub">Creative Studio</span>
+                </div>
+            </a>
             <div class="nav-links" id="nav-links">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/about.html" class="nav-link">About</a>
-                <a href="/photography.html" class="nav-link">Photography</a>
-                <a href="/designs.html" class="nav-link active">Designs</a>
-                <a href="/projects.html" class="nav-link">Services</a>
+                <a href="/" class="nav-link"><i class="fas fa-house nav-link-icon"></i> Home</a>
+                <a href="/about.html" class="nav-link"><i class="fas fa-user nav-link-icon"></i> About</a>
+                <a href="/photography.html" class="nav-link"><i class="fas fa-camera nav-link-icon"></i> Photography</a>
+                <a href="/designs.html" class="nav-link active"><i class="fas fa-palette nav-link-icon"></i> Designs</a>
+                <a href="/projects.html" class="nav-link"><i class="fas fa-briefcase nav-link-icon"></i> Services</a>
+                <a href="/projects.html" class="nav-hire-btn"><i class="fas fa-bolt"></i> Hire Me</a>
             </div>
             <button class="nav-ham" id="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
         </div>
@@ -99,6 +121,7 @@
     <script src="site-data.js"></script>
     <script>
         document.getElementById('nav-ham').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('nav-links').classList.toggle('open');});
+        (function(){const nav=document.getElementById('site-nav');const prog=document.getElementById('nav-progress');window.addEventListener('scroll',function(){const st=window.scrollY;const dh=document.documentElement.scrollHeight-window.innerHeight;if(prog)prog.style.width=(dh>0?(st/dh*100):0)+'%';if(nav)nav.classList.toggle('scrolled',st>80);},{passive:true});})();
         let allItems=[],filteredItems=[],currentLbIdx=0;
         window.addEventListener('DOMContentLoaded',()=>{
             const d=SiteData.get();

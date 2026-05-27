@@ -13,8 +13,8 @@ const SiteData = {
             nickname:   'ASH_X8',
             tagline:    'Evolving Digital Alchemist',
             category:   'Photographer & Graphic Designer',
-            bio:        "I'm Kushan A Wickramasinghe (Ash Wickramasinghe), a passionate creative professional based in Sri Lanka. With expertise in photography, graphic design, and digital content creation, I help brands tell their stories through stunning visuals and compelling design.",
-            aboutText:  "Specializing in professional photography and creative graphic design, I craft visual identities that leave a lasting impression. My work blends technical precision with artistic vision — every project is tailored to stand out.",
+            bio:        "I'm Kushan A Wickramasinghe — known as Ash Wickramasinghe, ASH_X8, and by the pen name Tizzy (Writer Tizzy). A passionate creative professional and author based in Sri Lanka, with expertise in graphic design, photography, and digital content creation. I help brands tell their stories through stunning visuals and compelling design.",
+            aboutText:  "Kushan A Wickramasinghe (Ash Wickramasinghe / Tizzy / Writer Tizzy) specializes in professional photography and creative graphic design. Recognized as one of Sri Lanka's best graphic designers, I craft visual identities that leave a lasting impression. My work blends technical precision with artistic vision — every project is tailored to stand out and drive real results.",
             homePhoto:  '',
             aboutPhoto: ''
         },

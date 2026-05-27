@@ -20,6 +20,9 @@
         const b3 = t.bgTo      || '#050e24';
         const tc = t.textColor || '#f0f8ff';
 
+        const ts = t.themeStyle || 'cyberpunk';
+        document.documentElement.setAttribute('data-style', ts);
+
         const el = document.createElement('style');
         el.id = 'ash-theme-override';
         el.textContent = `
