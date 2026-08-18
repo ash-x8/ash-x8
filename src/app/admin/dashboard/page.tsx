@@ -1,5 +1,5 @@
 import AdminSidebar from "@/components/AdminSidebar";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import {
   FolderKanban,
@@ -27,35 +27,54 @@ export default async function AdminDashboardPage() {
   let recentMessages: any[] = [];
 
   try {
-    [
-      totalProjects,
-      publishedProjects,
-      draftProjects,
-      totalServices,
-      totalDesignItems,
-      totalSocialItems,
-      unreadMessages,
-      recentProjects,
-      recentMessages,
+    const supabase = await createClient();
+
+    const [
+      { count: pTotal },
+      { count: pPub },
+      { count: pDraft },
+      { count: sTotal },
+      { count: dTotal },
+      { count: socTotal },
+      { count: mUnread },
+      { data: rProjects },
+      { data: rMessages },
     ] = await Promise.all([
-      prisma.project.count().catch(() => 0),
-      prisma.project.count({ where: { isPublished: true } }).catch(() => 0),
-      prisma.project.count({ where: { isPublished: false } }).catch(() => 0),
-      prisma.service.count().catch(() => 0),
-      prisma.designItem.count().catch(() => 0),
-      prisma.socialContent.count().catch(() => 0),
-      prisma.contactMessage.count({ where: { status: "UNREAD" } }).catch(() => 0),
-      prisma.project.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      }).catch(() => []),
-      prisma.contactMessage.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      }).catch(() => []),
+      supabase.from("projects").select("*", { count: "exact", head: true }),
+      supabase.from("projects").select("*", { count: "exact", head: true }).eq("is_published", true),
+      supabase.from("projects").select("*", { count: "exact", head: true }).eq("is_published", false),
+      supabase.from("services").select("*", { count: "exact", head: true }),
+      supabase.from("design_items").select("*", { count: "exact", head: true }),
+      supabase.from("social_content").select("*", { count: "exact", head: true }),
+      supabase.from("contact_messages").select("*", { count: "exact", head: true }).eq("status", "UNREAD"),
+      supabase.from("projects").select("*").order("created_at", { ascending: false }).limit(5),
+      supabase.from("contact_messages").select("*").order("created_at", { ascending: false }).limit(5),
     ]);
+
+    totalProjects = pTotal || 0;
+    publishedProjects = pPub || 0;
+    draftProjects = pDraft || 0;
+    totalServices = sTotal || 0;
+    totalDesignItems = dTotal || 0;
+    totalSocialItems = socTotal || 0;
+    unreadMessages = mUnread || 0;
+    recentProjects = (rProjects || []).map((p: any) => ({
+      id: p.id,
+      title: p.title,
+      category: p.category,
+      year: p.year,
+      isPublished: p.is_published,
+    }));
+    recentMessages = (rMessages || []).map((m: any) => ({
+      id: m.id,
+      senderName: m.sender_name,
+      message: m.message,
+      projectType: m.project_type,
+      status: m.status,
+      createdAt: m.created_at,
+    }));
   } catch (error) {
-    console.error("Dashboard error:", error);
+    console.error("Admin dashboard error:", error);
   }
 
   const stats = [
@@ -71,7 +90,6 @@ export default async function AdminDashboardPage() {
       <AdminSidebar />
 
       <main className="flex-1 lg:pl-64 p-6 sm:p-10 space-y-8">
-        {/* Top Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#222738]">
           <div>
             <h1 className="text-3xl font-extrabold text-white tracking-tight">Studio Dashboard</h1>
@@ -101,7 +119,6 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Quick Actions Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <Link
             href="/admin/projects/new"
@@ -156,7 +173,6 @@ export default async function AdminDashboardPage() {
           </Link>
         </div>
 
-        {/* Stats Metrics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {stats.map((s) => {
             const Icon = s.icon;
@@ -178,9 +194,7 @@ export default async function AdminDashboardPage() {
           })}
         </div>
 
-        {/* Tables: Recent Projects & Inbox Messages */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Recent Projects */}
           <div className="bg-[#12151e] border border-[#222738] rounded-3xl p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-[#222738] pb-4">
               <h3 className="font-bold text-white text-base">Recent Projects</h3>
@@ -224,7 +238,6 @@ export default async function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* Recent Contact Proposals */}
           <div className="bg-[#12151e] border border-[#222738] rounded-3xl p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-[#222738] pb-4">
               <h3 className="font-bold text-white text-base">Recent Proposals & Messages</h3>

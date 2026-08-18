@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
-import { getAdminSession } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
-  const session = await getAdminSession();
-  if (!session) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
     return NextResponse.json({ authenticated: false }, { status: 401 });
   }
-  return NextResponse.json({ authenticated: true, user: session });
+
+  return NextResponse.json({ authenticated: true, user });
 }

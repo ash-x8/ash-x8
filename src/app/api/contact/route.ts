@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
   try {
@@ -12,17 +12,29 @@ export async function POST(request: Request) {
       );
     }
 
-    const contactMessage = await prisma.contactMessage.create({
-      data: {
-        senderName,
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+      .from("contact_messages")
+      .insert({
+        sender_name: senderName,
         email,
-        projectType: projectType || "Other",
+        project_type: projectType || "Other",
         message,
         status: "UNREAD",
-      },
-    });
+      })
+      .select()
+      .single();
 
-    return NextResponse.json({ success: true, message: contactMessage });
+    if (error) {
+      console.error("Supabase contact insertion error:", error);
+      return NextResponse.json(
+        { error: "Failed to submit message." },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ success: true, message: data });
   } catch (error) {
     console.error("Contact submission error:", error);
     return NextResponse.json(

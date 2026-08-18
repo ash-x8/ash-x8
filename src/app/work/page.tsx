@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getProjects } from "@/lib/data";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
 
@@ -15,23 +15,10 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
   const resolvedParams = await searchParams;
   const currentCategory = resolvedParams?.category;
 
-  let siteSettings: any = null;
-  let projects: any[] = [];
-
-  try {
-    [siteSettings, projects] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.project.findMany({
-        where: {
-          isPublished: true,
-          ...(currentCategory ? { category: { equals: currentCategory } } : {}),
-        },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("WorkPage data fetching error:", error);
-  }
+  const [siteSettings, projects] = await Promise.all([
+    getSiteSettings(),
+    getProjects({ category: currentCategory, publishedOnly: true }),
+  ]);
 
   const categories = ["All", "Apps", "Web", "UI/UX", "Graphic Design", "Branding", "Social Media", "Content"];
 

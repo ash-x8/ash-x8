@@ -1,25 +1,15 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getSocialContents } from "@/lib/data";
 import { Share2, Play } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function SocialMediaPage() {
-  let siteSettings: any = null;
-  let socialItems: any[] = [];
-
-  try {
-    [siteSettings, socialItems] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.socialContent.findMany({
-        where: { isPublished: true },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("SocialMediaPage error:", error);
-  }
+  const [siteSettings, socialItems] = await Promise.all([
+    getSiteSettings(),
+    getSocialContents(),
+  ]);
 
   const workflowSteps = [
     { step: "01", name: "Research", desc: "Audience demographics, trending formats, competitor benchmark." },

@@ -1,28 +1,17 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getAboutSection, getSocialLinks } from "@/lib/data";
 import { Sparkles, Mail, Phone, MapPin } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function ContactPage() {
-  let siteSettings: any = null;
-  let aboutSection: any = null;
-  let socialLinks: any[] = [];
-
-  try {
-    [siteSettings, aboutSection, socialLinks] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.aboutSection.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.socialLink.findMany({
-        where: { enabled: true },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("ContactPage error:", error);
-  }
+  const [siteSettings, aboutSection, socialLinks] = await Promise.all([
+    getSiteSettings(),
+    getAboutSection(),
+    getSocialLinks(),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">

@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getAboutSection } from "@/lib/data";
 import AboutEditorClient from "./AboutEditorClient";
 
 export const revalidate = 0;
 
 export default async function AdminAboutPage() {
-  const about = await prisma.aboutSection.findUnique({ where: { id: "1" } });
+  const about = await getAboutSection();
 
   const initialData = {
     name: about?.name || "Alex Morgan",

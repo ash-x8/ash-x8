@@ -1,36 +1,30 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    const supabase = await createClient();
 
-    const updated = await prisma.siteSettings.upsert({
-      where: { id: "1" },
-      update: {
-        siteName: data.siteName,
-        tagline: data.tagline,
-        email: data.email,
-        phone: data.phone,
-        location: data.location,
-        timezone: data.timezone,
-        accentColor: data.accentColor,
-        analyticsId: data.analyticsId,
-        maintenanceMode: Boolean(data.maintenanceMode),
-      },
-      create: {
+    const { data: updated, error } = await supabase
+      .from("site_settings")
+      .upsert({
         id: "1",
-        siteName: data.siteName,
+        site_name: data.siteName,
         tagline: data.tagline,
         email: data.email,
         phone: data.phone,
         location: data.location,
         timezone: data.timezone,
-        accentColor: data.accentColor,
-        analyticsId: data.analyticsId,
-        maintenanceMode: Boolean(data.maintenanceMode),
-      },
-    });
+        accent_color: data.accentColor,
+        analytics_id: data.analyticsId,
+        maintenance_mode: Boolean(data.maintenanceMode),
+        updated_at: new Date().toISOString(),
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
 
     return NextResponse.json({ success: true, settings: updated });
   } catch (error) {

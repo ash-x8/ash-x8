@@ -1,12 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getExperienceItems } from "@/lib/data";
 import ExperienceClient from "./ExperienceClient";
 
 export const revalidate = 0;
 
 export default async function AdminExperiencePage() {
-  const items = await prisma.experienceItem.findMany({
-    orderBy: { displayOrder: "asc" },
-  });
+  const items = await getExperienceItems();
 
   return <ExperienceClient initialItems={items} />;
 }

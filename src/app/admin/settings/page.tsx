@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings } from "@/lib/data";
 import SettingsClient from "./SettingsClient";
 
 export const revalidate = 0;
 
 export default async function AdminSettingsPage() {
-  const settings = await prisma.siteSettings.findUnique({ where: { id: "1" } });
+  const settings = await getSiteSettings();
 
   const initialSettings = {
     siteName: settings?.siteName || "Alex Morgan Studio",

@@ -1,12 +1,25 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
-    const assets = await prisma.mediaAsset.findMany({
-      orderBy: { createdAt: "desc" },
+    const supabase = await createClient();
+    const { data: assets, error } = await supabase
+      .from("media_assets")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return NextResponse.json({
+      assets: assets.map((a) => ({
+        id: a.id,
+        filename: a.filename,
+        filepath: a.filepath,
+        filetype: a.filetype,
+        filesize: a.filesize,
+        createdAt: a.created_at,
+      })),
     });
-    return NextResponse.json({ assets });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch assets" }, { status: 500 });
   }
@@ -18,7 +31,10 @@ export async function DELETE(request: Request) {
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    await prisma.mediaAsset.delete({ where: { id } });
+    const supabase = await createClient();
+    const { error } = await supabase.from("media_assets").delete().eq("id", id);
+    if (error) throw error;
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete asset" }, { status: 500 });

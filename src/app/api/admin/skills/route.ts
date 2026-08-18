@@ -1,13 +1,31 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
-    const categories = await prisma.skillCategory.findMany({
-      orderBy: { displayOrder: "asc" },
-      include: { skills: { orderBy: { displayOrder: "asc" } } },
+    const supabase = await createClient();
+    const { data: categories, error } = await supabase
+      .from("skill_categories")
+      .select("*, skills(*)")
+      .order("display_order", { ascending: true });
+
+    if (error) throw error;
+    return NextResponse.json({
+      categories: categories.map((c) => ({
+        id: c.id,
+        name: c.name,
+        displayOrder: c.display_order,
+        skills: (c.skills || []).map((s: any) => ({
+          id: s.id,
+          name: s.name,
+          skillLevel: s.skill_level,
+          description: s.description,
+          displayOrder: s.display_order,
+          isActive: s.is_active,
+          categoryId: s.category_id,
+        })),
+      })),
     });
-    return NextResponse.json({ categories });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch skills" }, { status: 500 });
   }
@@ -16,24 +34,33 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    const supabase = await createClient();
 
     if (data.type === "category") {
-      const cat = await prisma.skillCategory.create({
-        data: { name: data.name, displayOrder: Number(data.displayOrder || 0) },
-      });
+      const { data: cat, error } = await supabase
+        .from("skill_categories")
+        .insert({ name: data.name, display_order: Number(data.displayOrder || 0) })
+        .select()
+        .single();
+
+      if (error) throw error;
       return NextResponse.json({ success: true, category: cat });
     }
 
-    const skill = await prisma.skill.create({
-      data: {
+    const { data: skill, error } = await supabase
+      .from("skills")
+      .insert({
         name: data.name,
-        categoryId: data.categoryId,
-        skillLevel: data.skillLevel || null,
+        category_id: data.categoryId,
+        skill_level: data.skillLevel || null,
         description: data.description || null,
-        displayOrder: Number(data.displayOrder || 0),
-        isActive: data.isActive !== undefined ? Boolean(data.isActive) : true,
-      },
-    });
+        display_order: Number(data.displayOrder || 0),
+        is_active: data.isActive !== undefined ? Boolean(data.isActive) : true,
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
 
     return NextResponse.json({ success: true, skill });
   } catch (error) {
@@ -49,10 +76,14 @@ export async function DELETE(request: Request) {
 
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
+    const supabase = await createClient();
+
     if (type === "category") {
-      await prisma.skillCategory.delete({ where: { id } });
+      const { error } = await supabase.from("skill_categories").delete().eq("id", id);
+      if (error) throw error;
     } else {
-      await prisma.skill.delete({ where: { id } });
+      const { error } = await supabase.from("skills").delete().eq("id", id);
+      if (error) throw error;
     }
 
     return NextResponse.json({ success: true });

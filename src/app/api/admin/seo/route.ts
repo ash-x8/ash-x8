@@ -1,26 +1,34 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    const supabase = await createClient();
 
-    const updated = await prisma.seoSetting.upsert({
-      where: { pagePath: data.pagePath || "/" },
-      update: {
-        metaTitle: data.metaTitle,
-        metaDescription: data.metaDescription,
+    const { data: updated, error } = await supabase
+      .from("seo_settings")
+      .upsert({
+        page_path: data.pagePath || "/",
+        meta_title: data.metaTitle,
+        meta_description: data.metaDescription,
         keywords: data.keywords,
-      },
-      create: {
-        pagePath: data.pagePath || "/",
-        metaTitle: data.metaTitle,
-        metaDescription: data.metaDescription,
-        keywords: data.keywords,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "page_path" })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return NextResponse.json({
+      success: true,
+      seo: {
+        pagePath: updated.page_path,
+        metaTitle: updated.meta_title,
+        metaDescription: updated.meta_description,
+        keywords: updated.keywords,
       },
     });
-
-    return NextResponse.json({ success: true, seo: updated });
   } catch (error) {
     return NextResponse.json({ error: "Failed to update SEO settings" }, { status: 500 });
   }

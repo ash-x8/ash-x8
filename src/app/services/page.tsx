@@ -1,27 +1,17 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCard from "@/components/ServiceCard";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getServices } from "@/lib/data";
 import { Sparkles, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 export const revalidate = 0;
 
 export default async function ServicesPage() {
-  let siteSettings: any = null;
-  let services: any[] = [];
-
-  try {
-    [siteSettings, services] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.service.findMany({
-        where: { isActive: true },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("ServicesPage error:", error);
-  }
+  const [siteSettings, services] = await Promise.all([
+    getSiteSettings(),
+    getServices(true),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">

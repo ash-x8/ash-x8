@@ -1,38 +1,36 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    const supabase = await createClient();
 
-    const updated = await prisma.heroSection.upsert({
-      where: { id: "1" },
-      update: {
-        heading: data.heading,
-        subtitle: data.subtitle,
-        description: data.description,
-        primaryCtaText: data.primaryCtaText,
-        primaryCtaLink: data.primaryCtaLink,
-        secondaryCtaText: data.secondaryCtaText,
-        secondaryCtaLink: data.secondaryCtaLink,
-        statusBadge: data.statusBadge,
-        smallText: data.smallText,
-        heroImage: data.heroImage,
-      },
-      create: {
-        id: "1",
-        heading: data.heading,
-        subtitle: data.subtitle,
-        description: data.description,
-        primaryCtaText: data.primaryCtaText,
-        primaryCtaLink: data.primaryCtaLink,
-        secondaryCtaText: data.secondaryCtaText,
-        secondaryCtaLink: data.secondaryCtaLink,
-        statusBadge: data.statusBadge,
-        smallText: data.smallText,
-        heroImage: data.heroImage,
-      },
-    });
+    const payload = {
+      id: "1",
+      heading: data.heading,
+      subtitle: data.subtitle,
+      description: data.description,
+      primary_cta_text: data.primaryCtaText,
+      primary_cta_link: data.primaryCtaLink,
+      secondary_cta_text: data.secondaryCtaText,
+      secondary_cta_link: data.secondaryCtaLink,
+      status_badge: data.statusBadge,
+      small_text: data.smallText,
+      hero_image: data.heroImage,
+      updated_at: new Date().toISOString(),
+    };
+
+    const { data: updated, error } = await supabase
+      .from("hero_section")
+      .upsert(payload)
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Supabase hero update error:", error);
+      return NextResponse.json({ error: "Failed to update hero section" }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true, hero: updated });
   } catch (error) {
