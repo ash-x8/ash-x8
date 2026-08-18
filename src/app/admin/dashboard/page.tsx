@@ -10,41 +10,53 @@ import {
   Plus,
   ArrowUpRight,
   Eye,
-  CheckCircle,
   FileText,
-  Clock,
 } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
-  const [
-    totalProjects,
-    publishedProjects,
-    draftProjects,
-    totalServices,
-    totalDesignItems,
-    totalSocialItems,
-    unreadMessages,
-    recentProjects,
-    recentMessages,
-  ] = await Promise.all([
-    prisma.project.count(),
-    prisma.project.count({ where: { isPublished: true } }),
-    prisma.project.count({ where: { isPublished: false } }),
-    prisma.service.count(),
-    prisma.designItem.count(),
-    prisma.socialContent.count(),
-    prisma.contactMessage.count({ where: { status: "UNREAD" } }),
-    prisma.project.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    }),
-    prisma.contactMessage.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    }),
-  ]);
+  let totalProjects = 0;
+  let publishedProjects = 0;
+  let draftProjects = 0;
+  let totalServices = 0;
+  let totalDesignItems = 0;
+  let totalSocialItems = 0;
+  let unreadMessages = 0;
+  let recentProjects: any[] = [];
+  let recentMessages: any[] = [];
+
+  try {
+    [
+      totalProjects,
+      publishedProjects,
+      draftProjects,
+      totalServices,
+      totalDesignItems,
+      totalSocialItems,
+      unreadMessages,
+      recentProjects,
+      recentMessages,
+    ] = await Promise.all([
+      prisma.project.count().catch(() => 0),
+      prisma.project.count({ where: { isPublished: true } }).catch(() => 0),
+      prisma.project.count({ where: { isPublished: false } }).catch(() => 0),
+      prisma.service.count().catch(() => 0),
+      prisma.designItem.count().catch(() => 0),
+      prisma.socialContent.count().catch(() => 0),
+      prisma.contactMessage.count({ where: { status: "UNREAD" } }).catch(() => 0),
+      prisma.project.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }).catch(() => []),
+      prisma.contactMessage.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }).catch(() => []),
+    ]);
+  } catch (error) {
+    console.error("Dashboard error:", error);
+  }
 
   const stats = [
     { label: "Total Projects", value: totalProjects, sub: `${publishedProjects} published / ${draftProjects} draft`, icon: FolderKanban, color: "text-indigo-400" },

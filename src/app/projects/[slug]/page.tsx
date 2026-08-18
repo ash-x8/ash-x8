@@ -6,11 +6,6 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ExternalLink,
-  Calendar,
-  User,
-  Briefcase,
-  Wrench,
-  Code,
   CheckCircle2,
 } from "lucide-react";
 import { GithubIcon } from "@/components/SocialIcons";
@@ -25,17 +20,24 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
 
-  const [siteSettings, project] = await Promise.all([
-    prisma.siteSettings.findUnique({ where: { id: "1" } }),
-    prisma.project.findUnique({
-      where: { slug },
-      include: {
-        gallery: {
-          orderBy: { displayOrder: "asc" },
+  let siteSettings: any = null;
+  let project: any = null;
+
+  try {
+    [siteSettings, project] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.project.findUnique({
+        where: { slug },
+        include: {
+          gallery: {
+            orderBy: { displayOrder: "asc" },
+          },
         },
-      },
-    }),
-  ]);
+      }).catch(() => null),
+    ]);
+  } catch (error) {
+    console.error("ProjectSlugPage error:", error);
+  }
 
   if (!project || !project.isPublished) {
     notFound();
@@ -45,7 +47,7 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
   try {
     if (project.tools) tools = JSON.parse(project.tools);
   } catch {
-    if (project.tools) tools = project.tools.split(",").map((t) => t.trim());
+    if (project.tools) tools = project.tools.split(",").map((t: string) => t.trim());
   }
 
   let technologies: string[] = [];
@@ -53,7 +55,7 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
     if (project.technologies) technologies = JSON.parse(project.technologies);
   } catch {
     if (project.technologies)
-      technologies = project.technologies.split(",").map((t) => t.trim());
+      technologies = project.technologies.split(",").map((t: string) => t.trim());
   }
 
   // Parse Case Study Sections
@@ -217,7 +219,7 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
             <div className="space-y-6 pt-6 border-t border-[#222738]">
               <h2 className="text-2xl font-bold text-white">Visual Artifacts & Gallery</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {project.gallery.map((g) => (
+                {project.gallery.map((g: any) => (
                   <div
                     key={g.id}
                     className="space-y-2 bg-[#12151e] border border-[#222738] rounded-2xl p-3"

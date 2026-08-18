@@ -2,18 +2,25 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import { prisma } from "@/lib/prisma";
-import { Smartphone, Sparkles, Layers, Cpu } from "lucide-react";
+import { Smartphone } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function AppsPage() {
-  const [siteSettings, appProjects] = await Promise.all([
-    prisma.siteSettings.findUnique({ where: { id: "1" } }),
-    prisma.project.findMany({
-      where: { isPublished: true, category: { equals: "Apps" } },
-      orderBy: { displayOrder: "asc" },
-    }),
-  ]);
+  let siteSettings: any = null;
+  let appProjects: any[] = [];
+
+  try {
+    [siteSettings, appProjects] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.project.findMany({
+        where: { isPublished: true, category: { equals: "Apps" } },
+        orderBy: { displayOrder: "asc" },
+      }).catch(() => []),
+    ]);
+  } catch (error) {
+    console.error("AppsPage error:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -21,7 +28,6 @@ export default async function AppsPage() {
 
       <main className="flex-grow pt-28 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-          {/* Header */}
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12151e] border border-[#222738] text-xs font-mono text-indigo-400 font-semibold tracking-wider uppercase">
               <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
@@ -35,7 +41,6 @@ export default async function AppsPage() {
             </p>
           </div>
 
-          {/* Grid */}
           {appProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {appProjects.map((project) => (

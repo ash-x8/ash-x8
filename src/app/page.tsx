@@ -6,58 +6,68 @@ import ServiceCard from "@/components/ServiceCard";
 import { prisma } from "@/lib/prisma";
 import {
   ArrowUpRight,
-  Code2,
   Sparkles,
   Smartphone,
   Globe,
   Palette,
   Share2,
-  Layers,
   Terminal,
-  CheckCircle2,
   ArrowRight,
 } from "lucide-react";
 
 export const revalidate = 0; // Dynamic rendering
 
 export default async function HomePage() {
-  const [
-    siteSettings,
-    heroSection,
-    aboutSection,
-    services,
-    featuredProjects,
-    designItems,
-    socialContents,
-    testimonials,
-  ] = await Promise.all([
-    prisma.siteSettings.findUnique({ where: { id: "1" } }),
-    prisma.heroSection.findUnique({ where: { id: "1" } }),
-    prisma.aboutSection.findUnique({ where: { id: "1" } }),
-    prisma.service.findMany({
-      where: { isActive: true },
-      orderBy: { displayOrder: "asc" },
-    }),
-    prisma.project.findMany({
-      where: { isPublished: true, isFeatured: true },
-      orderBy: { displayOrder: "asc" },
-      take: 3,
-    }),
-    prisma.designItem.findMany({
-      where: { isPublished: true, isFeatured: true },
-      orderBy: { displayOrder: "asc" },
-      take: 3,
-    }),
-    prisma.socialContent.findMany({
-      where: { isPublished: true, isFeatured: true },
-      orderBy: { displayOrder: "asc" },
-      take: 3,
-    }),
-    prisma.testimonial.findMany({
-      where: { isPublished: true },
-      orderBy: { displayOrder: "asc" },
-    }),
-  ]);
+  let siteSettings: any = null;
+  let heroSection: any = null;
+  let aboutSection: any = null;
+  let services: any[] = [];
+  let featuredProjects: any[] = [];
+  let designItems: any[] = [];
+  let socialContents: any[] = [];
+  let testimonials: any[] = [];
+
+  try {
+    [
+      siteSettings,
+      heroSection,
+      aboutSection,
+      services,
+      featuredProjects,
+      designItems,
+      socialContents,
+      testimonials,
+    ] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.heroSection.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.aboutSection.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.service.findMany({
+        where: { isActive: true },
+        orderBy: { displayOrder: "asc" },
+      }).catch(() => []),
+      prisma.project.findMany({
+        where: { isPublished: true, isFeatured: true },
+        orderBy: { displayOrder: "asc" },
+        take: 3,
+      }).catch(() => []),
+      prisma.designItem.findMany({
+        where: { isPublished: true, isFeatured: true },
+        orderBy: { displayOrder: "asc" },
+        take: 3,
+      }).catch(() => []),
+      prisma.socialContent.findMany({
+        where: { isPublished: true, isFeatured: true },
+        orderBy: { displayOrder: "asc" },
+        take: 3,
+      }).catch(() => []),
+      prisma.testimonial.findMany({
+        where: { isPublished: true },
+        orderBy: { displayOrder: "asc" },
+      }).catch(() => []),
+    ]);
+  } catch (error) {
+    console.error("HomePage data fetching error:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -69,20 +79,16 @@ export default async function HomePage() {
       <main className="flex-grow pt-28">
         {/* HERO SECTION */}
         <section className="relative pt-12 pb-24 md:pt-20 md:pb-32 overflow-hidden border-b border-[#222738]/80">
-          {/* Ambient Glow Effects */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-indigo-600/10 blur-[140px] pointer-events-none rounded-full" />
           <div className="absolute top-1/3 right-10 w-[400px] h-[300px] bg-purple-600/10 blur-[140px] pointer-events-none rounded-full" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-              {/* Left Column: Typography & CTAs */}
               <div className="lg:col-span-7 space-y-8">
-                {heroSection?.smallText && (
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12151e] border border-[#222738] text-xs font-mono text-indigo-400 font-semibold tracking-wider uppercase">
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
-                    <span>{heroSection.smallText}</span>
-                  </div>
-                )}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12151e] border border-[#222738] text-xs font-mono text-indigo-400 font-semibold tracking-wider uppercase">
+                  <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+                  <span>{heroSection?.smallText || "DESIGN → DEVELOP → CREATE → MANAGE"}</span>
+                </div>
 
                 <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.08] text-white whitespace-pre-line">
                   {heroSection?.heading || "Designing ideas.\nBuilding experiences."}
@@ -112,10 +118,8 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              {/* Right Column: Premium Visual Composition Showcase */}
               <div className="lg:col-span-5 relative">
                 <div className="relative mx-auto max-w-md lg:max-w-none">
-                  {/* Glassmorphic Layered UI Card Stack */}
                   <div className="relative bg-[#12151e] border border-[#222738] rounded-3xl p-6 shadow-2xl space-y-6 glow-box">
                     <div className="flex items-center justify-between border-b border-[#222738] pb-4">
                       <div className="flex items-center gap-2">
@@ -128,7 +132,6 @@ export default async function HomePage() {
                       </span>
                     </div>
 
-                    {/* Integrated Discipline Nodes */}
                     <div className="grid grid-cols-2 gap-3">
                       <div className="p-4 rounded-2xl bg-[#1a1e2c] border border-[#222738] space-y-2">
                         <Smartphone className="w-5 h-5 text-indigo-400" />
@@ -155,7 +158,6 @@ export default async function HomePage() {
                       </div>
                     </div>
 
-                    {/* Code & Studio Terminal Snippet */}
                     <div className="p-4 rounded-2xl bg-[#090a0f] border border-[#222738] font-mono text-[11px] text-slate-300 space-y-1">
                       <div className="flex items-center justify-between text-slate-500 pb-1 border-b border-[#222738]">
                         <span className="flex items-center gap-1.5 text-xs text-indigo-400">
@@ -184,7 +186,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* INTRODUCTION / TYPOGRAPHY STATEMENT */}
+        {/* INTRODUCTION */}
         <section className="py-20 border-b border-[#222738]/80 bg-[#0c0e15] relative">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <span className="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold">
@@ -196,7 +198,7 @@ export default async function HomePage() {
             </h2>
 
             <p className="text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              {aboutSection?.shortBio}
+              {aboutSection?.shortBio || "Multidisciplinary digital creator working across design, development, and digital content creation."}
             </p>
           </div>
         </section>

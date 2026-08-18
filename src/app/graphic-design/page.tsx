@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
-import { Palette, Sparkles } from "lucide-react";
+import { Palette } from "lucide-react";
 import Link from "next/link";
 
 export const revalidate = 0;
@@ -14,16 +14,23 @@ export default async function GraphicDesignPage({ searchParams }: GraphicDesignP
   const resolvedParams = await searchParams;
   const currentCategory = resolvedParams?.category;
 
-  const [siteSettings, designItems] = await Promise.all([
-    prisma.siteSettings.findUnique({ where: { id: "1" } }),
-    prisma.designItem.findMany({
-      where: {
-        isPublished: true,
-        ...(currentCategory ? { category: { equals: currentCategory } } : {}),
-      },
-      orderBy: { displayOrder: "asc" },
-    }),
-  ]);
+  let siteSettings: any = null;
+  let designItems: any[] = [];
+
+  try {
+    [siteSettings, designItems] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.designItem.findMany({
+        where: {
+          isPublished: true,
+          ...(currentCategory ? { category: { equals: currentCategory } } : {}),
+        },
+        orderBy: { displayOrder: "asc" },
+      }).catch(() => []),
+    ]);
+  } catch (error) {
+    console.error("GraphicDesignPage error:", error);
+  }
 
   const categories = ["All", "Logo", "Branding", "Poster", "Social Media", "Typography", "UI Design", "Marketing"];
 
@@ -33,7 +40,6 @@ export default async function GraphicDesignPage({ searchParams }: GraphicDesignP
 
       <main className="flex-grow pt-28 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          {/* Header */}
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12151e] border border-[#222738] text-xs font-mono text-indigo-400 font-semibold tracking-wider uppercase">
               <Palette className="w-3.5 h-3.5 text-indigo-400" />
@@ -47,7 +53,6 @@ export default async function GraphicDesignPage({ searchParams }: GraphicDesignP
             </p>
           </div>
 
-          {/* Filter Pills */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
             {categories.map((cat) => {
               const isActive = (!currentCategory && cat === "All") || currentCategory === cat;
@@ -69,7 +74,6 @@ export default async function GraphicDesignPage({ searchParams }: GraphicDesignP
             })}
           </div>
 
-          {/* Editorial Masonry/Grid Layout */}
           {designItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {designItems.map((item) => (

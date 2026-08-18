@@ -1,18 +1,25 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
-import { Share2, Sparkles, Video, Play, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Share2, Play } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function SocialMediaPage() {
-  const [siteSettings, socialItems] = await Promise.all([
-    prisma.siteSettings.findUnique({ where: { id: "1" } }),
-    prisma.socialContent.findMany({
-      where: { isPublished: true },
-      orderBy: { displayOrder: "asc" },
-    }),
-  ]);
+  let siteSettings: any = null;
+  let socialItems: any[] = [];
+
+  try {
+    [siteSettings, socialItems] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.socialContent.findMany({
+        where: { isPublished: true },
+        orderBy: { displayOrder: "asc" },
+      }).catch(() => []),
+    ]);
+  } catch (error) {
+    console.error("SocialMediaPage error:", error);
+  }
 
   const workflowSteps = [
     { step: "01", name: "Research", desc: "Audience demographics, trending formats, competitor benchmark." },
@@ -31,7 +38,6 @@ export default async function SocialMediaPage() {
 
       <main className="flex-grow pt-28 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-          {/* Header */}
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12151e] border border-[#222738] text-xs font-mono text-indigo-400 font-semibold tracking-wider uppercase">
               <Share2 className="w-3.5 h-3.5 text-indigo-400" />
@@ -45,7 +51,6 @@ export default async function SocialMediaPage() {
             </p>
           </div>
 
-          {/* Social Media Management Process Pipeline */}
           <section className="space-y-8 p-8 sm:p-10 rounded-3xl bg-[#12151e] border border-[#222738]">
             <div className="space-y-2">
               <span className="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold">
@@ -57,7 +62,7 @@ export default async function SocialMediaPage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 pt-4">
-              {workflowSteps.map((s, idx) => (
+              {workflowSteps.map((s) => (
                 <div
                   key={s.step}
                   className="p-4 rounded-2xl bg-[#1a1e2c] border border-[#222738] space-y-2 relative"
@@ -72,7 +77,6 @@ export default async function SocialMediaPage() {
             </div>
           </section>
 
-          {/* Content Showcase Grid */}
           <section className="space-y-8">
             <div className="space-y-2">
               <span className="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold">
@@ -96,7 +100,7 @@ export default async function SocialMediaPage() {
                             alt={item.title}
                             className="w-full h-full object-cover"
                           />
-                          {item.contentType.toLowerCase().includes("video") || item.contentType.toLowerCase().includes("reel") ? (
+                          {item.contentType?.toLowerCase().includes("video") || item.contentType?.toLowerCase().includes("reel") ? (
                             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                               <div className="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                                 <Play className="w-5 h-5 fill-white ml-0.5" />
