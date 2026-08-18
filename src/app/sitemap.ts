@@ -2,15 +2,17 @@ import { MetadataRoute } from "next";
 import { getProjects } from "@/lib/data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://morgan.studio";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ash-wickramasinghe.site";
 
   const staticRoutes = [
     "",
     "/about",
     "/work",
+    "/photography",
+    "/graphic-design",
+    "/writing",
     "/apps",
     "/web-development",
-    "/graphic-design",
     "/social-media",
     "/services",
     "/contact",

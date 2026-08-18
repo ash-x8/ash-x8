@@ -3,7 +3,9 @@ import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.AUTH_SECRET || "ash-x8-creative-portfolio-secure-jwt-secret-key-2026"
+  process.env.JWT_SECRET ||
+  process.env.AUTH_SECRET ||
+  "ash-x8-creative-portfolio-secure-jwt-secret-key-2026"
 );
 
 export const COOKIE_NAME = "ash_admin_token";

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ProjectFormClient from "../ProjectFormClient";
 import { createClient } from "@/lib/supabase/server";
 
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 interface EditProjectPageProps {
   params: Promise<{ id: string }>;

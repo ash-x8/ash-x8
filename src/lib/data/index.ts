@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/server";
 
 export interface ProjectItem {
   id: string;
@@ -842,7 +842,7 @@ const store = {
 
 export async function getSiteSettings() {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data } = await supabase.from("site_settings").select("*").eq("id", "1").single();
     if (data) {
       store.siteSettings = {
@@ -870,7 +870,7 @@ export async function getSiteSettings() {
 
 export async function getHeroSection() {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data } = await supabase.from("hero_section").select("*").eq("id", "1").single();
     if (data) {
       store.heroSection = {
@@ -896,7 +896,7 @@ export async function getHeroSection() {
 
 export async function getAboutSection() {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data } = await supabase.from("about_section").select("*").eq("id", "1").single();
     if (data) {
       store.aboutSection = {
@@ -919,7 +919,7 @@ export async function getAboutSection() {
 
 export async function getServices(onlyActive = true) {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase.from("services").select("*").order("display_order", { ascending: true });
     if (onlyActive) query = query.eq("is_active", true);
 
@@ -946,7 +946,7 @@ export async function getServices(onlyActive = true) {
 
 export async function getProjects(options?: { category?: string; featuredOnly?: boolean; publishedOnly?: boolean }) {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase.from("projects").select("*, project_gallery(*)").order("display_order", { ascending: true });
 
     if (options?.publishedOnly !== false) {
@@ -1013,7 +1013,7 @@ export async function getProjects(options?: { category?: string; featuredOnly?: 
 
 export async function getProjectBySlug(slug: string) {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data: p } = await supabase
       .from("projects")
       .select("*, project_gallery(*)")
@@ -1068,7 +1068,7 @@ export async function getProjectBySlug(slug: string) {
 
 export async function getDesignItems(category?: string) {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase.from("design_items").select("*").eq("is_published", true).order("display_order", { ascending: true });
     if (category && category !== "All") query = query.eq("category", category);
 
@@ -1098,7 +1098,7 @@ export async function getDesignItems(category?: string) {
 
 export async function getPhotographyItems(category?: string) {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase.from("photography_items").select("*").eq("is_published", true).order("display_order", { ascending: true });
     if (category && category !== "All") query = query.eq("category", category);
 
@@ -1129,7 +1129,7 @@ export async function getPhotographyItems(category?: string) {
 
 export async function getWritingItems(category?: string) {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase.from("writing_items").select("*").eq("is_published", true).order("display_order", { ascending: true });
     if (category && category !== "All") query = query.eq("category", category);
 
@@ -1190,7 +1190,7 @@ export async function getMediaItems() {
 
 export async function getSkillCategories() {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data: categories } = await supabase
       .from("skill_categories")
       .select("*, skills(*)")
@@ -1227,7 +1227,7 @@ export async function getSkillCategories() {
 export async function mutateSiteSettings(updates: Partial<typeof store.siteSettings>) {
   store.siteSettings = { ...store.siteSettings, ...updates };
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     await supabase.from("site_settings").upsert({
       id: "1",
       site_name: store.siteSettings.siteName,
@@ -1250,7 +1250,7 @@ export async function mutateSiteSettings(updates: Partial<typeof store.siteSetti
 export async function mutateHeroSection(updates: Partial<typeof store.heroSection>) {
   store.heroSection = { ...store.heroSection, ...updates };
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     await supabase.from("hero_section").upsert({
       id: "1",
       heading: store.heroSection.heading,
@@ -1273,7 +1273,7 @@ export async function mutateHeroSection(updates: Partial<typeof store.heroSectio
 export async function mutateAboutSection(updates: Partial<typeof store.aboutSection>) {
   store.aboutSection = { ...store.aboutSection, ...updates };
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     await supabase.from("about_section").upsert({
       id: "1",
       name: store.aboutSection.name,
@@ -1546,7 +1546,7 @@ export async function addContactMessage(message: Omit<ContactMessageItem, "id" |
   store.contactMessages.unshift(newMsg);
 
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     await supabase.from("contact_messages").insert({
       sender_name: message.senderName,
       email: message.email,

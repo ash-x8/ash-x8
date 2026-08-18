@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getSiteSettings, getProjectBySlug } from "@/lib/data";
+import { getSiteSettings, getProjectBySlug, getProjects } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -10,7 +10,12 @@ import {
 } from "lucide-react";
 import { GithubIcon } from "@/components/SocialIcons";
 
-export const revalidate = 0;
+export async function generateStaticParams() {
+  const projects = await getProjects({ publishedOnly: true });
+  return projects.map((p) => ({
+    slug: p.slug,
+  }));
+}
 
 interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;

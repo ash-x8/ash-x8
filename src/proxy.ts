@@ -5,12 +5,18 @@ import { jwtVerify } from "jose";
 import { COOKIE_NAME } from "@/lib/auth";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder-project.supabase.co";
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.placeholder";
+const supabasePublishableKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.placeholder";
+
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.AUTH_SECRET || "ash-x8-creative-portfolio-secure-jwt-secret-key-2026"
+  process.env.JWT_SECRET ||
+  process.env.AUTH_SECRET ||
+  "ash-x8-creative-portfolio-secure-jwt-secret-key-2026"
 );
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   let response = NextResponse.next({
@@ -39,7 +45,7 @@ export async function middleware(request: NextRequest) {
     try {
       const supabase = createServerClient(
         supabaseUrl,
-        supabaseAnonKey,
+        supabasePublishableKey,
         {
           cookies: {
             getAll() {
@@ -84,6 +90,9 @@ export async function middleware(request: NextRequest) {
 
   return response;
 }
+
+// Support both export names for backwards and forward compatibility
+export const middleware = proxy;
 
 export const config = {
   matcher: ["/admin/:path*", "/api/admin/:path*"],

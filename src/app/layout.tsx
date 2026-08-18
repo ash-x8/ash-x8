@@ -1,41 +1,33 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#090a0f",
+};
 
 export const metadata: Metadata = {
-  title: "Alex Morgan | Creative Developer & Digital Designer",
-  description: "Creative developer, designer and digital creator building apps, websites, brands and digital content.",
-  keywords: ["Creative Developer", "Digital Designer", "App Development", "Next.js", "UI/UX", "Brand Design", "Video Editing"],
-  authors: [{ name: "Alex Morgan" }],
+  title: "ASH-X8 — Kushan A Wickramasinghe | Photographer, Graphic Designer & Author",
+  description: "Official portfolio and creative archive of Kushan A Wickramasinghe (Ash_x8 / Writer Ash / Writer Tizzy). Specializing in commercial photography, visual poster systems, academic certificates, social campaigns, and authored literature.",
+  keywords: "Kushan A Wickramasinghe, ASH-X8, Ash_x8, Photographer, Graphic Designer, Author, Writer Ash, Writer Tizzy, Photography Portfolio, Poster Design, Certificate Systems, Sri Lanka Creative Studio, CINEXUS",
+  authors: [{ name: "Kushan A Wickramasinghe" }],
   openGraph: {
-    title: "Alex Morgan | Creative Developer & Digital Designer",
-    description: "Designing ideas. Building experiences. DESIGN → DEVELOP → CREATE → MANAGE",
+    title: "ASH-X8 — Kushan A Wickramasinghe | Photographer, Graphic Designer & Author",
+    description: "Multidisciplinary creative portfolio covering commercial photography, visual design systems, and published literature.",
     type: "website",
-    siteName: "Alex Morgan Studio",
+    siteName: "ASH-X8 Creative Studio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alex Morgan | Creative Developer & Digital Designer",
-    description: "Designing ideas. Building experiences.",
+    title: "ASH-X8 — Kushan A Wickramasinghe",
+    description: "Commercial Photography • Graphic Design • Authored Works",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-[#090a0f] text-slate-100">{children}</body>
     </html>
   );
