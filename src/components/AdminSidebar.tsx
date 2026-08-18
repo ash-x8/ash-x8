@@ -5,14 +5,13 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
-  Globe,
   Home,
   User,
   Menu,
   FileText,
   FolderKanban,
-  Smartphone,
-  Laptop,
+  Camera,
+  Feather,
   Palette,
   Share2,
   Briefcase,
@@ -22,10 +21,8 @@ import {
   Search,
   Settings,
   LogOut,
-  ChevronDown,
   X,
   Image as ImageIcon,
-  Sparkles,
   ExternalLink,
 } from "lucide-react";
 
@@ -35,8 +32,8 @@ interface AdminSidebarProps {
 }
 
 export default function AdminSidebar({
-  userEmail = "admin@example.com",
-  userName = "Admin Creator",
+  userEmail = "admin@ash-wickramasinghe.site",
+  userName = "Kushan A Wickramasinghe",
 }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -56,24 +53,26 @@ export default function AdminSidebar({
       ],
     },
     {
-      title: "WEBSITE PAGES",
+      title: "PAGES & BRAND",
       items: [
         { label: "Homepage Editor", href: "/admin/hero", icon: Home },
-        { label: "About Page", href: "/admin/about", icon: User },
+        { label: "About & Author", href: "/admin/about", icon: User },
         { label: "Navigation Menu", href: "/admin/navigation", icon: Menu },
         { label: "Footer Content", href: "/admin/footer", icon: FileText },
       ],
     },
     {
-      title: "PORTFOLIO & WORK",
+      title: "CREATIVE PORTFOLIO",
       items: [
         { label: "All Projects", href: "/admin/projects", icon: FolderKanban },
+        { label: "Photography", href: "/admin/photography", icon: Camera },
+        { label: "Writing & Literature", href: "/admin/writing", icon: Feather },
         { label: "Design Gallery", href: "/admin/design", icon: Palette },
-        { label: "Social Media Items", href: "/admin/social-media", icon: Share2 },
+        { label: "Social Media", href: "/admin/social-media", icon: Share2 },
       ],
     },
     {
-      title: "CONTENT & SKILLS",
+      title: "SERVICES & SKILLS",
       items: [
         { label: "Services", href: "/admin/services", icon: Briefcase },
         { label: "Skills Matrix", href: "/admin/skills", icon: Layers },
@@ -84,12 +83,12 @@ export default function AdminSidebar({
     {
       title: "INBOX & ASSETS",
       items: [
-        { label: "Contact Messages", href: "/admin/contact", icon: MessageSquare },
+        { label: "Contact Proposals", href: "/admin/contact", icon: MessageSquare },
         { label: "Media Library", href: "/admin/media", icon: ImageIcon },
       ],
     },
     {
-      title: "SYSTEM & SEO",
+      title: "SYSTEM & CONFIG",
       items: [
         { label: "SEO Settings", href: "/admin/seo", icon: Search },
         { label: "Site Settings", href: "/admin/settings", icon: Settings },
@@ -99,7 +98,6 @@ export default function AdminSidebar({
 
   return (
     <>
-      {/* Mobile Menu Toggle Button */}
       <div className="lg:hidden fixed top-4 left-4 z-50">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -109,23 +107,21 @@ export default function AdminSidebar({
         </button>
       </div>
 
-      {/* Sidebar Container */}
       <aside
         className={`fixed top-0 left-0 bottom-0 w-64 bg-[#11141f] border-r border-[#222738] z-40 flex flex-col justify-between transition-transform duration-300 lg:translate-x-0 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
-          {/* Admin Header */}
           <div className="p-6 border-b border-[#222738] flex items-center justify-between">
             <Link href="/admin/dashboard" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg text-sm">
-                CMS
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center font-extrabold text-white shadow-lg text-sm">
+                X8
               </div>
               <div>
-                <span className="font-bold text-sm text-white block">STUDIO CMS</span>
-                <span className="text-[10px] text-indigo-400 font-mono uppercase">
-                  Admin Panel
+                <span className="font-extrabold text-sm text-white block tracking-tight">ASH-X8 CMS</span>
+                <span className="text-[10px] text-indigo-400 font-mono uppercase font-semibold">
+                  Creative Studio
                 </span>
               </div>
             </Link>
@@ -141,7 +137,6 @@ export default function AdminSidebar({
             </a>
           </div>
 
-          {/* Nav Sections Scroll Area */}
           <div className="flex-grow overflow-y-auto p-4 space-y-6 scrollbar-thin">
             {navSections.map((sec) => (
               <div key={sec.title} className="space-y-1">
@@ -172,7 +167,6 @@ export default function AdminSidebar({
             ))}
           </div>
 
-          {/* User Profile & Logout */}
           <div className="p-4 border-t border-[#222738] bg-[#0d0f17]">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 overflow-hidden">

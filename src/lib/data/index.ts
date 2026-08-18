@@ -13,6 +13,7 @@ export async function getSiteSettings() {
         favicon: data.favicon,
         email: data.email,
         phone: data.phone,
+        whatsappUrl: data.whatsapp_url,
         location: data.location,
         timezone: data.timezone,
         accentColor: data.accent_color,
@@ -26,14 +27,15 @@ export async function getSiteSettings() {
 
   return {
     id: "1",
-    siteName: "Alex Morgan Studio",
-    tagline: "Design. Develop. Create. Manage.",
+    siteName: "ASH-X8 — Kushan A Wickramasinghe",
+    tagline: "Photographer • Graphic Designer • Author",
     logo: null,
     favicon: null,
-    email: "alex@morgan.studio",
-    phone: "+1 (555) 234-5678",
-    location: "San Francisco, CA & Remote",
-    timezone: "PST (UTC-8)",
+    email: "contact@ash-wickramasinghe.site",
+    phone: "0752269410",
+    whatsappUrl: "https://wa.me/94752269410",
+    location: "Sri Lanka & Worldwide",
+    timezone: "IST (UTC+5:30)",
     accentColor: "#6366f1",
     analyticsId: "",
     maintenanceMode: false,
@@ -66,16 +68,16 @@ export async function getHeroSection() {
 
   return {
     id: "1",
-    heading: "Designing ideas.\nBuilding experiences.",
-    subtitle: "Creative Developer & Digital Designer",
-    description: "Creative developer, designer and digital creator building apps, websites, brands and digital content.",
+    heading: "KUSHAN A WICKRAMASINGHE\nASH-X8",
+    subtitle: "Photographer • Graphic Designer • Author",
+    description: "Multidisciplinary digital artist crafting high-impact photography, visual graphic designs, brand identity systems, and published creative literature.",
     primaryCtaText: "Explore My Work",
     primaryCtaLink: "/work",
     secondaryCtaText: "Let's Collaborate",
     secondaryCtaLink: "/contact",
-    statusBadge: "Available for selected projects",
-    smallText: "DESIGN → DEVELOP → CREATE → MANAGE",
-    heroImage: null,
+    statusBadge: "Available for selected projects & commissions",
+    smallText: "PHOTOGRAPHY → GRAPHIC DESIGN → AUTHOR → CREATIVE DIRECTION",
+    heroImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
     heroVideo: null,
   };
 }
@@ -103,14 +105,14 @@ export async function getAboutSection() {
 
   return {
     id: "1",
-    name: "Alex Morgan",
-    title: "Creative Developer & Digital Designer",
-    profileImage: null,
-    shortBio: "Multidisciplinary digital creator working at the intersection of application development, modern visual design, and social media content.",
-    longBio: "I combine strategic thinking, technical expertise, and artistic vision to deliver high-impact digital experiences.",
-    personalStatement: "I work at the intersection of design, technology and digital content.",
-    location: "San Francisco, CA / Remote",
-    availability: "Open for selected client work & advisory roles",
+    name: "Kushan A Wickramasinghe",
+    title: "Photographer, Graphic Designer & Author (Ash_x8)",
+    profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
+    shortBio: "Kushan A Wickramasinghe (Ash_x8 / Writer Tizzy) is a versatile creative artist producing commercial photography, visual posters, social graphics, and creative literary publications.",
+    longBio: "Working across visual arts and creative literature, Kushan A Wickramasinghe brings a unique cinematic perspective to photography, graphic design, social media campaigns, and authored works. Recognized under brand identities ASH-X8, Writer Ash, and Writer Tizzy, he collaborates with individuals, schools, organizations, and commercial clients worldwide.",
+    personalStatement: "Capturing authentic moments. Designing bold visual narratives. Writing timeless stories.",
+    location: "Sri Lanka / Remote",
+    availability: "Open for creative commissions, photo shoots & brand collaborations",
   };
 }
 
@@ -315,6 +317,64 @@ export async function getDesignItems(category?: string) {
     }
   } catch (error) {
     console.error("Error fetching design items:", error);
+  }
+
+  return [];
+}
+
+export async function getPhotographyItems(category?: string) {
+  try {
+    const supabase = await createClient();
+    let query = supabase.from("photography_items").select("*").eq("is_published", true).order("display_order", { ascending: true });
+    if (category && category !== "All") query = query.eq("category", category);
+
+    const { data } = await query;
+    if (data) {
+      return data.map((p) => ({
+        id: p.id,
+        title: p.title,
+        category: p.category,
+        imageUrl: p.image_url,
+        cameraInfo: p.camera_info,
+        location: p.location,
+        year: p.year,
+        isFeatured: p.is_featured,
+        isPublished: p.is_published,
+        displayOrder: p.display_order,
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching photography items:", error);
+  }
+
+  return [];
+}
+
+export async function getWritingItems(category?: string) {
+  try {
+    const supabase = await createClient();
+    let query = supabase.from("writing_items").select("*").eq("is_published", true).order("display_order", { ascending: true });
+    if (category && category !== "All") query = query.eq("category", category);
+
+    const { data } = await query;
+    if (data) {
+      return data.map((w) => ({
+        id: w.id,
+        title: w.title,
+        slug: w.slug,
+        category: w.category,
+        excerpt: w.excerpt,
+        content: w.content,
+        authorAlias: w.author_alias,
+        coverImage: w.cover_image,
+        publicationDate: w.publication_date,
+        isFeatured: w.is_featured,
+        isPublished: w.is_published,
+        displayOrder: w.display_order,
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching writing items:", error);
   }
 
   return [];
