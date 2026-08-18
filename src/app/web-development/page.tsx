@@ -1,26 +1,16 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getProjects } from "@/lib/data";
 import { Globe } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function WebDevelopmentPage() {
-  let siteSettings: any = null;
-  let webProjects: any[] = [];
-
-  try {
-    [siteSettings, webProjects] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.project.findMany({
-        where: { isPublished: true, category: { equals: "Web" } },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("WebDevelopmentPage error:", error);
-  }
+  const [siteSettings, webProjects] = await Promise.all([
+    getSiteSettings(),
+    getProjects({ category: "Web", publishedOnly: true }),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">

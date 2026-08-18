@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getHeroSection } from "@/lib/data";
 import HeroEditorClient from "./HeroEditorClient";
 
 export const revalidate = 0;
 
 export default async function AdminHeroPage() {
-  const hero = await prisma.heroSection.findUnique({ where: { id: "1" } });
+  const hero = await getHeroSection();
 
   const initialData = {
     heading: hero?.heading || "Designing ideas.\nBuilding experiences.",

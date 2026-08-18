@@ -1,26 +1,16 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getProjects } from "@/lib/data";
 import { Smartphone } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function AppsPage() {
-  let siteSettings: any = null;
-  let appProjects: any[] = [];
-
-  try {
-    [siteSettings, appProjects] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.project.findMany({
-        where: { isPublished: true, category: { equals: "Apps" } },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("AppsPage error:", error);
-  }
+  const [siteSettings, appProjects] = await Promise.all([
+    getSiteSettings(),
+    getProjects({ category: "Apps", publishedOnly: true }),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">

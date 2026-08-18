@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
-import { setAdminSession } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
   try {
@@ -11,29 +9,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
     }
 
-    const admin = await prisma.adminUser.findUnique({
-      where: { email: email.toLowerCase().trim() },
+    const supabase = await createClient();
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.toLowerCase().trim(),
+      password,
     });
 
-    if (!admin) {
-      return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
+    if (error || !data.user) {
+      return NextResponse.json({ error: error?.message || "Invalid email or password" }, { status: 401 });
     }
-
-    const isValidPassword = await bcrypt.compare(password, admin.passwordHash);
-
-    if (!isValidPassword) {
-      return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
-    }
-
-    await setAdminSession({
-      id: admin.id,
-      email: admin.email,
-      name: admin.name,
-    });
 
     return NextResponse.json({
       success: true,
-      user: { id: admin.id, email: admin.email, name: admin.name },
+      user: { id: data.user.id, email: data.user.email },
     });
   } catch (error) {
     console.error("Login error:", error);

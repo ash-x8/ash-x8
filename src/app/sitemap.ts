@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { prisma } from "@/lib/prisma";
+import { getProjects } from "@/lib/data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://morgan.studio";
@@ -22,14 +22,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   try {
-    const publishedProjects = await prisma.project.findMany({
-      where: { isPublished: true },
-      select: { slug: true, updatedAt: true },
-    });
+    const publishedProjects = await getProjects({ publishedOnly: true });
 
     const projectRoutes = publishedProjects.map((p) => ({
       url: `${baseUrl}/projects/${p.slug}`,
-      lastModified: p.updatedAt,
+      lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));

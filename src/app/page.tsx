@@ -3,7 +3,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import ServiceCard from "@/components/ServiceCard";
-import { prisma } from "@/lib/prisma";
+import {
+  getSiteSettings,
+  getHeroSection,
+  getAboutSection,
+  getServices,
+  getProjects,
+  getDesignItems,
+  getSocialContents,
+  getTestimonials,
+} from "@/lib/data";
 import {
   ArrowUpRight,
   Sparkles,
@@ -18,56 +27,25 @@ import {
 export const revalidate = 0; // Dynamic rendering
 
 export default async function HomePage() {
-  let siteSettings: any = null;
-  let heroSection: any = null;
-  let aboutSection: any = null;
-  let services: any[] = [];
-  let featuredProjects: any[] = [];
-  let designItems: any[] = [];
-  let socialContents: any[] = [];
-  let testimonials: any[] = [];
-
-  try {
-    [
-      siteSettings,
-      heroSection,
-      aboutSection,
-      services,
-      featuredProjects,
-      designItems,
-      socialContents,
-      testimonials,
-    ] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.heroSection.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.aboutSection.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.service.findMany({
-        where: { isActive: true },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-      prisma.project.findMany({
-        where: { isPublished: true, isFeatured: true },
-        orderBy: { displayOrder: "asc" },
-        take: 3,
-      }).catch(() => []),
-      prisma.designItem.findMany({
-        where: { isPublished: true, isFeatured: true },
-        orderBy: { displayOrder: "asc" },
-        take: 3,
-      }).catch(() => []),
-      prisma.socialContent.findMany({
-        where: { isPublished: true, isFeatured: true },
-        orderBy: { displayOrder: "asc" },
-        take: 3,
-      }).catch(() => []),
-      prisma.testimonial.findMany({
-        where: { isPublished: true },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("HomePage data fetching error:", error);
-  }
+  const [
+    siteSettings,
+    heroSection,
+    aboutSection,
+    services,
+    featuredProjects,
+    designItems,
+    socialContents,
+    testimonials,
+  ] = await Promise.all([
+    getSiteSettings(),
+    getHeroSection(),
+    getAboutSection(),
+    getServices(true),
+    getProjects({ featuredOnly: true, publishedOnly: true }),
+    getDesignItems(),
+    getSocialContents(),
+    getTestimonials(),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -380,7 +358,7 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* TESTIMONIALS (AUTO-HIDE IF EMPTY) */}
+        {/* TESTIMONIALS */}
         {testimonials.length > 0 && (
           <section className="py-24 border-b border-[#222738]/80 bg-[#0c0e15]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -411,7 +389,7 @@ export default async function HomePage() {
                         />
                       ) : (
                         <div className="w-12 h-12 rounded-full bg-indigo-600/20 text-indigo-400 font-bold flex items-center justify-center text-lg">
-                          {t.name[0]}
+                          {t.name?.[0] || "A"}
                         </div>
                       )}
                       <div>

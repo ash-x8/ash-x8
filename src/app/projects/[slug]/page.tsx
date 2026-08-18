@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getProjectBySlug } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -20,24 +20,10 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
 
-  let siteSettings: any = null;
-  let project: any = null;
-
-  try {
-    [siteSettings, project] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.project.findUnique({
-        where: { slug },
-        include: {
-          gallery: {
-            orderBy: { displayOrder: "asc" },
-          },
-        },
-      }).catch(() => null),
-    ]);
-  } catch (error) {
-    console.error("ProjectSlugPage error:", error);
-  }
+  const [siteSettings, project] = await Promise.all([
+    getSiteSettings(),
+    getProjectBySlug(slug),
+  ]);
 
   if (!project || !project.isPublished) {
     notFound();
@@ -58,7 +44,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
       technologies = project.technologies.split(",").map((t: string) => t.trim());
   }
 
-  // Parse Case Study Sections
   const caseStudySections = [
     { key: "overview", label: "Overview", content: project.overview },
     { key: "challenge", label: "Challenge", content: project.challenge },
@@ -77,7 +62,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
 
       <main className="flex-grow pt-28 pb-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          {/* Back Button */}
           <Link
             href="/work"
             className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors"
@@ -86,7 +70,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
             <span>Back to All Work</span>
           </Link>
 
-          {/* Header */}
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-3">
               <span className="px-3.5 py-1 rounded-full text-xs font-mono uppercase bg-indigo-950/60 text-indigo-400 border border-indigo-800/40 font-semibold">
@@ -106,7 +89,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
             </p>
           </div>
 
-          {/* Project Metadata Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 rounded-2xl bg-[#12151e] border border-[#222738] text-xs">
             {project.client && (
               <div className="space-y-1">
@@ -155,7 +137,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
             </div>
           </div>
 
-          {/* Cover Hero Image */}
           {project.coverImage && (
             <div className="aspect-[16/9] w-full rounded-3xl overflow-hidden bg-[#12151e] border border-[#222738] shadow-2xl">
               <img
@@ -166,7 +147,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
             </div>
           )}
 
-          {/* Tools & Tech Tags */}
           {(tools.length > 0 || technologies.length > 0) && (
             <div className="p-8 rounded-3xl bg-[#12151e] border border-[#222738] space-y-6">
               <h3 className="text-sm font-mono uppercase tracking-wider text-slate-400 font-semibold">
@@ -185,7 +165,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
             </div>
           )}
 
-          {/* Full Description & Detailed Case Study Sections */}
           <div className="space-y-12">
             {project.fullDesc && (
               <div className="prose prose-invert max-w-none space-y-4">
@@ -214,7 +193,6 @@ export default async function ProjectSlugPage({ params }: CaseStudyPageProps) {
             ))}
           </div>
 
-          {/* Gallery Showcase */}
           {project.gallery && project.gallery.length > 0 && (
             <div className="space-y-6 pt-6 border-t border-[#222738]">
               <h2 className="text-2xl font-bold text-white">Visual Artifacts & Gallery</h2>

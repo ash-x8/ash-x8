@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getDesignItems } from "@/lib/data";
 import { Palette } from "lucide-react";
 import Link from "next/link";
 
@@ -14,23 +14,10 @@ export default async function GraphicDesignPage({ searchParams }: GraphicDesignP
   const resolvedParams = await searchParams;
   const currentCategory = resolvedParams?.category;
 
-  let siteSettings: any = null;
-  let designItems: any[] = [];
-
-  try {
-    [siteSettings, designItems] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-      prisma.designItem.findMany({
-        where: {
-          isPublished: true,
-          ...(currentCategory ? { category: { equals: currentCategory } } : {}),
-        },
-        orderBy: { displayOrder: "asc" },
-      }).catch(() => []),
-    ]);
-  } catch (error) {
-    console.error("GraphicDesignPage error:", error);
-  }
+  const [siteSettings, designItems] = await Promise.all([
+    getSiteSettings(),
+    getDesignItems(currentCategory),
+  ]);
 
   const categories = ["All", "Logo", "Branding", "Poster", "Social Media", "Typography", "UI Design", "Marketing"];
 

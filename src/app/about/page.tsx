@@ -1,43 +1,19 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings, getAboutSection, getSkillCategories, getExperienceItems, getTestimonials } from "@/lib/data";
 import { Sparkles, MapPin, Briefcase } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function AboutPage() {
-  let siteSettings: any = null;
-  let aboutSection: any = null;
-  let skillCategories: any[] = [];
-  let experienceItems: any[] = [];
-  let testimonials: any[] = [];
-
-  try {
-    [siteSettings, aboutSection, skillCategories, experienceItems, testimonials] =
-      await Promise.all([
-        prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
-        prisma.aboutSection.findUnique({ where: { id: "1" } }).catch(() => null),
-        prisma.skillCategory.findMany({
-          orderBy: { displayOrder: "asc" },
-          include: {
-            skills: {
-              where: { isActive: true },
-              orderBy: { displayOrder: "asc" },
-            },
-          },
-        }).catch(() => []),
-        prisma.experienceItem.findMany({
-          where: { isActive: true },
-          orderBy: { displayOrder: "asc" },
-        }).catch(() => []),
-        prisma.testimonial.findMany({
-          where: { isPublished: true },
-          orderBy: { displayOrder: "asc" },
-        }).catch(() => []),
-      ]);
-  } catch (error) {
-    console.error("AboutPage data error:", error);
-  }
+  const [siteSettings, aboutSection, skillCategories, experienceItems, testimonials] =
+    await Promise.all([
+      getSiteSettings(),
+      getAboutSection(),
+      getSkillCategories(),
+      getExperienceItems(),
+      getTestimonials(),
+    ]);
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -45,7 +21,6 @@ export default async function AboutPage() {
 
       <main className="flex-grow pt-28 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-          {/* Header & Bio */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12151e] border border-[#222738] text-xs font-mono text-indigo-400 font-semibold tracking-wider uppercase">
@@ -118,7 +93,6 @@ export default async function AboutPage() {
             </div>
           </section>
 
-          {/* Skills Breakdown By Category */}
           {skillCategories.length > 0 && (
             <section className="space-y-10 pt-10 border-t border-[#222738]">
               <div className="space-y-2">
@@ -167,7 +141,6 @@ export default async function AboutPage() {
             </section>
           )}
 
-          {/* Experience Timeline */}
           {experienceItems.length > 0 && (
             <section className="space-y-10 pt-10 border-t border-[#222738]">
               <div className="space-y-2">
@@ -208,7 +181,6 @@ export default async function AboutPage() {
             </section>
           )}
 
-          {/* Optional Testimonials */}
           {testimonials.length > 0 && (
             <section className="space-y-10 pt-10 border-t border-[#222738]">
               <div className="space-y-2">

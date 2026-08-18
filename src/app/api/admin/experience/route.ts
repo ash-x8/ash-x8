@@ -1,12 +1,28 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
-    const items = await prisma.experienceItem.findMany({
-      orderBy: { displayOrder: "asc" },
+    const supabase = await createClient();
+    const { data: items, error } = await supabase
+      .from("experience_items")
+      .select("*")
+      .order("display_order", { ascending: true });
+
+    if (error) throw error;
+    return NextResponse.json({
+      items: items.map((e) => ({
+        id: e.id,
+        dateRange: e.date_range,
+        title: e.title,
+        company: e.company,
+        description: e.description,
+        category: e.category,
+        icon: e.icon,
+        displayOrder: e.display_order,
+        isActive: e.is_active,
+      })),
     });
-    return NextResponse.json({ items });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch experience items" }, { status: 500 });
   }
@@ -15,20 +31,38 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    const supabase = await createClient();
 
-    const item = await prisma.experienceItem.create({
-      data: {
-        dateRange: data.dateRange || "2024 - Present",
+    const { data: item, error } = await supabase
+      .from("experience_items")
+      .insert({
+        date_range: data.dateRange || "2024 - Present",
         title: data.title,
         company: data.company || null,
         description: data.description || "",
         category: data.category || "Development",
-        displayOrder: Number(data.displayOrder || 0),
-        isActive: data.isActive !== undefined ? Boolean(data.isActive) : true,
+        display_order: Number(data.displayOrder || 0),
+        is_active: data.isActive !== undefined ? Boolean(data.isActive) : true,
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return NextResponse.json({
+      success: true,
+      item: {
+        id: item.id,
+        dateRange: item.date_range,
+        title: item.title,
+        company: item.company,
+        description: item.description,
+        category: item.category,
+        icon: item.icon,
+        displayOrder: item.display_order,
+        isActive: item.is_active,
       },
     });
-
-    return NextResponse.json({ success: true, item });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create experience item" }, { status: 500 });
   }
@@ -39,20 +73,40 @@ export async function PUT(request: Request) {
     const data = await request.json();
     if (!data.id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    const updated = await prisma.experienceItem.update({
-      where: { id: data.id },
-      data: {
-        dateRange: data.dateRange,
+    const supabase = await createClient();
+
+    const { data: updated, error } = await supabase
+      .from("experience_items")
+      .update({
+        date_range: data.dateRange,
         title: data.title,
         company: data.company,
         description: data.description,
         category: data.category,
-        displayOrder: Number(data.displayOrder || 0),
-        isActive: Boolean(data.isActive),
+        display_order: Number(data.displayOrder || 0),
+        is_active: Boolean(data.isActive),
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", data.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return NextResponse.json({
+      success: true,
+      item: {
+        id: updated.id,
+        dateRange: updated.date_range,
+        title: updated.title,
+        company: updated.company,
+        description: updated.description,
+        category: updated.category,
+        icon: updated.icon,
+        displayOrder: updated.display_order,
+        isActive: updated.is_active,
       },
     });
-
-    return NextResponse.json({ success: true, item: updated });
   } catch (error) {
     return NextResponse.json({ error: "Failed to update experience item" }, { status: 500 });
   }
@@ -64,7 +118,10 @@ export async function DELETE(request: Request) {
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    await prisma.experienceItem.delete({ where: { id } });
+    const supabase = await createClient();
+    const { error } = await supabase.from("experience_items").delete().eq("id", id);
+    if (error) throw error;
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete experience item" }, { status: 500 });

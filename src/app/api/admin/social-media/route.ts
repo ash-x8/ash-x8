@@ -1,12 +1,32 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
-    const items = await prisma.socialContent.findMany({
-      orderBy: { displayOrder: "asc" },
+    const supabase = await createClient();
+    const { data: items, error } = await supabase
+      .from("social_content")
+      .select("*")
+      .order("display_order", { ascending: true });
+
+    if (error) throw error;
+    return NextResponse.json({
+      items: items.map((i) => ({
+        id: i.id,
+        title: i.title,
+        platform: i.platform,
+        contentType: i.content_type,
+        description: i.description,
+        mediaUrl: i.media_url,
+        videoUrl: i.video_url,
+        url: i.url,
+        campaign: i.campaign,
+        date: i.date,
+        isFeatured: i.is_featured,
+        isPublished: i.is_published,
+        displayOrder: i.display_order,
+      })),
     });
-    return NextResponse.json({ items });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch social items" }, { status: 500 });
   }
@@ -15,25 +35,47 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    const supabase = await createClient();
 
-    const item = await prisma.socialContent.create({
-      data: {
+    const { data: item, error } = await supabase
+      .from("social_content")
+      .insert({
         title: data.title,
         platform: data.platform || "Instagram",
-        contentType: data.contentType || "Post",
+        content_type: data.contentType || "Post",
         description: data.description || null,
-        mediaUrl: data.mediaUrl || null,
-        videoUrl: data.videoUrl || null,
+        media_url: data.mediaUrl || null,
+        video_url: data.videoUrl || null,
         url: data.url || null,
         campaign: data.campaign || null,
         date: data.date || null,
-        isFeatured: Boolean(data.isFeatured),
-        isPublished: data.isPublished !== undefined ? Boolean(data.isPublished) : true,
-        displayOrder: Number(data.displayOrder || 0),
+        is_featured: Boolean(data.isFeatured),
+        is_published: data.isPublished !== undefined ? Boolean(data.isPublished) : true,
+        display_order: Number(data.displayOrder || 0),
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return NextResponse.json({
+      success: true,
+      item: {
+        id: item.id,
+        title: item.title,
+        platform: item.platform,
+        contentType: item.content_type,
+        description: item.description,
+        mediaUrl: item.media_url,
+        videoUrl: item.video_url,
+        url: item.url,
+        campaign: item.campaign,
+        date: item.date,
+        isFeatured: item.is_featured,
+        isPublished: item.is_published,
+        displayOrder: item.display_order,
       },
     });
-
-    return NextResponse.json({ success: true, item });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create social item" }, { status: 500 });
   }
@@ -44,25 +86,49 @@ export async function PUT(request: Request) {
     const data = await request.json();
     if (!data.id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    const updated = await prisma.socialContent.update({
-      where: { id: data.id },
-      data: {
+    const supabase = await createClient();
+
+    const { data: updated, error } = await supabase
+      .from("social_content")
+      .update({
         title: data.title,
         platform: data.platform,
-        contentType: data.contentType,
+        content_type: data.contentType,
         description: data.description,
-        mediaUrl: data.mediaUrl,
-        videoUrl: data.videoUrl,
+        media_url: data.mediaUrl,
+        video_url: data.videoUrl,
         url: data.url,
         campaign: data.campaign,
         date: data.date,
-        isFeatured: Boolean(data.isFeatured),
-        isPublished: Boolean(data.isPublished),
-        displayOrder: Number(data.displayOrder || 0),
+        is_featured: Boolean(data.isFeatured),
+        is_published: Boolean(data.isPublished),
+        display_order: Number(data.displayOrder || 0),
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", data.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return NextResponse.json({
+      success: true,
+      item: {
+        id: updated.id,
+        title: updated.title,
+        platform: updated.platform,
+        contentType: updated.content_type,
+        description: updated.description,
+        mediaUrl: updated.media_url,
+        videoUrl: updated.video_url,
+        url: updated.url,
+        campaign: updated.campaign,
+        date: updated.date,
+        isFeatured: updated.is_featured,
+        isPublished: updated.is_published,
+        displayOrder: updated.display_order,
       },
     });
-
-    return NextResponse.json({ success: true, item: updated });
   } catch (error) {
     return NextResponse.json({ error: "Failed to update social item" }, { status: 500 });
   }
@@ -74,7 +140,10 @@ export async function DELETE(request: Request) {
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    await prisma.socialContent.delete({ where: { id } });
+    const supabase = await createClient();
+    const { error } = await supabase.from("social_content").delete().eq("id", id);
+    if (error) throw error;
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete social item" }, { status: 500 });
