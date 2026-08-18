@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { addContactMessage } from "@/lib/data";
 
 export async function POST(request: Request) {
   try {
-    const { senderName, email, projectType, message } = await request.json();
+    const { senderName, email, phone, projectType, message } = await request.json();
 
     if (!senderName || !email || !message) {
       return NextResponse.json(
@@ -12,33 +12,23 @@ export async function POST(request: Request) {
       );
     }
 
-    const supabase = await createClient();
+    const newMsg = await addContactMessage({
+      senderName,
+      email,
+      phone: phone || "",
+      projectType: projectType || "General Inquiry",
+      message,
+    });
 
-    const { data, error } = await supabase
-      .from("contact_messages")
-      .insert({
-        sender_name: senderName,
-        email,
-        project_type: projectType || "Other",
-        message,
-        status: "UNREAD",
-      })
-      .select()
-      .single();
-
-    if (error) {
-      console.error("Supabase contact insertion error:", error);
-      return NextResponse.json(
-        { error: "Failed to submit message." },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({ success: true, message: data });
+    return NextResponse.json({
+      success: true,
+      message: "Your message has been sent successfully. Kushan will be in touch shortly!",
+      data: newMsg,
+    });
   } catch (error) {
     console.error("Contact submission error:", error);
     return NextResponse.json(
-      { error: "Failed to submit message." },
+      { error: "Failed to submit message. Please try again or reach out directly on WhatsApp." },
       { status: 500 }
     );
   }

@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import { getSiteSettings, getProjects } from "@/lib/data";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 export const revalidate = 0;
 
@@ -20,11 +20,18 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
     getProjects({ category: currentCategory, publishedOnly: true }),
   ]);
 
-  const categories = ["All", "Apps", "Web", "UI/UX", "Graphic Design", "Branding", "Social Media", "Content"];
+  const categories = [
+    "All",
+    "Photography",
+    "Graphic Design",
+    "Web Projects",
+    "Writing",
+    "Social Media",
+  ];
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
-      <Navbar siteName={siteSettings?.siteName || "ALEX MORGAN"} />
+      <Navbar siteName={siteSettings?.siteName} />
 
       <main className="flex-grow pt-28 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -35,10 +42,10 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
               <span>PORTFOLIO ARCHIVE</span>
             </div>
             <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
-              Selected Work & Case Studies
+              Selected Works & Case Studies
             </h1>
             <p className="text-slate-400 text-lg leading-relaxed">
-              Explore cross-platform mobile apps, bespoke Next.js web systems, brand identities, and social media campaigns.
+              Explore photography series, graphic posters & certificate systems, authored literary works, and web production platforms including CINEXUS.
             </p>
           </div>
 
@@ -76,20 +83,27 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
             <div className="py-20 text-center space-y-4 bg-[#12151e] border border-[#222738] rounded-3xl p-8">
               <h3 className="text-xl font-bold text-white">No Projects Found</h3>
               <p className="text-slate-400 text-sm max-w-md mx-auto">
-                There are currently no published projects under this category.
+                There are currently no published projects under the "{currentCategory}" category.
               </p>
               <Link
                 href="/work"
-                className="inline-block px-6 py-2.5 rounded-full bg-indigo-600 text-white text-xs font-mono"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-indigo-600 text-white text-xs font-mono"
               >
-                View All Work
+                <span>View All Works</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           )}
         </div>
       </main>
 
-      <Footer siteName={siteSettings?.siteName || "ALEX MORGAN"} />
+      <Footer
+        siteName={siteSettings?.siteName}
+        tagline={siteSettings?.tagline}
+        email={siteSettings?.email}
+        phone={siteSettings?.phone}
+        whatsappUrl={siteSettings?.whatsappUrl}
+      />
     </div>
   );
 }

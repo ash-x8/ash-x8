@@ -1,0 +1,6 @@
+{
+  "name": "ASH-X8 Portfolio & Studio CMS",
+  "description": "Multidisciplinary portfolio and CMS for Kushan A Wickramasinghe (ASH-X8) featuring photography, graphic design, and authored works.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

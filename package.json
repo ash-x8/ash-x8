@@ -1,12 +1,12 @@
 {
-  "name": "temp-app",
+  "name": "ash-x8-portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000 -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint src"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",

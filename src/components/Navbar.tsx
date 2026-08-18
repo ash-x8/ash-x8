@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X, ChevronDown, Sparkles, Camera, Feather, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Menu, X, ChevronDown, MessageCircle, Sparkles } from "lucide-react";
 
 interface NavbarProps {
   siteName?: string;
@@ -11,7 +11,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({
-  siteName = "ASH-X8",
+  siteName = "KUSHAN A WICKRAMASINGHE",
   statusBadge = "Available for selected projects & commissions",
 }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);

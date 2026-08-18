@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle2, AlertCircle } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, MessageCircle } from "lucide-react";
 
 interface ContactFormProps {
   projectTypes?: string[];
@@ -9,19 +9,19 @@ interface ContactFormProps {
 
 export default function ContactForm({
   projectTypes = [
-    "App Development",
-    "Web Development",
-    "Graphic Design",
-    "UI/UX",
-    "Content Creation",
-    "Social Media",
-    "Other",
+    "Photography & Retouching",
+    "Graphic Design & Posters",
+    "Merit Certificates & Badges",
+    "Authored Literature / Articles",
+    "Social Media Campaign",
+    "Web Platform / CINEXUS",
+    "Other Creative Inquiry",
   ],
 }: ContactFormProps) {
   const [formData, setFormData] = useState({
     senderName: "",
     email: "",
-    projectType: projectTypes[0] || "App Development",
+    projectType: projectTypes[0] || "Photography & Retouching",
     message: "",
   });
 
@@ -52,7 +52,7 @@ export default function ContactForm({
       setFormData({
         senderName: "",
         email: "",
-        projectType: projectTypes[0] || "App Development",
+        projectType: projectTypes[0] || "Photography & Retouching",
         message: "",
       });
     } catch (err: unknown) {
@@ -73,16 +73,27 @@ export default function ContactForm({
           <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
-          <h3 className="text-2xl font-bold text-white">Message Delivered</h3>
+          <h3 className="text-2xl font-bold text-white">Proposal Received</h3>
           <p className="text-slate-400 max-w-md mx-auto text-sm leading-relaxed">
-            Thank you for reaching out. Your project proposal has been received, and I will get back to you within 24 hours.
+            Thank you for reaching out to ASH-X8 Studio. Kushan will review your inquiry and respond within 24 hours.
           </p>
-          <button
-            onClick={() => setSuccess(false)}
-            className="px-6 py-2.5 rounded-full bg-[#1a1e2c] border border-[#222738] text-xs font-mono text-slate-300 hover:text-white transition-all mt-4"
-          >
-            Send Another Message
-          </button>
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={() => setSuccess(false)}
+              className="px-6 py-2.5 rounded-full bg-[#1a1e2c] border border-[#222738] text-xs font-mono text-slate-300 hover:text-white transition-all cursor-pointer"
+            >
+              Send Another Proposal
+            </button>
+            <a
+              href="https://wa.me/94752269410"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-semibold flex items-center gap-1.5"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>Direct WhatsApp (0752269410)</span>
+            </a>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -103,8 +114,8 @@ export default function ContactForm({
                 required
                 value={formData.senderName}
                 onChange={(e) => setFormData({ ...formData, senderName: e.target.value })}
-                placeholder="e.g. Sarah Jenkins"
-                className="w-full px-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors text-sm"
+                placeholder="Jane Doe / Company"
+                className="w-full px-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
               />
             </div>
 
@@ -117,62 +128,54 @@ export default function ContactForm({
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="sarah@company.com"
-                className="w-full px-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors text-sm"
+                placeholder="jane@example.com"
+                className="w-full px-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
               />
             </div>
           </div>
 
           <div className="space-y-2">
             <label className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
-              Project Type *
+              Project Category
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {projectTypes.map((type) => {
-                const selected = formData.projectType === type;
-                return (
-                  <button
-                    type="button"
-                    key={type}
-                    onClick={() => setFormData({ ...formData, projectType: type })}
-                    className={`py-2.5 px-3 rounded-xl text-xs font-medium border transition-all text-left ${
-                      selected
-                        ? "bg-indigo-600 text-white border-indigo-500 shadow-md"
-                        : "bg-[#1a1e2c] border-[#222738] text-slate-400 hover:text-white hover:border-slate-700"
-                    }`}
-                  >
-                    {type}
-                  </button>
-                );
-              })}
-            </div>
+            <select
+              value={formData.projectType}
+              onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
+            >
+              {projectTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="space-y-2">
             <label className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
-              Project Brief & Details *
+              Project Details & Requirements *
             </label>
             <textarea
               required
               rows={5}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              placeholder="Tell me about your project goals, timeline, and deliverables..."
-              className="w-full px-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors text-sm resize-none"
+              placeholder="Tell me about your project scope, timeline, goals, deliverables, or photo shoot location..."
+              className="w-full px-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-indigo-600/30 active:scale-[0.99] disabled:opacity-50"
+            className="w-full py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold text-sm transition-all shadow-xl shadow-indigo-600/25 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
           >
             {loading ? (
-              <span>Submitting Proposal...</span>
+              <span className="font-mono text-xs">Sending proposal...</span>
             ) : (
               <>
                 <Send className="w-4 h-4" />
-                <span>Submit Project Request</span>
+                <span>Submit Creative Inquiry</span>
               </>
             )}
           </button>
