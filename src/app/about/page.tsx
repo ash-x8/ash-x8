@@ -1,33 +1,43 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
-import { Sparkles, MapPin, Briefcase, CheckCircle2 } from "lucide-react";
+import { Sparkles, MapPin, Briefcase } from "lucide-react";
 
 export const revalidate = 0;
 
 export default async function AboutPage() {
-  const [siteSettings, aboutSection, skillCategories, experienceItems, testimonials] =
-    await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "1" } }),
-      prisma.aboutSection.findUnique({ where: { id: "1" } }),
-      prisma.skillCategory.findMany({
-        orderBy: { displayOrder: "asc" },
-        include: {
-          skills: {
-            where: { isActive: true },
-            orderBy: { displayOrder: "asc" },
+  let siteSettings: any = null;
+  let aboutSection: any = null;
+  let skillCategories: any[] = [];
+  let experienceItems: any[] = [];
+  let testimonials: any[] = [];
+
+  try {
+    [siteSettings, aboutSection, skillCategories, experienceItems, testimonials] =
+      await Promise.all([
+        prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+        prisma.aboutSection.findUnique({ where: { id: "1" } }).catch(() => null),
+        prisma.skillCategory.findMany({
+          orderBy: { displayOrder: "asc" },
+          include: {
+            skills: {
+              where: { isActive: true },
+              orderBy: { displayOrder: "asc" },
+            },
           },
-        },
-      }),
-      prisma.experienceItem.findMany({
-        where: { isActive: true },
-        orderBy: { displayOrder: "asc" },
-      }),
-      prisma.testimonial.findMany({
-        where: { isPublished: true },
-        orderBy: { displayOrder: "asc" },
-      }),
-    ]);
+        }).catch(() => []),
+        prisma.experienceItem.findMany({
+          where: { isActive: true },
+          orderBy: { displayOrder: "asc" },
+        }).catch(() => []),
+        prisma.testimonial.findMany({
+          where: { isPublished: true },
+          orderBy: { displayOrder: "asc" },
+        }).catch(() => []),
+      ]);
+  } catch (error) {
+    console.error("AboutPage data error:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -52,7 +62,8 @@ export default async function AboutPage() {
               </div>
 
               <p className="text-slate-300 text-lg leading-relaxed">
-                {aboutSection?.longBio}
+                {aboutSection?.longBio ||
+                  "Multidisciplinary digital creator working at the intersection of application development, modern visual design, and social media content."}
               </p>
 
               <div className="flex flex-wrap items-center gap-6 pt-2 text-sm text-slate-400 font-mono">
@@ -85,7 +96,7 @@ export default async function AboutPage() {
                       <div className="w-20 h-20 rounded-2xl bg-indigo-600/20 text-indigo-400 font-bold flex items-center justify-center text-3xl mb-4 border border-indigo-500/30">
                         AM
                       </div>
-                      <span className="text-lg font-bold text-white">Alex Morgan</span>
+                      <span className="text-lg font-bold text-white">{aboutSection?.name || "Alex Morgan"}</span>
                       <span className="text-xs text-slate-400 mt-1 font-mono">
                         DESIGN → DEVELOP → CREATE
                       </span>
@@ -93,14 +104,16 @@ export default async function AboutPage() {
                   )}
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#090a0f] border border-[#222738] text-xs space-y-2">
-                  <div className="font-mono text-slate-400 uppercase tracking-wider text-[10px]">
-                    PERSONAL STATEMENT
+                {aboutSection?.personalStatement && (
+                  <div className="p-4 rounded-2xl bg-[#090a0f] border border-[#222738] text-xs space-y-2">
+                    <div className="font-mono text-slate-400 uppercase tracking-wider text-[10px]">
+                      PERSONAL STATEMENT
+                    </div>
+                    <div className="text-slate-200 font-medium italic">
+                      "{aboutSection.personalStatement}"
+                    </div>
                   </div>
-                  <div className="text-slate-200 font-medium italic">
-                    "{aboutSection?.personalStatement}"
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </section>
@@ -127,7 +140,7 @@ export default async function AboutPage() {
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {cat.skills.map((sk) => (
+                      {cat.skills?.map((sk: any) => (
                         <div
                           key={sk.id}
                           className="p-3.5 rounded-xl bg-[#1a1e2c] border border-[#222738] space-y-1"
@@ -216,7 +229,7 @@ export default async function AboutPage() {
                     </p>
                     <div className="flex items-center gap-4 pt-4 border-t border-[#222738]">
                       <div className="w-10 h-10 rounded-full bg-indigo-600/20 text-indigo-400 font-bold flex items-center justify-center">
-                        {t.name[0]}
+                        {t.name?.[0] || "A"}
                       </div>
                       <div>
                         <div className="font-bold text-white text-sm">{t.name}</div>

@@ -15,16 +15,23 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
   const resolvedParams = await searchParams;
   const currentCategory = resolvedParams?.category;
 
-  const [siteSettings, projects] = await Promise.all([
-    prisma.siteSettings.findUnique({ where: { id: "1" } }),
-    prisma.project.findMany({
-      where: {
-        isPublished: true,
-        ...(currentCategory ? { category: { equals: currentCategory } } : {}),
-      },
-      orderBy: { displayOrder: "asc" },
-    }),
-  ]);
+  let siteSettings: any = null;
+  let projects: any[] = [];
+
+  try {
+    [siteSettings, projects] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.project.findMany({
+        where: {
+          isPublished: true,
+          ...(currentCategory ? { category: { equals: currentCategory } } : {}),
+        },
+        orderBy: { displayOrder: "asc" },
+      }).catch(() => []),
+    ]);
+  } catch (error) {
+    console.error("WorkPage data fetching error:", error);
+  }
 
   const categories = ["All", "Apps", "Web", "UI/UX", "Graphic Design", "Branding", "Social Media", "Content"];
 

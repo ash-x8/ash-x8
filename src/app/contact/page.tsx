@@ -7,14 +7,22 @@ import { Sparkles, Mail, Phone, MapPin } from "lucide-react";
 export const revalidate = 0;
 
 export default async function ContactPage() {
-  const [siteSettings, aboutSection, socialLinks] = await Promise.all([
-    prisma.siteSettings.findUnique({ where: { id: "1" } }),
-    prisma.aboutSection.findUnique({ where: { id: "1" } }),
-    prisma.socialLink.findMany({
-      where: { enabled: true },
-      orderBy: { displayOrder: "asc" },
-    }),
-  ]);
+  let siteSettings: any = null;
+  let aboutSection: any = null;
+  let socialLinks: any[] = [];
+
+  try {
+    [siteSettings, aboutSection, socialLinks] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.aboutSection.findUnique({ where: { id: "1" } }).catch(() => null),
+      prisma.socialLink.findMany({
+        where: { enabled: true },
+        orderBy: { displayOrder: "asc" },
+      }).catch(() => []),
+    ]);
+  } catch (error) {
+    console.error("ContactPage error:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -22,7 +30,6 @@ export default async function ContactPage() {
 
       <main className="flex-grow pt-28 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-          {/* Header */}
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12151e] border border-[#222738] text-xs font-mono text-indigo-400 font-semibold tracking-wider uppercase">
               <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
@@ -37,7 +44,6 @@ export default async function ContactPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Direct Contact Info & Socials */}
             <div className="lg:col-span-5 space-y-8 bg-[#12151e] border border-[#222738] rounded-3xl p-8">
               <h2 className="text-2xl font-bold text-white">Direct Information</h2>
 
@@ -76,7 +82,6 @@ export default async function ContactPage() {
                 )}
               </div>
 
-              {/* Social Channels */}
               {socialLinks.length > 0 && (
                 <div className="pt-6 border-t border-[#222738] space-y-4">
                   <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block">
@@ -99,7 +104,6 @@ export default async function ContactPage() {
               )}
             </div>
 
-            {/* Interactive Form */}
             <div className="lg:col-span-7">
               <ContactForm />
             </div>
