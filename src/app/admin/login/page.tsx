@@ -73,7 +73,7 @@ export default function AdminLoginPage() {
               <input
                 type="email"
                 required
-                value={email}
+                value={kushanashvika216@gmail.com}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@example.com"
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-white text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
@@ -90,7 +90,7 @@ export default function AdminLoginPage() {
               <input
                 type="password"
                 required
-                value={password}
+                value={Ashwickramasinghe@888}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#1a1e2c] border border-[#222738] text-white text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
